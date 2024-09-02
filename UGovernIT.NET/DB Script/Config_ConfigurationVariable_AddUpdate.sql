@@ -1,0 +1,5 @@
+
+UPDATE Config_ConfigurationVariable SET KeyValue='Red=0;#Gray=40;#Green=75;#Orange=120',Description='Red if above 0; Gray if above 40; Green if above 75; Orange if above 120; else Green by default.' WHERE KeyName='ResourceAllocationColor'
+GO
+INSERT Config_ConfigurationVariable ([CategoryName], [Description], [KeyName], [KeyValue], [Title], [Type], [Internal], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments]) VALUES (N'RMM', N'Red if above 0 and colorcode #FF5757; Gray if above 40 and colorcode #ACB8C0; Green if above 75 and colorcode #6BA538; Orange if above 120 and colorcode #F9AA33;.', N'ResourceAllocationColorPalete', N'Red=#FF5757;#Gray=#ACB8C0;#Green=#6BA538;#Orange=#F9AA33', N'ResourceAllocationColorPalete', N'Text', 0, N'35525396-e5fe-4692-9239-4df9305b915b', CAST(N'2024-04-12T16:21:18.447' AS DateTime), CAST(N'2024-04-12T16:21:18.447' AS DateTime), N'44380d17-c887-488c-856b-31753e4197b7', N'44380d17-c887-488c-856b-31753e4197b7', 0, N'')
+GO

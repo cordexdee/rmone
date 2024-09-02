@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+@{
+    PermissionHelper bojPermissionHelper = new PermissionHelper();
+    var user = bojPermissionHelper.getCurrentUser();
+    var isAdmin = bojPermissionHelper.isAdmin(); //ViewBag.role;
+    var isOffice365 = bojPermissionHelper.IsOffice365Subscription(); //ViewBag.isOffice365;
+    var roleName = bojPermissionHelper.getUserRole(user.UserRoleId);
+    var logoUrl = bojPermissionHelper.getCompanyLogo();
+    var activeTab = ViewBag.activeTab;
+    var repository = ""; var permission = ""; var O365files = "";
+}
+@if (activeTab == "Repository")
+{
+    repository = "active";
+}
+else if (activeTab == "permission")
+{
+    permission = "active";
+}
+else if (activeTab == "O365-Files")
+{
+    O365files = "active";
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/bundles/dmscss")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/uGITCommon.css" rel="stylesheet" />
+
+    <link href="~/Content/CSS/DMS/file-explore.css" rel="stylesheet" />
+    <link href="~/Content/CSS/font-awesome-5.11.2/css/fontawesomeall.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.2.7/css/dx.common.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.2.7/css/dx.light.css" />
+    <script src="https://cdn3.devexpress.com/jslib/19.2.7/js/dx.all.js"></script>
+
+    <style>
+    </style>
+    <script>
+       var MyAppUrlSettings = {
+           MyUsefulUrl: '@Url.Action("","")'
+       };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="left-panel">
+                    @*<div>
+                        <img class="dmscompanylogo" src="@logoUrl" />
+                    </div>*@
+                    <div class="folder-format">
+                        <div id="tree" class="col-md-12">
+                        </div>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <div class="row docfile-listWrap">
+                        <div class="tabs">
+                            @*<div class="tabs-container">
+                                <div class="tabs-menu">
+                                    <ul class="tab-links" id="dms-Tabs">
+                                        <li class="@repository">@Html.ActionLink("Repository", "Repository", "DocumentManagement")</li>
+                                        @if (isAdmin)
+                                        {
+                                            <li class="@permission">@Html.ActionLink("Permission", "UserAdminRepository", "DocRepoPermission")</li>
+                                        }
+                                        @if (isOffice365)
+                                        {
+                                            <li class="@O365files" id="O365Tab">@Html.ActionLink("O365-Files", "Index", "O365Files")</li>
+                                        }
+                                        <li>@Html.ActionLink("Go To Home Page", "RedirectToHome", "DocRepoPermission")</li>
+                                    </ul>
+                                </div>
+                                <div class="post-container">
+                                    @if (!string.IsNullOrEmpty(user.Picture))
+                                    {
+                                        <div class="post-thumb"><img src="@user.Picture" /></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="post-thumb"><img src="~/Content/Images/useravtar64x64.png" /></div>
+                                    }
+                                    <div class="post-title">@user.UserName <span style="float: right;"></span><span class="glyphicon">&nbsp;&#xe252;</span></div>
+                                    @if (!string.IsNullOrEmpty(roleName.Name))
+                                    {
+                                        <div class="post-content" style="font-size: 10px !important;">@roleName.Name</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="post-content" style="font-size: 10px !important;"></div>
+                                    }
+
+                                </div>
+                            </div>*@
+                            <div class="row noMargin">
+                                <div class="tab-content marginTop">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                            @*<div class="row">*@
+                                @*@if (isAdmin && activeTab == "Repository")*@
+                                @*@if (activeTab == "Repository")
+                                {
+                                    <div class="btn-container docBtn-container">
+                                        <button class="btn btn-create btn-create-upload btnCreate-folder" id="CreateNewFolderLink">
+                                            <i class="fa fa-folder-open"></i><span class="btn-text">Create New Folder</span>
+                                        </button>
+                                        <button class="btn btn-upload btn-create-upload btnUpload-file" id="UploadFileLink">
+                                            <i class="fa fa-file-text"></i><span class="btn-text">Upload File</span>
+                                        </button>
+                                    </div>
+                                }
+                            </div>*@                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    //$(document).ready(function () {
+    //    $(".file-tree").filetree({
+    //        animationSpeed: 'fast',
+    //        collapsed: true
+    //    });
+    //});
+    function footerMessageClick() {
+        try {
+            HideShowMessageBoard(this);
+            var height = $(".ms-core-tableNoSpace.ms-webpartPage-root").height() - $(".dashboard-panel").last().position().top;
+            $(".dashboard-panel").last().find("#linkID").css("height", height + "px");
+        }
+        catch (ex) {
+        }
+    }
+
+</script>

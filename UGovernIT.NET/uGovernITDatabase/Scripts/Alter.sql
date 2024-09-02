@@ -1,0 +1,2 @@
+﻿ALTER TABLE config_configurationvariable
+DROP CONSTRAINT DF_Config_ConfigurationVariable_Internal;

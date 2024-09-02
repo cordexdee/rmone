@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_DMSLayout.cshtml";
+    Layout = null;
+}
+<link rel="stylesheet" href="\Content\UgitNewUI.css" />
+@*<div class="navbar-collapse collapse topMargin" style="margin-top:100px;" role="navigation">
+       <ul class="nav navbar-nav">
+          <li></li>
+       </ul>
+    </div>*@
+
+<div class="col-md-12 col-sm-12 col-xs-12 noPadding">
+    <div class="row">
+        <span class="docManagment-label">Click on the button below to create the document portal:</span>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("Index", "DocumentManagement", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="docManagment-contentWrap">
+                <input type="submit" value="Create Document Portal" id="btnUpload" class="docMan-Primarybtn" />
+                <input type="checkbox" id="chkDefaultFolder-chkBox" name="chkDefaultFolder" value="true" checked="checked" class="docMan-checkbox" />
+                <label for="chkDefaultFolder-chkBox" class="docMan-chkBoxLabel">Create Default Folders</label>
+            </div>
+        }
+    </div>
+</div>

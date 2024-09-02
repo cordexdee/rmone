@@ -1,0 +1,153 @@
+﻿@model uGovernIT.Utility.Entities.DMSDB.DirectoryDetail
+@{
+    var hasFiles = Model.Files.Any(x => x.IsFile);
+    var rootFolder = Model.DirectoryParentId == null || Model.DirectoryParentId == 0;
+}
+@*<table class="table table-bordered context-menu-one" id="tblFileList">*@
+
+<div class="docInfo-wrap">
+    <div class="row docInfo-row1">
+
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-label">
+            <label>Name:</label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-vlaue">
+            <span>@Model.Name</span>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-label">
+            <label>Size of folder:</label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-vlaue">
+            <span>@Model.DirectorySize</span>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-label">
+            <label># of files:</label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-vlaue">
+            <span>@Model.FileCount file(s)</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-label">
+            <label>Owner(s):</label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-vlaue">
+            <span>@Model.Owners</span>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-label">
+            <label>Modified:</label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-vlaue">
+            <span>@Model.Modified</span>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-label">
+            <label></label>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 docInfo-vlaue">
+            <span></span>
+        </div>
+    </div>
+</div>
+@if (hasFiles)
+{
+    <table id="tblFileList">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Doc ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            @*<th>Check out By</th>*@
+            <th>Version</th>
+            @*<th>Actions</th>*@
+            @*<th>SIZE</th>
+                <th>IS CHECKEDOUT</th>*@
+            <th hidden>@Html.DisplayNameFor(model => model.Files[0].Id)</th>
+        </tr>
+
+        @foreach (var item in Model.Files)
+        {
+            if (item.IsFolder) { continue; }
+
+            var fileId = item.Id;
+
+            <tr data-ver="@item.Version">
+                <td>
+                    <div class="chkBox-grp">
+                        <input class="checkbox-file" fileid="@fileId" filename="@item.Name" id="checkbox-file-@fileId" name="checkbox-file-@fileId" type="checkbox" value="true">
+                        <label for="checkbox-file-@fileId"></label>
+                    </div>
+                    @*<a class="action-iconWrap"><img src="/Content/images/pdf_icon.png" width="15px" style="margin-left:10px;"/></a>*@
+                </td>
+                <td>
+                    <div id="fileDetail">
+                        <a onclick="FileDetails(@fileId)" class="cursorPointer filename" title="Click for Details">
+                            <img src="~/Content/Images/help_22x22.png" width="16"/>
+                        </a>
+                    </div>
+                </td>
+
+
+
+                @if (@item.IsFolder)
+                {
+                    <td></td>
+                    <td onclick="SubmitDirectory(@fileId)" class="cursorPointer foldername">
+                        <img src="~/Content/Images/DMS/folder-16.png" />&nbsp;@Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                }
+                else
+                {
+                    <td>@item.DocumentControlID</td>
+                    <td onclick="SubmitFile(@fileId)" class="cursorPointer filename" title="Click to download">
+                        <img src="~/Content/Images/DMS/file-16.png" />&nbsp;@Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                }
+                <td>@Html.DisplayFor(modelItem => item.AutherName)</td>
+                @*<td></td>*@
+                <td>Ver @Html.DisplayFor(modelItem => item.Version)</td>
+
+                @*<td>@Html.DisplayFor(modelItem => item.Size)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsCheckedOut)</td>*@
+                <td hidden>@Html.HiddenFor(modelItem => item.Id, new { @id = "item" })</td>
+                @*<td>
+                        <a class="action-iconWrap"><i class="fa fa-comment" aria-hidden="true"></i></a>
+                        <a class="action-iconWrap"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                        <a class="action-iconWrap"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>
+                    </td>*@
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div>
+        <h5 class="RecoedsMessage">There are no items to show in this view.</h5>
+    </div>
+}
+<div class="row">
+    <div class="btn-container docBtn-container">
+        <button class="btn btn-create btn-create-upload btnUpload-file" id="CreateNewFolderLink" onclick="CreateFolder();">
+            <span class="btn-text">New Folder</span>
+        </button>
+        <button class="btn btn-upload btn-create-upload btnUpload-file" id="UploadFileLink" onclick="OpenUploadDialog();">
+            <span class="btn-text">Add File</span>
+        </button>
+        @if (!rootFolder)
+        {
+            <button class="btn btn-upload btn-create-upload btnUpload-file" id="DeleteFolder" onclick="deleteFolderConfirmDailog();">
+                <span class="btn-text">Delete Folder</span>
+            </button>
+        }
+        @if (hasFiles)
+        {
+            <button class="btn btn-upload btn-create-upload btnUpload-file" id="DeleteFiles" onclick="deleteFileConfirmDailog();">
+                <span class="btn-text">Delete File(s)</span>
+            </button>
+
+            <button class="btn btn-upload btn-create-upload btnUpload-file" id="linkFile" onclick="LinkFile();">
+                <span class="btn-text">Link File(s)</span>
+            </button>
+        }
+    </div>
+</div>

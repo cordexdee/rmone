@@ -1,0 +1,3614 @@
+﻿f@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800');
+/***************************Css for Responsive UI****************************************/
+
+
+@media only screen and (max-width: 2560px){
+    .homeDashboard_donutChart{width:95px !important; height:95px !important;margin-top:25px;}
+    /*.priorityMedium {background-size:85%;}*/
+    /*.priorityHigh {
+        background-size: 85%;
+    }
+    .priorityHigh {
+        background-size: 85%;
+    }
+    .priorityCritical{background-size:70%;}*/
+    /*.svcDashboard_dropdown{width:30% !important;}*/
+    .previousBtn_svcCreate{float:right !important;}
+}
+
+@media only screen and (max-width: 1400px) {
+    .servicePrime-workFlow {
+        padding-left: 105px;
+    }
+    /*.ques-answer.rightSection {
+        float: left;
+        width: 90%;
+    }*/
+}
+
+@media only screen and (max-width: 1319px) {
+    .servicePrime-workFlow {
+        padding-left: 47px;
+    }
+    .servicePrime-prevArrow {
+        left: -42px !important;
+    }
+    .servicePrime-nextArrow {
+        right: -32px !important;
+    }
+    .searchPannelWrap-container {
+        width: 100%;
+        text-align: center;
+        float: left;
+    }
+    .prblemStatement-inputWrap{
+        float:none;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .headerPage-mesage{
+        right:0;
+    }
+    .messageListWrap li {
+        padding: 0px 9px;
+    }
+    .accomp-popup input[type="text"].asptextbox-asp.tokenTextBox {
+        width: 88% !important;
+    }
+    .proT-rowDelete {
+        text-align: left;
+    }
+
+    .menuContentCollaps_left {
+        top: 45px !important;
+    }
+    /*.leftSide_menuExpandContainer {
+        width: 230px !important;
+        background-color: #fff;
+    }*/
+
+    /*.dashboard_leftSideMenuExpand {
+        background-color: #fff;
+        width: 245px !important;
+        position: fixed;
+    }*/
+
+    /*.dashboardLeft_menuIcon {
+        width: 3% !important;
+    }*/
+
+    /*.right_content {
+        width: 75% !important;
+    }*/
+
+    .panelDashboard {
+        margin: 10px 8px 0px 0px !important;
+    }
+
+    .homeRightPanel_chartContainer {
+        width: 100% !important;
+    }
+    /*.svcDashboard_dropdown {width: 70% !important;}*/
+}
+@media only screen and (max-width: 1024px) {
+   
+    /**css For PMM scrum tab*****/
+    .PmmScrum_btnContainer {
+        margin-top: 25px !important;
+    }
+    /*.post-container {margin-left: 40px !important;}*/
+    .noPaddingLeft {padding-right: 0px !important;}
+    /*.categorylist-container {width: 21.6667% !important;}*/
+    /*.serviceBoard_btnView {height: 125px !important;}*/
+    .category_block, .service_block{width:37% !important;}
+    /*.dxpc-contentWrapper{display:block !important;}*/
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    /*.myticketinner2 table.btn-secondary.dropdown-toggle {width: 30% !important;}*/
+    /*.svcDashboard_dropdown {width: 84% !important;}*/
+    .homeDashboard_chartSecWrap .dxpc-content{height:auto !important; width:auto !important;}
+
+
+    .servicePrime-workFlow {
+        padding-right: 46px;
+        padding-left: 46px;
+    }
+    .servicePrime-workFlow .dxis-nbBottom{
+        width: 100% !important;
+    }
+    .servicePrime-workFlow div div.dxis-nbSlidePanelWrapper {
+        width: 100% !important;
+        overflow: scroll;
+    }
+    .servicePrime-prevArrow {
+        left: -47px !important;
+    }
+    .servicePrime-nextArrow {
+        right: -38px !important;
+    }
+    .headerPage-mesage {
+        padding: 21px 0px 0px 0px;
+    }
+}
+@media only screen and (max-width: 990px) {
+    .title-sectionContainer {
+        padding: 88px 0px 0px;
+    }
+
+    .leftSide_menuContainer {
+        top: 87px;
+    }
+}
+@media only screen and (max-width:900px) {
+    /*.title-sectionContainer {
+        padding: 92px 0px 0px;
+    }*/
+    .svcDashboard_drpDownWrap {
+        margin-left: 5px;
+    }
+    /*.right_content {
+        width: 65% !important;
+    }*/
+    .dashboardLeft_menuIcon {
+        width: 50px !important;
+    }
+
+    .leftSide_menuExpandContainer {
+        width: 250px !important;
+        height: 40px;
+    }
+    /*.dashboard_leftSideMenuExpand {width: 251px !important;}*/
+    .categorylist-container {
+        width: 27.6667% !important;
+    }
+
+    .serviceBoard_btnView {
+        padding: 10px 6px 10px 6px;
+    }
+
+    .pcategorycontainer {
+        margin-left: 0px !important;
+    }
+    /*.pointer {width: 45px !important;margin-left: -15px}*/
+    .rectangle {
+        width: 27px !important;
+        padding: 13px 0px !important;
+    }
+    /*.post-container {margin-left: 7px !important;}*/
+    /*.noPaddingLeft {padding-left: 0px;padding-right: 0px;}*/
+    .myticketinner2 table.btn-secondary.dropdown-toggle {
+        width: 30% !important;
+    }
+
+    .service-block {
+        margin-right: 0px;
+    }
+
+    .category_block {
+        width: 41% !important;
+    }
+    /*.svcDashboard_dropdown {width: 40% !important;}*/
+}
+@media only screen and (max-width: 767px) {
+    .title-sectionContainer {
+        padding: 53px 0px 0px;
+    }
+    .leftSide_menuContainer {
+        top: 53px;
+    }
+    .colForXS {
+        width: 49%;
+        display: inline-block;
+        padding: 0px;
+    }
+    /*.right_content {width: 68% !important;}*/
+    /*.pointer {width: 102px !important;}*/
+    /*.rectangle {margin-right: 0px !important;}*/
+    /*.post-container {margin-left: 10px !important;}*/
+    /*.dxpc-contentWrapper{display:block !important;}*/
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    .service-block{margin-right:0px;}
+    .dashboard_goBtn_wrap{margin-left:46% !important;}
+    .category_block{ width:52% !important;}
+    /*.priorityHigh, .priorityMedium, .priorityLow, .priorityCritical{background-size: 40%;}*/
+    /*.svcDashboard_dropdown {width: 79% !important;}*/
+    .app-status-dv form {padding: 0px 50px 10px;}
+    .visualization-title {font-size: 80px;}
+    #btnStatus {margin: 20px 0px 0px;}
+    .workFlowImg-wrap {top: 0 !important;}
+    .legends-container {
+        float: none !important;
+        margin: 20px auto 20px;
+        position: static;
+    }
+    .editTicket_fileUpload {width:100% !important;}
+    .editTicket_fileUpload table tr .dxBB a {margin-left: 0;}
+
+    /*************************************CSS for SVC Edit history tab****************/
+    .history_img img{height:47px;}
+}
+@media only screen and (max-width: 740px) {
+   
+    .right_content {width: 65% !important;}
+    /*.logoText1{margin-right:0px;}*/
+    /*.dxpc-contentWrapper{display:block !important;}*/
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    .dashboard_goBtn{margin-left: 2%;}
+    /*.svcDashboard_dropdown {width: 40% !important;}*/
+    .table-responsive{border:none;}
+}
+@media only screen and (max-width: 640px) {
+    .right_content {width: 60% !important;}
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    /*.dxpc-contentWrapper{display:block !important;}*/
+    .dashboard_goBtn{margin-left: 2%;}
+    .dashboard_goBtn_wrap {margin-left: 40% !important;}
+    .category_block, .service_block {width: 100% !important;}
+    /*.svcDashboard_dropdown {width: 50% !important;}*/
+}
+@media only screen and (max-width: 568px) {
+    .right_content {width: 57% !important;}
+    .dxpc-contentWrapper{display:block !important;}
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    .myticketinner2 table.btn-secondary.dropdown-toggle{width: 43% !important;}
+    .dashboard_goBtn{margin-left: 2%;}
+    
+    .dashboard_goBtn_wrap {margin-left: 40% !important;}
+    .category_block, .service_block {width: 100% !important;}
+    /*.svcDashboard_btnWrap{float:none;}*/
+    /*.svcDashboard_actionBtnWrap {
+        display: block !important;
+        text-align: center !important;
+        margin-top: 8px;
+        margin-bottom: 12px;
+    }*/
+    /*.svcDashboard_quickTicketBtn{margin-left: 27px;}*/
+     /****************************************************SVC ADD ticket popup*********************************************************************/
+    .cust-main-popup .putting-ticket-sec h2 {margin-top: 0px !important;font-size: 16px !important;}
+    .inner-cust-dropdown-menu{width:100%;}
+    .select-style{width:100%; padding-right:0px;}
+    .editTicket_fileUpload{margin-bottom:0px;}
+    .editTicket_fileUpload tr td{padding:0px !important;}
+    .uploadedFileContainer{margin: 5px 0px 5px 2px;}
+    .next-cancel-but{margin:0px;}
+    .next-cancel-but .next {width: 165px !important;padding: 9px 0px !important;}
+    .previousL{padding: 5px 20px;}
+    .previousBtn_svcCreate{float:right !important;}
+    .svcCreateTicket_formWrap{margin: 40px 0px 60px; padding:0px;}
+    .svcCreateTicket_formCotainer{margin: 8px 0px 15px;padding: 0px;}
+    .full_width{width:100%;}
+    .date-time .dxeButtonEditButton_UGITNavyBlueDevEx {background: transparent !important;border: none !important;}
+    .date-time .dxEditors_edtDropDown_UGITNavyBlueDevEx {width: 20px !important;}
+    .applLegend {display: block;}
+    .cust-main-popup .putting-ticket-sec h4 > span{font-size: 14px;}
+    .question-wrap{padding-top: 0PX;padding-left: 15px;}
+    .question-name span{font-size:14px; margin-bottom:0px;}
+    .question-value span{font-size:14px;}
+    .add-file-doc{margin-top:5%;}
+    .submit_CreateRequestL {width: 115px;padding: 2px 10px;}
+    .treeRootNode {
+        padding: 0px 0px 0px 5px !important;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: normal !important;
+    }
+    .treeLeafNode {white-space: pre-line;}
+    .cust-main-popup .putting-ticket-sec h2 {margin-top: 0px !important;font-size: 16px !important;}
+
+}
+@media only screen and (max-width: 480px) {
+    .title-sectionWrap {
+        padding: 8px 17px 30px 68px;
+    }
+    .pageTitle {
+        display: block;
+        margin-bottom: 15px;
+    }
+    .guide-container {
+        display: block;
+    }
+    .tenantName-wrap{
+        float:left;
+        display:block;
+        border-right:0;
+    }
+    /********************CSS for home user dashboard *******************/
+    .searchPannelWrap-container {
+        /*width: 100%;
+        margin: 0px auto;*/
+        border-bottom: 10px solid #F6F7FB;
+        /*float: left;*/
+        padding: 12px 10px 20px 10px;
+    }
+    .prblemStatement-inputWrap {
+        width: 87%;
+    }
+    .comment-tbl .comment-container .comment-action-buttons img{top:-104px;}
+    .right_content {width: 48% !important;}
+    /*.post-container{margin-left:3px !important;}*/
+    /*.headerContent_profile{padding-left:0px;}*/
+    /*.categorylist-container{width: 44.6667% !important;}*/
+    .dashboard_goBtn{margin-left: 38%;}
+    .myticketinner2 table.btn-secondary.dropdown-toggle{width: 51% !important;}
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    .dxpc-contentWrapper{display:block !important;}
+    /*.svcDashboard_drpDownWrap{float:right !important; text-align:center !important;}*/
+    /*.svcDashboard_quickTicketBtn{ margin-left:0px !important; margin-bottom:5px;}*/
+    /****************************************************SVC ADD ticket popup*********************************************************************/
+    .cust-main-popup .putting-ticket-sec h2 {margin-top: 0px !important;font-size: 16px !important;}
+    .inner-cust-dropdown-menu{width:100%;}
+    .select-style{width:100%; padding-right:0px;}
+    .editTicket_fileUpload{margin-bottom:0px;}
+    .editTicket_fileUpload tr td{padding:0px !important;}
+    .uploadedFileContainer{margin: 5px 0px 5px 2px;}
+    .next-cancel-but{margin:0px;}
+    .next-cancel-but .next {width: 165px !important;padding: 9px 0px !important;}
+    .previousL{padding: 5px 20px;}
+    .previousBtn_svcCreate{float:right !important;}
+    .svcCreateTicket_formWrap{margin: 40px 0px 60px; padding:0px;}
+    .svcCreateTicket_formCotainer{margin: 8px 0px 15px;padding: 0px;}
+    .full_width{width:100%;}
+    .date-time .dxeButtonEditButton_UGITNavyBlueDevEx {background: transparent !important;border: none !important;}
+    .date-time .dxEditors_edtDropDown_UGITNavyBlueDevEx {width: 20px !important;}
+    .applLegend {display: block;}
+    .cust-main-popup .putting-ticket-sec h4 > span{font-size: 14px;}
+    .question-wrap{padding-top: 0PX;padding-left: 15px;}
+    .question-name span{font-size:14px; margin-bottom:0px;}
+    .question-value span{font-size:14px;}
+    .add-file-doc{margin-top:15%;}
+    .submit_CreateRequestL {width: 115px;padding: 2px 10px;}
+    .treeRootNode {
+        padding: 0px 0px 0px 5px !important;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: normal !important;
+    }
+    .treeLeafNode {white-space: pre-line;}
+    .cust-main-popup .putting-ticket-sec h2 {margin-top: 0px !important;font-size: 16px !important;}
+    .svcPopupDialog_wrap > div + div > iframe{
+        width:100%;
+    }
+    .svcPopupDialog_wrap {
+        left: 0 !important;
+        right: 0px !important;
+        /*display:inline-block !important;*/
+        margin: auto !important;
+    /* adding common width for all popups*/
+        width: 100% !important;
+    }
+    .comment_text_wrap {
+        margin-left:0px !important
+    }
+}
+@media only screen and (max-width: 425px) {
+   
+    .right_content {
+        width: 48% !important;
+    }
+    /*.logoText1 {margin-right: 0px;}*/
+    /*.pointer {width: 107px !important;margin-left: 0px !important;}*/
+    /*.homeDashboard_headerMenu_wrap {float: left !important;margin-left: 0px !important;}*/
+    /*.rectangle {width: 48px !important;padding: 24px 0px !important;}*/
+    /*.categorylist-container {width: 77% !important;}*/
+    .myticketinner2 table.btn-secondary.dropdown-toggle {width: 63% !important;}
+    .service_dropDownWrap{margin-left:0px;}
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
+    .dxpc-contentWrapper{display:block !important;}
+    .dashboard_goBtn_wrap{margin-left:34% !important;}
+    .dashboard_goBtn {margin-left: 3%;}
+    .category_block, .service_block {width: 86% !important;}
+    /*.priorityHigh, .priorityMedium, .priorityLow, .priorityCritical{background-size: 42%;}*/
+    .homeDashboard_chartContent {width:285px !important;}
+    /****************************************CSS for svc Create *******************************************************************************************/
+    .uploadedFileContainer{margin: 5px 0px 5px 19px;}
+    .next-cancel-but{margin: 5px 0;}
+    .next-cancel-but .next {width: 135px !important;padding: 5px 0px !important;}
+    .cust-main-popup .putting-ticket-sec h2 {font-size: 18px;margin-top: 18px;}
+    .select-style label{margin-bottom: 0px; font-size: 15px;}
+    .select-style select{font-size: 14px;}
+    /*.svcDashboard_dropdown{width: 75% !important;}*/
+    /****************************************************SVC Dashboard*********************************************************************/
+    .page-container {
+        min-width: 100% !important;
+    }
+    .ticket_contentWrap{border:none !important;}
+    /****************************************************SVC ADD ticket popup*********************************************************************/
+    .editTicket_fileUpload tr td{padding: 0px 15px !important;}
+    .editTicket_fileUpload{margin-bottom:0px !important;}
+    .previousL{ padding: 2px 18px;}
+    .responsiv_nextBtn{float:right !important;}
+    .previousBtn_svcCreate{float:right !important;}
+    .svcCreateTicket_formWrap, .svcCreateTicket_formCotainer{margin-left:0px; margin-right:0px; margin-bottom:10px;}
+    .date-time .dxeButtonEditButton_UGITNavyBlueDevEx {background: transparent !important;border: none !important;}
+    .date-time .dxEditors_edtDropDown_UGITNavyBlueDevEx {width: 20px !important;}
+    .add-file-doc{margin-top:15%;}
+    .applLegend {display: block;}
+    .question-wrap{ padding-top: 0px;padding-left: 12px;}
+    .question-name span{margin-bottom: -11px; font-size:14px;}
+    .submit_CreateRequestL {width: 115px;padding: 2px 10px;}
+    .treeRootNode {
+        padding: 0px 0px 0px 5px !important;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: normal !important;
+    }
+    .treeLeafNode {white-space: pre-line;}
+    .cust-main-popup .putting-ticket-sec h2 {margin-top: 0px !important;font-size: 16px !important;}
+    .question-value span{font-size:14px;}
+    .svcPopupDialog_wrap > div + div > iframe{
+        width:100%;
+    }
+    .svcPopupDialog_wrap {
+        left: 0 !important;
+        right: 0px !important;
+        margin: auto !important;
+        width:100% !important;
+    }
+    .comment_text_wrap {
+        margin-left: 0 !important; 
+    }
+    .newTask_link, .relatedToExistingTicket_link, .newSubTaslk_link {
+        display: inline-block !important;
+        float: left !important;
+    }
+    .comment-tbl .comment-container .comment-action-buttons img {
+        top: -120px;
+        right:0px;
+    }
+}
+@media only screen and (max-width: 414px) {
+    .right_content{width: 41% !important;}
+    /*.svcModule_title{padding-left:15px;}*/
+    /*.svcDashboard_dropdown {width: 65% !important;}*/
+    .serviceCatParent {
+        position: fixed !important;
+        left: 20% !important;
+        top: 50% !important;
+        z-index: 999999 !important;
+        height: auto !important;
+    }
+    .setTopauto .dxpc-contentWrapper{height:auto !important;}
+}
+@media only screen and (max-width: 375px) {
+
+    /************CSS for Home user Dashboard**************************************/
+    .searchPannelWrap-container {
+        width: 100%;
+        margin: 0px auto;
+        border-bottom: 10px solid #F6F7FB;
+        float: left;
+        padding: 0px 10px 20px 10px;
+    }
+    .prblemStatement-inputWrap {
+        width: 87%;
+    }
+    /************************CSS for Main Dashboard page********************************/
+    category_block, .service_block {
+        width: 100% !important;
+    }
+    .homeDashboard_headerMenu_container {margin-bottom: 0px}
+    .homeDashboard_search_tableWrap {margin-bottom: 0px !important;padding: 0px 10px 3px 10px !important;}
+    /*.homeDashboard_headerIcon {
+        width: 40px !important;
+        padding: 20px 0px !important;
+        margin-right: 2px !important;
+    }*/
+    .homeDashboard_headerIcon_wiki {width: 22px;}
+    .homeDashboard_headerIcon_que {width: 13px;}
+    .homeDashboard_headerIcon_bell {font-size: 20px !important;}
+    /*.homeDashboard_headerMenu_wrap {float: left !important;margin: 0px !important;}*/
+    .managementcontrol-main {margin-right: 0px;}
+    /*.homeDashboard_leftcontent_wrap {padding-left: 5px;}*/
+    .modal-body {padding: 0px;}
+    /*.homeDashboard_chartSecWrap .dxdpLite.dxpclW {display: block!important;width:100% !important;}*/
+    .homeDashboard_chartSecWrap .dxdpLite.dxpclW .dxpc-contentWrapper {display: block !important;height: 100% !important;}
+    .homeDashboard_chartSec_container {width: 100% !important;}
+    .homeDashboard_panel_main {width: 100% !important;margin-right: 0px !important;}
+    .homeDashboard_chartContent {width:285px !important;
+}
+    .homeDashboard_chartContent_elementWrap .dashboardkpi-td .dashboardkpi-txt {font-size: 12px !important;}
+    .homeDashboard_donutChart {width: 100px !important;height: 100px !important;}
+    .dashboard-panel-main-notmove {margin-right: 0px !important;width: 100% !important;}
+    .homeDashboard_devexpressChart {width: 100% !important;}
+    .homeDashboard_devexpressChart img {width: 100% !important;}
+    /*.dashboardLeft_menuIcon {
+        top: 0px !important;
+        width: 12% !important;
+        padding: 12px 35px 12px 12px !important;
+    }*/
+    /*.leftSide_menuContainer {width: 30px !important;}*/
+    .xs_noPadding {
+        padding-right: 0px;
+        float: right;
+        padding-left: 0px;
+    }
+    /*.dashboard_leftSideMenu{width:47px;}*/
+    /*#ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1 {display: block !important;left: -2px !important;}*/
+    .homeDashboard_logo2 {
+        margin-top: 0px;
+        margin-right: 0px;
+        float: right;
+    }
+    .dashboardLeft_menuIcon img {margin-top: 0px;}
+    .dashboardServices_container {padding: 0px;}
+    .dashboardServices_Lable {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 6px;
+        float: none;
+    }
+    .dashboardServices_categoryDropDown {
+        margin-left: 5px;
+        display: block;
+        float: none;
+    }
+    .dxpcextra-content {width: 308px !important;}
+    .service-toptitle-sub {width: 250px !important;font-size: 13px;}
+    .dashboard_goBtn {margin-left: 34%}
+    /*.logoText1 {margin-top: -3px;margin-right: 0px;}*/
+    .servicecategory {width: 90% !important;}
+    .AdditionCss {margin-left: -8px !important;}
+    .dxpc-content.dxpcextra-content1 {height: auto !important;}
+    .cust-main-popup .putting-ticket-sec h2 {margin-top: 0px !important;font-size: 16px !important;}
+    .next-cancel-but {margin: 0px;}
+    .next-cancel-but .next {width: 110px !important;padding: 4px 0 !important;}
+    .cust-main-popup .putting-ticket-sec h4 {margin: 0px;}
+    .svcCreate_headerContent {padding: 0 0px;}
+    .previousL {padding: 0px 10px;}
+    .uploadedFileContainer {margin: 0px 0px 0px 30px;}
+    .responsiv_nextbtn .dxbbutton_ugitnavybluedevex div.dxb {padding: 4px 22px !important;}
+    .svccreateticket_formwrap {margin: 0px 0px 0px !important;}
+    .svccreateticket_formcotainer {margin: 0px !important;}
+    .employee-name {margin-top: 5px;}
+    .question-name span {margin-bottom: 0px;font-size: 14px;}
+    .select-style label {margin-bottom: 0px;font-size: 14px;}
+    .editTicket_fileUpload {width: 100% !important;margin-bottom: 0px;}
+    .editTicket_fileUpload tr td {border: none !important;padding: 0px 15px !important;}
+    .add-file-doc .dxucInputs_UGITNavyBlueDevEx {margin-left:0}
+    .marginZero_forMobile { margin: 0px !important;}
+    .select-style select {font-size: 14px;}
+    .cust-main-popup .putting-ticket-sec h4 > span {font-size: 15px;margin-bottom: 15px;}
+    .date-time .dxeButtonEditButton_UGITNavyBlueDevEx {background: transparent !important;border: none !important;}
+    .date-time .dxEditors_edtDropDown_UGITNavyBlueDevEx {width: 20px !important;}
+    .main-cont {margin: 10px 0px 5px !important;}
+    .inner-cust-dropdown-menu {width: 85%;}
+    .select_product {margin: 0px 0 0 0px !important;}
+    .question {margin: 0px !important;}
+    .svcCreate_accessUsrTable {margin-top: 5px;}
+    .applLegend {display: block;}
+    .empl_content_xsPadding {padding-left: 6px;}
+    .question-value span {font-size: 14px;}
+    .submit_CreateRequestL {width: 115px;padding: 2px 10px;}
+    .treeRootNode {
+        padding: 0px 0px 0px 5px !important;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: normal !important;
+    }
+    .treeLeafNode {white-space: pre-line;}
+    .search{padding:0px; margin-left:-10px;}   
+    /*.svcDashboard_quickTicketBtn {margin-left: 16px !important;margin-bottom: 5px;}*/
+
+/**********************CSS for Main Dashboard***************************/
+    .dxdpLite {
+        visibility: hidden !important;
+        display: block !important;
+        /*position: relative !important;*/
+        left: 0px !important;
+        top: 0px !important;
+    }
+    .dropDown_category {width: 75% !important;}
+    .dashboardService_catalogeContainer {padding-left: 15px !important;padding-right: 15px !important;}
+    /*.pcategorycontainer {
+        margin-left: 0px;
+        padding-left: 10px !important;
+        padding-right: 0px !important;
+    }*/
+    /*.categorylist-container{width:100% !important;}*/
+    .service_dropDown{width:100% !important;}
+    /**********************CSS for SVC Dashboard***************************/
+    .page-container {min-width: 100px !important;}
+    /*.svcAddTicket_icon, .svcDashboard_reportIcon, .svcDashboard_exportIcon {float: left;}*/
+    /*.svcDashboard_dropdown {width: 70% !important;}*/
+    .svcDashboard_actionBtn {
+        /*margin-top:10px;*/
+    }
+    /*.svcDashboard_btnWrap {text-align: center !important;}*/
+    .homeDashboard_msgBoardIconImg {width: 40px;height: 40px;}
+    .service_listView {border-top: none !important;margin-top: 5px;}
+    .buttonview-container .dxpcLite_UGITNavyBlueDevEx {width: 208px;left: 14px;top: 9%;}
+    /*.waitOnmeClass {display: block !important;}*/
+    .dxpc-content {height: auto !important;}
+    .ticket_contentWrap {border: none;}
+
+    /*************************************Style for home dashboard grid*******************************************************************/
+    .dxgvDetailRow_CustomMaterial.dxgvADR .dxgvADT > tbody > tr > td {padding: 0px 0px 0px 13px;font-size: 13px;}
+    .customgridview td.dxgv.dx-al, .customgridview td.dxgv.dx-ac {font-size: 13px;}
+    .progressbarhold {padding-left: 0px;text-align: center !important;}
+    .service_dropDownWrap{margin-left:5px;}
+    .category_block, .service_block{width:100% !important;}
+    .dashboard_goBtn_wrap {margin-left: 0% !important;}
+    /*.svcModule_title {padding-left:15px !important;}*/
+    /*.waitOnmeClass {display: block !important;}*/
+    /*.svcDashboard_addTicketBtn{margin-left:15px !important;}*/
+    .homeRightPanel_wrap .dxpc-content{width:295px !important;}
+
+    /*************************************Style for SVC Create Popup *******************************************************************/
+    .modal-body{height: 100% !important;}
+    .fileUploadIcon{width:240px !important;}
+    .add-file-doc{margin-top:15%;}
+    .responsiv_nextBtn{float:right !important; text-align:center;}
+    .col_b_complete{margin: 13px 6px !important;}
+    .svcPopupDialog_wrap > div + div > iframe{
+        width:100%;
+    }
+    /**************************************CSS for SVC comment tab***********************************/
+    .comment-tbl .comment-container .comment-action-buttons img {
+        position: relative;
+        top: -120px;
+        right: 5px;
+    }
+}
+@media only screen and (max-width: 320px) {
+    /**********CSS for home Dashboard page***********/
+    .searchPannelWrap-container {
+        /*width: auto;
+        margin: 0px auto;*/
+        border-bottom: 10px solid #F6F7FB;
+        /*float: left;*/
+        padding: 12px 10px 20px 10px;
+    }
+
+    .prblemStatement-inputWrap {
+        width: auto;
+    }
+    .service_dropDown {width: 100% !important;}
+    .category_block, .service_block {width: 100% !important;}
+    .dropDown_category{width:91% !important;}
+    .dashboard_goBtn_wrap {margin-left: 4% !important;}
+    /*.priorityHigh, .priorityMedium, .priorityLow, .priorityCritical{background-size: 50%;}*/
+    /*.pointer{width: 103px !important;}*/
+    .homeDashboard_search_tableWrap {margin-bottom: 0px !important;padding: 0px 0px 3px 0px !important;}
+    /*.svcDashboard_quickTicketBtn {
+        font-size: 12px;
+        margin-left: 4px !important;
+        padding: 5px 7px;
+    }*/
+    /*.svcDashboard_addTicketBtn {
+        width: 140px;
+        font-size: 12px;
+        padding: 5px 7px;
+        margin-right: 3px;
+        margin-top: 10px;
+    }*/
+    /*.svcDashboard_actionBtnWrap {
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        display: block;
+    }*/
+    .svcModule_title {text-align: center; margin-top:0px}
+    /*.waitOnmeClass {display: block !important;}*/
+    /*.svcDashboard_btnWrap {text-align: center !important;}*/
+    .homeRightPanel_wrap .dxpc-content{width:255px !important;}
+    .panel-content-header{width: 226px !important; margin:0px; padding:0px;}
+    /********************************CSS for Application Registration page*********************/
+    .applReg_statusTitle {
+        font-size: 15px !important;
+        text-align: center;
+    }
+    .applicationRegReq_container{padding-left: 15px;}
+    .applicationRegReq_statusbtn_wrap {
+        float: none !important;
+        text-align: center !important;
+        margin-top: 10px;
+    }
+    .dxgvDetailCell_UGITNavyBlueDevEx{padding: 10px 5px;}
+    .applAccess_appTabPage .dxtc-content{padding-left:11px !important;}
+
+    /***************************************CSS for TSR create*****************************/
+    .popup_wrap{padding-left:15px !important;}
+    .createTicket_ulList{height:auto !important}
+
+    /***********************************CSS for svc Edit *************************/
+    .action-btn{padding:0px !important;}
+    .tab_wrap ul .dxtc-activeTab a {
+        padding: 4px !important;
+        font-size: 13px;
+    }
+    .tab_wrap ul li a {
+        font-size: 13px;
+        padding: 4px !important;
+    }
+    .svcEdit_actionBtnContainer{width:93px;}
+    #errorMsgContainer, .error_msg2 {
+        float: none;
+    }
+    .field_heading legend{padding:0px 10px 10px 10px;}
+    .edit_ticket_tabIcon{margin-left:-10px;}
+    .newTask_link, .relatedToExistingTicket_link, .newSubTaslk_link {
+        float: none !important;
+        text-align: left;
+    }
+
+    .link-lable {
+        border-right: none !important;
+    }
+     
+    /******************************SVC Edit comment tab******************************************/
+    .img-container img {
+        width: 36px;
+        height: 33px;
+        display: block;
+    }
+    .img-container{padding:0px;}
+    .comment-data p{word-break:break-all;}
+    .comment-tbl .comment-container .comment-action-buttons img {
+        right: 7px;
+        top: -138px;
+    }
+}
+@media only screen and (max-width: 385px) {
+    #myhometabs{
+        /*position:relative;*/
+        /*top:10px;*/
+    } 
+    .myticketinner2 table.btn-secondary.dropdown-toggle {
+        width: 90% !important;
+        position: relative;
+        /*top: -10px;*/
+    }
+    .exportImport_btnsWrap{
+        margin-top:0px;
+    }
+    /*.contentPane .svcCreate_popupScroll{
+        height: 425px;
+        overflow-y: scroll;
+    }*/
+    /*.applAccess_wrap.cust-main-popup {*/
+        /*width: 284px;
+    }*/
+    .removeVerticalScroll{
+        overflow-y:hidden;
+        overflow-x:auto;
+    }
+    .visualization{
+        margin:00px 0px 0px;
+    }
+}
+@media only screen and (min-width:326px) and (max-width:383px) {
+    .dxgvDetailRow_CustomMaterial.dxgvADR .dxgvADT > tbody > tr > td {
+        padding: 0px 0px 0px 6px;
+        font-size: 11px;
+    }
+}
+
+@media only screen and (min-width:280px) and (max-width:325px) {
+    .dxgvDetailRow_CustomMaterial.dxgvADR .dxgvADT > tbody > tr > td {
+        padding: 5px 0px 4px 0 !important;
+        font-size: 12px !important;
+    }
+}
+
+
+/* New css */
+@media only screen and (min-width:280px) and (max-width:480px) {
+    .leftSideBottomMenu-container {
+        padding-left: 5px !important;
+        top: 46px;
+    }
+
+    .homeDashboard_menuListWrap {
+        width: 250px !important;
+    }
+
+    .homeGrid_dataRow td {
+        padding: 0px !important;
+    }
+
+    .homeGrid_headerColumn {
+        padding: 10px 5px;
+    }
+
+    .comment-tbl .comment-container .comment-action-buttons img {
+        position: relative;
+        top: -54px;
+        right: 5px;
+    }
+
+    .comment-days {
+        padding: 10px 0px;
+        margin-left: 0px;
+    }
+
+    .leftSide_menuContainer {
+        top: 52px;
+    }
+    /*.leftSideBottomMenu-container {
+       top: 20px;
+    }*/
+    .customNavbar {
+        z-index: 999999;
+        margin-bottom: 0px;
+    }
+
+    .homecontent {
+        padding-left: 0px
+    }
+
+    .servcieCatalog_listView .ugit-contentcontainer, .buttonview-container .ugit-contentcontainer {
+        width: 100%;
+    }
+
+    .searchPannelWrap {
+        padding: 0px;
+        border-bottom: 7px solid #F6F7FB;
+        border-right: 0px;
+    }
+
+    .homeService-panelContainer {
+        border-width: 0px;
+    }
+
+    .serviceBtnView-labelWrap {
+        width: 100%;
+    }
+
+    .colFormd {
+        width: 100% !important;
+        border: 1px solid;
+        border-color: #e7e7e7 !important;
+    }
+
+    .cardView-container tr td table.dxcvTable_UGITNavyBlueDevEx.dxcvFT tr td div.dxcvEmptyCard_UGITNavyBlueDevEx {
+        width: 100% !important;
+    }
+
+    .service_listView {
+        border-top: none !important;
+        margin-top: 5px;
+        text-align: center;
+        float: none;
+        margin-bottom: 25px;
+    }
+
+    .serviceBoard_btnView {
+        height: 81px !important;
+    }
+
+    .dashboard_goBtn_wrap {
+        margin-bottom: 25px;
+    }
+    /*****CSS for schedule tab -> duplicate summary popup *****/
+    .duplicateSum-btnWrap {
+        padding-bottom: 10px;
+        padding-left: 5px;
+    }
+    /*****end css for schedule tab -> dplicate summay popup****/
+
+
+    /****CSS for dashboard->action dropdown*****/
+    .svcDashboard_actionBtnWrap {
+    }
+    /****End css for dashboard-> action dropdown****/
+    .accomp_inputField.closeCancel-fieldWrap {
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+    }
+
+    .rmmSaveAllo-btnContainer {
+        padding-right: 0px;
+    }
+
+    .editTicket-commentWrap {
+        padding-top: 8px;
+    }
+    /********CSS for uservaluebox dropdown**********/
+    .userValueBox-dropDown div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root {
+        width: 100% !important;
+    }
+    /******CSS for status popup*******/
+    .mailSub {
+        padding-left: 0px;
+    }
+    /******End CSS for status popup****/
+    .aspxComboBox-listBox tr td div.dxlbd.dxTouchNativeScrollHandle {
+        width: 100% !important;
+    }
+
+    .aspxCoboBox-listboxWrap {
+        display: block !important;
+    }
+    /********CSS for listpicker popup*********/
+    .listPicker-searchTxtBox {
+        padding-top: 25px;
+        padding-left: 0px;
+    }
+
+    .listPicker-searchIcon {
+        top: 32px;
+    }
+
+    .listPicker-closeIcon {
+        right: 0px;
+    }
+
+    /**********End css for listPicker popup******/
+    .qickClose-btnWrap {
+        top: 25px;
+        right: 10px;
+    }
+
+    .batchCreate-submitBtn {
+        margin-top: 7px;
+    }
+
+    .projectCardViewGrid div.dxAC table.dxcvTable_UGITNavyBlueDevEx.dxcvFT {
+        padding-right: 40px;
+    }
+    /**************CSS for edit ticket -> Remove on hold*********/
+    .next-cancel-but.putOnHoldBTn {
+        margin-bottom: 10px;
+    }
+    /************* End CSS for edit ticket -> remove on hold********/
+
+    /*************CSS for close sub ticket popup **************/
+    .closesubTicket-popup div.dxpc-contentWrapper {
+        display: table !important
+    }
+    /************End css for close sub ticket popup***********/
+    /*****************CSS for dashboard reportIcon****************/
+    .exportImport_btnsWrap {
+        margin-top: 0px;
+        float: right;
+    }
+    /****************END css for dashboard reportIcon*************/
+    /**************CSS for Dashboard search/Select ***************/
+    .selectFromTo_field {
+        width: 100%;
+    }
+
+    .selectFromTo_inputBox {
+        width: 100%;
+    }
+
+    .selectFrom_container, .selectTo_container {
+        width: 50%;
+        padding: 0px 2px 5px 2px;
+    }
+    /********************END css for Dashboard search/Select**********/
+    table.addEditActivity-listBox tr td div.dxlbd.dxTouchNativeScrollHandle {
+        width: 100% !important;
+    }
+
+    .addEditActivity div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root {
+        width: 96% !important;
+        left: 7px !important;
+    }
+
+        .addEditActivity div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root div.dxpc-contentWrapper div.dxpc-content {
+            width: 100%;
+            display: block !important;
+        }
+
+    .add-check-list-input div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root {
+        width: 98% !important;
+    }
+    /*****************CSS for userValueBox dropDown****************/
+    .userValueBox-dropDown.awardAssign div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root {
+        width: 100% !important;
+    }
+
+    .userValueBox-dropDown.awardAssign div.dxpc-contentWrapper table.dxgvControl_UGITNavyBlueDevEx.dxgv tr td div.dxgvHSDC {
+        padding-right: 0px !important;
+    }
+
+        .userValueBox-dropDown.awardAssign div.dxpc-contentWrapper table.dxgvControl_UGITNavyBlueDevEx.dxgv tr td div.dxgvHSDC div {
+            width: 100% !important;
+        }
+
+    userValueBox-dropDown.awardAssign div.dxpc-contentWrapper table.dxgvControl_UGITNavyBlueDevEx.dxgv tr td div.dxAC
+    div.dxgvCSD.dxTouchNativeScrollHandle {
+        width: 100% !important;
+    }
+
+    .homeDashboard_chartSecWrap .chngTicketType div.dxpc-contentWrapper {
+        display: table !important;
+        height: 146px !important;
+    }
+    /************CSS for CPR ->  */
+    .waitOnmeClass .dxmLite_UGITNavyBlueDevEx.dxm-ltr .HomeDBAction-container {
+        top: 0px !important;
+        left: 0px !important;
+    }
+    /*****CSS for project team -> date field*******/
+    /*.dx-overlay-wrapper.dx-dropdowneditor-overlay.dx-popup-wrapper.dx-datebox-wrapper {
+        width: 0 !important;
+        height: 0 !important;
+    }
+    .dx-overlay-wrapper.dx-dropdowneditor-overlay.dx-popup-wrapper.dx-datebox-wrapper div.dx-overlay-content.dx-popup-normal.dx-resizable{
+        width: 206px !important;
+        top: -35px !important;
+        left: 108px !important;
+    }*/
+    /*.dx-overlay-wrapper.dx-dropdowneditor-overlay.dx-popup-wrapper.dx-datebox-wrapper div.dx-overlay-content.dx-popup-normal.dx-resizable{
+        top:-105px !important;
+    }*/
+    .addComment-btnWrap {
+        padding: 25px 0px 0px 0px;
+    }
+
+    .cancel .dxb {
+        font-size: 12px;
+        padding: 3px 10px !important;
+    }
+
+    .dxdpLite.dxpclW.homeRightPanel_chartContainer .homeRightPanel_wrap .dxpc-header .dxpc-headerContent span.dxpc-headerText.dx-vam {
+        font-size: 14px;
+        margin-left: 0px;
+    }
+
+    .cprSummary_valueWrap {
+        font-size: 13px;
+        padding: 0px 5px 5px 5px;
+    }
+
+    .section-btn {
+        min-height: 0px;
+        padding: 0px 10px;
+    }
+
+    .action-btn {
+        font-size: 13px !important;
+        padding: 2px 7px 2px 7px !important;
+    }
+
+    .tab_wrap ul li {
+        height: 20.6px !important;
+    }
+
+    .tab_wrap ul .dxtc-activeTab a {
+        padding: 0px 5px !important;
+    }
+
+    .tab_wrap ul li a {
+        padding: 0px 5px !important;
+        font-size: 13px;
+    }
+
+    .dxdpLite.dxpclW.homeRightPanel_chartContainer .homeRightPanel_wrap .dxpc-header .dxpc-headerContent span.dxpc-headerText.dx-vam {
+        margin-left: 0px;
+    }
+
+    .colForTabView {
+        width: 100%;
+        float: left;
+    }
+    /***********************CSS for Department dropdown***********/
+    .rmmAspxCombox-drpDown.aspxComboBox-dropdown {
+        width: 100%;
+    }
+
+    .nprprimBenifi_chooseDepartment .usrPro-companyDropDown {
+        display: block;
+        float: left;
+    }
+
+    .nprprimBenifi_chooseDepartment .usrPro-departmentDrop {
+        display: block;
+        float: left;
+    }
+
+    .rmmDepartment-drpDown .nprDropDown div.dxpc-mainDiv.dxpc-shadow div div.dxeDropDownWindow_UGITNavyBlueDevEx.dxpc-content {
+        display: block;
+    }
+    /**************CSS for schedule tab ***********************/
+    .tskbehaviour-opt.radioBtnlist-wrap {
+        display: block;
+    }
+
+    .dueDate-fieldWrap .lookUpValue-inputFeild div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root {
+        min-width: 270px;
+    }
+
+    .reminderDrpDowns {
+        padding-bottom: 5px;
+    }
+
+    .tskbehaviour-opt.radioBtnlist-wrap tr td {
+        display: inline;
+        float: left;
+        padding-left: 0px;
+    }
+    /***********CSS for Project team tab ******************/
+    .noXSPadding {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .chkFilterCheck {
+        padding-bottom: 10px;
+    }
+    /**************CSS for resource utilization-> work item drop down**********/
+    .accomp_inputField.workItem-dropDownWrp div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys.dxdd-root {
+        min-width: 353px;
+    }
+
+
+    /*****CSS for RMM Module*******/
+    .rejectComment_popUp div.dxpc-contentWrapper {
+        display: table !important;
+    }
+
+    .rmmModule-discription {
+        margin-bottom: 20px;
+    }
+
+    .next-cancel-but {
+        margin: 0px;
+    }
+
+    .rmmHomeDb-btnWrap {
+        display: inline-flex;
+        float: none;
+    }
+
+    .next-cancel-but .next {
+        font: 12px 'Poppins', sans-serif !important;
+        font-weight: 400 !important;
+        padding: 2px 0px 1px 0px;
+    }
+
+    .rmm-btn div.dxb img {
+        display: none !important;
+    }
+
+    .next-cancel-but .next .dxb {
+        padding: 2px 4px;
+        font-size: 12px;
+    }
+
+    .rmmDb-dropDownLabel {
+        margin-top: 10px;
+    }
+
+    .rmmAction-iconWrap {
+        position: absolute;
+        top: 6px;
+    }
+
+    .errorMsg-literal {
+        margin: 0px;
+    }
+
+    .rmmDb-viewdropdownWrap {
+        margin-left: 3px;
+        /*margin-top:10px;*/
+    }
+
+    .addgroupicon {
+        float: left;
+    }
+
+    .RRMactiobBtn-wrap {
+        padding-right: 18px;
+    }
+
+    .rmmNewUserbtn {
+        padding: 16px 12px 15px 0px;
+    }
+
+    .RMMCancel-btn .dxb {
+        padding: 2px 4px !important;
+    }
+
+    .popupBtnWrap {
+        margin-top: 0px;
+        margin-bottom: 15px;
+        bottom: -35px;
+        right: 20px;
+    }
+
+    .linkBtn-cancel {
+        padding: 5px 10px 5px 10px;
+    }
+
+    .popupBtn_save {
+        padding: 3px 10px 4px 10px;
+    }
+    /************css for RMM Module*****/
+    .footer_actAwardBtn, .footer_actStatusBtn {
+        background-image: none !important;
+        padding: 2px 7px 2px 7px !important;
+        font: 12px 'Poppins', sans-serif !important;
+    }
+
+    .edit_ticket_tabIcon .dxbButton_UGITNavyBlueDevEx div.dxb img {
+        display: none !important;
+    }
+
+    .devExt-selectBoxWrap {
+        padding-right: 0px;
+        margin-top: 18px;
+    }
+
+    .projectTeam_linkWrap .btnAddNew {
+        border-right: none;
+    }
+    /********************CSS for Lead RanKing***************/
+    .field_successchance_edit {
+        width: 92% !important;
+    }
+
+    .leadRanking-icon img {
+        width: 18px;
+    }
+
+    .popupSectionWrap {
+        margin-bottom: 90px;
+    }
+
+    .schedule-btnWrap {
+        bottom: -1px;
+    }
+    /*****************CSS for schedule tab ****************/
+    .scheMark-icon, .scheAdd-icon {
+        float: right;
+    }
+
+    .schedule-taskTitle {
+        width: 100px;
+    }
+    /****************CSS for CRM project******************/
+    .edit_comment_popup_wrap {
+        position: relative;
+        padding-bottom: 10px;
+        padding-top: 5px;
+        bottom: 0px;
+    }
+
+    .relatedTicket_msg {
+        margin-top: 5px;
+    }
+
+    .existingTicket_checkbox input[type="checkbox"] {
+        margin-left: 0px;
+    }
+
+    .chkIncClosedTkts {
+        float: none;
+        padding-top: 10px;
+    }
+
+    .activityBtn-wrap {
+        position: absolute;
+        bottom: -30px;
+    }
+    /*.existingBtn-container {
+        text-align: center;
+        float: none !important;
+        display: -webkit-inline-box !important;
+    }*/
+    .checkList_btnWrap {
+        text-align: center;
+    }
+
+    .importChk_listBtnWrap {
+        margin-top: 15px;
+    }
+
+    .existingTicket_btnWrap {
+        text-align: center;
+    }
+
+    .existingTicket_btnWrap {
+        display: -webkit-inline-box;
+        width: 100px;
+    }
+
+    .chklistRole-container {
+        padding-bottom: 20px;
+    }
+
+    .chklistRole-popupBtn {
+        position: absolute;
+        bottom: -72px;
+    }
+
+    .CRMBTnWrap {
+        clear: both;
+        position: absolute;
+        bottom: -40px;
+    }
+
+    .popupAction-btnWrap {
+        position: absolute;
+        /*bottom: -150px;*/
+        bottom: 10px; /**add for find resource popup*/
+        padding: 0px;
+        width: 97% !important;
+    }
+
+    .externalTeam-content {
+        padding-right: 10px;
+    }
+    /*.externalTeam-popupBtn {
+        bottom: -93px;
+    }*/
+
+    .projectTeam-popupWrap {
+        padding-left: 0px;
+    }
+
+    .homeDb_chartView {
+        padding-left: 0px;
+    }
+
+    .colForMd2 {
+        width: 100%;
+    }
+
+    .homeDb_chartView tr td table.dxcvTable_UGITNavyBlueDevEx.dxcvFT {
+        padding: 0px;
+    }
+
+    .HomeCard_view {
+        margin-bottom: 10px;
+    }
+
+    .filterImg_wrap {
+        display: none;
+        float: left;
+        width: 100%;
+    }
+    /*.homeDb_filterImg{
+        float:left;
+    }*/
+    /*************CSS for Schedule tab***********/
+    .middle.border {
+        margin-left: 0px !important;
+        margin-top: 5px;
+    }
+
+    .tasktoolbar div.fright {
+        float: left !important;
+        /*margin-top: 5px;*/
+    }
+    /************CSS for grid filter**********/
+    .FromTo_container {
+        display: block;
+        width: 100%;
+    }
+
+    .searchFilter {
+        display: block;
+        /*margin-top: 10px;*/
+        width: 100%;
+        text-align: center;
+    }
+
+    .taskSummary_lable {
+        margin-left: 0px;
+    }
+
+    .adjustableWidth {
+        width: 47% !important;
+    }
+
+    .paddingNo {
+        padding: 0px !important;
+    }
+
+    .colForXS {
+        width: 100%;
+    }
+
+    .homeDashboard_content_wrap {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    /*.homeGrid_dropDown{
+        margin-left:20%;
+    }*/
+    /**********CSS for SVC DAshboard*********/
+    /*.svcDashboard_addTicketBtn {
+        margin-bottom: 5px;
+    }*/
+    /*****************CSS for PMM-> Scrum Tab popup*************/
+    .colXs {
+        width: 100%;
+        display: block;
+    }
+    /*********CSS for PMM Budget Tab ***********************/
+    .newResource_dateField tr td.dxeButtonEditButtonPressed_UGITNavyBlueDevEx {
+        width: 15% !important;
+        border: none !important;
+    }
+
+    .budget_inputField table {
+        display: inline-table !important;
+    }
+    /***********CSS for PMM Edit-> Sataus Tab******************/
+    .issueBtn_rightBtn {
+        margin-top: 10px;
+    }
+
+    .dxgvControl_UGITNavyBlueDevEx.userValueBox-grid.dxgv, .dxgvControl_UGITNavyBlueDevEx.userValueBox-grid.dxgv tr td table {
+        display: block;
+        width: 100% !important;
+    }
+
+    .accomp-popup table {
+        /*display: block;*/
+        width: 100% !important;
+    }
+
+    /*.accomp-popup table td {
+        background: #ecf1f9;
+    }*/
+    .lookupDropDown-contentRow td {
+        background: #fff !important;
+    }
+
+    .accomp-popup .ms-formbody {
+        background: none;
+        border: none;
+        padding: 3px 6px 4px;
+        vertical-align: top;
+    }
+
+    .ms-standardheader {
+        text-align: left !important;
+    }
+
+    .pmmStatus_lable {
+        display: inline-block;
+        color: #4A90E2;
+        font-size: 12px;
+    }
+
+    .pmmStatus_editIcon {
+    }
+
+    .pmmStatus_editIcon {
+        display: inline-block;
+    }
+
+    .pmmStatus_summaryHistory {
+        display: inline-block;
+    }
+    /**********CSS for PMM Edit scrum Tab **********************/
+    .pmmScrum_prodBack_RadioBtnwrap {
+        top: 7% !important;
+    }
+
+        .pmmScrum_prodBack_RadioBtnwrap tr td {
+            display: block !important;
+        }
+
+    .pmmScrum_sprintBtnWrap, .pmmScrum_releasesBtnWrap {
+        margin-top: 10px !important;
+    }
+
+    .PmmScrum_btnContainer {
+        margin-top: 62% !important;
+    }
+
+    .pmmScrum_addBtn, .pmmScrum_deleteBtn {
+        margin-bottom: 5px;
+    }
+
+    .ticket_header_data b, .ticket_header_data, .ticketTitle_status {
+        /*margin-bottom: 10px;*/
+        display: inline-block;
+        float: none;
+        font-size: 13px;
+    }
+
+    .ticket_status {
+        font-size: 13px;
+    }
+
+    .svcCopyClipBoardPopup_container {
+        /*width: 100% !important;* commenting while making responsive edit ticket -> action button -> copy link to clipboard popup */
+        left: 0px !important;
+    }
+
+    .popup-menuLog-inuser-outer {
+        width: 160px !important;
+        left: -30px !important;
+    }
+
+    .returnFeedback {
+        width: 100%;
+    }
+
+        .returnFeedback textarea {
+            width: 100% !important;
+        }
+
+        .returnFeedback .buttoncell {
+            padding: 10px;
+            width: 100%;
+            display: block;
+        }
+
+    .employee-name textarea {
+        width: 100% !important;
+    }
+
+    .returnFeedback .buttoncell.buttonAlign ul {
+        width: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .relatedTicket_dropDown_select select {
+        width: 100%;
+    }
+
+    .wiki-list-picker table.dxeButtonEditSys {
+        display: block;
+        width: 100%;
+        float: none !important;
+        margin: 5px 0px;
+    }
+
+    /*.header {
+        padding-bottom: 5px;
+    }*/
+
+    .applReg_statusTitle {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .question-value span arrayofservicematrixdata {
+        font-size: 14px;
+        width: 100%;
+        display: block;
+        word-break: break-word;
+    }
+
+    /*.dxpcLite_UGITNavyBlueDevEx.dxpclW, .dxpcLite_UGITNavyBlueDevEx.dxpclW table, .dxpcLite_UGITNavyBlueDevEx.dxpclW table tbody, .dxpcLite_UGITNavyBlueDevEx.dxpclW table tbody tr, .dxpcLite_UGITNavyBlueDevEx.dxpclW table tbody tr td {
+        width: 100% !important;
+        display: block !important;
+    }* commented because save as template popup not open in mobile view/ 
+
+    .dropDown_Title {
+        width: 100%;
+    }
+
+    .svcCopyClipBoardPopup .dxpc-contentWrapper .dxpc-content {
+        display: block !important;
+    }
+
+    /*click event for non svc edit*/
+    .dxgvTable_CustomMaterial > tbody > tr > td.edit-ticket-cell {
+        display: inline-block !important;
+        height: 50px;
+        padding: 5px 0px 5px 0px !important;
+        width: 100%;
+    }
+
+    .customgridview td.dxgv.dx-al, .customgridview td.dxgv.dx-ac {
+        /*padding-left: 12px !important;
+        padding-right: 10px !important;*/
+        text-align: left !important;
+    }
+    /********************************************mac-> create ticket not visible issue******/
+    .homeDashboard_chartSecWrap .dxdpLite {
+        visibility: visible !important;
+    }
+
+    .new-template-table table {
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    /*user dropdown menu for mobile screens*/
+    .homeDashboard_headerMenu_row {
+        /*display: flex;*/
+        clear: both;
+        align-items: center;
+        justify-content: left;
+    }
+
+    .logoText1 {
+        margin-top: -3px;
+        padding-right: 2px;
+    }
+    /*hiding user name from header*/
+    /*.profile-right-info {
+        display: none;
+    }*/
+    /*hiding the icons from header*/
+    .headerContent_profile .rectangle {
+        display: none;
+    }
+
+    .dxmLite_UGITNavyBlueDevEx.dxm-ltr .dxm-popup .dxm-gutter.dxm-noImages .dxm-item {
+        padding-left: 5px;
+    }
+
+    .xs-flex-menu {
+        display: flex;
+        flex-basis: 80%;
+    }
+
+    .homeDashboard_headerMenu_row .dxeButtonEdit_UGITNavyBlueDevEx {
+        padding: 0 !important;
+        margin-bottom: 0px !important;
+    }
+
+    .post-thumb {
+        margin-right: 0px !important;
+        float: none !important;
+        display: inline-block;
+    }
+
+    .add-file-doc .dxucInputs_UGITNavyBlueDevEx {
+        margin-left: 0;
+    }
+
+    .homeDashboard_search_tableWrap {
+        width: 110px !important;
+    }
+
+        .homeDashboard_search_tableWrap > tbody > tr {
+            display: flex;
+            align-items: center;
+            flex-flow: row-reverse;
+        }
+    /***********************save As template popup***********/
+    .saveAsTemplate_saveBtn {
+        background: #4a6ee2 !important;
+        border-radius: 4px;
+        color: #fff !important;
+        padding: 13px 38px !important;
+        border: none !important;
+        margin-top: 22px;
+        font-size: 14px !important;
+    }
+    /************** action button print popup ***************/
+
+    .printPopup_container .dxpc-contentWrapper .dxpcextra-content {
+        display: block !important;
+    }
+
+    /*svg image responsive*/
+    svg.visualization g > a text > tspan {
+        display: none;
+    }
+
+        svg.visualization g > a text > tspan:first-child {
+            display: block !important;
+            font-size: 42px;
+            baseline-shift: -56px;
+            font-weight: 600;
+        }
+
+    .workFlowImg-wrap {
+        padding: 0px;
+    }
+
+    .svcContent_container {
+        width: 98%;
+    }
+
+    .grid-task-btn {
+        display: block !important;
+        position: initial !important;
+        border: none !important;
+        background: none !important;
+    }
+
+    .ticket_contentWrap.table-responsive {
+        padding: 0;
+        padding-left: 10px;
+    }
+
+    .pointer {
+        /*width: 90px !important;*/
+        margin-left: 0px !important;
+        height: 40px;
+        object-fit: contain;
+        margin-top: 8px;
+    }
+    /*chart full width*/
+    .dashboard-panel-main, .dashboard-panel-main-mini, .dashboard-panel-main-notmove {
+        float: left;
+        width: 100% !important;
+        padding-top: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+        padding-bottom: 15px;
+    }
+
+    .dashboardService_catalogeContainer {
+        text-align: center;
+    }
+
+    .categorylist-container {
+        width: 90% !important;
+        display: inline-block;
+        float: none;
+    }
+    /*making menu responsive */
+    /*.leftSide_menuContainer {
+        position: absolute;
+        left: 0;
+        z-index: 8888;
+        top: 0;
+    }*/
+
+    .left_menu_wrap .homeDashboard_leftSideMenu_contentWrap .dashboardLeft_menuIcon {
+        position: absolute;
+        background-color: transparent;
+    }
+
+    .dxpnlControl_UGITNavyBlueDevEx.headerPane {
+        width: 100%;
+        float: right;
+    }
+
+    .main-page-section {
+        width: 100% !important;
+        /*padding: 0px 15px !important;*/
+    }
+
+    #ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1 {
+        display: block !important;
+        /*left: 0px !important;*/
+    }
+
+    .menuContentCollaps_left {
+        left: 0px !important;
+        top: 40px !important;
+    }
+
+    .homeDashboard_leftSideMenu_contentWrap.dashboardLeft_menuIcon.dxpnl-expanded {
+        background: #fff;
+        transition: 1s all ease;
+        -webkit-transition: 1s all ease;
+    }
+
+    /*.homeDashboard_leftSideMenu_contentWrap.dashboardLeft_menuIcon.dxpnl-expanded ~ #ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1 {
+            left: -4px !important;
+            background: #fff;
+            transition: 1s all ease;
+            -webkit-transition: 1s all ease;
+        }*/
+
+    /*.dashboard_leftSideMenu {
+        background-color: transparent;
+    }*/
+
+    /*.dashboard_leftSideMenuExpand {
+        width: 250px !important;
+        background: #fff;
+        transition: .5s all ease;
+    }*/
+
+    .right_content {
+        width: 100% !important;
+    }
+
+    #ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1_EB.dxpnl-bar {
+        position: absolute !important;
+        background-color: transparent !important;
+    }
+
+    .svcDashboard_dropdown {
+        width: 100% !important;
+        display: block;
+        padding: 5px 14px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .homeGrid_dropDown tr td img.dxEditors_edtDropDown_UGITNavyBlueDevEx {
+        margin-right: 0px;
+        margin-top: 0px;
+        background-position: right;
+    }
+    /*Quick ticket popup*/
+    .quick-ticket-parent, .quick-ticket-parent .selectTemplateForQuickTicket_popUp, .selectTemplateForQuickTicket_popUp .dxgvControl_CustomMaterial.customgridview dxgv, .selectTemplateForQuickTicket_popUp .dxgvControl_CustomMaterial.customgridview dxgv tbody,
+    .selectTemplateForQuickTicket_popUp table tbody tr,
+    .selectTemplateForQuickTicket_popUp table tbody tr td {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    svg.visualization {
+        width: 100%;
+    }
+
+    .existingTicket_checkbox label::before {
+        position: relative;
+        right: 0;
+        display: inline-block;
+    }
+
+    .existingTicket_checkbox label {
+        position: relative;
+        float: none;
+        margin-left: 0px;
+    }
+
+        .existingTicket_checkbox label:after {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+        }
+
+    .subTicket_PopUp_Container .dxpc-footer {
+        margin-top: 40px;
+    }
+
+    .existingTicket_savebtn {
+        text-align: center;
+        margin-left: 37%;
+        width: 100px;
+        margin-top: 0px;
+    }
+
+    .svcDashboardContent_mainWrap {
+        padding: 3px;
+        margin-top: 10px;
+    }
+
+    .new-task-eSVC {
+        background: #fff;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .dueDate-fieldWrap {
+        width: 92%;
+    }
+
+    .no-padding-xs {
+        padding: 0 !important;
+    }
+
+    .all-select select {
+        width: 100%;
+    }
+
+    .svc_addSubTask_dropDown_wrap {
+        padding-left: 0;
+        min-height: 5px;
+        /*margin-top: 25px;*/ /*Comment for CRM->contact->add new sub item popup(to remove scroll)*/
+    }
+
+        .svc_addSubTask_dropDown_wrap table, .svc_addSubTask_dropDown_wrap table tbody, .svc_addSubTask_dropDown_wrap table tbody tr, .svc_addSubTask_dropDown_wrap table tbody tr td {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+    .svc_addSubTask_dropDown select {
+        width: 100%;
+    }
+
+    .svc_addSubTask_dropDown_lable {
+        margin: 0px 0px;
+    }
+
+    .relate-to-existing-tckt, .relate-to-existing-tckt > tbody, .relate-to-existing-tckt > tbody > tr, .relate-to-existing-tckt > tbody > tr > td {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+
+    .existingTicket_savebtn_wrap {
+        width: 100% !important;
+    }
+
+    .relate-to-existing-tckt .ms-formtable, .relate-to-existing-tckt .ms-formtable > tbody, .relate-to-existing-tckt .ms-formtable > tbody > tr, .relate-to-existing-tckt .ms-formtable > tbody > tr > td {
+        width: 100% !important;
+        display: block;
+    }
+
+        .relate-to-existing-tckt .ms-formtable td span {
+            float: left;
+            font-size: Larger;
+            font-weight: bold;
+            width: 100%;
+            text-align: left;
+            margin: 5px 0px;
+        }
+
+    .dxgvDetailCell_CustomMaterial .dxgvADT tbody td div {
+        width: 155px !important;
+    }
+
+    .link-lable {
+        border-right: none !important;
+    }
+
+    .newTask_link, .relatedToExistingTicket_link, .newSubTaslk_link {
+        display: block !important;
+        float: left !important;
+        width: 100%;
+        text-align: center;
+        border: none;
+    }
+    /*admin dropdown
+    .headerContent_profile {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    */
+    .headerContent_profile .rectangle {
+        width: 30px !important;
+        padding: 15px 0px !important;
+    }
+
+    .post-container col-sm-1 col-xs-12 homeDashboard_headerMenu_wrap {
+        width: 64%;
+        display: flex;
+        float: left;
+        margin-left: 5px !important;
+    }
+
+    .profile-right-info {
+        /*width: 145px;*/
+        display: inline-block;
+        float: right !important;
+    }
+
+        .profile-right-info .d-block {
+            width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+    /*.post-thumb img {
+        height: 18px !important;
+        width: 17px !important;
+        object-fit: contain;
+    }*/
+    /**************nonSVC action button-> email popup***************/
+    .ms-formtable.email-table > tbody > tr > td.nonSvcEmail_fieldLabel {
+        padding: 10px 10px 0px 10px;
+    }
+
+    .ms-formtable.email-table > tbody > tr > td.nonSvcEmail_fieldInput {
+        padding: 3px 10px 10px 10px;
+        border-top: none;
+    }
+
+    .ms-formtable.email-table {
+        display: block;
+    }
+
+        .ms-formtable.email-table > tbody {
+            display: block;
+        }
+
+        .ms-formtable.email-table tbody > tr {
+            display: block;
+            width: 100%;
+        }
+
+        .ms-formtable.email-table > tbody > tr > td {
+            display: block;
+            width: 100% !important;
+            /*padding: 10px;*/
+        }
+
+        .ms-formtable.email-table .dxheContentArea_DevEx.dxheContentAreaSys {
+            display: block;
+        }
+
+    .email-table .ms-formlabel h3.ms-standardheader {
+        font-weight: normal;
+        font-size: 14px;
+        color: #4A90E2;
+        text-align: left;
+    }
+
+    .email-table .ms-formbody .dxeButtonEditSys {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+    }
+
+        .email-table .ms-formbody .dxeButtonEditSys tbody, .email-table .ms-formbody .dxeButtonEditSys tbody tr, .email-table .ms-formbody .dxeButtonEditSys tbody td.dxeButtonEditButton_UGITNavyBlueDevEx {
+            display: block;
+            width: 100% !important;
+        }
+
+            .email-table .ms-formbody .dxeButtonEditSys tbody td.dxic {
+                display: none;
+            }
+
+    .email-table .ms-formbody .dxheDesignViewArea {
+        display: block;
+    }
+
+    .ms-formtable.email-table > tbody > tr > td > input[type="text"] {
+        width: 100% !important;
+        background: #ecf1f9;
+        border: 1px solid #ccd4e1;
+        border-radius: 4px;
+        height: 35px;
+    }
+
+    .email-table .ms-formbody {
+        background: none;
+    }
+    /* quick close popup*/
+    .quick-close-pop .ms-formlabel {
+        width: 100%;
+        text-align: left;
+    }
+
+        .quick-close-pop .ms-formlabel h3 {
+            font-weight: normal;
+            font-size: 16px;
+            color: #4A90E2;
+            text-align: left;
+            margin: 10px 0px;
+        }
+
+    .quick-close-pop .ms-formbody {
+        background: none;
+    }
+
+        .quick-close-pop .ms-formbody input[type="text"], .quick-close-pop .ms-formbody select {
+            width: 100% !important;
+            background: #ecf1f9;
+            border: 1px solid #ccd4e1;
+            border-radius: 4px;
+            height: 35px;
+        }
+
+    .quick-close-pop .ms-formbody {
+        border: none
+    }
+    /*ends here*/
+    .next-cancel-but .next.add-comment {
+        width: 130px !important;
+        padding: 4px 0 !important;
+    }
+
+    .addComment_popUp_parent {
+        width: 100% !important;
+    }
+
+        /*.addComment_popUp .dxpc-contentWrapper .dxpc-content {
+        height: 192px !important;
+    }*/
+
+        .addComment_popUp_parent .addComment_popUp .employee-name textarea {
+            width: 100% !important;
+        }
+
+    .addComment_popUp .homeRightPanel_wrap .dxpc-contentWrapper .dxpc-content {
+        height: 320px !important;
+    }
+
+    .puOnHold_ticket_name {
+        margin-top: 10px;
+    }
+
+    .page-container {
+        min-width: 100% !important;
+    }
+
+    .reassign_popUp_dropDownTable {
+        width: 100%;
+    }
+
+    /*.reassign_popUp_dropDown .all-input {
+        border: none !important;
+        width: 100% !important;
+        display: block;
+        max-width: 100% !important;
+    }*/
+
+    .info-content-wrap {
+        margin-top: 0;
+        background-color: #FFFFFF;
+        padding: 10px;
+        overflow: hidden;
+        height: auto;
+    }
+
+    .info-subtitle span {
+        display: inline-block;
+        font-size: 16px;
+        margin-left: 0;
+        color: black;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .new-ticket-table .block_td {
+        display: block;
+        width: 100%;
+    }
+
+    .ticket_container.new-ticket-table > tbody > tr, .ticket_container.new-ticket-table > tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .block-table.field_heading, .block-table.field_heading > tbody, .block-table.field_heading > tbody > tr, .block-table.field_heading > tbody > tr > td {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+        border: none !important;
+    }
+
+    .ticket-type-pop .dxpc-contentWrapper .dxpc-content {
+        float: left;
+        width: 100%;
+    }
+
+    .duplicateSvc_popupTr {
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 2px;
+    }
+
+        .duplicateSvc_popupTr td {
+            background-color: #fff;
+        }
+
+    .new-ticket-table > tbody > tr + tr > td + td div > span div {
+        left: 10px !important;
+    }
+
+    .ticket_container.new-ticket-table, .editTicket_addDoc_wrap .fileUploadIcon {
+        display: block;
+        width: 100% !important;
+        margin: 0;
+    }
+
+    .ticket-type-pop .dxpc-contentWrapper .dxpc-content {
+        float: left;
+        width: 100%;
+    }
+
+    .editTicket_fileUpload table tr .dxCB {
+        display: block;
+    }
+
+    .editTicket_addDoc_wrap .fileUploadIcon .uploadedFileContainer {
+        margin: 0 !important;
+        width: 100%;
+    }
+
+        .editTicket_addDoc_wrap .fileUploadIcon .uploadedFileContainer span {
+            position: relative;
+            width: 100% !important;
+            float: left;
+        }
+
+            .editTicket_addDoc_wrap .fileUploadIcon .uploadedFileContainer span a {
+                display: block;
+            }
+
+    .fileUploadIcon .hyperLinkIcon {
+        background-position: 15px center !important;
+        padding-left: 50px !important;
+        text-align: left;
+        padding-right: 40px;
+        margin-left: 0px !important;
+    }
+
+    .add-file-doc {
+        margin-top: -45px !important;
+    }
+
+    .editTicket_addDoc_wrap .cancelUploadedFiles {
+        margin-top: 0px !important;
+        position: absolute;
+        text-align: center;
+        top: 5px;
+        right: 15px;
+    }
+    /* new css 13/2 create svc add document button*/
+    .uploadedFileContainer {
+        margin: 0px auto !important;
+    }
+
+        .uploadedFileContainer > span {
+            float: left;
+            width: 100% !important;
+            position: relative !important;
+        }
+
+            .uploadedFileContainer > span > a {
+                float: left;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+    .newattachment .fileUploadIcon .uploadedFileContainer > span .cancelUploadedFiles {
+        position: absolute;
+        right: 0;
+        top: 16px;
+        margin-top: 0;
+    }
+
+    .uploadedFileContainer > span .cancelUploadedFiles {
+        position: absolute;
+        right: 0;
+        top: 7px;
+        margin-top: 0;
+    }
+
+    .homeRightPanel_wrap .dxpc-content {
+        width: 100% !important;
+        margin: 0px !important;
+        display: block !important;
+    }
+
+    .serviceCatParent {
+        position: fixed !important;
+        left: 0 !important;
+        top: 50% !important;
+        z-index: 999999 !important;
+        height: auto !important;
+        right: 0;
+        display: block;
+        margin: auto;
+    }
+
+    .service-toptitle-sub {
+        width: 100% !important;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .xs_noPadding.isPopup.popup_wrap { /**  change for svc edit*/
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .createTicket_ulList {
+        padding: 0px 0px 30% 0px !important;
+    }
+
+    .panel-content-header {
+        padding: 0px 15px;
+    }
+
+    .createTicket_listWrap {
+        float: left !important;
+        display: block !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin: 20px 0px 0px 0px;
+    }
+
+        .createTicket_listWrap .next, .createTicket_listWrap .cancel {
+            display: block !important;
+            background: none !important;
+            width: 100% !important;
+            /*margin-top: 10px !important;*/
+        }
+
+    .page-container {
+        padding-bottom: 35px;
+    }
+
+    .field_heading legend {
+        padding: 7px 10px 0px 10px;
+    }
+
+    .fileUploadIcon.editTicket_fileUpload.table tbody, .fileUploadIcon.editTicket_fileUpload.table tbody td {
+        display: block;
+        width: 100% !important;
+    }
+    /* copy to clipboard popup css*/
+    .copyToclip_parent {
+        display: block !important;
+        /*position: absolute; (impact on  home dashboard hide all content in mobile view(for 425 to 325 width))*/
+        width: 100% !important;
+        left: 0 !important;
+        /*height: 32px !important;* (impact on  home dashboard hide all content in mobile view(for 425 to 325 width))*/
+    }
+
+        .copyToclip_parent .dxpc-contentWrapper {
+            height: 100% !important;
+        }
+
+            /*.copyToclip_parent .dxpc-contentWrapper .dxpc-content {
+                display: block !important;
+                border: 1px solid #a8aab4 !important;
+                background: #fff !important;
+                float: left;
+            }*/
+
+            .copyToclip_parent .dxpc-contentWrapper .dxpc-content .copyToclip_popup_commentBox {
+                width: 100%;
+            }
+
+    /*.dxEditors_edtDropDown_UGITNavyBlueDevEx { /* effect to svc-> edit task Asssign approver drop*/
+    /*padding: 7px 20px;*/ /**comment while changeing cpr->project team-> find resource popup also comment whilw changing homedb btn alignment
+        background-position: right;
+    }*/
+    .first_tier_nav.edit_ticket_tabIcon.editPopup_btnWrap {
+        padding: 5px;
+    }
+    /*Action buttons popup*/
+    .flex-row-xs {
+        display: flex;
+    }
+
+    /*.first_tier_nav ul {
+        display: flex;
+    }*/
+
+    .actionSvcBtn_wrap .dxmLite_UGITNavyBlueDevEx.dxm-ltr .dxm-popupMain.dxm-shadow.dxm-popup {
+        left: -5px !important;
+    }
+
+    .edit_ticket_tabIcon {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin-left: 0 !important;
+    }
+
+    .buttoncell {
+        padding-right: 0;
+    }
+
+    .managementcontrol-main textarea.comment_text_wrap {
+        width: 100% !important;
+    }
+    /***********************Dashboard Chart*************************************/
+    .none-dashboardaction-icon {
+        margin-right: 5%;
+    }
+
+    .flex-row-xs .buttoncell {
+        min-width: inherit !important;
+    }
+
+    .edit_ticket_tabIcon .dxbButton_UGITNavyBlueDevEx div.dxb {
+        font-size: 12px !important;
+        padding: 0px 0px;
+        display: inline-block;
+    }
+
+    .newTask_assignedTo_dropdown {
+        padding-left: 0px;
+    }
+
+    .inner-cust-comments .comments {
+        overflow: auto;
+        height: 260px;
+    }
+    /************************CSS for SVC summary tab***************************/
+    .info-subtitle span {
+        margin-left: 0px;
+    }
+
+    /****************************CSS for SVC duplicate Popup*****************/
+    /*.svcDuplicate_popupTable tr, .svcDuplicate_popupTable tr td{
+        background-color: #F6F7FB;
+    }*/
+    duplicateSvc_popupTr {
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    .duplicateSvc_popupTd {
+        color: #4a90e2 !important;
+        font-weight: 500 !important;
+        margin-bottom: 5px;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .duplicateSvc_popupInputTd .field_DesiredCompletionDate table tr td input.dxeEditAreaSys {
+        background: transparent;
+    }
+
+    .duplicateSvc_popupInputTd div table.dxeButtonEditSys td {
+        background-color: #ecf1f9;
+    }
+
+    .duplicateSvc_popupInputTd div table.dxeButtonEditSys {
+        border: 1px solid #ccd4e1;
+        border-radius: 2px;
+    }
+
+    .puOnHold_ticket_name {
+        margin-top: 0;
+    }
+    /*************************CSS for SVC Summary tab******************/
+    .question-value {
+        margin-bottom: 10px;
+    }
+
+    .summaryTab_xsNoPadding {
+        padding: 0px !important;
+    }
+    /****************************CSS for SVC history tab***************************************/
+    .history_img img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .history_img label, .img-container label {
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+
+    /*************SVC Edit -> Edit task **********************/
+    .newTask_dueDate tr td.dxeButtonEditClearButton_UGITNavyBlueDevEx {
+        display: none;
+    }
+
+    .svcEditask_aprroverBtnWrap {
+        text-align: center;
+    }
+
+    .editTask_assignApprover_btn {
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+
+    .svcEditTask_approverInput .bg-light-blue tr td img.dxEditors_edtDropDown_UGITNavyBlueDevEx {
+        padding: 7px 20px;
+    }
+
+    .edit_task_approveDropdown .bg-light-blue {
+        padding: 3px 22px 3px 3px !important;
+    }
+
+    .approve_reject_container {
+        text-align: center;
+    }
+
+    .approve-btn, .reject-btn {
+        display: inline-block;
+    }
+
+
+    /****************************CSS for NPR Create Ticket****************************/
+    .createTicket_listWrap li.nprCancelBtn {
+        margin-bottom: 10px !important;
+    }
+
+    .nprPrimeBenificiaries_dropDown .nprDropDown .dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys {
+        width: 100% !important;
+        left: 0px !important;
+        display: block !important;
+    }
+
+    .nprprimBenifi_chooseDepartment {
+        display: block;
+        width: 100% !important
+    }
+
+    .nprprimBenifi_optionBtn {
+        display: block;
+        text-align: center;
+    }
+
+    .nprprimBenifi_choosenDepartment {
+        display: block;
+        width: 100% !important;
+    }
+
+    .chooseDepartment_list {
+        width: auto !important;
+        text-align: center;
+        float: none;
+        display: block;
+        /*padding: 0px 20px;*/
+        margin: 10px 10px 10px 7px;
+    }
+
+    .nprprimBenifi_chooseDepartment .popupleftcts {
+        float: none !important;
+    }
+
+    .chooseDepartment_lable {
+        color: #4a90e2;
+        margin-left: 10px;
+        font-size: 13px !important;
+    }
+
+    .optionBtn_wrap {
+        margin: 0px 5px;
+        width: auto;
+    }
+
+    .optionBtn_addLogo {
+        text-align: center;
+        margin-top: 23px;
+    }
+
+    .choosenDepartment_label b {
+        color: #4a90e2;
+        font-weight: 500 !important;
+        margin-left: 10px;
+    }
+    .multipledepartmentViewdiv .selected {
+        background: #D4FFFF !important;
+    }
+    multipledepartmentViewdiv {
+        border: 1px solid;
+        float: left;
+        height: 200px;
+        overflow-y: auto;
+        width: 200px;
+        background: #fff;
+    }
+    .nprLookuplist div.dxpcDropDown_UGITNavyBlueDevEx.dxpclW.dxpc-ddSys div.dxpc-mainDiv.dxpc-shadow div.dxpc-contentWrapper div table.dxgvControl_UGITNavyBlueDevEx.dxgv tr td div.dxAC div div.dxgvCSD.dxTouchNativeScrollHandle {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /*************************CSS for Sticky Footer Button********/
+    .editTicket_footerBtn-xs {
+        display: inline-flex !important;
+        padding-left: 0px !important;
+    }
+
+    .first_tier_nav ul li, .first_tier_nav ul li.tabactive, .first_tier_nav ul li.tabhover {
+        margin: 0px 5px;
+    }
+
+    .footerBtn_alignXS {
+        text-align: center !important;
+    }
+    /*******CSS for PMM Edit Status tab *****/
+    .editPmm_statusTab_gridCheckbox {
+        position: relative;
+        left: 6px;
+        right: 0px;
+    }
+
+        .editPmm_statusTab_gridCheckbox input[type="checkbox"] {
+            display: inline-block;
+            margin: 5px 5px 5px !important
+        }
+}
+
+@media only screen and (min-width:541px) and (max-width:768px) {
+    .menuContentCollaps_left {
+        top: 40px !important;
+    }
+
+    .homeDashboard_menuListWrap {
+        width: 250px !important;
+        padding-top: 15px;
+    }
+
+    .comment-days {
+        padding: 10px 0px;
+    }
+    /*.leftSide_menuContainer {
+        top: 88px;
+    }*/
+    .searchPannelWrap {
+        border-right: 0px;
+        border-bottom: 20px solid #F6F7FB;
+    }
+
+    .colFormd {
+        width: 27.666667% !important;
+        border: 1px solid;
+        border-color: #e7e7e7 !important;
+    }
+
+    .waitOnmeClass .dxmLite_UGITNavyBlueDevEx.dxm-ltr .HomeDBAction-container {
+        top: 0px !important;
+    }
+    /*.svcDashboard_drpDownWrap {
+        text-align: center;
+        padding: 0px;
+    }
+    .svcDashboard_addTicketBtn {
+        margin-left: 11px;
+    }*/
+    .dbTicketSatus-widthForsm {
+        width: 30%;
+    }
+
+    .dbActionBtn-widthForsm {
+        width: 70%;
+    }
+
+    .svcDashboard_drpDownWrap {
+        text-align: left;
+    }
+
+    .svcDashboard_quickTicketBtn {
+        margin-right: 0px;
+    }
+
+    .svcDashboard_addTicketBtn {
+        margin-left: 5px;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:620px){
+    .mainSection-wrap {
+        top: 56%;
+        display: block;
+    }
+    /*********CSS for project plan icon************/
+    .noPadding-xs {
+        margin-top: 5px;
+    }
+
+    .xsrightToolDiv {
+        float: left;
+    }
+    svg.visualization g > a text > tspan {
+        display: none;
+    }
+
+        svg.visualization g > a text > tspan:first-child {
+            display: block !important;
+            font-size: 42px;
+            baseline-shift: -56px;
+            font-weight: 600;
+        }
+
+    .workFlowImg-wrap {
+        padding: 0px;
+    }
+    svg.visualization {
+        width: 100%;
+    }
+    .subTicket_PopUp_Container .dxpc-footer {
+        margin-top: 40px;
+    }
+    .inner-cust-comments .comments {
+        overflow: scroll;
+        height: 260px;
+    } 
+    .existingTicket_savebtn {
+        text-align: center;
+        margin: 10px 0 0 0;
+        width: 100%;
+    }
+
+    .svcDashboardContent_mainWrap {
+        padding: 10px;
+    }
+
+    .new-task-eSVC {
+        background: #fff;
+    }
+
+    .no-padding-xs {
+        padding: 0;
+    }
+
+    /*.addComment_popUp_parent {
+        width: 100% !important;
+    }*/
+    .contentPane{
+        width:100%;
+        height:97%;
+        /*overflow-x:hidden;*/
+    }
+    .newTask_assignedTo_dropdown {
+        padding-left: 15px;
+    }
+    /*admin dropdown*/
+    .headerContent_profile {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .headerContent_profile .rectangle {
+        width: 30px !important;
+        padding: 15px 0px !important;
+    }
+
+.post-container col-sm-1 col-xs-12 homeDashboard_headerMenu_wrap {
+    width: 64%;
+    display: flex;
+    float: left;
+    margin-left: 5px !important;
+}
+
+/*.profile-right-info {
+    width: 145px;
+}*/
+
+    .profile-right-info .d-block {
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    /*.post-thumb img {
+        height: 30px !important;
+        width: 30px !important;
+        object-fit: contain;
+    }*/
+}
+@media only screen and (min-width:481px) and (max-width:667px) {
+    /*********CSS for user home Page Dashboard**************/
+    .leftSide_menuContainer {
+        top: 52px;
+    }
+
+    .leftSideBottomMenu-container {
+        top: 55px
+    }
+    .searchPannelWrap-container {
+        width: 77%;
+        margin: 0px auto;
+    }
+    .prblemStatement-inputWrap {
+        width: 84%;
+    }
+    .buttonview-container .ugit-contentcontainer{
+        width:100%;
+    }
+
+    .colForXS {
+        width: 49%;
+        display: inline-block;
+        padding: 0px;
+    }
+    .priorityHigh, .priorityMedium, .priorityLow, .priorityCritical {
+        background-size: 40%;
+    }
+    /*******CSS for PMM Edit Scrum tab***************/
+    .PmmScrum_btnContainer {
+        margin-top: 12% !important;
+    }
+    .pmmScrum_sprintBtnWrap {
+        margin-top: 8px !important;
+    }
+    .pmmScrum_releasesBtnWrap {
+        margin-top: 7px !important;
+    }
+    /*************CSS for Npr Schedule tab button*******/
+    .nprschedule_cancelBtn, .nprschedule_saveBtn {
+        margin-left: 91% !important;
+    }
+    /*****************************CSS for SVC Edit-> Edit task************/
+    .newTask_dueDate tr td.dxeButtonEditClearButton_UGITNavyBlueDevEx {
+        display: none;
+    }
+    .relate-to-existing-tckt, .relate-to-existing-tckt > tbody, .relate-to-existing-tckt > tbody > tr, .relate-to-existing-tckt > tbody > tr > td {
+    display: block !important;
+    width: 100% !important;
+    float: left;
+    }
+
+    .existingTicket_savebtn_wrap {
+    width: 100% !important;
+    }
+
+    .relate-to-existing-tckt .ms-formtable, .relate-to-existing-tckt .ms-formtable > tbody, .relate-to-existing-tckt .ms-formtable > tbody > tr, .relate-to-existing-tckt .ms-formtable > tbody > tr > td {
+    width: 100% !important;
+    display: block;
+    }
+
+    .relate-to-existing-tckt .ms-formtable td span {
+    float: left;
+    font-size: Larger;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0px;
+    }
+    .relatedTicket_dropDown_select select {
+        width: 100%;
+    }
+    .popup-menuLog-inuser-outer {
+        width: 195px !important;
+    }
+
+    .returnFeedback {
+        width: 100%;
+    }
+    .edit_ticket_tabIcon {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin-left: 0 !important;
+    }
+
+    .returnFeedback textarea {
+        width: 100% !important;
+    }
+
+    .returnFeedback .buttoncell {
+        padding: 10px;
+        width: 100%;
+        display: block;
+    }
+
+    .employee-name textarea {
+        width: 100% !important;
+    }
+    .relatedTicket_dropDown_select select {
+        width: 100%;
+    }
+    .relatedTicket_dropDown_select td span{
+        display: block;
+        width: 100%;
+        float: left;
+        text-align: left;
+    }
+    .returnFeedback .buttoncell.buttonAlign ul {
+        width: 100%;
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wiki-list-picker table.dxeButtonEditSys {
+        display: block;
+        width: 100%;
+        float: none !important;
+        margin: 5px 0px;
+    }
+ .svcCopyClipBoardPopup .dxpc-contentWrapper .dxpc-content {
+        display: block !important;
+    }
+    /**************Print popup **************************/
+    .printPopup_container .dxpc-contentWrapper .dxpcextra-content {
+        display: block !important;
+    }
+    .header {
+        padding-bottom: 5px;
+    }
+    .applReg_statusTitle {
+        text-align: center;
+        font-size: 18px;
+    }
+    .add-file-doc .dxucInputs_UGITNavyBlueDevEx {
+        margin-left: 0;
+    }
+    .printPopup_mainContainer .dxpc-contentWrapper .dxpcextra-content {
+        display: block !important;
+    }
+    .logoText1 .pointer {
+        height: 37px;
+    }
+    .grid-task-btn {
+        display: block !important;
+        position: initial !important;
+        border: none !important;
+        background: none !important;
+    }
+    /*chart full width*/
+    .dashboard-panel-main, .dashboard-panel-main-mini, .dashboard-panel-main-notmove {
+        float: left;
+        width: 100% !important;
+        padding-top: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+    }
+    .dashboardService_catalogeContainer{
+        text-align:center;
+    }
+    .categorylist-container {
+        width: 47% !important;
+        display: inline-block;
+        float: none;
+    }
+    /* making menu responsive */
+    /*.leftSide_menuContainer {
+        position: absolute;
+        left: 0;
+        z-index: 8888;
+        top: 0;
+    }*/
+
+    .left_menu_wrap .homeDashboard_leftSideMenu_contentWrap .dashboardLeft_menuIcon {
+        position: absolute;
+        background-color: transparent;
+    }
+
+    /*.dxpnlControl_UGITNavyBlueDevEx.headerPane {
+        width: 90%;
+        float: right;
+    }*/
+
+    .main-page-section {
+        width: 100% !important;
+        /*padding: 0px 15px !important;*/
+    }
+    .service-toptitle-sub {
+        width: 100% !important;
+        font-size: 13px;
+        text-align: center;
+    }
+    .dashboard_leftSideMenu{
+        background-color:transparent;
+    }
+    #ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1 {
+        display: block !important;
+        left: -34px !important;
+    }
+
+    /*.homeDashboard_leftSideMenu_contentWrap.dashboardLeft_menuIcon.dxpnl-expanded {
+        background: #fff;
+    }*/
+
+    .homeDashboard_leftSideMenu_contentWrap.dashboardLeft_menuIcon.dxpnl-expanded ~ #ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1 {
+        left: -4px !important;
+        background: #fff;
+    }
+
+    .right_content {
+        width: 100% !important;
+    }
+
+    /*#ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1_EB.dxpnl-bar {
+        position: absolute !important;
+        background-color: transparent !important;
+    }*/
+    /*Quick ticket popup*/
+    .quick-ticket-parent, .quick-ticket-parent .selectTemplateForQuickTicket_popUp, .selectTemplateForQuickTicket_popUp .dxgvControl_CustomMaterial.customgridview dxgv, .selectTemplateForQuickTicket_popUp .dxgvControl_CustomMaterial.customgridview dxgv tbody,
+    .selectTemplateForQuickTicket_popUp table tbody tr,
+    .selectTemplateForQuickTicket_popUp table tbody tr td {
+        width: 100% !important;
+        display: block !important;
+    }
+    ./*addComment_popUp_parent {
+        width: 100% !important;
+        left: 0 !important;
+        display: block !important;
+    }*/
+    .svcDashboard_addTicketBtn {
+        margin: 5px;
+    }
+    .svcDashboardContent_mainWrap {
+        padding: 10px;
+    }
+    /*.addComment_popUp_parent .homeRightPanel_wrap .dxpc-contentWrapper .dxpc-content {
+        display: block !important;
+    }*/
+    /*.addComment_popUp_parent .comments .employee-name textarea {
+        width: 100% !important;
+    }*/
+    .link-lable {
+        border-right: none !important;
+    }
+    .newTask_link, .relatedToExistingTicket_link, .newSubTaslk_link {
+        display: block !important;
+        float: left !important;
+        width: 100%;
+        text-align: center;
+        border: none;
+    }
+    .svcDashboard_quickTicketBtn {
+        margin-left: 0;
+    }
+    .svcDashboard_drpDownWrap{
+        text-align:center;
+    } 
+    .next-cancel-but .next.add-comment {
+        width: 130px !important;
+        padding: 4px 0 !important;
+    }
+    .addComment_popUp .homeRightPanel_wrap .dxpc-contentWrapper .dxpc-content {
+        height: 320px !important;
+    }
+    /*.reassign_popUp_dropDownTable {
+        width: 100%;
+    }*/
+
+    /*.reassign_popUp_dropDown .all-input {
+        border: none !important;
+        width: 100% !important;
+        display: block;
+        max-width: 100% !important;
+    }*/
+    .puOnHold_ticket_name {
+        margin-top: 10px;
+    } 
+    .info-subtitle span {
+        display: inline-block;
+        font-size: 16px;
+        margin-left: 0;
+        color: black;
+        font-weight: 500;
+        text-align: left;
+    } 
+    .info-content-wrap {
+        margin-top: 0;
+        background-color: #FFFFFF;
+        padding: 10px;
+    }
+    .new-ticket-table .block_td {
+        display: block;
+        width: 100%;
+    }
+    .ticket-type-pop .dxpc-contentWrapper .dxpc-content {
+        float: left;
+        width: 100%;
+    }
+    .ticket_container.new-ticket-table > tbody > tr, .ticket_container.new-ticket-table > tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .block-table.field_heading, .block-table.field_heading > tbody, .block-table.field_heading > tbody > tr, .block-table.field_heading > tbody > tr > td {
+        display: block;
+        width: 100%;
+        height: auto !important;
+    }
+
+    .new-ticket-table > tbody > tr + tr > td + td div > span div {
+        left: 10px !important;
+    }
+
+    .ticket_container.new-ticket-table, .editTicket_addDoc_wrap .fileUploadIcon {
+        display: block;
+        width: 100% !important;
+        margin: 0;
+    }
+
+    .editTicket_fileUpload table tr .dxCB {
+        display: block;
+    }
+
+    .editTicket_addDoc_wrap .fileUploadIcon .uploadedFileContainer {
+        margin: 0 !important;
+        width: 100%;
+    }
+
+        .editTicket_addDoc_wrap .fileUploadIcon .uploadedFileContainer span {
+            position: relative;
+            width: 100% !important;
+            float: left;
+        }
+
+            .editTicket_addDoc_wrap .fileUploadIcon .uploadedFileContainer span a {
+                display: block;
+            }
+
+    .fileUploadIcon .hyperLinkIcon {
+        max-width: 270px;
+        background-position: 15px center !important;
+        padding-left: 50px !important;
+        text-align: left;
+    }
+
+    .editTicket_addDoc_wrap .cancelUploadedFiles {
+        margin-top: 0px !important;
+        position: absolute;
+        text-align: center;
+        top: 5px;
+        right: 15px;
+    }
+
+    .createTicket_listWrap {
+        float: left !important;
+        display: block !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin: 20px 0px 0px 0px;
+    }
+
+        .createTicket_listWrap .next, .createTicket_listWrap .cancel {
+            display: block !important;
+            background: none !important;
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+    .svcDashboardContent_mainWrap {
+        padding: 10px;
+        margin-top: 10px;
+    }
+    .svcContent_container{
+        width:98%;
+    }
+    .page-container {
+        padding-bottom: 35px;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .field_heading legend {
+        padding: 15px 10px 10px 10px;
+    }
+    /* copy to clipboard popup css*/
+    .copyToclip_parent {
+        display: block !important;
+        position: absolute;
+        width: 100% !important;
+        left: 0 !important;
+        height: 32px !important;
+}
+    .copyToclip_parent .dxpc-contentWrapper {
+        height: 100% !important;
+    }
+    .copyToclip_parent .dxpc-contentWrapper .dxpc-content {
+        display: block !important;
+        border: 1px solid #a8aab4 !important;
+        background: #fff !important;
+    }
+    /*.isPopup .homeDashboard_leftcontent_wrap {
+        padding-left: 25px;
+    }*/
+    .existingTicket_savebtn_wrap {
+    width:100% !important;
+    }
+    .existingTicket_checkbox label::before {
+    position: relative;
+    right: 0;
+    top: 10px;
+    display: inline-block;
+    }
+
+    .existingTicket_checkbox label {
+    position: relative;
+    }
+
+    .existingTicket_checkbox label:after {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    }
+    .dashboard-panel-main, .dashboard-panel-main-mini, .dashboard-panel-main-notmove {
+        float: left;
+        width: 100% !important;
+        padding-top: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+    }
+}
+@media only screen and (min-width:668px) and (max-width:767px){
+    .searchPannelWrap-container {
+        width: 77%;
+        margin: 0px auto;
+    }
+
+    .prblemStatement-inputWrap {
+        width: 84%;
+    }
+
+    .buttonview-container .ugit-contentcontainer {
+        width: 100%;
+    }
+    .categorylist-container {
+        width: 47% !important;
+        display: inline-block;
+        float: none;
+    }
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+    /**************CSS for User home page dashboard**************/
+    .homeService-panelContainer {
+        border-width: 0px;
+    }
+
+    .searchPannelWrap {
+        border-right: none;
+    }
+
+    .fromServiceDoc-chartWrap {
+        border-top: 8px solid #F6F7FB;
+        border-bottom: 8px solid #F6F7FB;
+    }
+
+    .servcieCatalog_listView .ugit-contentcontainer {
+        width: 98%;
+    }
+    .fromServiceDoc-chartWrap {
+        border-top: 8px solid #F6F7FB;
+        border-bottom: 8px solid #F6F7FB;
+        padding-bottom: 15px;
+    }
+    /******************CSS for New service prime pages******************/
+    .mainSection-wrap {
+        top: 50%;
+        display: block;
+    }
+
+    .mainSection-textBlock h2 {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .mainSection-textBlock p {
+        font-size: 12px;
+    }
+
+        .mainSection-textBlock p.lastPara {
+            margin: 30px 0px 30px;
+        }
+
+    .admindflt-checkWrap {
+        margin-bottom: 56px;
+    }
+
+    .mainSection-ImageBlock, .mainSection-textBlock {
+        width: 100%;
+    }
+
+    .admindflt-checkWrap label {
+        font: 14px 'Poppins', sans-serif;
+    }
+
+    .admindflt-checkWrap input:checked + label::after {
+        top: 7px;
+        left: 5px;
+        width: 5px;
+        height: 8px;
+    }
+
+    .admindflt-checkWrap label::before {
+        padding: 5px;
+    }
+    /*****************End CSS for new service prime pages**************/
+    .headerPage-mesage {
+        right: 0px;
+    }
+    .globalSearch-container {
+        width: 168px;
+    }
+    .float-popup-xs.main-page-section.right_content {
+        padding-left: 0px;
+        width: 100%; 
+        float: left;
+    }
+    .homeDashboard_leftcontent_wrap.right-content{
+        padding-left:0px;
+    }
+    .leftSide_menuExpandContainer{
+        z-index:99;
+    }
+}
+@media only screen and (min-width:590px) and (max-width:768px){
+    /*******CSS for User home page dashboard*********/
+
+
+
+
+    .section-bannerImg{
+        width:50%;
+    }
+    .mainSection-ImageBlock{
+        text-align:center;
+    }
+}
+@media (min-width:768px) and (max-width:922px) {
+    .leftSide_menuContainer {
+        top: 89px;
+    }
+}
+@media only screen and (min-width:668px) and (max-width:1024px) {
+    /********************CSs for Administer Service Prime ***********************/
+    .workflow-container {
+        left: -9%;
+    }
+    /*.img-wrap1 {left: 33%;}
+    .img-wrap2 {left: 56%;top: -1.5%;}
+    .img-wrap3 {top: 16%;left: 70.5%;}
+    .img-wrap4 {top: 44%;left: 72%;}
+    .img-wrap5 {bottom: -1%;left: 64%;}
+    .img-wrap6 {left: 38%;}
+    .img-wrap7{left:12.5%;}
+    .img-wrap8{left:-1.5%;}
+    .img-wrap9 {top: 29%;left: -2.5%;}
+    .img-wrap10 {
+        top: 6%;
+        left: 10.4%;
+    }*/
+    .priorityHigh, .priorityMedium, .priorityLow, .priorityCritical {
+        background-size: 40%;
+    }
+
+    .newResource_dateField tr td.dxeButtonEditButtonPressed_UGITNavyBlueDevEx {
+        width: 15% !important;
+        border: none !important;
+    }
+
+    .accomp-popup table {
+        /*display: block;*/
+        width: 100%;
+    }
+
+    .svcPopupDialog_wrap {
+        left: 0 !important;
+        right: 0px !important;
+        margin: auto !important;
+        /*width: 100% !important;  COMMENT when change into Admin-> request list popup */
+    }
+
+
+        .svcPopupDialog_wrap > div + div > iframe {
+            width: 100% !important;
+        }
+
+    .svcCopyClipBoardPopup .dxpc-contentWrapper .dxpc-content {
+        display: block !important;
+    }
+
+    .printPopup_container .dxpc-contentWrapper .dxpcextra-content {
+        display: block !important;
+    }
+
+    .comment-tbl .comment-container .comment-action-buttons img {
+        top: -104px;
+    }
+
+    .reassign_popUp_dropDownTable {
+        width: 100%;
+    }
+
+    .reassign_popUp_dropDown .all-input {
+        border: none !important;
+        width: 100% !important;
+        display: block;
+        max-width: 100% !important;
+    }
+
+    .info-content-wrap {
+        margin-top: 0;
+        background-color: #FFFFFF;
+        padding: 10px;
+    }
+
+    .puOnHold_ticket_name {
+        margin-top: 5px;
+    }
+
+    .ticket-type-pop .dxpc-contentWrapper .dxpc-content {
+        float: left;
+        width: 100%;
+    }
+
+    .info-subtitle span {
+        display: inline-block;
+        font-size: 16px;
+        margin-left: 0;
+        color: black;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .fileUploadIcon .hyperLinkIcon {
+        max-width: 270px;
+        background-position: 15px center !important;
+        padding-left: 50px !important;
+        text-align: left;
+    }
+
+    .editTicket_addDoc_wrap .cancelUploadedFiles {
+        margin-top: 0px !important;
+        position: absolute;
+        text-align: center;
+        top: 5px;
+        right: 15px;
+    }
+
+    .createTicket_listWrap {
+        float: left !important;
+        display: block !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin: 20px 0px 0px 0px;
+    }
+
+        .createTicket_listWrap .next, .createTicket_listWrap .cancel {
+            display: block !important;
+            background: none !important;
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+
+    .page-container {
+        padding-bottom: 35px;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .field_heading legend {
+        padding: 15px 10px 10px 10px;
+    }
+
+    .next-cancel-but .next.add-comment {
+        width: 130px !important;
+        padding: 4px 0 !important;
+    }
+
+    .addComment_popUp .homeRightPanel_wrap .dxpc-contentWrapper .dxpc-content {
+        height: 320px !important;
+    }
+    /***************************************CSS for SVC history tab***********/
+    .history_img img {
+        height: 47px;
+    }
+
+    /*************CSS for Npr Schedule tab button*******/
+    .nprschedule_cancelBtn, .nprschedule_saveBtn {
+        margin-left: 91% !important;
+    }
+}
+@media only screen and (min-width:768px) and (max-width:991px) {
+    .homeService-panelContainer {
+        border-width: 0px;
+    }
+
+    .searchPannelWrap {
+        border-right: none;
+    }
+    .fromServiceDoc-chartWrap {
+        border-top: 8px solid #F6F7FB;
+        border-bottom: 8px solid #F6F7FB;
+        padding-bottom: 15px;
+    }
+}
+@media only screen and (min-width:768px) and (max-width:1024px) {
+    .buttonview-container .ugit-contentcontainer {
+        width: 100%;
+    }
+
+    /*******************CSS for new service prime pages**************/
+    .mainSection-textBlock, .mainSection-ImageBlock {
+        width: 40%;
+    }
+    /*******************End CSS for new service prime pages**************/
+    .title-sectionContainer {
+        padding: 90px 0px 0px;
+    }
+
+    .leftSide_menuContainer {
+        top: 90px;
+    }
+
+    .menuContentCollaps_left {
+        top: 132px !important;
+    }
+
+    .homeDashboard_leftcontent_wrap.right-content {
+        padding-left: 0px;
+    }
+
+    .svcDashboard_btnWrap {
+        margin-left: 10px;
+    }
+}
+@media only screen and (min-width:941px) and (max-width:1024px) {
+    .servcieCatalog_listView .ugit-contentcontainer {
+        width: 100%;
+    }
+
+    .prblemStatement-inputWrap {
+        width: 528px;
+        margin-left: 15px;
+    }
+    .headerContent_profile{
+        width:75%;
+    }
+    .headerPage-mesage {
+        width: 25%;
+    }
+
+    .navbar-header {
+        width: 25%;
+    }
+}
+@media only screen and (min-width:1044px) and (max-width:1190px){
+    .searchPannelWrap-container {
+        width: 90%;
+    }
+    .prblemStatement-inputWrap {
+        width: 91%;
+    }
+    .title-sectionContainer {
+        padding: 54px 0px 0px;
+    }
+    .leftSide_menuContainer {
+        top: 54px;
+    }
+    .menuContentCollaps_left {
+        top: 132px !important;
+    }
+}
+@media only screen and (min-width:1025px) and (max-width:1440px){
+    .ques-answer.rightSection {
+        float: left;
+        width: 90%;
+    }
+    .headerPage-mesage {
+        right: 0px;
+        padding: 21px 2px 0px 0px;
+    }
+
+}
+@media (min-width:1440px) and (max-width:2560px) {
+    .actionBtn_agentOption_dropDownWrap {
+        left: 31px !important;
+        top: 77px !important;
+        z-index: 9999;
+    }
+}
+@media (min-width:190px) and (max-width:322px) {
+        .homeGrid .dxgvTable_UGITNavyBlueDevEx.dxgvRBB .homeGrid_dataRow .dxgvCommandColumn_UGITNavyBlueDevEx {
+            display: inline-block !important;
+            height: 50px !important;
+        }
+
+            .homeGrid .dxgvTable_UGITNavyBlueDevEx.dxgvRBB .homeGrid_dataRow .dxgvCommandColumn_UGITNavyBlueDevEx span {
+                margin-top: 15px;
+            }
+
+        .homeGrid .dxgvTable_UGITNavyBlueDevEx.dxgvRBB .homeGrid_dataRow .edit-ticket-cell {
+            display: inline-block !important;
+            height: 50px;
+            padding: 13px 20px !important;
+            /*width: 182px !important; commention while making svc home dashboard grid responsive*/
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+            .homeGrid .dxgvTable_UGITNavyBlueDevEx.dxgvRBB .homeGrid_dataRow .edit-ticket-cell .grid_img {
+                height: 25px !important;
+                width: 25px !important;
+                margin: 10px 0px;
+            }
+        /*.customgridview td.dxgv.dx-ac:first-child {
+        width: 20%;
+        display: inline-block;
+    }*/
+        .dxgvDetailRow_CustomMaterial td.dxgvDetailCell_CustomMaterial {
+            padding: 0px 8px;
+        }
+    }
+

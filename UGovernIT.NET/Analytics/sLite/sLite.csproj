@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{35081153-16A3-4FBF-A52D-B2FECDB4ACFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sLite</RootNamespace>
+    <AssemblyName>sLite</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="NCalc">
+      <HintPath>..\..\DLL\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analytic.cs" />
+    <Compile Include="AnalyticFormulas.cs" />
+    <Compile Include="AnalyticInput.cs" />
+    <Compile Include="AnalyticNodeInfo.cs" />
+    <Compile Include="AnalyticOutput.cs" />
+    <Compile Include="AnalyticSupport.cs" />
+    <Compile Include="Column.cs" />
+    <Compile Include="ConditionalFunction.cs" />
+    <Compile Include="SourceTableRelation.cs" />
+    <Compile Include="DataIntegration.cs" />
+    <Compile Include="Evaluator.cs" />
+    <Compile Include="ExpressionEvaluator.cs" />
+    <Compile Include="ExternalData.cs" />
+    <Compile Include="Function.cs" />
+    <Compile Include="FunctionInput.cs" />
+    <Compile Include="FunctionOutput.cs" />
+    <Compile Include="FunctionValue.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Information.cs" />
+    <Compile Include="KPI.cs" />
+    <Compile Include="KPIInput.cs" />
+    <Compile Include="KPIOutput.cs" />
+    <Compile Include="Label.cs" />
+    <Compile Include="LabelFunction.cs" />
+    <Compile Include="MapFunction.cs" />
+    <Compile Include="Metric.cs" />
+    <Compile Include="MetricInput.cs" />
+    <Compile Include="MetricOutput.cs" />
+    <Compile Include="NonLinearFunction.cs" />
+    <Compile Include="OutputManager.cs" />
+    <Compile Include="Rule.cs" />
+    <Compile Include="SimpleFunction.cs" />
+    <Compile Include="SkipAnalyticItem.cs" />
+    <Compile Include="Survey.cs" />
+    <Compile Include="TableFunction.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Util\uGovernIT.Util.Log\uGovernIT.Util.Log.csproj">
+      <Project>{15DE9399-0841-4B67-8818-1626AC32F3ED}</Project>
+      <Name>uGovernIT.Util.Log</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,2 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DocumentControlView.ascx.cs" Inherits="uGovernIT.Web.DocumentControlView" %>
+<iframe onload="callAfterFrameLoad(this)" scrolling="yes" src="<%=DocumentManagementUrl%>" width="100%" height="460" frameborder="0" id="<%=Guid.NewGuid()%>"></iframe>

@@ -1,0 +1,85 @@
+.bg {
+        background-color: #003366!important;
+      }
+#mycircle1:hover,#mycircle2:hover,#mycircle3:hover,#mycircle4:hover,#mycircle5:hover,#mycircle6:hover,#mycircle7:hover,
+#mycircle8:hover,#mycircle9:hover,#mycircle10:hover,#mycircle11:hover {
+  filter: brightness(0.25) !important;
+  fill:#000 !important;
+}
+#iconhover1:hover, #iconhover2:hover, #iconhover3:hover, #iconhover4:hover, #iconhover5:hover, #iconhover6:hover, 
+#iconhover7:hover, #iconhover8:hover, #iconhover9:hover, #iconhover10:hover, #iconhover11:hover {
+  /* cursor: pointer; */
+  filter: brightness(0.25) !important;
+  fill:#000 !important;
+}
+      .navbar-light .navbar-brand {
+        color: #fff !important;
+      }
+      .navbar-light .navbar-nav .nav-link {
+        color: #fff !important;
+        font-weight: 100;
+      }
+      /* .navbar-light .navbar-nav .show>.nav-link {
+        color: #fff;
+        font-weight: 200;
+      } */
+      .navbar-light .navbar-nav .active>.nav-link {
+        color: #fff !important;
+        font-weight: 200 !important;
+      }
+
+      .custom-toggler.navbar-toggler {
+        border-color: rgb(255,102,203);
+      }
+      .custom-toggler .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+      }
+
+      .my-auto-top {
+        margin-top: 0px !important;
+      }
+      .jumbotron {
+        background-color: transparent !important;
+        width: 100%;
+        padding: 0 !important;
+      }
+      .container-bg {
+        /*background: linear-gradient(#D8FE2B, #6DF7F2);*/
+      }
+      .fa {
+        color: #003366;
+      }
+      .mojFooter{
+        background-color: #003366;
+        color: #fff;
+        padding-top: 0px;
+        border-top: 1px solid #e7e7e7;
+        margin-bottom: 0px;
+        
+      }
+
+      .feedback {
+        background-color : #31B0D5;
+        color: white;
+        padding: 20px 20px;
+        border-radius: 50px;
+        border-color: #46b8da;
+      }
+
+      .mybutton {
+        position: fixed;
+        bottom: 20px;
+        right: 10px;
+      }
+
+.circleIcon:hover {
+    filter: brightness(0.25) !important;
+    fill: #000 !important;
+    cursor: pointer;
+}
+
+.svgicon:hover{
+    cursor: pointer;
+    filter: brightness(0.25) !important;
+    fill: #000 !important;
+}

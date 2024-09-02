@@ -1,0 +1,37 @@
+Select * from Opportunity where TenantID='35525396-E5FE-4692-9239-4DF9305B915B' and TicketId='OPM-16-001801'
+and TicketId in (
+Select TicketId from Opportunity where TenantID='35525396-E5FE-4692-9239-4DF9305B915B' group by TicketId
+having Count(1)>1
+) --and TicketId='OPM-16-001801'
+ 
+Select * from CRMServices where TenantID='35525396-E5FE-4692-9239-4DF9305B915B' and TicketId='CNS-17-002037'
+and TicketId in (
+Select TicketId from CRMServices where TenantID='35525396-E5FE-4692-9239-4DF9305B915B' group by TicketId
+having Count(1)>1
+)
+/* 
+Select * from Opportunity where   TenantID='35525396-E5FE-4692-9239-4DF9305B915B' 
+and id in (Select Min(Id) from Opportunity where TenantID='35525396-E5FE-4692-9239-4DF9305B915B' group by TicketId
+having Count(1)>1 
+)
+Select * FROM CRMServices
+WHERE TenantID = '35525396-E5FE-4692-9239-4DF9305B915B' --and TicketId='CNS-17-002037'
+  AND Id NOT IN (SELECT MAX(Id)  FROM CRMServices    WHERE TenantID = '35525396-E5FE-4692-9239-4DF9305B915B'
+    GROUP BY TicketId    
+  )and TicketId='CNS-17-002037';
+ 
+*/
+ 
+/*
+ 
+delete from Opportunity where   TenantID='35525396-E5FE-4692-9239-4DF9305B915B' 
+and id in (Select Min(Id) from Opportunity where TenantID='35525396-E5FE-4692-9239-4DF9305B915B' group by TicketId
+having Count(1)>1 
+)
+delete from CRMServices
+WHERE TenantID = '35525396-E5FE-4692-9239-4DF9305B915B' 
+  AND Id NOT IN (SELECT MAX(Id)  FROM CRMServices    WHERE TenantID = '35525396-E5FE-4692-9239-4DF9305B915B'
+    GROUP BY TicketId    
+  );
+ 
+*/

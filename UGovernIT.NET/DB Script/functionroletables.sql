@@ -1,0 +1,21 @@
+Create Table FunctionRole(ID bigint IDENTITY(1,1) NOT NULL,
+	Title nvarchar(250),
+	Description nvarchar(max),
+	[TenantID] [nvarchar](128) NULL,
+	[Created] [datetime] NOT NULL,
+	[Modified] [datetime] NOT NULL,
+	[CreatedByUser] [nvarchar](128) NOT NULL,
+	[ModifiedByUser] [nvarchar](128) NOT NULL,
+	[Deleted] [bit] NULL,
+	[Attachments] [nvarchar](2000) NULL)
+
+create table FunctionRoleMapping(ID bigint IDENTITY(1,1) NOT NULL, 
+	[FunctionId] bigint NOT NULL, 
+	[RoleId] nvarchar(128) NULL,
+	[TenantID] [nvarchar](128) NULL,
+	[Created] [datetime] NOT NULL,
+	[Modified] [datetime] NOT NULL,
+	[CreatedByUser] [nvarchar](128) NOT NULL,
+	[ModifiedByUser] [nvarchar](128) NOT NULL,
+	[Deleted] [bit] NULL,
+	[Attachments] [nvarchar](2000) NULL)

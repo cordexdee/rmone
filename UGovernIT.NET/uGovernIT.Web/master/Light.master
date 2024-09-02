@@ -1,0 +1,10 @@
+<%@ Master Language="C#" MasterPageFile="~/master/Root.master" AutoEventWireup="true" CodeBehind="Light.master.cs" Inherits="uGovernIT.Web.LightMaster" %>
+
+<%-- DXCOMMENT: Page Light.master is a master page for Account pages --%>
+<asp:Content ID="header" runat="server" ContentPlaceHolderID="PlaceHolderAdditionalPageHead">
+      <asp:ContentPlaceHolder ID="HeaderContent" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+      <asp:ContentPlaceHolder ID="ContentPlaceHolderContainer" runat="server">
+ </asp:ContentPlaceHolder>
+</asp:Content>

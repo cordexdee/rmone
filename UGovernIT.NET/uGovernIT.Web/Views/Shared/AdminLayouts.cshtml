@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @{
+        var AssemblyVersion = ViewBag.AssemblyVersion;
+    }
+
+    @Scripts.Render("~/bundles/commonjs")
+    @Scripts.Render("~/bundles/admin")
+    @Styles.Render("~/Content/adminfont")
+
+    @*<link href="~/Content/font-awesome.min.css" rel="stylesheet" />*@
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/uGITCommon.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/CSS/Admin/configure.css" rel="stylesheet" />
+    @*<link href="~/Content/font-awesome.min.css" rel="stylesheet" />*@
+    <link href="~/Content/CSS/Admin/bootstrapslider.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+    @*<script src="~/Scripts/uGITCommon.js"></script>
+        <script src="~/Scripts/uGITDashboard.js"></script>*@
+
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion + "'></script>", "~/Scripts/uGITCommon.js")
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion + "'></script>", "~/Scripts/uGITDashboard.js")
+
+    <style>
+        .icon_size {
+            height: 32px;
+            width: 32px;
+            display: block;
+            margin: auto;
+            opacity: 0.5;
+            filter: url(#icon-filter);
+            fill: rgb(115, 115, 158);
+        }
+
+        .icon_text {
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 0;
+            word-break: break-word;
+            white-space: normal;
+            text-align: center;
+            font-family: roboto;
+        }
+
+        .bar:hover {
+            cursor: pointer;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="uGovernItLogo" class="logo-container hidden-xs">
+            <img ID="imageugovernIilogo" src="/content/images/ugovernit_logo.png" Width="130" />
+        </div>
+       
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div style="padding-top: 10px;">
+        <footer>
+          
+        </footer>
+    </div>
+    <script>
+       
+    </script>
+</body>
+</html>
+@*<script src="~/Scripts/jquery-2.1.0.js"></script>*@
+<script src="~/Scripts/multislider.js"></script>
+
+<script>
+    $('#mixedSlider').multislider({
+        duration: 750,
+        interval: 3000
+    });
+    $('#mixedSlider2').multislider({
+        duration: 750,
+        interval: 3000
+    });
+    $('#mixedSlider3').multislider({
+        duration: 750,
+        interval: 3000
+    });
+    $('#mixedSlider4').multislider({
+        duration: 750,
+        interval: 3000
+    });
+</script>
+
+

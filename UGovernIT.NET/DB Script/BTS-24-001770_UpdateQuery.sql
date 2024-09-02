@@ -1,0 +1,1 @@
+UPDATE FieldConfiguration SET Data='Yes;#No;#Not Applicable' WHERE FieldName='ContractExecSumChoice'

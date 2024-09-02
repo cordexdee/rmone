@@ -1,0 +1,279 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.Master.cs" MasterPageFile="~/master/Root.Master" Inherits="uGovernIT.Web.MainMaster" %>
+
+<%@ Import Namespace="uGovernIT.Utility" %>
+<%@ Import Namespace="uGovernIT.Web.ControlTemplates.GlobalPage" %>
+<%@ Register Src="~/ControlTemplates/Shared/UGITFooter.ascx" TagPrefix="ugit" TagName="UGITFooter" %>
+<asp:Content ID="header" runat="server" ContentPlaceHolderID="PlaceHolderAdditionalPageHead">
+    <title id="txPageTitle" runat="server"></title>
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server"></asp:ContentPlaceHolder>
+
+</asp:Content>
+
+<%-- DXCOMMENT: Page Root.master is a master page that contains the root layout (it includes Header, Cental Area, and Footer) --%>
+<asp:Content ID="Contents" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript" data-v="<%=UGITUtility.AssemblyVersion %>">
+        var AssemblyVersion = '<%= AssemblyVersion %>';
+        var collapseAtWindowInnerWidth = 500;
+
+        function ShowWidgetPanel(widgetPanelUID) {
+            var panel = dockManager.GetPanelByUID(widgetPanelUID);
+            panel.Show();
+        }
+
+        function createControl(s, e) {
+            MainPaneCallbackPanel.PerformCallback("");
+        }
+
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <style type="text/css" data-v="<%=UGITUtility.AssemblyVersion %>">
+        .popup_wrap .leftSide_menuContainer {
+            display: none;
+        }
+
+        .dxpcextra-content {
+            width: 100% !important;
+        }
+
+        .AdditionCss {
+            /*margin-left: -10px !important;*/
+            height: auto !important;
+            background-color: #f6f7fb;
+        }
+
+        .hidefooter-container {
+            margin: 0px -12px;
+        }
+
+        .pointer {
+            cursor: pointer;
+            width: 107px;
+        }
+    </style>
+    <script data-v="<%=UGITUtility.AssemblyVersion %>">
+        $(document).ready(function () {
+            $(".homeRightPanel_wrap").parent().addClass("homeRightPanel_chartContainer");
+            $(".homeDb_gridContainer").parent().addClass("homeDb_grid");
+            SetWidthHeight();
+        });
+
+        function gotoDefaultAdminPage() {
+            window.location.href = "<%= defaultAdminPageUrl %>";
+        }
+    </script>
+
+    <div id="helpcardpopup"></div>
+    <div class="page-container">
+        <div class="col-md-12 col-sm-12 col-xs-12 xs_noPadding isPopup float-popup-xs main-page-section" id="main_page_section" runat="server">
+            <div class="row">
+                <!-- header-starts -->
+                <div class="header_bg" runat="server" id="headerPaneMain">
+                    <dx:ASPxPanel ID="HeaderPane" runat="server" ClientInstanceName="headerPane"
+                        CssClass="headerPane" Collapsible="false">
+                        <PanelCollection>
+                            <dx:PanelContent ID="panelcontent1" runat="server" SupportsDisabledAttribute="True">
+                                <ugit:SettingsMenuBar runat="server" ID="SettingsMenuBar" />
+                            </dx:PanelContent>
+                        </PanelCollection>
+                    </dx:ASPxPanel>
+                </div>
+                <!-- //header-ends -->
+            </div>
+            <div class="row">
+                <dx:ASPxPanel ID="homeCardPannel" runat="server" Width="100%">
+                    <PanelCollection>
+                        <dx:PanelContent ID="cardPannelContent" runat="server">
+                            <div class="col-md-12 col-sm-12 col-xs-12 title-sectionContainer" style="display: none;" runat="server" id="titleSectionContainer">
+                                <div class="title-sectionWrap">
+                                    <asp:Label CssClass="pageTitle" ID="pagetitle" runat="server" Visible="true" />
+                                    <div class="guide-container">
+                                        <a href="" runat="server" id="btnDefaultAdminPage" class="tenant-logo" onclick="gotoDefaultAdminPage()" visible="false">
+                                            <img src="/content/images/guid-back.png" width="12px" style="margin-right: 5px;" />Guide
+                                        </a>
+                                    </div>
+                                    <div class="tenantName-wrap">
+                                        <img src="/content/images/tenantLogo.png" class="tenant-logo" runat="server" id="tenantLogo" width="18"
+                                            style="margin-top: 3px; margin-right: 7px" visible="false" />
+                                        <asp:Label CssClass="tenantName" ID="accountName" runat="server" Visible="false" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <ugit:HomeCardView runat="server" ID="HomeCardView" Visible="false"></ugit:HomeCardView>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                </dx:ASPxPanel>
+                <div class="noPadding leftSide_menuContainer" id="dvSideBarMain" runat="server">
+                    <div class="dashboard_leftSideMenu cutom-menu" runat="server" id="dvSideBar">
+                        <span class="dashboard_logo hidden-xs">
+                            <dx:ASPxImage ID="imageugovernIilogo2" runat="server" CssClass="pointer">
+                                <ClientSideEvents Click="function(s, e){ window.location = '/'; }" />
+                            </dx:ASPxImage>
+                        </span>
+                        <div class="menu">
+                            <ugit:CustomMenuBar runat="server" ID="customTopMenu" />
+                            <ugit:FixedCustomMenuBar runat="server" ID="customBottomMenu" />
+                        </div>
+                    </div>
+                </div>
+                <div class="homeDashboard_leftcontent_wrap">
+                    <div class="inner-content">
+                        <!--content-->
+                        <div class="col-xs-12 col-md-12 col-sm-12 homeDashboard_content_wrap" style="padding-top: 0px !important; padding-bottom: 15px;">
+                            <asp:Panel ID="MainPane" runat="server" Width="100%">
+                                <asp:ContentPlaceHolder ID="ContentPlaceHolderContainer" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </asp:Panel>
+                        </div>
+                        <!--content-->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div>
+        <%--For sticky footer from bottom--%>
+        <dx:ASPxPanel ID="FooterPane" runat="server" ClientInstanceName="footerPane" CssClass="stickfooter" Visible="true">
+            <PanelCollection>
+                <dx:PanelContent runat="server" SupportsDisabledAttribute="True">
+                    <ugit:UGITFooter runat="server" ID="UGITFooter" />
+                </dx:PanelContent>
+            </PanelCollection>
+        </dx:ASPxPanel>
+    </div>
+
+    <%: Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion +"' ></script>", "/Scripts/bootstrap.min.js") %>
+    <%: Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion +"' ></script>", "/Scripts/Dashboard/dashboard.js") %>
+
+    <script type="text/javascript" data-v="<%=UGITUtility.AssemblyVersion %>">
+        $(document).ready(function () {
+            $('#ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1').addClass('menuContent_left');
+            $('.dashboardLeft_menuIcon img').click(function () {
+                $('.leftSideBottomMenu-container').toggleClass('hideBottomMenu');
+                $('.dashboardLeft_menuIcon.dxpnl-expanded').toggleClass("expandIcon")
+                $(".menuContent_left").toggleClass('menuContentCollaps_left');
+                $(".homeDashboard_menuListWrap").toggleClass('showMenu');
+                $(".leftSide_menuContainer").toggleClass("leftSide_menuExpandContainer");
+                $(".dashboard_leftSideMenu").toggleClass("dashboard_leftSideMenuExpand");
+                $(".homeDashboard_leftcontent_wrap").toggleClass("right-content")
+
+                if ($('#ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1').css('left') == "26px") {
+                    $('#ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1').attr('style', 'left:-4px !important');
+                } else {
+                    $('#ctl00_ctl00_MainContent_customTopMenu_ASPxPanel1').attr('style', 'left:26px !important');
+                }
+                $('.xs_noPadding').toggleClass("right_content");
+
+            });
+
+            /************Code for left side menu collapse************/
+            $('.dxnb-content').css("display", "none");
+            $('.dxWeb_nbCollapse_UGITNavyBlueDevEx').parent().css("display", "none");
+            $('.dxWeb_nbExpand_UGITNavyBlueDevEx').parent().css("display", "block");
+            $('.dxWeb_nbCollapse_UGITNavyBlueDevEx').click(function () {
+                var parent_li = $(this).parents().eq(1);
+                var parent_div = $(this).parent();
+                parent_div.css("display", "none");
+                parent_li.find('.dxnb-headerCollapsed').css("display", "block");
+                parent_li.find('.dxnb-content').css("display", "none");
+            });
+            $('.dxWeb_nbExpand_UGITNavyBlueDevEx').click(function () {
+                var parent_li = $(this).parents().eq(1);
+                var parent_div = $(this).parent();
+                parent_div.css("display", "none");
+                parent_li.find('.dxnb-header').css("display", "block");
+                parent_li.find('.dxnb-content').css("display", "block");
+            });
+        });
+    </script>
+    <script data-v="<%=UGITUtility.AssemblyVersion %>">
+        $(document).ready(function () {
+            if ($('.anchorRootMenuItem').parent().hasClass("selected-menuitem")) {
+                $('.selected-menuitem').parent().css("display", "block");
+                $('.selected-menuitem').parent().parent().find(".dxnb-headerCollapsed").css("display", "none");
+                $('.selected-menuitem').parent().parent().find(".dxnb-header").css("display", "block");
+            }
+        });
+    </script>
+
+    <script data-v="<%=UGITUtility.AssemblyVersion %>">
+        var toggle = true;
+        CheckIsPopup();
+        // function to check if page is from browser window or popup (as same layout is used for page & popup)
+        function CheckIsPopup() {
+            if (self.location != top.location) {
+                $('.isPopup').css('cssText', 'width: 100% !important');
+                $('.isPopup').addClass("popup_wrap");
+                $('.title-sectionContainer').toggleClass('titleSec-forPopup');
+            }
+        }
+    </script>
+
+    <table style="width: 100%;" runat="server" visible="false">
+        <tr>
+            <td colspan="2">
+                <dx:ASPxPanel ID="HeaderPane1" runat="server" FixedPosition="WindowTop" FixedPositionOverlap="true" ClientInstanceName="headerPane"
+                    CssClass="headerPane" Collapsible="true">
+
+                    <SettingsAdaptivity CollapseAtWindowInnerWidth="500" />
+                    <Styles>
+                        <Panel CssClass="panel"></Panel>
+                        <ExpandedPanel CssClass="expandedPanel"></ExpandedPanel>
+                        <ExpandBar CssClass="bar"></ExpandBar>
+                    </Styles>
+
+                    <ExpandBarTemplate>
+                        <div class="logo-containernew">
+                        </div>
+                    </ExpandBarTemplate>
+                    <PanelCollection>
+                        <dx:PanelContent ID="panelcontent" runat="server" SupportsDisabledAttribute="True">
+                            <div>
+                                <div id="uGovernItLogo" runat="server" class="logo-container hidden-xs">
+                                </div>
+                                <div id="menu" runat="server" style="float: left; padding-top: 3px;" class="cutom-menu">
+                                </div>
+                                <div style="float: right; padding-top: 3px;">
+                                    <div>
+                                        <div style="float: left; padding-left: 10px;">
+                                            <ugit:SettingsMenuBar runat="server" ID="SettingsMenuBar1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dx:PanelContent>
+                    </PanelCollection>
+                    <ClientSideEvents />
+                </dx:ASPxPanel>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; padding: 5px;" valign="top">
+                <dx:ASPxPanel ID="LeftPane" Visible="false" Height="100%" runat="server" ClientInstanceName="leftPane" CssClass="leftPane">
+                    <Styles>
+                        <Panel CssClass="panel  leftpanel"></Panel>
+                    </Styles>
+                    <PanelCollection>
+                        <dx:PanelContent runat="server" SupportsDisabledAttribute="True" CssClass="amar12345">
+                        </dx:PanelContent>
+                    </PanelCollection>
+
+                </dx:ASPxPanel>
+            </td>
+            <td style="width: 100%!important; padding: 5px; margin-left: 15px; vertical-align: top;" valign="top">
+                <asp:Panel ID="MainPane1" runat="server" Width="100%">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolderContainer1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </asp:Panel>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+
+</asp:Content>

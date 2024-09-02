@@ -1,0 +1,1401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C46D369D-B19F-414E-B251-DFDFF877A56A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>uGovernIT.Report</RootNamespace>
+    <AssemblyName>uGovernIT.Report</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>443</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bond, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Attributes, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.IO, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.JSON, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Runtime.CSharp.7.0.1\lib\net45\Bond.JSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Reflection, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Core, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Core.1.1.2\lib\net45\CacheManager.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Couchbase, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Couchbase.1.1.2\lib\net45\CacheManager.Couchbase.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Serialization.Bond, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Serialization.Bond.1.1.2\lib\net45\CacheManager.Serialization.Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Serialization.Json, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Serialization.Json.1.1.2\lib\net45\CacheManager.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Serialization.ProtoBuf, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Serialization.ProtoBuf.1.1.2\lib\net45\CacheManager.Serialization.ProtoBuf.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.SystemRuntimeCaching, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.SystemRuntimeCaching.1.1.2\lib\net45\CacheManager.SystemRuntimeCaching.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Web, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Web.1.1.2\lib\net45\CacheManager.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Couchbase.NetClient, Version=2.4.4.0, Culture=neutral, PublicKeyToken=05e9c6b5a9ec94c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\CouchbaseNetClient.2.4.4\lib\net45\Couchbase.NetClient.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.Designer.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeConverter.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v22.1.Web.WebForms, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v22.1.Web, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v22.1.Web.Mvc, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v22.1.Web.Mvc5, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v22.1.Wpf, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Drawing.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v22.1.UI, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DemoData.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DevAV.v22.1.Data, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DevAV.v22.1.Reports, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Diagram.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dialogs.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Docs.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.EasyTest.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.AuditTrail.Xpo.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Chart.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Chart.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v22.1.Drawing, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.Base.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Dashboards.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Dashboards.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.EF6.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Images.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Kpi.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Maps.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Objects.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Reports.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Reports.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Validation.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v22.1.Export, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataVisualization.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.TreeMap.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeMap.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Resources.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Dashboard.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Printing.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v22.1.UI, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v22.1.Web, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v22.1.Wizard, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v22.1.Extensions, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v22.1.Service, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v22.1.Web.WebForms, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v22.1.Web, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1.Reporting.Extensions, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1.Core.Desktop, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="IKVM.OpenJDK.Beans, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.OpenJDK.Beans.7.2.4630.5\lib\IKVM.OpenJDK.Beans.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.OpenJDK.Core.7.2.4630.5\lib\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.OpenJDK.Text.7.2.4630.5\lib\IKVM.OpenJDK.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.OpenJDK.Util.7.2.4630.5\lib\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.OpenJDK.XML.API.7.2.4630.5\lib\IKVM.OpenJDK.XML.API.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Parse, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.OpenJDK.XML.Parse.7.2.4630.5\lib\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime, Version=7.2.4630.5, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\IKVM.Runtime.7.2.4630.5\lib\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="SP.UGIT.Themes">
+      <HintPath>..\DLL\SP.UGIT.Themes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.4.3.1\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DataVisualization.Design" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap">
+      <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.3\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+    <Reference Include="wnvhtmlconvert">
+      <HintPath>..\DLL\wnvhtmlconvert.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Account\AddPhoneNumber.aspx" />
+    <Content Include="Account\Confirm.aspx" />
+    <Content Include="Account\Forgot.aspx" />
+    <Content Include="Account\Lockout.aspx" />
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\ManageLogins.aspx" />
+    <Content Include="Account\ManagePassword.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
+    <Content Include="BuildReport.aspx" />
+    <Content Include="Contact.aspx" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cancelwhite.png" />
+    <Content Include="Content\GanttChart1.png" />
+    <Content Include="Content\IMAGES\ajax-loader.gif" />
+    <Content Include="Content\IMAGES\calendarNew.png" />
+    <Content Include="Content\IMAGES\collapse-all.png" />
+    <Content Include="Content\IMAGES\document_down.png" />
+    <Content Include="Content\IMAGES\document_up.png" />
+    <Content Include="Content\IMAGES\edit-task-deliverable.png" />
+    <Content Include="Content\IMAGES\edit-task-receiveable.png" />
+    <Content Include="Content\IMAGES\email_send.png" />
+    <Content Include="Content\IMAGES\excel_icon.png" />
+    <Content Include="Content\IMAGES\expand-all.png" />
+    <Content Include="Content\IMAGES\Exportsave.png" />
+    <Content Include="Content\IMAGES\folder_download.png" />
+    <Content Include="Content\IMAGES\LED.png" />
+    <Content Include="Content\IMAGES\LED_Green.png" />
+    <Content Include="Content\IMAGES\LED_LightGreen.png" />
+    <Content Include="Content\IMAGES\LED_Orange.png" />
+    <Content Include="Content\IMAGES\LED_Red.png" />
+    <Content Include="Content\IMAGES\LED_Yellow.png" />
+    <Content Include="Content\IMAGES\milestone_icon.png" />
+    <Content Include="Content\IMAGES\minus.png" />
+    <Content Include="Content\IMAGES\next-page.png" />
+    <Content Include="Content\IMAGES\next.png" />
+    <Content Include="Content\IMAGES\pdf_icon.png" />
+    <Content Include="Content\IMAGES\plus.png" />
+    <Content Include="Content\IMAGES\prev-page.png" />
+    <Content Include="Content\IMAGES\prev.png" />
+    <Content Include="Content\IMAGES\print-icon.png" />
+    <Content Include="Content\IMAGES\print.png" />
+    <Content Include="Content\IMAGES\print_current.png" />
+    <Content Include="Content\IMAGES\save-open-new-wind.png" />
+    <Content Include="Content\IMAGES\searchNew.png" />
+    <Content Include="Content\IMAGES\ugovernit\Crossicon.jpg" />
+    <Content Include="Content\IMAGES\ugovernit\message_good.png" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\theme\base\jquery-ui.css" />
+    <Content Include="Content\theme\base\jquery-ui.min.css" />
+    <Content Include="Content\uGITCommon.css" />
+    <Content Include="Content\UgitNewUI.css" />
+    <Content Include="Content\uGITStageGraphic.css" />
+    <Content Include="Content\UGIT_GrayBG.css" />
+    <Content Include="DxReport\ApplicationReport\ApplicationReport_Filter.ascx" />
+    <Content Include="DxReport\ApplicationReport\ApplicationReport_Viewer.ascx" />
+    <Content Include="DxReport\BusinessStrategy\BusinessStrategy_Viewer.ascx" />
+    <Content Include="DxReport\BusinessUnitDistribution\BusinessUnitDistribution_Filter.ascx" />
+    <Content Include="DxReport\BusinessUnitDistribution\BusinessUnitDistribution_Viewer.ascx" />
+    <Content Include="DxReport\CombinedLostJobReport\CombinedLostJobReport_Filter.ascx" />
+    <Content Include="DxReport\CombinedLostJobReport\CombinedLostJobReport_Viewer.ascx" />
+    <Content Include="DxReport\EstimatedRemainingHoursReport\EstimatedRemainingHoursReport_Filter.ascx" />
+    <Content Include="DxReport\ExecutiveSummary\ExecutiveSummary_Filter.ascx" />
+    <Content Include="DxReport\ExecutiveSummary\ExecutiveSummary_Viewer.ascx" />
+    <Content Include="DxReport\GanttView\GanttView_Viewer.ascx" />
+    <Content Include="DxReport\GanttView\GanttView_Filter.ascx" />
+    <Content Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Viewer.ascx" />
+    <Content Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_SchedulerFilter.ascx" />
+    <Content Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Filter.ascx" />
+    <Content Include="DxReport\OnePagerReport\OnePagerReport_SchedulerFilter.ascx" />
+    <Content Include="DxReport\OnePagerReport\OnePagerReport_Filter.ascx" />
+    <Content Include="DxReport\OnePagerReport\OnePagerReport_Viewer.ascx" />
+    <Content Include="DxReport\ProjectActualsReport\ProjectActualsReport_Filter.ascx" />
+    <Content Include="DxReport\ProjectBudgetReport\ProjectBudgetReport_Filter.ascx" />
+    <Content Include="DxReport\ProjectByDueDate\ProjectByDueDate_Viewer.ascx" />
+    <Content Include="DxReport\ProjectPorFolioReport\ProjectPorFolioReport_Viewer.ascx" />
+    <Content Include="DxReport\ProjectReport\ProjectReport_SchedulerFilter.ascx" />
+    <Content Include="DxReport\ProjectReport\ProjectReport_Filter.ascx" />
+    <Content Include="DxReport\ProjectReport\ProjectReport_Viewer.ascx" />
+    <Content Include="DxReport\ProjectResourceReport\ProjectResourceReport_Filter.ascx" />
+    <Content Include="DxReport\ProjectStatusReport\ProjectStatusReport_Filter.ascx" />
+    <Content Include="DxReport\ProjectStatusReport\ProjectStatusReport_SchedulerFilter.ascx" />
+    <Content Include="DxReport\ProjectStatusReport\ProjectStatusReport_Viewer.ascx" />
+    <Content Include="DxReport\ResourceUsage\ResourceUsage_Viewer.ascx" />
+    <Content Include="DxReport\StudioSpecific\StudioSpecific_Filter.ascx" />
+    <Content Include="DxReport\StudioSpecific\StudioSpecific_Viewer.ascx" />
+    <Content Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Viewer.ascx" />
+    <Content Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_SchedulerFilter.ascx" />
+    <Content Include="DxReport\TaskSummary\TaskSummary.aspx" />
+    <Content Include="DxReport\TaskSummary\TaskSummary_Filter.ascx" />
+    <Content Include="DxReport\TaskSummary\TaskSummary_SchedulerFilter.ascx" />
+    <Content Include="DxReport\SummaryByTechnician\SummaryByTechnician_SchedulerFilter.ascx" />
+    <Content Include="DxReport\SummaryByTechnician\SummaryByTechnician_Filter.ascx" />
+    <Content Include="DxReport\TicketSummary\TicketSummary_Filter.ascx" />
+    <Content Include="DxReport\SummaryByTechnician\SummaryByTechnician_Viewer.ascx" />
+    <Content Include="DxReport\TicketSummary\TicketSummary_SchedulerFilter.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="DxReport\TicketSummary\TicketSummary_Viewer.ascx" />
+    <Content Include="DxReport\TSKProjectReportView\TSKProjectReportView_Filter.ascx" />
+    <Content Include="DxReport\TSKProjectReport\TSKProjectReport_Filter.ascx" />
+    <Content Include="DxReport\TSKProjectReport\TSKProjectReport_SchedulerFilter.ascx" />
+    <Content Include="DxReport\TSKProjectReport\TSKProjectReport_Viewer.ascx" />
+    <Content Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Filter.ascx" />
+    <Content Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_SchedulerFilter.ascx" />
+    <Content Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Viewer.ascx" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Account\Web.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Default.Master" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="SchedulerReport.aspx" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\interaction.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.tablednd.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\uGITCommon.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\WebForms\DetailsView.js" />
+    <Content Include="Scripts\WebForms\Focus.js" />
+    <Content Include="Scripts\WebForms\GridView.js" />
+    <Content Include="Scripts\WebForms\Menu.js" />
+    <Content Include="Scripts\WebForms\MenuStandards.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjax.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxApplicationServices.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxComponentModel.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxCore.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxGlobalization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxHistory.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxNetwork.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxSerialization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxTimer.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
+    <Content Include="Scripts\WebForms\SmartNav.js" />
+    <Content Include="Scripts\WebForms\TreeView.js" />
+    <Content Include="Scripts\WebForms\WebForms.js" />
+    <Content Include="Scripts\WebForms\WebParts.js" />
+    <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Site.Master" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Bundle.config" />
+    <Content Include="Site.Mobile.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AddPhoneNumber.aspx.cs">
+      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\AddPhoneNumber.aspx.designer.cs">
+      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Confirm.aspx.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Confirm.aspx.designer.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Forgot.aspx.cs">
+      <DependentUpon>Forgot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Forgot.aspx.designer.cs">
+      <DependentUpon>Forgot.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Lockout.aspx.cs">
+      <DependentUpon>Lockout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Lockout.aspx.designer.cs">
+      <DependentUpon>Lockout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ManageLogins.aspx.cs">
+      <DependentUpon>ManageLogins.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ManageLogins.aspx.designer.cs">
+      <DependentUpon>ManageLogins.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ManagePassword.aspx.cs">
+      <DependentUpon>ManagePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ManagePassword.aspx.designer.cs">
+      <DependentUpon>ManagePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ResetPasswordConfirmation.aspx.cs">
+      <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ResetPasswordConfirmation.aspx.designer.cs">
+      <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.cs">
+      <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.designer.cs">
+      <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BuildReport.aspx.cs">
+      <DependentUpon>BuildReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuildReport.aspx.designer.cs">
+      <DependentUpon>BuildReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Default.Master.cs">
+      <DependentUpon>Default.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.Master.designer.cs">
+      <DependentUpon>Default.Master</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ApplicationReport\ApplicationReportR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\ApplicationReport\ApplicationReportR.Designer.cs">
+      <DependentUpon>ApplicationReportR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ApplicationReport\ApplicationReport_Filter.ascx.cs">
+      <DependentUpon>ApplicationReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ApplicationReport\ApplicationReport_Filter.ascx.designer.cs">
+      <DependentUpon>ApplicationReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ApplicationReport\ApplicationReport_Viewer.ascx.cs">
+      <DependentUpon>ApplicationReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ApplicationReport\ApplicationReport_Viewer.ascx.designer.cs">
+      <DependentUpon>ApplicationReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\BusinessStrategy\BusinessStrategyDashboard.cs" />
+    <Compile Include="DxReport\BusinessStrategy\BusinessStrategy_Viewer.ascx.cs">
+      <DependentUpon>BusinessStrategy_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\BusinessStrategy\BusinessStrategy_Viewer.ascx.designer.cs">
+      <DependentUpon>BusinessStrategy_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\BusinessStrategy\ITG.cs" />
+    <Compile Include="DxReport\BusinessUnitDistribution\BusinessUnitDistribution_Filter.ascx.cs">
+      <DependentUpon>BusinessUnitDistribution_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\BusinessUnitDistribution\BusinessUnitDistribution_Filter.ascx.designer.cs">
+      <DependentUpon>BusinessUnitDistribution_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\BusinessUnitDistribution\BusinessUnitDistribution_Viewer.ascx.cs">
+      <DependentUpon>BusinessUnitDistribution_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\BusinessUnitDistribution\BusinessUnitDistribution_Viewer.ascx.designer.cs">
+      <DependentUpon>BusinessUnitDistribution_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\CombinedLostJobReport\CombinedLostJobReport_Filter.ascx.cs">
+      <DependentUpon>CombinedLostJobReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\CombinedLostJobReport\CombinedLostJobReport_Filter.ascx.designer.cs">
+      <DependentUpon>CombinedLostJobReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\CombinedLostJobReport\CombinedLostJobReport_Viewer.ascx.cs">
+      <DependentUpon>CombinedLostJobReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\CombinedLostJobReport\CombinedLostJobReport_Viewer.ascx.designer.cs">
+      <DependentUpon>CombinedLostJobReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\EstimatedRemainingHoursReport\ERHProjectTasks.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\EstimatedRemainingHoursReport\ERHProjectTasks.Designer.cs">
+      <DependentUpon>ERHProjectTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\EstimatedRemainingHoursReport\EstimatedRemainingHoursReport_Filter.ascx.cs">
+      <DependentUpon>EstimatedRemainingHoursReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\EstimatedRemainingHoursReport\EstimatedRemainingHoursReport_Filter.ascx.designer.cs">
+      <DependentUpon>EstimatedRemainingHoursReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ExecutiveSummary\ExecutiveSummary_Filter.ascx.cs">
+      <DependentUpon>ExecutiveSummary_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ExecutiveSummary\ExecutiveSummary_Filter.ascx.designer.cs">
+      <DependentUpon>ExecutiveSummary_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ExecutiveSummary\ExecutiveSummary_Viewer.ascx.cs">
+      <DependentUpon>ExecutiveSummary_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ExecutiveSummary\ExecutiveSummary_Viewer.ascx.designer.cs">
+      <DependentUpon>ExecutiveSummary_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\GanttView\GanttView_Viewer.ascx.cs">
+      <DependentUpon>GanttView_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\GanttView\GanttView_Viewer.ascx.designer.cs">
+      <DependentUpon>GanttView_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\GanttView\GanttView_Filter.ascx.cs">
+      <DependentUpon>GanttView_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\GanttView\GanttView_Filter.ascx.designer.cs">
+      <DependentUpon>GanttView_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\GanttView\ReportHelper.cs" />
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Viewer.ascx.cs">
+      <DependentUpon>NonPeakHoursPerformance_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Viewer.ascx.designer.cs">
+      <DependentUpon>NonPeakHoursPerformance_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Report.Designer.cs">
+      <DependentUpon>NonPeakHoursPerformance_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\HelpDeskPrfReportEntity.cs" />
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_SchedulerFilter.ascx.cs">
+      <DependentUpon>NonPeakHoursPerformance_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>NonPeakHoursPerformance_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Scheduler.cs" />
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Filter.ascx.cs">
+      <DependentUpon>NonPeakHoursPerformance_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Filter.ascx.designer.cs">
+      <DependentUpon>NonPeakHoursPerformance_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\CompactReportLegendSubReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\CompactReportLegendSubReport.Designer.cs">
+      <DependentUpon>CompactReportLegendSubReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\MultiViewPagerReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\MultiViewPagerReport.Designer.cs">
+      <DependentUpon>MultiViewPagerReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\OnePagerReportHelper.cs" />
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_SchedulerFilter.ascx.cs">
+      <DependentUpon>OnePagerReport_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>OnePagerReport_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_Filter.ascx.cs">
+      <DependentUpon>OnePagerReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_Filter.ascx.designer.cs">
+      <DependentUpon>OnePagerReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_Scheduler.cs" />
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_Viewer.ascx.cs">
+      <DependentUpon>OnePagerReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\OnePagerReport_Viewer.ascx.designer.cs">
+      <DependentUpon>OnePagerReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\ProjectCompactReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\ProjectCompactReport.Designer.cs">
+      <DependentUpon>ProjectCompactReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\ProjectCompactReportEntity.cs" />
+    <Compile Include="DxReport\OnePagerReport\ProjectCompact_Milestone_Subreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\OnePagerReport\ProjectCompact_Milestone_Subreport.Designer.cs">
+      <DependentUpon>ProjectCompact_Milestone_Subreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectActualsReport\ProjectActualsReport_Filter.ascx.cs">
+      <DependentUpon>ProjectActualsReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectActualsReport\ProjectActualsReport_Filter.ascx.designer.cs">
+      <DependentUpon>ProjectActualsReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectBudgetReport\ProjectBudgetReport_Filter.ascx.cs">
+      <DependentUpon>ProjectBudgetReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectBudgetReport\ProjectBudgetReport_Filter.ascx.designer.cs">
+      <DependentUpon>ProjectBudgetReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectByDueDate\ProjectByDueDate_Viewer.ascx.cs">
+      <DependentUpon>ProjectByDueDate_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectByDueDate\ProjectByDueDate_Viewer.ascx.designer.cs">
+      <DependentUpon>ProjectByDueDate_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectPorFolioReport\ProjectPorfolioReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectPorFolioReport\ProjectPorfolioReport.Designer.cs" />
+    <Compile Include="DxReport\ProjectPorFolioReport\ProjectPorFolioReport_Viewer.ascx.cs">
+      <DependentUpon>ProjectPorFolioReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectPorFolioReport\ProjectPorFolioReport_Viewer.ascx.designer.cs">
+      <DependentUpon>ProjectPorFolioReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectReport\NPRProjectReportEntity.cs" />
+    <Compile Include="DxReport\ProjectReport\PMMProjectReportHelper.cs" />
+    <Compile Include="DxReport\ProjectReport\DynamicReportBuilderHelper.cs" />
+    <Compile Include="DxReport\ProjectReport\ProjectReport_Scheduler.cs" />
+    <Compile Include="DxReport\ProjectReport\ProjectReport_SchedulerFilter.ascx.cs">
+      <DependentUpon>ProjectReport_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectReport\ProjectReport_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>ProjectReport_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectReport\ProjectReport_Filter.ascx.cs">
+      <DependentUpon>ProjectReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectReport\ProjectReport_Filter.ascx.designer.cs">
+      <DependentUpon>ProjectReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectReport\ProjectReport_Viewer.ascx.cs">
+      <DependentUpon>ProjectReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectReport\ProjectReport_Viewer.ascx.designer.cs">
+      <DependentUpon>ProjectReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectResourceReport\ProjectResourceReport_Filter.ascx.cs">
+      <DependentUpon>ProjectResourceReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectResourceReport\ProjectResourceReport_Filter.ascx.designer.cs">
+      <DependentUpon>ProjectResourceReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_Filter.ascx.cs">
+      <DependentUpon>ProjectStatusReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_Filter.ascx.designer.cs">
+      <DependentUpon>ProjectStatusReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_Scheduler.cs" />
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_SchedulerFilter.ascx.cs">
+      <DependentUpon>ProjectStatusReport_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>ProjectStatusReport_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_Viewer.ascx.cs">
+      <DependentUpon>ProjectStatusReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ProjectStatusReport\ProjectStatusReport_Viewer.ascx.designer.cs">
+      <DependentUpon>ProjectStatusReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ResourceUsage\ResourceUsage_Viewer.ascx.cs">
+      <DependentUpon>ResourceUsage_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\ResourceUsage\ResourceUsage_Viewer.ascx.designer.cs">
+      <DependentUpon>ResourceUsage_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\ResourceUsage\ResourceUsage_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\StudioSpecific\StudioSpecific_Filter.ascx.cs">
+      <DependentUpon>StudioSpecific_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\StudioSpecific\StudioSpecific_Filter.ascx.designer.cs">
+      <DependentUpon>StudioSpecific_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\StudioSpecific\StudioSpecific_Viewer.ascx.cs">
+      <DependentUpon>StudioSpecific_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\StudioSpecific\StudioSpecific_Viewer.ascx.designer.cs">
+      <DependentUpon>StudioSpecific_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Viewer.ascx.cs">
+      <DependentUpon>SurveyFeedbackReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Viewer.ascx.designer.cs">
+      <DependentUpon>SurveyFeedbackReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Report.Designer.cs">
+      <DependentUpon>SurveyFeedbackReport_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Scheduler.cs" />
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_SchedulerFilter.ascx.cs">
+      <DependentUpon>SurveyFeedbackReport_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>SurveyFeedbackReport_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_SurveyHelper.cs" />
+    <Compile Include="DxReport\TaskSummary\TaskSummary.aspx.cs">
+      <DependentUpon>TaskSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary.aspx.designer.cs">
+      <DependentUpon>TaskSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary_Filter.ascx.cs">
+      <DependentUpon>TaskSummary_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary_Filter.ascx.designer.cs">
+      <DependentUpon>TaskSummary_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary_Report.Designer.cs">
+      <DependentUpon>TaskSummary_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary_Scheduler.cs" />
+    <Compile Include="DxReport\TaskSummary\TaskSummary_SchedulerFilter.ascx.cs">
+      <DependentUpon>TaskSummary_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TaskSummary\TaskSummary_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>TaskSummary_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\ProjectSummary_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\ProjectSummary_Report.Designer.cs">
+      <DependentUpon>ProjectSummary_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_SchedulerFilter.ascx.cs">
+      <DependentUpon>SummaryByTechnician_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>SummaryByTechnician_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Filter.ascx.cs">
+      <DependentUpon>SummaryByTechnician_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Filter.ascx.designer.cs">
+      <DependentUpon>SummaryByTechnician_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Filter.ascx.cs">
+      <DependentUpon>TicketSummary_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Filter.ascx.designer.cs">
+      <DependentUpon>TicketSummary_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Viewer.ascx.cs">
+      <DependentUpon>SummaryByTechnician_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Viewer.ascx.designer.cs">
+      <DependentUpon>SummaryByTechnician_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_SchedulerFilter.ascx.cs">
+      <DependentUpon>TicketSummary_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>TicketSummary_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\ChartSubReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\ChartSubReport.Designer.cs">
+      <DependentUpon>ChartSubReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Report.Designer.cs">
+      <DependentUpon>TicketSummary_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\RequestSummaryReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\RequestSummaryReport.Designer.cs">
+      <DependentUpon>RequestSummaryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Report.Designer.cs">
+      <DependentUpon>SummaryByTechnician_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\SummaryByTechnician\TicketSummaryByPRPEntity.cs" />
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Viewer.ascx.cs">
+      <DependentUpon>TicketSummary_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Viewer.ascx.designer.cs">
+      <DependentUpon>TicketSummary_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\AccompolishmentReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\AccompolishmentReport.Designer.cs">
+      <DependentUpon>AccompolishmentReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\IssuesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\IssuesReport.Designer.cs">
+      <DependentUpon>IssuesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\KeyDeliverablesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\KeyDeliverablesReport.Designer.cs">
+      <DependentUpon>KeyDeliverablesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\KeyMileStone.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\KeyMileStone.Designer.cs">
+      <DependentUpon>KeyMileStone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\KeyReceivablesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\KeyReceivablesReport.Designer.cs">
+      <DependentUpon>KeyReceivablesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\MultiProReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\MultiProReport.Designer.cs">
+      <DependentUpon>MultiProReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\PlanReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\PlanReport.Designer.cs">
+      <DependentUpon>PlanReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\ProjectReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\ProjectReport.Designer.cs">
+      <DependentUpon>ProjectReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\ProjectReportHelper.cs" />
+    <Compile Include="DxReport\TSKProjectReport\ProjectTasks.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\ProjectTasks.Designer.cs">
+      <DependentUpon>ProjectTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\RiskReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\RiskReport.designer.cs">
+      <DependentUpon>RiskReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\SumGanttChartSubReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\SumGanttChartSubReport.Designer.cs">
+      <DependentUpon>SumGanttChartSubReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReportEntity.cs" />
+    <Compile Include="DxReport\TSKProjectReportView\TSKProjectReportView_Filter.ascx.cs">
+      <DependentUpon>TSKProjectReportView_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReportView\TSKProjectReportView_Filter.ascx.designer.cs">
+      <DependentUpon>TSKProjectReportView_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_Filter.ascx.cs">
+      <DependentUpon>TSKProjectReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_Filter.ascx.designer.cs">
+      <DependentUpon>TSKProjectReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_Scheduler.cs" />
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_SchedulerFilter.ascx.cs">
+      <DependentUpon>TSKProjectReport_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>TSKProjectReport_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_Viewer.ascx.cs">
+      <DependentUpon>TSKProjectReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\TSKProjectReport\TSKProjectReport_Viewer.ascx.designer.cs">
+      <DependentUpon>TSKProjectReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Filter.ascx.cs">
+      <DependentUpon>WeeklyTeamReport_Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Filter.ascx.designer.cs">
+      <DependentUpon>WeeklyTeamReport_Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_SchedulerFilter.ascx.cs">
+      <DependentUpon>WeeklyTeamReport_SchedulerFilter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_SchedulerFilter.ascx.designer.cs">
+      <DependentUpon>WeeklyTeamReport_SchedulerFilter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Viewer.ascx.cs">
+      <DependentUpon>WeeklyTeamReport_Viewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Viewer.ascx.designer.cs">
+      <DependentUpon>WeeklyTeamReport_Viewer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Report.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Report.Designer.cs">
+      <DependentUpon>WeeklyTeamReport_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Scheduler.cs" />
+    <Compile Include="DxReport\WeeklyTeamReport\WeeklyTeamPrfReportEntity.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ExportReport.cs" />
+    <Compile Include="Helpers\ReportHelper.cs" />
+    <Compile Include="DxReport\TicketSummary\TicketSummaryReportHelper.cs" />
+    <Compile Include="IJobScheduler.cs" />
+    <Compile Include="Intrastructure\IReportScheduler.cs" />
+    <Compile Include="Intrastructure\ReportScheduleFilterBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SchedulerReport.aspx.cs">
+      <DependentUpon>SchedulerReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SchedulerReport.aspx.designer.cs">
+      <DependentUpon>SchedulerReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="JobSchedulers\ReportAgentJobHelper.cs" />
+    <Compile Include="JobSchedulers\ReportAgentJobScheduler.cs" />
+    <Compile Include="DxReport\SummaryByTechnician\SummaryByTechnician_Scheduler.cs" />
+    <Compile Include="DxReport\TicketSummary\TicketSummary_Scheduler.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\IMAGES\ugovernit\upload\" />
+    <Folder Include="fonts\" />
+    <Folder Include="Layouts\uGovernIT\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uGovernIT.DAL\uGovernIT.DAL.csproj">
+      <Project>{efdb4ee9-af34-4c8f-aca8-38a4068d74a1}</Project>
+      <Name>uGovernIT.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uGovernIT.Manager\uGovernIT.Manager.csproj">
+      <Project>{bdb7f985-1e86-4096-beee-bb303169e11a}</Project>
+      <Name>uGovernIT.Manager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uGovernIT.Utility\uGovernIT.Utility.csproj">
+      <Project>{7cd0aade-ecb5-4ce6-9ece-c5d75ed67f2d}</Project>
+      <Name>uGovernIT.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\uGovernIT.Util.Cache\uGovernIT.Util.Cache.csproj">
+      <Project>{6ecff551-1203-4f1e-a4ce-7fdbcf979168}</Project>
+      <Name>uGovernIT.Util.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\uGovernIT.Util.Log\uGovernIT.Util.Log.csproj">
+      <Project>{15de9399-0841-4b67-8818-1626ac32f3ed}</Project>
+      <Name>uGovernIT.Util.Log</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DxReport\ApplicationReport\ApplicationReportR.resx">
+      <DependentUpon>ApplicationReportR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\EstimatedRemainingHoursReport\ERHProjectTasks.resx">
+      <DependentUpon>ERHProjectTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\NonPeakHoursPerformance\NonPeakHoursPerformance_Report.resx">
+      <DependentUpon>NonPeakHoursPerformance_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\OnePagerReport\CompactReportLegendSubReport.resx">
+      <DependentUpon>CompactReportLegendSubReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\OnePagerReport\MultiViewPagerReport.resx">
+      <DependentUpon>MultiViewPagerReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\OnePagerReport\ProjectCompactReport.resx">
+      <DependentUpon>ProjectCompactReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\OnePagerReport\ProjectCompact_Milestone_Subreport.resx">
+      <DependentUpon>ProjectCompact_Milestone_Subreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\ProjectPorFolioReport\ProjectPorfolioReport.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\ResourceUsage\ResourceUsage_Report.resx">
+      <DependentUpon>ResourceUsage_Report.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\SurveyFeedbackReport\SurveyFeedbackReport_Report.resx">
+      <DependentUpon>SurveyFeedbackReport_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TaskSummary\TaskSummary_Report.resx">
+      <DependentUpon>TaskSummary_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TicketSummary\ChartSubReport.resx">
+      <DependentUpon>ChartSubReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TicketSummary\ProjectSummary_Report.resx">
+      <DependentUpon>ProjectSummary_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TicketSummary\TicketSummary_Report.resx">
+      <DependentUpon>TicketSummary_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TicketSummary\RequestSummaryReport.resx">
+      <DependentUpon>RequestSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\SummaryByTechnician\SummaryByTechnician_Report.resx">
+      <DependentUpon>SummaryByTechnician_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\AccompolishmentReport.resx">
+      <DependentUpon>AccompolishmentReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\IssuesReport.resx">
+      <DependentUpon>IssuesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\KeyDeliverablesReport.resx">
+      <DependentUpon>KeyDeliverablesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\KeyMileStone.resx">
+      <DependentUpon>KeyMileStone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\KeyReceivablesReport.resx">
+      <DependentUpon>KeyReceivablesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\MultiProReport.resx">
+      <DependentUpon>MultiProReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\PlanReport.resx">
+      <DependentUpon>PlanReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\ProjectReport.resx">
+      <DependentUpon>ProjectReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\ProjectTasks.resx">
+      <DependentUpon>ProjectTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\RiskReport.resx">
+      <DependentUpon>RiskReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\TSKProjectReport\SumGanttChartSubReport.resx">
+      <DependentUpon>SumGanttChartSubReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxReport\WeeklyTeamReport\WeeklyTeamReport_Report.resx">
+      <DependentUpon>WeeklyTeamReport_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63682</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44300/report</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

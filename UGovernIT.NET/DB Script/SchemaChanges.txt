@@ -1,0 +1,256 @@
+-- Add Column AcquisitionCost 
+ALTER TABLE CRMServices ADD AcquisitionCost float
+
+-- Set Default Value
+UPDATE CRMServices SET AcquisitionCost = 0
+
+
+
+// Added By Anurag on 02-06-2023
+EXEC sp_rename 'dbo.PMM.ITManager', 'ITManagerUser', 'COLUMN';
+GO
+ALTER TABLE PMM
+ALTER COLUMN PctComplete float;
+
+
+-- Column Added by Inderjeet Kaur on 9 Jun, 2023
+ALTER TABLE DMSDirectory
+ADD OwnerUser NVARCHAR (MAX) NULL
+
+
+
+-- 
+-- Script added by Inderjeet Kaur on 20 Sep 2023 for BTS-23-001359: Missing Division
+-- Update DivisionLookup for the records as per the StudioLookup
+
+Declare @tenantID nvarchar(128) = '35525396-E5FE-4692-9239-4DF9305B915B'
+--CPR
+update C set C.DivisionLookup=s.DivisionLookup
+from CRMProject C inner join Studio s
+on C.StudioLookup = s.ID
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+--CNS
+update C set C.DivisionLookup=s.DivisionLookup
+from CRMservices C inner join Studio s
+on C.StudioLookup = s.ID
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+-- Opportunity
+update C set C.DivisionLookup=s.DivisionLookup
+from Opportunity C inner join Studio s
+on C.StudioLookup = s.ID
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+
+-- Script added by Inderjeet Kaur on 27 Sep 2023 for BTS-23-001359
+Update CRMProject
+Set SignedNDA = 0
+where SignedNDA is null
+
+
+-- Manish Kumar on 4 Oct 2023
+alter table LEAD add [DivisionLookup]  BIGINT  NULL
+
+
+
+-- Script added by Inderjeet Kaur on 5 Oct 2023 for BTS-23-001391
+UPDATE FieldConfiguration
+SET ParentFieldName = 'Description'
+WHERE FieldName = 'StudioLookup'
+GO
+
+
+-- Script added by Inderjeet Kaur on 5 Oct 2023 for BTS-23-001358
+Update Lead
+SET 
+	DivisionLookup = (SELECT ID FROM CompanyDivisions WHERE Title = 'Silicon Valley')
+WHERE CRMBusinessUnitChoice like '%Palo Alto%' 
+
+Update Lead
+SET 
+	DivisionLookup = (SELECT ID FROM CompanyDivisions WHERE Title = 'Silicon Valley')
+WHERE CRMBusinessUnitChoice LIKE '%Silicon Valley%' 
+
+Update Lead
+SET 
+	DivisionLookup = (SELECT ID FROM CompanyDivisions WHERE Title = 'San Francisco')
+WHERE CRMBusinessUnitChoice like '%Service%' 
+
+Update Lead
+SET 
+	DivisionLookup = (SELECT ID FROM CompanyDivisions WHERE Title = 'San Francisco')
+WHERE CRMBusinessUnitChoice like '%Structures%' 
+
+Update Lead
+SET 
+	DivisionLookup = (SELECT ID FROM CompanyDivisions WHERE Title = 'San Francisco')
+WHERE CRMBusinessUnitChoice LIKE '%San Francisco%' 
+
+Update Lead
+SET 
+	DivisionLookup = (SELECT ID FROM CompanyDivisions WHERE Title = 'Los Angeles')
+WHERE CRMBusinessUnitChoice LIKE '%Southern California%' 
+GO
+
+
+
+-- BTS-23-001312: Insert Director User Group to open Director page.
+INSERT INTO [dbo].[AspNetRoles]
+			([Id]
+		   ,[Name]
+           ,[Title]
+           ,[Description]
+           ,[Discriminator]
+           ,[IsSystem]
+           ,[RoleType]
+           ,[TenantID]
+           ,[Created]
+           ,[Modified]
+           ,[CreatedByUser]
+           ,[ModifiedByUser]
+           ,[Deleted]
+           ,[Attachments]
+           ,[LandingPage])
+     VALUES
+           (NEWID()
+		   ,'Director'
+           ,'Director'
+           ,'Director Page'
+           ,'Director'
+           ,0
+           ,0
+           ,'35525396-e5fe-4692-9239-4df9305b915b'
+           ,Getdate()
+           ,Getdate()
+           ,'00000000-0000-0000-0000-000000000000'
+           ,'00000000-0000-0000-0000-000000000000'
+           ,0
+           ,NULL
+           ,'/Pages/Director View')
+GO
+
+
+-- ---------------------------------------------------------
+-- BTS-23-001312: Insert Director User Group to open Director page.
+
+INSERT INTO [dbo].[Config_PageConfiguration]
+           ([Title]
+           ,[Name]
+           ,[LeftMenuName]
+           ,[LeftMenuType]
+           ,[HideLeftMenu]
+           ,[HideTopMenu]
+           ,[HideHeader]
+           ,[TopMenuName]
+           ,[TopMenuType]
+           ,[HideSearch]
+           ,[HideFooter]
+           ,[ControlInfo]
+           ,[LayoutInfo]
+           ,[TenantID]
+           ,[RootFolder]
+           ,[Created]
+           ,[Modified]
+           ,[CreatedByUser]
+           ,[ModifiedByUser]
+           ,[Deleted]
+           ,[Attachments])
+     VALUES
+           ('Director View'
+           ,'Director View'
+           ,null
+           ,null
+           ,0
+           ,0
+           ,0
+           ,null
+           ,null
+           ,0
+           ,0
+           ,'<?xml version="1.0" encoding="utf-16"?><ArrayOfDockPanelSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><DockPanelSetting><AssemblyName>uGovernIT.Web.ControlTemplates.DockPanels.DirectorViewDockPanel</AssemblyName><ControlID>60e3199f-3f51-4543-9d76-a14a6e7a7565_DockPanel_</ControlID><ShowTitle>false</ShowTitle><PanelOrder>0</PanelOrder><ShowCompactRows>false</ShowCompactRows><ShowBandedRows>false</ShowBandedRows></DockPanelSetting></ArrayOfDockPanelSetting>'
+           ,'{''testPanel'':[true,''DockedOnly'',''LeftZone'','''','''',0,0,0],''60e3199f-3f51-4543-9d76-a14a6e7a7565_DockPanel_'':[true,''All'',''LeftZone'',''275px'','''',0,0,0]}'
+           ,'35525396-e5fe-4692-9239-4df9305b915b'
+           ,'Pages'
+           ,getdate()
+           ,getdate()
+           ,'00000000-0000-0000-0000-000000000000'
+           ,'00000000-0000-0000-0000-000000000000'
+           ,0
+           ,null)
+GO
+
+INSERT INTO [dbo].[LandingPages]
+           ([Id]
+           ,[Name]
+           ,[Description]
+           ,[LandingPage]
+           ,[TenantID]
+           ,[Created]
+           ,[Modified]
+           ,[CreatedByUser]
+           ,[ModifiedByUser]
+           ,[Deleted]
+           ,[Attachments])
+     VALUES
+           (NEWID()
+           ,'Director'
+           ,''
+           ,'/Pages/UserEntryPage'
+           ,'35525396-e5fe-4692-9239-4df9305b915b'
+           ,GETDATE()
+           ,GETDATE()
+           ,'00000000-0000-0000-0000-000000000000'
+           ,'00000000-0000-0000-0000-000000000000'
+           ,0
+           ,null)
+
+
+GO
+
+
+
+-- ------------------------------------------------------------------------------------
+-- Correct NonChargeable col in ResourceAllocation for existing records: BTS-23-001312
+-- ------------------------------------------------------------------------------------
+UPDATE RA SET RA.NonChargeable = P.NonChargeable
+FROM ResourceAllocation RA INNER JOIN ProjectEstimatedAllocation P
+ON RA.TicketId = P.TicketId
+WHERE RA.TENANTID='35525396-e5fe-4692-9239-4df9305b915b'  
+AND P.TENANTID='35525396-e5fe-4692-9239-4df9305b915b' 
+
+
+-- BTS-22-000941: Preconstruction Contract Flag
+-- Add Column HasPreconstructionContract 
+ALTER TABLE CRMProject
+ADD HasPreconstructionContract BIT DEFAULT 0;
+
+ALTER TABLE Opportunity
+ADD HasPreconstructionContract BIT DEFAULT 0;
+
+ALTER TABLE CRMServices
+ADD HasPreconstructionContract BIT DEFAULT 0;
+
+
+// Added by Anurag
+BTS-23-001462: Enable/Disable CRM functions
+
+alter table Config_Modules
+add EnableAddNewButton bit
+update  Config_Modules set EnableAddNewButton=1
+
+
+
+
+
+
+BTS-24-001772: Delete Tickets not completely deleting data, leaving orphans
+
+ALTER TABLE ModuleMonthlyBudget
+ADD BudgetCategoryLookup bigint;
+
+ALTER TABLE ModuleBudgetActuals
+ADD BudgetItem varchar(250);
+
+ALTER TABLE ModuleBudgetActuals
+ADD DepartmentLookup bigint;

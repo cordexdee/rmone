@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props" Condition="Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7CD0AADE-ECB5-4CE6-9ECE-C5D75ED67F2D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>uGovernIT.Utility</RootNamespace>
+    <AssemblyName>uGovernIT.Utility</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.0.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard" />
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.5.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.5.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlClient, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.4.0\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Interactive.Async, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.1.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Expressions.4.1.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.1.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.1.2\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.1.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DockPanelSetting\Applicationuptimesetting.cs" />
+    <Compile Include="DockPanelSetting\DashboardReportPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\DashboardSLADockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\DashboardDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\DockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\HomeCardGridPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\HomeCardPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\HomeDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\LinkPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\MessageboardDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\ModuleWebpartDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\ReportDockPanelsetting.cs" />
+    <Compile Include="DockPanelSetting\RMMDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\LandingPageDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\ServiceDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\SuperAdminDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\TaskDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\TicketDockPanelSetting.cs" />
+    <Compile Include="DockPanelSetting\TicketCountTrendsDocPanelSetting.cs" />
+    <Compile Include="Entities\ActualHourHelper.cs" />
+    <Compile Include="Entities\Common\AddHelpCardModel.cs" />
+    <Compile Include="Entities\Common\AddWikiRequestModel.cs" />
+    <Compile Include="Entities\Common\AgentsDto.cs" />
+    <Compile Include="Entities\Common\AgentSummary.cs" />
+    <Compile Include="Entities\Common\Allocation.cs" />
+    <Compile Include="Entities\Common\BusinessStrategy.cs" />
+    <Compile Include="Entities\Common\GlobalRole.cs" />
+    <Compile Include="Entities\Common\HelpCardResponse.cs" />
+    <Compile Include="Entities\Common\LeadUser.cs" />
+    <Compile Include="Entities\Common\LoadOptions.cs" />
+    <Compile Include="Entities\Common\LeadUser.cs" />
+    <Compile Include="Entities\Common\ProjectComparisonScore.cs" />
+    <Compile Include="Entities\Common\Node.cs" />
+    <Compile Include="Entities\Common\ResetPasswordAgent.cs" />
+    <Compile Include="Entities\Common\StatusSummary.cs" />
+    <Compile Include="Entities\Common\Studio.cs" />
+    <Compile Include="Entities\Common\TenantConstraints.cs" />
+    <Compile Include="Entities\Common\TenantScheduler.cs" />
+    <Compile Include="Entities\Common\UpdateResult.cs" />
+    <Compile Include="Entities\Common\UserHistoryProfile.cs" />
+    <Compile Include="Entities\Common\UserInfoRequestModel.cs" />
+    <Compile Include="Entities\Common\WidgetRunResponse.cs" />
+    <Compile Include="Entities\Common\WikiArticlesResponse.cs" />
+    <Compile Include="Entities\Common\WikiCategory.cs" />
+    <Compile Include="Entities\Common\WikiDetailsResponse.cs" />
+    <Compile Include="Entities\Common\WikiDiscussionRequestModel.cs" />
+    <Compile Include="Entities\Common\WikiDiscussionResponse.cs" />
+    <Compile Include="Entities\Common\WikiLinksRequestModel.cs" />
+    <Compile Include="Entities\Common\WikiParams.cs" />
+    <Compile Include="Entities\Common\WikiParentNode.cs" />
+    <Compile Include="Entities\Common\WikiPermission.cs" />
+    <Compile Include="Entities\Common\WikiRelatedTicket.cs" />
+    <Compile Include="Entities\Common\WikiRequestType.cs" />
+    <Compile Include="Entities\Common\WikiSubCategory.cs" />
+    <Compile Include="Entities\Common\WikiTree.cs" />
+    <Compile Include="Entities\Common\WorkItemHours.cs" />
+    <Compile Include="Entities\DB\Agents.cs" />
+    <Compile Include="Entities\DB\AnalyticCredential.cs" />
+    <Compile Include="Entities\DB\ApplicationRegistrationRequest.cs" />
+    <Compile Include="Entities\DB\StatisticsConfiguration.cs" />
+    <Compile Include="Entities\DB\Statistics.cs" />
+    <Compile Include="Entities\DB\AssetIncidentRelations.cs" />
+    <Compile Include="Entities\DB\BackgroundProcessStatus.cs" />
+    <Compile Include="Entities\DB\CheckListRoles.cs" />
+    <Compile Include="Entities\DB\CheckListRoleTemplates.cs" />
+    <Compile Include="Entities\DB\CheckLists.cs" />
+    <Compile Include="Entities\DB\CheckListTasks.cs" />
+    <Compile Include="Entities\DB\CheckListTaskStatus.cs" />
+    <Compile Include="Entities\DB\CheckListTaskTemplates.cs" />
+    <Compile Include="Entities\DB\CheckListTemplates.cs" />
+    <Compile Include="Entities\DB\EmployeeType.cs" />
+    <Compile Include="Entities\DB\ExperiencedTag.cs" />
+    <Compile Include="Entities\DB\FunctionRole.cs" />
+    <Compile Include="Entities\DB\FunctionRoleMapping.cs" />
+    <Compile Include="Entities\DB\HelpCard.cs" />
+    <Compile Include="Entities\DB\HelpCardContent.cs" />
+    <Compile Include="Entities\DB\ProjectSimilarityMetrics.cs" />
+    <Compile Include="Entities\DB\ServiceUpdates_Master.cs" />
+    <Compile Include="Entities\DB\SubContractor.cs" />
+    <Compile Include="Entities\DB\TicketCountTrends.cs" />
+    <Compile Include="Entities\DB\TicketEvents.cs" />
+    <Compile Include="Entities\DB\CRMActivities.cs" />
+    <Compile Include="Entities\DB\ProjectEstimatedAllocation.cs" />
+    <Compile Include="Entities\DB\CRMRelationshipType.cs" />
+    <Compile Include="Entities\DB\DecisionLogHistory.cs" />
+    <Compile Include="Entities\DB\DMDocumentTypeList.cs" />
+    <Compile Include="Entities\DB\JobTitle.cs" />
+    <Compile Include="Entities\DB\LandingPages.cs" />
+    <Compile Include="Entities\DB\LeadCriteria.cs" />
+    <Compile Include="Entities\DB\LeadRanking.cs" />
+    <Compile Include="Entities\DB\LinkView.cs" />
+    <Compile Include="Entities\DB\LinkCategory.cs" />
+    <Compile Include="Entities\DB\LinkItems.cs" />
+    <Compile Include="Entities\DB\GovernanceLinkItem.cs" />
+    <Compile Include="Entities\DB\AnalyticDashboards.cs" />
+    <Compile Include="Entities\DB\GovernanceLinkCategory.cs" />
+    <Compile Include="Entities\DB\AllocationItem.cs" />
+    <Compile Include="Entities\DB\HolidaysAndWorkdaysCalander.cs" />
+    <Compile Include="Entities\DB\ModuleBudgetsActualHistory.cs" />
+    <Compile Include="Entities\DB\ModuleMonitorOptionHistory.cs" />
+    <Compile Include="Entities\DB\ModuleMonthlyBudgetHistory.cs" />
+    <Compile Include="Entities\DB\ModuleTasksHistory.cs" />
+    <Compile Include="Entities\DB\Phrases.cs" />
+    <Compile Include="Entities\DB\BaseLineDetails.cs" />
+    <Compile Include="Entities\DB\ModuleBudgetHistory.cs" />
+    <Compile Include="Entities\DB\PMMCommentHistory.cs" />
+    <Compile Include="Entities\DB\ProjectAllocation.cs" />
+    <Compile Include="Entities\DB\ProjectAllocationTemplate.cs" />
+    <Compile Include="Entities\DB\ProjectComplexity.cs" />
+    <Compile Include="Entities\DB\ProjectMonitorStateHistory.cs" />
+    <Compile Include="Entities\DB\ProjectSimilarityConfig.cs" />
+    <Compile Include="Entities\DB\ProjectStageHistory.cs" />
+    <Compile Include="Entities\DB\ProjectStandardWorkItem.cs" />
+    <Compile Include="Entities\DB\RankingCriterias.cs" />
+    <Compile Include="Entities\DB\RelatedCompany.cs" />
+    <Compile Include="Entities\DB\ResourceProjectComplexity.cs" />
+    <Compile Include="Entities\DB\State.cs" />
+    <Compile Include="Entities\DB\SubLocation.cs" />
+    <Compile Include="Entities\DB\TenantRegistration.cs" />
+    <Compile Include="Entities\DB\UGITLog.cs" />
+    <Compile Include="Entities\DB\UserCertificates.cs" />
+    <Compile Include="Entities\DB\UserRoles.cs" />
+    <Compile Include="Entities\DB\UserProjectExperience.cs" />
+    <Compile Include="Entities\DB\WikiArticles.cs" />
+    <Compile Include="Entities\DB\WikiCategory.cs" />
+    <Compile Include="Entities\DB\RequestRoleWriteAccess.cs" />
+    <Compile Include="Entities\DB\ResourceAllocation.cs" />
+    <Compile Include="Entities\DB\ResourceAllocationMonthly.cs" />
+    <Compile Include="Entities\DB\Resources.cs" />
+    <Compile Include="Entities\DB\ResourceTimeSheet.cs" />
+    <Compile Include="Entities\DB\ResourceUsageSummaryMonthWise.cs" />
+    <Compile Include="Entities\DB\ResourceUsageSummaryWeekWise.cs" />
+    <Compile Include="Entities\DB\ResourceWorkItems.cs" />
+    <Compile Include="Entities\Common\SmtpConfiguration.cs" />
+    <Compile Include="Entities\ControlInfo.cs" />
+    <Compile Include="Entities\DashboardDockConfiguration.cs" />
+    <Compile Include="Entities\DB\ApplicationAccess.cs" />
+    <Compile Include="Entities\Common\ApplicationPasswordEntity.cs" />
+    <Compile Include="Entities\DB\ApplicationModule.cs" />
+    <Compile Include="Entities\DB\ApplicationRole.cs" />
+    <Compile Include="Entities\DB\ApplicationServer.cs" />
+    <Compile Include="Entities\DB\Assests.cs" />
+    <Compile Include="Entities\Common\EmailToTicketConfiguration.cs" />
+    <Compile Include="Entities\Dashboard\ChartCachedDataPoints.cs" />
+    <Compile Include="Entities\Dashboard\EditUrlEntity.cs" />
+    <Compile Include="Entities\Common\AssetIntegrationConfiguation.cs" />
+    <Compile Include="Entities\Common\CustomCollumns.cs" />
+    <Compile Include="Entities\Common\RoleModuleData.cs" />
+    <Compile Include="Entities\Common\ServiceData.cs" />
+    <Compile Include="Entities\Common\SolarwindAssetModel.cs" />
+    <Compile Include="Entities\DB\DecisionLog.cs" />
+    <Compile Include="Entities\DB\Documents.cs" />
+    <Compile Include="Entities\DB\Environment.cs" />
+    <Compile Include="Entities\DB\FieldAliasCollection.cs" />
+    <Compile Include="Entities\DB\InnerPageConfiguration.cs" />
+    <Compile Include="Entities\DB\ModuleStageConstraints.cs" />
+    <Compile Include="Entities\DB\PMMComment.cs" />
+    <Compile Include="Entities\DB\PMMEvents.cs" />
+    <Compile Include="Entities\DB\PMMIssue.cs" />
+    <Compile Include="Entities\DB\PMMRelease.cs" />
+    <Compile Include="Entities\DB\PPMRisks.cs" />
+    <Compile Include="Entities\DB\ProjectMonitorState.cs" />
+    <Compile Include="Entities\DB\ReportConfigData.cs" />
+    <Compile Include="Entities\DB\Sprint.cs" />
+    <Compile Include="Entities\DB\SprintSummary.cs" />
+    <Compile Include="Entities\DB\ModuleStageConstraintTemplates.cs" />
+    <Compile Include="Entities\DB\SprintTasks.cs" />
+    <Compile Include="Entities\DB\SurveyFeedback.cs" />
+    <Compile Include="Entities\DB\Tenant.cs" />
+    <Compile Include="Entities\DB\UserLogin.cs" />
+    <Compile Include="Entities\DB\UserRole.cs" />
+    <Compile Include="Entities\DB\Role.cs" />
+    <Compile Include="Entities\DB\ActualHour.cs" />
+    <Compile Include="Entities\DB\UserProfile.cs" />
+    <Compile Include="Entities\Common\ServiceMatrixData.cs" />
+    <Compile Include="Entities\DB\DBBaseEntity.cs" />
+    <Compile Include="Entities\DB\VendorSOWInvoiceDetail.cs" />
+    <Compile Include="Entities\DB\VendorType.cs" />
+    <Compile Include="Entities\DB\WikiContents.cs" />
+    <Compile Include="Entities\DB\WikiDiscussion.cs" />
+    <Compile Include="Entities\DB\WikiLinks.cs" />
+    <Compile Include="Entities\DB\WikiMenuLeftNavigation.cs" />
+    <Compile Include="Entities\DB\WikiReviews.cs" />
+    <Compile Include="Entities\DB\WorkflowSLASummary.cs" />
+    <Compile Include="Entities\DMSDB\DirectoryDetail.cs" />
+    <Compile Include="Entities\DMSDB\TenantDocumentsDetails.cs" />
+    <Compile Include="Entities\DMSDB\Access.cs" />
+    <Compile Include="Entities\DMSDB\aspnet_Application.cs" />
+    <Compile Include="Entities\DMSDB\aspnet_Membership.cs" />
+    <Compile Include="Entities\DMSDB\aspnet_Role.cs" />
+    <Compile Include="Entities\DMSDB\aspnet_User.cs" />
+    <Compile Include="Entities\DMSDB\aspnet_UsersInRole.cs" />
+    <Compile Include="Entities\DMSDB\Customer.cs" />
+    <Compile Include="Entities\DMSDB\DMSDirectory.cs" />
+    <Compile Include="Entities\DMSDB\Document.cs" />
+    <Compile Include="Entities\DMSDB\FileAuditLog.cs" />
+    <Compile Include="Entities\DMSDB\FilesDirectories.cs" />
+    <Compile Include="Entities\DMSDB\ResultsViewModel.cs" />
+    <Compile Include="Entities\DMSDB\StatusModel.cs" />
+    <Compile Include="Entities\DMSDB\TreeViewModel.cs" />
+    <Compile Include="Entities\DMSDB\UserAccessDetails.cs" />
+    <Compile Include="Entities\DMSDB\UsersFilesAuthorization.cs" />
+    <Compile Include="Entities\DMTenant.cs" />
+    <Compile Include="Entities\KanaBanTaskNode.cs" />
+    <Compile Include="Entities\ResourceTimeSheetSignOff.cs" />
+    <Compile Include="Entities\RmmCardsHelp.cs" />
+    <Compile Include="Entities\ReportMenu.cs" />
+    <Compile Include="Entities\Services\LookupValueServiceExtension.cs" />
+    <Compile Include="Entities\Services\SLAConfiguration.cs" />
+    <Compile Include="Entities\Services\QuestionMapVariable.cs" />
+    <Compile Include="Entities\Services\ServiceExtension.cs" />
+    <Compile Include="Entities\Services\ServiceInput.cs" />
+    <Compile Include="Entities\Services\ServiceQuestionInput.cs" />
+    <Compile Include="Entities\Services\ServiceRequest.cs" />
+    <Compile Include="Entities\Services\ServiceRequestInput.cs" />
+    <Compile Include="Entities\Services\ServiceResponseTreeNode.cs" />
+    <Compile Include="Entities\Services\ServiceSectionInput.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\DicExtensions.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPLookupValueServiceExtension.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\ServiceTask.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPFieldLookupValue.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPFieldUserValue.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPQuestionMapVariable.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServiceExtension.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServiceQuestion.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServiceQuestionMapping.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServices.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServiceSection.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServiceSectionCondition.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPServiceTaskCondition.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPSLAConfiguration.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPToDotNetImportHelper.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPUserLookupValue.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPVariableValue.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPWhereExpression.cs" />
+    <Compile Include="Entities\Services\SPToDotNetImport\SPUserInfo.cs" />
+    <Compile Include="Entities\Services\VariableValue.cs" />
+    <Compile Include="Entities\TicketDockConfiguration.cs" />
+    <Compile Include="Entities\UGITModuleTaskModel.cs" />
+    <Compile Include="Helpers\CAMLQueryHelper.cs" />
+    <Compile Include="Helpers\DBConstant.cs" />
+    <Compile Include="Helpers\DelegateControlsUrl.cs" />
+    <Compile Include="Helpers\EventArgsHelper.cs" />
+    <Compile Include="Entities\DB\Appointment.cs" />
+    <Compile Include="Entities\DB\BudgetActual.cs" />
+    <Compile Include="Entities\DB\BudgetCategory.cs" />
+    <Compile Include="Entities\DB\ClientAdminCategory.cs" />
+    <Compile Include="Entities\DB\ClientAdminConfigurationList.cs" />
+    <Compile Include="Entities\DB\Company.cs" />
+    <Compile Include="Entities\DB\CompanyDivision.cs" />
+    <Compile Include="Entities\DB\ConfigurationVariable.cs" />
+    <Compile Include="Entities\DB\Contact.cs" />
+    <Compile Include="Entities\Common\DataItem.cs" />
+    <Compile Include="Entities\DB\Department.cs" />
+    <Compile Include="Entities\DB\Email.cs" />
+    <Compile Include="Entities\DB\FieldConfiguration.cs" />
+    <Compile Include="Entities\DB\FunctionalArea.cs" />
+    <Compile Include="Entities\Common\HistoryEntry.cs" />
+    <Compile Include="Entities\Common\JsonUser.cs" />
+    <Compile Include="Entities\DB\Location.cs" />
+    <Compile Include="Entities\Common\LookupValue.cs" />
+    <Compile Include="Entities\DB\MailTokenColumnName.cs" />
+    <Compile Include="Entities\DB\MessageBoard.cs" />
+    <Compile Include="Entities\DB\ModuleBudget.cs" />
+    <Compile Include="Entities\DB\ModuleMonitorOption.cs" />
+    <Compile Include="Entities\DB\ModuleMonitor.cs" />
+    <Compile Include="Entities\DB\ModuleMonthlyBudget.cs" />
+    <Compile Include="Entities\Common\ModuleStatisticRequest.cs" />
+    <Compile Include="Entities\Common\ModuleStatisticResponse.cs" />
+    <Compile Include="Entities\DB\ModuleUserStatistic.cs" />
+    <Compile Include="Entities\DB\ModuleWorkflowHistory.cs" />
+    <Compile Include="Entities\Common\MonitorState.cs" />
+    <Compile Include="Entities\DB\NPRResource.cs" />
+    <Compile Include="Entities\Common\Organization.cs" />
+    <Compile Include="Entities\Common\ProjectTaskDependency.cs" />
+    <Compile Include="Entities\DB\SchedulerAction.cs" />
+    <Compile Include="Entities\DB\SchedulerActionArchive.cs" />
+    <Compile Include="Entities\DB\TabView.cs" />
+    <Compile Include="Entities\Common\TicketColumnError.cs" />
+    <Compile Include="Entities\Common\TicketColumnValue.cs" />
+    <Compile Include="Entities\DB\TicketRelation.cs" />
+    <Compile Include="Entities\DB\TicketRelationship.cs" />
+    <Compile Include="Entities\DB\TicketTemplate.cs" />
+    <Compile Include="Entities\Common\UGITAssignTo.cs" />
+    <Compile Include="Entities\DB\UGITTask.cs" />
+    <Compile Include="Entities\Common\UserInfo.cs" />
+    <Compile Include="Entities\Common\UserLookupValue.cs" />
+    <Compile Include="Entities\DB\UserSkill.cs" />
+    <Compile Include="Entities\Common\WhereExpression.cs" />
+    <Compile Include="Entities\DB\ChartFilter.cs" />
+    <Compile Include="Entities\DB\ChartFormula.cs" />
+    <Compile Include="Entities\Dashboard\ChartSetting.cs" />
+    <Compile Include="Entities\DB\ChartTemplate.cs" />
+    <Compile Include="Entities\Dashboard\DashboardFactTables.cs" />
+    <Compile Include="Entities\Dashboard\DashboardGroupViewItem.cs" />
+    <Compile Include="Entities\DB\DashboardPanelView.cs" />
+    <Compile Include="Entities\Dashboard\DashboardQuery.cs" />
+    <Compile Include="Entities\DB\DashboardSummary.cs" />
+    <Compile Include="Entities\Dashboard\Query.cs" />
+    <Compile Include="Entities\DB\Dashboard.cs" />
+    <Compile Include="Entities\DB\ACRType.cs" />
+    <Compile Include="Entities\DB\AssetModel.cs" />
+    <Compile Include="Entities\DB\AssetVendor.cs" />
+    <Compile Include="Entities\DB\DRQRapidType.cs" />
+    <Compile Include="Entities\DB\DRQSystemArea.cs" />
+    <Compile Include="Entities\DB\EventCategory.cs" />
+    <Compile Include="Entities\Modules\GenericTicketStatus.cs" />
+    <Compile Include="Entities\DB\LifeCycle.cs" />
+    <Compile Include="Entities\DB\LifeCycleStage.cs" />
+    <Compile Include="Entities\DB\MenuNavigation.cs" />
+    <Compile Include="Entities\Modules\MenuNavigationProperties.cs" />
+    <Compile Include="Entities\DB\ModuleColumn.cs" />
+    <Compile Include="Entities\DB\ModuleDefaultValue.cs" />
+    <Compile Include="Entities\DB\ModuleEscalationRule.cs" />
+    <Compile Include="Entities\DB\ModuleFormLayout.cs" />
+    <Compile Include="Entities\DB\ModuleFormTab.cs" />
+    <Compile Include="Entities\DB\ModuleImpact.cs" />
+    <Compile Include="Entities\DB\ModulePrioirty.cs" />
+    <Compile Include="Entities\DB\ModulePriorityMap.cs" />
+    <Compile Include="Entities\DB\ModuleRequestType.cs" />
+    <Compile Include="Entities\DB\ModuleRequestTypeLocation.cs" />
+    <Compile Include="Entities\DB\ModuleRoleWriteAccess.cs" />
+    <Compile Include="Entities\DB\Module.cs" />
+    <Compile Include="Entities\DB\ModuleSeverity.cs" />
+    <Compile Include="Entities\DB\ModuleSLARule.cs" />
+    <Compile Include="Entities\DB\ModuleStageType.cs" />
+    <Compile Include="Entities\DB\ModuleStatusMapping.cs" />
+    <Compile Include="Entities\DB\ModuleTaskEmail.cs" />
+    <Compile Include="Entities\DB\ModuleUserType.cs" />
+    <Compile Include="Entities\DB\PageConfiguration.cs" />
+    <Compile Include="Entities\DB\ProjectClass.cs" />
+    <Compile Include="Entities\DB\ProjectInitiative.cs" />
+    <Compile Include="Entities\DB\ProjectLifeCycle.cs" />
+    <Compile Include="Entities\Modules\ProjectLifecycleStages.cs" />
+    <Compile Include="Entities\DB\TaskTemplate.cs" />
+    <Compile Include="Entities\Modules\TaskTemplateItem.cs" />
+    <Compile Include="Entities\DB\WikiLeftNavigation.cs" />
+    <Compile Include="Entities\Reports\ApplicationReportEntity.cs" />
+    <Compile Include="Entities\Reports\ChartEntity.cs" />
+    <Compile Include="Entities\DB\ServiceCategory.cs" />
+    <Compile Include="Entities\DB\ServiceQuestion.cs" />
+    <Compile Include="Entities\Services\ServiceQuestionAnswer.cs" />
+    <Compile Include="Entities\DB\ServiceQuestionMapping.cs" />
+    <Compile Include="Entities\DB\Services.cs" />
+    <Compile Include="Entities\DB\ServiceSection.cs" />
+    <Compile Include="Entities\Services\ServiceSectionCondition.cs" />
+    <Compile Include="Entities\Services\ServiceTaskCondition.cs" />
+    <Compile Include="Helpers\DBConnection.cs" />
+    <Compile Include="Helpers\LinqUtilities.cs" />
+    <Compile Include="Helpers\ParameterRebuilder.cs" />
+    <Compile Include="Helpers\QueryBuilder.cs" />
+    <Compile Include="Helpers\ServiceTask.cs" />
+    <Compile Include="Helpers\SqlReaderUtils.cs" />
+    <Compile Include="Helpers\StringUtils.cs" />
+    <Compile Include="Helpers\UGITUtility.cs" />
+    <Compile Include="Integration\IntegrationConfig.cs" />
+    <Compile Include="Integration\SolarwindConfig.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\DatabaseObjects.cs" />
+    <Compile Include="Helpers\Enum.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Entities\DMSDB\packages.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Util\uGovernIT.Util.Log\uGovernIT.Util.Log.csproj">
+      <Project>{15DE9399-0841-4B67-8818-1626AC32F3ED}</Project>
+      <Name>uGovernIT.Util.Log</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props'))" />
+    <Error Condition="!Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets'))" />
+  </Target>
+  <Import Project="..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets" Condition="Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

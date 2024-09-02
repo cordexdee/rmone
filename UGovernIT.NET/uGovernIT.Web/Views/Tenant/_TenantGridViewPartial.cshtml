@@ -1,0 +1,148 @@
+@using uGovernIT.Manager;
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.CallbackRouteValues = new { Controller = "Tenant", Action = "TenantGridViewPartial" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Tenant", Action = "TenantGridViewPartialUpdate" };
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = true;
+        settings.KeyFieldName = "AccountID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+        settings.Columns.Add("AccountID").ReadOnly = true;
+        //settings.Columns.Add(column =>
+        //{
+        //    column.FieldName = "AccountID";
+        //    column.ColumnType = MVCxGridViewColumnType.HyperLink;
+        //    column.SetDataItemTemplateContent(container =>
+        //    {
+        //        Html.DevExpress().HyperLink(hlSettings =>
+        //        {
+        //            hlSettings.Name = string.Format("hl_{0}", (container as GridViewDataItemTemplateContainer).VisibleIndex);
+        //            hlSettings.NavigateUrl = "javascript:void(0)";
+        //            hlSettings.Properties.ClientSideEvents.Click = string.Format("function(s, e) {{ OnHyperLinkClick('{0}'); }}", (container as GridViewDataItemTemplateContainer).KeyValue.ToString());
+        //            hlSettings.Properties.Text = "Show Orders";
+        //        }).Render();
+        //    });
+        //});
+
+        settings.Columns.Add("TenantName");
+        settings.Columns.Add("TenantUrl");
+        settings.Columns.Add("Email");
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "IsOffice365Subscription";
+            column.Caption = "Office 365 Subscription";
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            column.HeaderStyle.Wrap = DefaultBoolean.True;
+            column.ReadOnly = false;
+        });
+
+        
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Name";
+            column.ReadOnly = true;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Title";
+            column.Caption = "Title";
+            column.ReadOnly = true;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Contact";
+            column.Caption = "Contact";
+            column.ReadOnly = true;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SelfRegisteredTenant";
+            column.Caption = "Is SelfRegistered";
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            column.HeaderStyle.Wrap = DefaultBoolean.False;
+            column.ReadOnly = true;
+        });
+
+
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Deleted";
+            column.Caption = "Deleted";
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            column.HeaderStyle.Wrap = DefaultBoolean.True;
+            column.ReadOnly = false;
+
+        });
+
+        settings.CellEditorInitialize = (sender, e) =>
+        {
+            ASPxGridViewEditorEventArgs gvEdit = (ASPxGridViewEditorEventArgs)e;
+            if (e.Column.FieldName == "Deleted" && Convert.ToString(e.KeyValue).ToLower() == ConfigHelper.DefaultTenant.ToLower())
+            {
+                e.Editor.ReadOnly = true;
+            }
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Created";
+            column.Caption = "Created Date";
+            column.ReadOnly = true;
+        });
+
+        //settings.CommandButtonInitialize = (sender, e) =>
+        //{
+        //    ASPxGridViewCommandButtonEventArgs gvCommandButton = (ASPxGridViewCommandButtonEventArgs)e;
+        //    e.Visible = !(e.VisibleIndex == 0);// for hide first row
+
+        //};
+        //    settings.ClientSideEvents.BeginCallback = "OnDetailGridBeginCallback";
+        //    settings.ClientSideEvents.EndCallback = "OnDetailGridEndCallback";
+    });
+}
+@grid.Bind(Model).GetHtml()
+
+@*<script>
+        var currentCustomerID;
+        function OnHyperLinkClick(customerID) {
+            currentCustomerID = customerID;
+            console.log(currentCustomerID);
+            GridView.PerformCallback();
+        }
+        function OnDetailGridBeginCallback(s, e) {
+            e.customArgs["_customerID"] = currentCustomerID;
+        }
+        function OnDetailGridEndCallback(s, e) {
+            if (!popup.IsVisible())
+                popup.Show();
+        }
+    </script>*@

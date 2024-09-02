@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @{
+        var AssemblyVersion = ViewBag.AssemblyVersion;
+    }
+
+
+    @Scripts.Render("~/bundles/commonjs")
+    @Scripts.Render("~/bundles/admin")
+    @Styles.Render("~/Content/admincss")
+    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/adminfont")*@
+    @Styles.Render("~/Content/commoncss")
+
+    @*<script src="~/Scripts/uGITCommon.js"></script>
+        <script src="~/Scripts/uGITDashboard.js"></script>*@
+
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion + "'></script>", "~/Scripts/uGITCommon.js")
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion + "'></script>", "~/Scripts/uGITDashboard.js")
+
+    <script src="~/Scripts/jquery-ui.custom.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/AdminCommon.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/Content/uGITCommon.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122813068-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-122813068-1');
+        </script>
+    </head>
+<body>
+     <div class="page-container">
+        <div class="col-md-12 col-sm-12 col-xs-12 noPadding">
+            <div class="row">
+                <div class="header">
+                    <div class="jumbotron homeDashboard_headerMenu_container">
+                        <div class="row homeDashboard_headerMenu_row">
+                            <div class="col-md-2 col-sm-3 col-xs-12 no-padding-xs xs-flex-menu">
+                                <div class="superAdmin-headerLogo">
+                                    <img ID="imageugovernIilogo" src="/Assets/Service_Prime_Logo.svg" Width="170" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row registration-tenantContainer">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div style="margin-top:20px;">
+            <footer>
+                @*<div ID="dvfooter" class="navbar navbar-inverse navbar-fixed-topn ugit-setfooterposition ">
+
+                        <div id="messagefooter" class="dxnb-itemHover" style="padding:5px;">
+                            <a href="http://ugovernit.com" target="_blank">
+                                <span style="float: left; padding-left: 5px; padding-right: 5px; padding-top: 11px;">
+                                    <img style="max-width: 80px;" src="/Content/Images/ugovernit_logo.png" alt="uGovernIT" border="0" />
+                                </span>
+                            </a>
+                            <span style="float: right" class="ugitfootercopyright">
+                                &copy;&nbsp;
+                                <span id="spanMessageBoard" style="color:white">uGovernIT © uGovernIT.com 2010-2018 v7.0  </span>
+                            </span>
+                        </div>
+
+                    </div>
+            </footer>
+        </div>*@
+    <script>
+        function footerMessageClick() {
+            try {
+                HideShowMessageBoard(this);
+                var height = $(".ms-core-tableNoSpace.ms-webpartPage-root").height() - $(".dashboard-panel").last().position().top;
+                $(".dashboard-panel").last().find("#linkID").css("height", height + "px");
+            }
+            catch (ex) {
+            }
+        }
+    </script>
+</body>
+</html>

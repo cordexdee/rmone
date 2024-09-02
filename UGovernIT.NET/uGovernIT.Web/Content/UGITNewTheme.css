@@ -1,0 +1,378 @@
+﻿.bottomBorder {
+    border-bottom: 2px #4FA1D6 solid;
+/*    margin-bottom: 10px;
+*/    margin-top: 5px;
+}
+
+.dxtcLite > .dxtc-stripContainer .dxtc-tab, .dxtcLite > .dxtc-stripContainer .dxtc-activeTab {
+    background-color: white;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.dxtcLite > .dxtc-stripContainer .dxtc-tab {
+    border: none;
+}
+
+    .dxtcLite > .dxtc-stripContainer .dxtc-tab a {
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+    }
+
+.dxtcLite > .dxtc-stripContainer .dxtc-activeTab {
+    border: 2px #4fa1d6 solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.dxtcLite > .dxtc-stripContainer .dxtc-activeTab a {
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+.dxtcLite > .dxtc-stripContainer .dxtc-link {
+    padding: 10px 12px 7px !important;
+    background-color: white !important;
+}
+
+.searchbar-right {
+    height: 40px;
+    display: grid;
+    align-items: center;
+}
+
+.left-side-filtered-item {
+    display: flex;
+    align-items: center;
+}
+
+.dxgvHeader_UGITNavyBlueDevEx {
+    background: white;
+}
+
+.homeGrid_headerColumn table td {
+    font-size: 14px;
+    font-weight: 900 !important;
+}
+
+.resourceAllocationBlue {
+    height: 41px;
+    width: 51px;
+    display: block;
+    border: 2px #4FA1D6 solid;
+    padding-top: 11px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 13px;
+    color: black;
+    float:left;
+}
+.resourceAllocationBlue-c {
+    height: 27px;
+    width: 39px;
+    display: block;
+    border: 2px #4FA1D6 solid;
+    padding-top: 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 11px;
+    color: black;
+    float: left;
+}
+.resourceAllocationRed {
+    height: 41px;
+    width: 51px;
+    display: block;
+    border: 2px red solid;
+    padding-top: 11px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 13px;
+    color: black;
+    float: left;
+}
+.resourceAllocationRed-c {
+    height: 27px;
+    width: 39px;
+    display: block;
+    border: 2px red solid;
+    padding-top: 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 11px;
+    color: black;
+    float: left;
+}
+.erpJobId-cmic-c {
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 12px;
+    background: #4fa1d6;
+    color: white;
+}
+.erpJobId-cmic {
+    padding: 11px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 14px;
+    background: #4fa1d6;
+    color: white;
+    text-align:center;
+}
+
+.bottomBorderZero {
+    border-bottom: 0px !important;
+}
+
+.ddlPopupMenuReportList .dxm-item .dxm-content img {
+    display: none !important;
+}
+
+.ddlCustomFilterActionMenu .dxm-item .dxm-content img {
+    display: none !important;
+}
+
+.export-icon-imgs-1 {
+    cursor: pointer;
+    width: 22px !important;
+    height: 22px !important;
+}
+
+.jqtooltip .tooltip {
+    top: inherit !important;
+    left: inherit !important;
+}
+
+.tooltip.fade {
+    font-size: 14px !important;
+}
+
+.svcDashboard_actionBtn-1 {
+    font-size: 13px !important ;
+    padding:7px !important;
+}
+
+.svcDashboard_actionBtn-1 .dx-vam {
+    font-weight: 600;
+}
+.customrowheight {
+    height: 55px !important;
+}
+.customrowheight-c {
+    height: 35px !important;
+}
+.dxtcLite_UGITNavyBlueDevEx .dxtc-stripContainer .dxtc-activeTab a {
+    color: black !important;
+    background-color: white;
+}
+
+.dxtcLite.dxtc-top > .dxtc-stripContainer {
+    padding-top: 0px !important;
+}
+.customFilteredTabStyle {
+    font-size:13px;
+    height:37px;
+}
+
+.devexpress-projectCard .cardouterbox {
+    padding-top: 30px;
+    border-radius: 25px !important;
+}
+
+.devexpress-projectCard .cardtitle {
+    display: flex;
+    margin: -30px 0px 0px 0px;
+    text-align: center;
+    background: #4fa1d6;
+    flex-direction: row;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-right: 12%;
+    margin-left: 12%;
+    font-size: 13px;
+    font-weight: 500;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 40px;
+    color: white;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.devexpress-projectCard .cardticket {
+    display: flex;
+    margin: 3px 0px 0px 0px;
+    margin-right: 12%;
+    margin-left: 12%;
+    font-size: 13px;
+    font-weight: 500;
+    padding-left: 7px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.devexpress-projectCard .cardallocation {
+    display: flex;
+    margin: -50px -22px 0px 0px;
+    font-size: 18px;
+    border: 2px solid;
+    font-weight: 500;
+    padding-left: 7px;
+    justify-content: space-around;
+    align-items: center;
+    float: right;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 26px;
+    height: 50px;
+    width: 50px;
+}
+
+.devexpress-projectCard .greenCircle {
+    border-color: #57a71d;
+    /*color: #57a71d;*/
+    color: black;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.devexpress-projectCard .blueCircle {
+    border-color: #4fa1d6;
+    /*color: #4fa1d6;*/
+    color: black;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.devexpress-projectCard .redCircle {
+    border-color: #ff3535;
+    /*color: #ff3535;*/
+    color: black;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.hidden-header {
+    display: none !important;
+}
+
+.devexpress-projectCard .commonLayouttr {
+    display: grid;
+    padding-bottom: 7px;
+}
+
+.devexpress-projectCard .commonLayout-parent {
+    display: inline-flex;
+    margin-bottom: 16px !important;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 10px;
+}
+
+.devexpress-projectCard .dxflGroupCell_UGITNavyBlueDevEx {
+    padding: 0 8px;
+}
+
+.dxcvControl_UGITNavyBlueDevEx .dxcvSeparator_UGITNavyBlueDevEx, .dxcvControl_UGITNavyBlueDevEx .dxcvSeparator_UGITNavyBlueDevEx div {
+    width: 24px;
+    height: 24px;
+}
+
+.dxcvTable_UGITNavyBlueDevEx {
+    padding-top: 40px;
+    padding-right: 30px;
+}
+
+.devexpress-projectCard tr td table.dxcvTable_UGITNavyBlueDevEx tr td.dxcvCard_UGITNavyBlueDevEx:hover {
+    transform: none !important;
+    transition: 0.3s all cubic-bezier(0.055, 0.62, 0.145, 0.5);
+}
+
+.dxcvControl_UGITNavyBlueDevEx, .dxcvDisabled_UGITNavyBlueDevEx {
+    border: 2px solid #4fa1d6;
+    border-top: 0px;
+}
+
+.dxcvCard_UGITNavyBlueDevEx .dxflCaption_UGITNavyBlueDevEx, .dxcvFlowCard_UGITNavyBlueDevEx .dxflCaption_UGITNavyBlueDevEx {
+    color: grey;
+}
+td.dxflNestedControlCell_UGITNavyBlueDevEx {
+    font-weight:500;
+}
+.preconClass {
+    border: 2px solid #52bed9 !important;
+}
+.constClass {
+    border: 2px solid #005c9b !important;
+}
+.constClass-1 {
+    border: 2px solid #351b82 !important;
+}
+.clousOutClass {
+    border: 2px solid #d9d9d9 !important;
+}
+.importExcelClass {
+    float:right;
+    margin-right: 15px;
+}
+.dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody {
+    display: inline-flex;
+}
+
+.dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody tr {
+    display: grid;
+    margin: 5px 20px 5px 5px;
+    text-align: center;
+}
+
+.dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody tr td:first-child {
+    color: grey;
+    text-transform: lowercase;
+    font-weight:400;
+}
+
+.dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody tr td:first-child:first-line {
+    text-transform: capitalize;
+}
+
+.dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody tr td:last-child {
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+@media only screen and (max-width: 1000px) {
+    .dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody {
+        display: list-item;
+        text-align: left;
+    }
+    .dxgvAdaptiveDetailRow_UGITNavyBlueDevEx table tbody tr {
+        text-align: left;
+    }
+}
+
+.svcDashboard_actionBtn-1 img {
+    transform: scale(1.4);
+    margin-left: 10px !important;
+    margin-top: 1px !important;
+}
+
+.alloctype {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-around;
+    align-items: center;
+}
+
+.dxgvControl_UGITNavyBlueDevEx a:hover {
+    text-decoration: none !important;
+}
+.m-desc-shortname {
+    font: 16px 'Roboto', sans-serif;
+    float: right;
+    margin-top: -10px;
+    font-weight: 500;
+}

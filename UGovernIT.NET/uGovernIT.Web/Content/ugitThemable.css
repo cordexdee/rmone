@@ -1,0 +1,548 @@
+﻿
+
+.width100{width:100%;}
+.bordercolps{border-collapse:collapse;}
+
+.progressbar
+{
+    background:url("/Content/images/progress_bar.png") repeat-x; height:15px;
+    color: black;
+    font-weight: lighter;
+}
+.emptyProgressBar
+{
+    background:url("/Content/images/progress_bar_empty.png") repeat-x; height:15px;
+    border:1px solid gray;
+}
+.progressbarhold
+{
+    background:url("/Content/images/progress_bar_hold.png") repeat-x; height:15px;
+}
+.ugitaccent1bgimg
+{
+    /* [RecolorImage(themeColor:"Accent1-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg2.png") repeat-x; height:25px;
+}
+.ugitaccent2bgimg
+{
+     /* [RecolorImage(themeColor:"Accent2-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg3.png") repeat-x; height:25px; 
+}
+.ugitaccent3bgimg
+{
+     /* [RecolorImage(themeColor:"Accent3-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg4.png") repeat-x; height:25px;
+}
+.ugitaccent4bgimg
+{
+     /* [RecolorImage(themeColor:"Accent4-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg5.png") repeat-x; height:25px;
+}
+.ugitaccent5bgimg
+{
+     /* [RecolorImage(themeColor:"Accent5-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg6.png") repeat-x; height:25px; 
+}
+.ugitaccent6bgimg
+{
+     /* [RecolorImage(themeColor:"Accent6-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg7.png") repeat-x; height:25px;
+}
+
+.ugitlight1bgimg
+{
+     /* [RecolorImage(themeColor:"Light1-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg1.png") repeat-x; height:25px;
+}
+
+.ugitaccent1bgimghover
+{
+    /* [RecolorImage(themeColor:"Accent1-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg2-hover.png") repeat-x; height:25px;
+}
+.ugitaccent2bgimghover
+{
+     /* [RecolorImage(themeColor:"Accent2-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg3-hover.png") repeat-x; height:25px; 
+}
+.ugitaccent3bgimghover
+{
+     /* [RecolorImage(themeColor:"Accent3-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg4-hover.png") repeat-x; height:25px;
+}
+.ugitaccent4bgimghover
+{
+     /* [RecolorImage(themeColor:"Accent4-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg5-hover.png") repeat-x; height:25px;
+}
+.ugitaccent5bgimghover
+{
+     /* [RecolorImage(themeColor:"Accent5-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg6-hover.png") repeat-x; height:25px; 
+}
+.ugitaccent6bgimghover
+{
+     /* [RecolorImage(themeColor:"Accent6-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg7-hover.png") repeat-x; height:25px;
+}
+
+.ugitlight1bgimghover
+{
+     /* [RecolorImage(themeColor:"Light1-Lightest",method:"Tinting")] */ background:url("/Content/images/tabbg1-hover.png") repeat-x; height:25px;
+}
+
+.ugitlight1bglightest {
+	/* [ReplaceColor(themeColor:"ContentAccent1")] */ background-color:#676767 !important;
+}
+
+.ugitlight1panel
+{
+    /* [ReplaceColor(themeColor:"ContentAccent1")] */ border:1px solid #676767 !important;
+}
+
+
+
+
+.ugittab1bg
+{
+      /* [RecolorImage(themeColor:"Light1-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg1.png") repeat-x !important;
+      /* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.9")] */ background-color:#676767;
+      
+}
+.ugittab2bg
+{
+      /* [RecolorImage(themeColor:"Accent1-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg2.png") repeat-x !important;
+      /* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.9")] */ background-color:#676767;
+}
+.ugittab3bg
+{
+      /* [RecolorImage(themeColor:"Accent2-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg3.png") repeat-x !important;
+       /* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.9")] */ background-color:#676767;
+}
+.ugittab4bg
+{
+      /* [RecolorImage(themeColor:"Accent3-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg4.png") repeat-x !important;
+       /* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.9")] */ background-color:#676767;
+}
+.ugittab5bg
+{
+      /* [RecolorImage(themeColor:"Accent4-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg5.png") repeat-x !important;
+       /* [ReplaceColor(themeColor:"Accent4-Lightest")] */ background-color:#676767;
+}
+.ugittab6bg
+{
+      /* [RecolorImage(themeColor:"Accent5-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg6.png") repeat-x !important;
+       /* [ReplaceColor(themeColor:"Accent5-Lightest")] */ background-color:#676767;
+
+}
+.ugittab7bg
+{
+      /* [RecolorImage(themeColor:"Accent6-Lightest",method:"filling")] */ background:url("/Content/images/ugovernit_bg7.png") repeat-x !important;
+       /* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.05")] */ background-color:#676767;
+
+}
+
+/*Dark1*/
+.ugitdark1lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.2")] */ background-color:#676767;
+}
+.ugitdark1lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.3")] */ background-color:#676767;
+}
+.ugitdark1medium {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.4")] */ background-color:#676767;
+}
+.ugitdark1 {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.5")] */ background-color:#676767;
+}
+.ugitdark1darker {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.6")] */ background-color:#676767;
+}
+.ugitdark1darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.7")] */ background-color:#676767;
+}
+
+
+/*Dark2*/
+
+.ugitdark2lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.2")] */ background-color:#676767;
+}
+.ugitdark2lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.3")] */ background-color:#676767;
+}
+.ugitdark2medium {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.4")] */ background-color:#676767;
+}
+.ugitdark2 {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.5")] */ background-color:#676767;
+}
+.ugitdark2darker {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.7")] */ background-color:#676767;
+}
+.ugitdark2darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.9")] */ background-color:#676767;
+}
+
+.ugitlight1lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.3")] */ background-color:#f8f8f8;
+}
+.ugitlight1medium {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.4")] */ background-color:#f8f8f8;
+}
+.ugitlight1 {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.5")] */ background-color:#f8f8f8;
+}
+.ugitlight1darker {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.7")] */ background-color:#f8f8f8;
+}
+.ugitlight1darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.9")] */ background-color:#f8f8f8;
+}
+
+/*Light2*/
+.ugitlight2lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.2")] */ background-color:#f8f8f8;
+}
+.ugitlight2lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.3")] */ background-color:#f8f8f8;
+}
+.ugitlight2medium {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.4")] */ background-color:#f8f8f8;
+}
+.ugitlight2 {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.5")] */ background-color:#f8f8f8;
+}
+.ugitlight2darker {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.7")] */ background-color:#f8f8f8;
+}
+.ugitlight2darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.9")] */ background-color:#f8f8f8;
+}
+
+/*Accent1*/
+.ugitaccent1lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent1",themeTint:"0.2")] */ background-color:#f8f8f8;
+}
+.ugitaccent1lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent1",themeTint:"0.3")] */ background-color:#f8f8f8;
+}
+.ugitaccent1medium {
+	/* [ReplaceColor(themeColor:"Accent1-Medium",themeTint:"0.4")] */ background-color:#f8f8f8;
+}
+.ugitaccent1 {
+	/* [ReplaceColor(themeColor:"ContentAccent1",themeTint:"0.5")] */ background-color:#f8f8f8;
+}
+.ugitaccent1darker {
+	/* [ReplaceColor(themeColor:"ContentAccent1",themeTint:"0.7")] */ background-color:#f8f8f8;
+}
+.ugitaccent1darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent1",themeTint:"0.9")] */ background-color:#f8f8f8;
+}
+
+/*Accent2*/
+.ugitaccent2lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.2")] */ background-color:#f8f8f8;
+}
+.ugitaccent2lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.3")] */ background-color:#f8f8f8;
+}
+.ugitaccent2medium {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.4")] */ background-color:#f8f8f8;
+}
+.ugitaccent2 {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.5")] */ background-color:#f8f8f8;
+}
+.ugitaccent2darker {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.7")] */ background-color:#f8f8f8;
+}
+.ugitaccent2darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent2",themeTint:"0.9")] */ background-color:#f8f8f8;
+}
+
+/*Accent3*/
+.ugitaccent3lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent3",themeTint:"0.2")] */ background-color:#f8f8f8;
+}
+.ugitaccent3lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent3",themeTint:"0.3")] */ background-color:#f8f8f8;
+}
+.ugitaccent3medium {
+	/* [ReplaceColor(themeColor:"ContentAccent3",themeTint:"0.4")] */ background-color:#f8f8f8;
+}
+.ugitaccent3 {
+	/* [ReplaceColor(themeColor:"ContentAccent3",themeTint:"0.5")] */ background-color:#f8f8f8;
+}
+.ugitaccent3darker {
+	/* [ReplaceColor(themeColor:"ContentAccent3",themeTint:"0.7")] */ background-color:#f8f8f8;
+}
+.ugitaccent3darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent3",themeTint:"0.9")] */ background-color:#f8f8f8;
+}
+
+/*Accent4*/
+.ugitaccent4lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.2")] */ background-color:#676767;
+}
+.ugitaccent4lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.3")] */ background-color:#676767;
+}
+.ugitaccent4medium {
+	/* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.4")] */ background-color:#676767;
+}
+.ugitaccent4 {
+	/* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.5")] */ background-color:#676767;
+}
+.ugitaccent4darker {
+	/* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.7")] */ background-color:#676767;
+}
+.ugitaccent4darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent4",themeTint:"0.9")] */ background-color:#676767;
+}
+
+/*Accent5*/
+.ugitaccent5lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent5",themeTint:"0.2")] */ background-color:#676767;
+}
+.ugitaccent5lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent5",themeTint:"0.3")] */ background-color:#676767;
+}
+.ugitaccent5medium {
+	/* [ReplaceColor(themeColor:"ContentAccent5",themeTint:"0.4")] */ background-color:#676767;
+}
+.ugitaccent5 {
+	/* [ReplaceColor(themeColor:"ContentAccent5",themeTint:"0.5")] */ background-color:#676767;
+}
+.accent5darker {
+	/* [ReplaceColor(themeColor:"ContentAccent5",themeTint:"0.7")] */ background-color:#676767;
+}
+.accent5darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent5",themeTint:"0.9")] */ background-color:#676767;
+}
+
+/*Accent6*/
+.ugitaccent6lightest {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.2")] */ background-color:#676767;
+}
+.ugitaccent6lighter{
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.3")] */ background-color:#676767;
+}
+.ugitaccent6medium {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.4")] */ background-color:#676767;
+}
+.ugitaccent6 {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.5")] */ background-color:#676767;
+}
+.ugitaccent6darker {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.7")] */ background-color:#676767;
+}
+.ugitaccent6darkest {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.9")] */ background-color:#676767;
+}
+
+/*Hyperlink*/
+.ugithyperlinklightest {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.2")] */ color:#676767 !important;
+}
+.ugithyperlinklighter{
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.3")] */ color:#676767 !important;
+}
+.ugithyperlinkmedium {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.4")] */ color:#676767 !important;
+}
+.ugithyperlink {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.5")] */ color:#676767 !important;
+}
+.ugithyperlinkdarker {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.7")] */ color:#676767 !important;
+}
+.ugithyperlinkdarkest {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.9")] */ color:#676767 !important;
+}
+
+/*FollowedHyperlink*/
+.ugitfollowedhyperlinklightest {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.2")] */ color:#676767 !important;
+}
+.ugitfollowedhyperlinklighter{
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.3")] */ color:#676767 !important;
+}
+.ugitfollowedhyperlinkmedium {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.4")] */ color:#676767 !important;
+}
+.followedhyperlink {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.5")] */ color:#676767 !important;
+}
+.followedhyperlinkdarker {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.7")] */ color:#676767 !important;
+}
+.followedhyperlinkdarkest {
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.9")] */ color:#676767 !important;
+}
+
+/*ReplaceFont*/
+.ugitmajorfont {
+	/* [ReplaceFont(themeFont: "MajorFont")] */ font-family:Arial;
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.9")] */ color:#676767;
+	font-size: 2em;
+}
+.ugitminorfont {
+	/* [ReplaceFont(themeFont: "MinorFont")] */ font-family:Arial;
+	/* [ReplaceColor(themeColor:"ContentAccent6",themeTint:"0.9")] */ color:#676767;
+}
+
+/*Tint Image*/
+.ugittint {
+	/* [RecolorImage(themeColor:"Accent1",method:"Tinting")] */ background:url("/Content/images/siteIcon.png") repeat;
+}
+
+/*Blend Image*/
+.ugitblend {
+	/* [RecolorImage(themeColor:"Accent2",method:"Blending",includeRectangle:{x:0,y:0,width:100,height:50})] */ background:url("/Content/images/SiteSettings_SiteActions_48x48.png") repeat;
+}
+
+/*Fill Images*/
+.ugitfilling {
+	/* [RecolorImage(themeColor:"Accent3",method:"Filling",includeRectangle:{x:0,y:0,width:100,height:50})] */ background:url("/Content/images/SiteSettings_SiteCollectionAdmin_48x48.png") repeat;
+}
+
+
+.ugitsellinkbg
+{
+   
+    /* [ReplaceColor(themeColor:"ContentAccent6"[, themeShade:"0"][, themeTint:"1.0"])] */ background-color:#EEF3FA;
+}
+.ugitsellinkborder
+{
+     border-width:1px;
+     border-style:solid;
+    /* [ReplaceColor(themeColor:"ContentAccent6"[, themeShade:"0"][, themeTint:"1.0"])] */ border-color:#EEF3FA;
+    border-top:none;
+    border-bottom:none;
+}
+.ugitlinkbg
+{
+    /* [RecolorImage(themeColor:"ContentAccent6"[, themeShade:"0"][, themeTint:"1.0"])] */ background:url("/Content/images/selbg.png") repeat-x scroll left top;
+    /* [ReplaceColor(themeColor:"ContentAccent6"[, themeShade:"0"][, themeTint:"1.0"])] */ background-color:#EEF3FA;
+}
+.ugitlinkbg a, .ugitsellinkbg a
+{
+    color:#000 !important; 
+}
+.arrow
+{
+        
+       
+}
+.arrow_active
+{
+        
+}
+.selected_background
+{
+    /* [ReplaceColor(themeColor:"ContentAccent1")] */ background-color:#0072C6;
+    color:White;
+}
+.arrow_active div
+{
+    position:relative;
+    float:left;
+    /* [ReplaceColor(themeColor:"ContentAccent1")] */ background-color:#0072C6;
+    color:White;
+    width:100%;
+}
+.arrow div
+{
+    color:White;
+    position:relative;
+    float:left;
+    width:100%;
+     /* [ReplaceColor(themeColor:"ContentAccent2")] */ background-color:#00485B;
+}
+.arrow span, .arrow_active span
+{
+    float:left;
+    width:70%;
+    text-align: center;
+     padding-top: 8px;
+     font-size:12pt;
+     font-weight:bold;
+}
+.arrow em
+{
+    width:22px; 
+    height:31px; 
+    float:left;
+     /* [RecolorImage(themeColor:"ContentAccent2",method:"Filling")] */ background:url("/Content/images/step_tail.png") no-repeat white;
+  
+}
+.arrow strong 
+{
+    width:22px; 
+    height:31px; 
+    float:right;
+     /* [RecolorImage(themeColor:"ContentAccent2",method:"Filling")] */ background:url("/Content/images/step_head.png") no-repeat white;
+}
+.arrow_active strong
+{
+    width:22px; 
+    height:31px; 
+    float:right;
+    /* [RecolorImage(themeColor:"ContentAccent1",method:"Filling")] */ background:url("/Content/images/step_head_active.png") no-repeat white;
+}
+.arrow_active em
+{
+    width:22px; 
+    height:31px; 
+    float:left;
+    /* [RecolorImage(themeColor:"ContentAccent1",method:"Filling")] */ background:url("/Content/images/step_tail_active.png") no-repeat white;
+}
+
+
+ 
+ .dashboardpanel-accent1 
+{
+    /* [RecolorImage(themeColor:"Accent1-Lightest",method:"filling")] */ background:#FECBCA url(/Content/images/roundedbox-type1-bg.png) repeat-x 0 0; min-height:98px; width:300px
+ }
+.dashboardpanel-accent1 .corner 
+{
+    /* [RecolorImage(themeColor:"Accent1-Lightest",method:"filling")] */  background-image:url(/Content/images/corners-type1.png);
+    
+ }
+ 
+ .dashboardpanel-accent2 
+{
+    /* [RecolorImage(themeColor:"Accent2-Lightest",method:"filling")] */ background:#FECBCA url(/Content/images/roundedbox-type2-bg.png) repeat-x 0 0; min-height:98px; width:300px
+ }
+.dashboardpanel-accent2 .corner 
+{
+    /* [RecolorImage(themeColor:"Accent2-Lightest",method:"filling")] */  background-image:url(/Content/images/corners-type2.png);
+    
+ }
+
+ .dashboardpanel-accent3 
+{
+    /* [RecolorImage(themeColor:"Accent3-Lightest",method:"filling")] */ background:#FECBCA url(/Content/images/roundedbox-type3-bg.png) repeat-x 0 0; min-height:98px; width:300px
+ }
+.dashboardpanel-accent3 .corner 
+{
+    /* [RecolorImage(themeColor:"Accent3-Lightest",method:"filling")] */  background-image:url(/Content/images/corners-type3.png);
+    
+ }
+ 
+  .dashboardpanel-accent4 
+{
+    /* [RecolorImage(themeColor:"Accent4-Lightest",method:"filling")] */ background:#FECBCA url(/Content/images/roundedbox-type4-bg.png) repeat-x 0 0; min-height:98px; width:300px
+ }
+.dashboardpanel-accent4 .corner 
+{
+    /* [RecolorImage(themeColor:"Accent4-Lightest",method:"filling")] */  background-image:url(/Content/images/corners-type4.png);
+    
+ }
+ 
+.dashboardpanel-accent5 
+{
+    /* [RecolorImage(themeColor:"Accent5-Lightest",method:"filling")] */ background:#FECBCA url(/Content/images/roundedbox-type5-bg.png) repeat-x 0 0; min-height:98px; width:300px
+ }
+.dashboardpanel-accent5 .corner 
+{
+    /* [RecolorImage(themeColor:"Accent5-Lightest",method:"filling")] */  background-image:url(/Content/images/corners-type5.png);
+    
+ }
+ 
+.dashboardpanel-accent6 
+{
+    /* [RecolorImage(themeColor:"Accent6-Lightest",method:"filling")] */ background:#FECBCA url(/Content/images/roundedbox-type6-bg.png) repeat-x 0 0; min-height:98px; width:300px
+ }
+.dashboardpanel-accent6 .corner 
+{
+    /* [RecolorImage(themeColor:"Accent6-Lightest",method:"filling")] */  background-image:url(/Content/images/corners-type6.png);
+    
+ }

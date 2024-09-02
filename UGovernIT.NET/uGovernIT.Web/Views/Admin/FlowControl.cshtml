@@ -1,0 +1,81 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/AdminLayouts.cshtml";
+    ViewBag.Title = "Flow Control";
+}
+
+
+<div style="width:60%;display: block;margin: auto;">
+    <p class="heading">Flow Control</p>
+    <div style="width: 100%;float: left;">
+        <div class="first-block">
+            <div class="inner center-bullet" style="width: 150px;height:87px;float: left;padding: 40px 0px 0px;margin-top: 0px;float: left; border-right:2px solid rgb(222, 181, 153);">
+                <img class="icon_size" src="~/Content/Images/Admin/Configure/FlowControl/communication-between-two-people.png" />
+                <p class="icon_text" style="padding-top:5px;">Select Workflow</p>
+            </div>
+            <div id="mixedSlider">
+                <div class="MS-content">
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/save-technique.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=modulestagesview&module=TSR','Workflows','90','90','','')" />
+                        <div class="line"><span class="circleIcon"></span></div>
+                        <p class="icon_text svgicon">Incident (TSR)</p>
+                    </div>
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/patent-application.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=modulestagesview&module=ACR','Workflows','90','90','','')" />
+                        <div class="line"><span></span></div>
+                        <p class="icon_text text-center">Change Request (ACR)</p>
+                    </div>
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/secure-server.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=modulestagesview&module=DRQ','Workflows','90','90','','')" />
+                        <div class="line"><span></span></div>
+                        <p class="icon_text text-center">Change Control (DRQ)</p>
+                    </div>
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/cause-trouble.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=modulestagesview&module=RCA','Workflows','90','90','','')" />
+                        <div class="line"><span></span></div>
+                        <p class="icon_text">Problem Analysis (RCA)</p>
+                    </div>
+                </div>
+                <div class="MS-controls">
+                    <button class="MS-left"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
+                    <button class="MS-right"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%;float: left;">
+        <div class="second-block">
+            <div class="inner center-bullet" style="width: 150px;height:87px;padding: 40px 0px 0px;margin-top: 0px;float: left; border-right:2px solid rgb(222, 181, 153);">
+                <img class="icon_size" src="~/Content/Images/Admin/Configure/FlowControl/tablet.png" />
+                <p class="icon_text" style="padding-top:5px;">Select Options</p>
+            </div>
+            <div id="mixedSlider2">
+                <div class="MS-content">
+
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/collaborate.png" />
+                        <div class="line"><span></span></div>
+                        <p class="icon_text">Substitute Resource</p>
+                    </div>
+
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/play-ground.png" />
+                        <div class="line"><span></span></div>
+                        <p class="icon_text">Escalation</p>
+                    </div>
+
+                    <div class="item">
+                        <img class="icon_size bar" src="~/Content/Images/Admin/Configure/FlowControl/settings-2.png" />
+                        <div class="line"><span></span></div>
+                        <p class="icon_text text-center">Workflows</p>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+   
+

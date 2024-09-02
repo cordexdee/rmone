@@ -1,0 +1,68 @@
+-- Script added by Inderjeet Kaur on 6Sep2023 for BTS-22-000924
+IF (OBJECT_ID('dbo.FK__Studio__Division__41703E86', 'F') IS NOT NULL)
+BEGIN
+	ALTER TABLE dbo.Studio DROP CONSTRAINT FK__Studio__Division__41703E86
+END
+GO
+IF (OBJECT_ID('dbo.FK__Studio__CompanyL__407C1A4D', 'F') IS NOT NULL)
+BEGIN
+	ALTER TABLE dbo.Studio DROP CONSTRAINT FK__Studio__CompanyL__407C1A4D
+END
+GO
+
+
+
+
+-- ---------------------------------------------------------------
+-- Script added by Inderjeet Kaur on 8 Sep 2023 for BTS-22-000924
+
+INSERT INTO [dbo].[Config_ConfigurationVariable]
+           ([CategoryName]
+           ,[Description]
+           ,[KeyName]
+           ,[KeyValue]
+           ,[Title]
+           ,[Type]
+           ,[Internal]
+           ,[TenantID])
+     VALUES
+           ('General'
+           ,'To enable hierarchy between Studios and Division(Parent).'
+           ,'EnableStudioDivisionHierarchy'
+           ,'True'
+           ,'EnableStudioDivisionHierarchy'
+           ,'Bool'
+           ,0
+           ,'35525396-e5fe-4692-9239-4df9305b915b')
+
+-- --
+-- Update Form Layout for every Module
+
+UPDATE Config_Module_FormLayout
+SET FieldName = 'DivisionLookup', ColumnType = 'Default'
+where 
+FieldDisplayName = 'Division'
+and FieldName = 'CRMBusinessUnitChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO 
+
+UPDATE Config_Module_FormLayout
+SET FieldName = 'StudioLookup', ColumnType = 'Default'
+where 
+FieldDisplayName = 'Studio'
+and FieldName = 'StudioChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+--
+update Config_Module_RequestRoleWriteAccess 
+set FieldName = 'StudioLookup'
+where FieldName = 'StudioChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+update Config_Module_RequestRoleWriteAccess 
+set FieldName = 'DivisionLookup'
+where FieldName = 'CRMBusinessUnitChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO

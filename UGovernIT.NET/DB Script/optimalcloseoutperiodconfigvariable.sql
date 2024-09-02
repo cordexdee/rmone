@@ -1,0 +1,2 @@
+insert into Config_ConfigurationVariable(CategoryName, Description, KeyName, KeyValue, Title, TenantID)
+values('General','This is used to count Closeout Tickets on Manager Screen', 'CloseoutDueDays','14','CloseoutDueDays','35525396-e5fe-4692-9239-4df9305b915b')

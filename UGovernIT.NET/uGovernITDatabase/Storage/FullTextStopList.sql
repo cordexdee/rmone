@@ -1,0 +1,3 @@
+﻿CREATE FULLTEXT STOPLIST [FullTextStopList]
+    AUTHORIZATION [dbo];
+

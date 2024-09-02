@@ -1,0 +1,3001 @@
+﻿
+@{
+    Layout = "";
+}
+
+
+
+
+
+
+<style>
+    .demo-container {
+        box-sizing: border-box;
+        width: 100%;
+        height: auto !important;
+    }
+
+
+
+    #kanban {
+        white-space: nowrap;
+        height: 100%;
+        background: #F1F1F1;
+    }
+   
+    .list {
+        border-radius: 1px;
+        margin: 10px;
+        background-color: #FFF;
+        display: inline-block;
+        vertical-align: top;
+        white-space: normal;
+        /*width: 19%;*/
+        width: 209px;
+        height: 100%;
+    }
+
+    .list-title {
+        font-size: 14px;
+        border: none;
+        padding: 0px;
+        /*margin-bottom: 8px;*/
+        background: #FFF;
+        /*box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);*/
+        position: relative;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        color: #FFF !important;
+        border-bottom: 10px solid #F1F1F1;
+    }
+    .scrollable-board {
+        /*height: 800px;
+        width: 1000px;*/
+        overflow-x: auto !important;
+    }
+
+    .scrollable-list {
+        height: 800px;
+        /*width: 250px;*/
+        background: #ffffff;
+    }
+
+        .scrollable-list .dx-scrollable-wrapper .dx-scrollable-content {
+            padding-right: 0px !important;
+        }
+
+    .sortable-cards {
+        min-height: 380px
+    }
+    .titleCard {
+        box-sizing: border-box;
+        padding: 0px 0px;
+        margin: 0px;
+        cursor: pointer;
+        border: none;
+        color: #4A6EE2;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+    }
+
+    .subTask-card {
+        box-sizing: border-box;
+        padding: 10px 0 0;
+        margin: 0px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .card-subject {
+        padding-bottom: 10px;
+    }
+
+    .card-assignee {
+        opacity: 0.6;
+    }
+
+    .Subcard-priority {
+        position: absolute;
+        top: 10px;
+        bottom: 0px;
+        left: 7px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #30E90A;
+        /*position: absolute;
+        top: 51px;
+        bottom: 10px;
+        left: 0px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #86C285;*/
+    }
+
+    .priority-notstarted {
+        background: #dddada;
+    }
+
+    .priority-inprogress {
+        background: #446FEB;
+    }
+
+    .priority-completed {
+        background: #30E90A;
+    }
+
+    .priority-waiting {
+        background: #FFDD20;
+    }
+
+    .owner {
+        display: table-cell;
+    }
+
+    /*.dx-treelist-headers {
+        display: none;
+    }*/
+
+    .predecesser {
+        background-image: url("~/Content/Images/redNew_delete.png");
+    }
+
+    .resource {
+        max-width: 20px;
+    }
+
+    .CriticalOn {
+        background-color: bisque !important
+    }
+    /*.btnAddNew, .btnAddNew:hover {
+        background-color: #4A6EE2;
+        margin-top: 20px;
+        color: #fff;
+    }*/
+   
+    /*********************New CSS by Sayali************/
+    .list-title {
+        font-size: 14px;
+        cursor: pointer;
+        width: 100%;
+        font-family: 'Poppins', sans-serif;
+        /*height: 50px;*/
+    }
+    .list-title .dx-treelist-container .dx-treelist-header-panel, .list-title .dx-treelist-container .dx-treelist-rowsview,
+    .list-title .dx-treelist-container .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr td{
+        border: none;
+    }
+    .titleCard-priority {
+        position: absolute;
+        top: 0px;
+        bottom: 10px;
+        left: 0px;
+        width: 100%;
+        height: 3px;
+        border-radius: 2px;
+        background: #30E90A;
+    }
+    .list-title .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr td.dx-command-edit {
+        text-align: left !important;
+        padding-top:9px;
+    }
+    .list-title .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr td.dx-command-edit a.dx-link-icon {
+        background: #4A6EE2;
+        border-radius: 50%;
+        margin-left: -1px;
+    }
+    .list-title .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr td.dx-command-edit a.dx-link-icon:before {
+        font-size: 11px;
+        color: #FFF;
+        vertical-align: top;
+    }
+    .editForm-class .dx-item-content.dx-box-item-content .dx-treelist-edit-form-item {
+        display: block;
+    }
+
+    .editForm-class .dx-item-content.dx-box-item-content .dx-treelist-edit-form-item label {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        padding-bottom: 3px;
+    }
+
+    .editForm-class .dx-item-content.dx-box-item-content .dx-treelist-edit-form-item label span.dx-field-item-label-text {
+        color: #4A6EE2;
+    }
+
+    .editForm-class .dx-item-content.dx-box-item-content .dx-treelist-edit-form-item .dx-field-item-content input[type="text"] {
+        font-size: 12px;
+        font-family: 'Poppins', sans-serif !important;
+        padding: 0px 9px;
+        height: 28px;
+        min-height: 28px;
+    }
+    .dx-field-item-content #dataId .assigneeToImgKanban {
+        width: 18px;
+        margin-top: -16px;
+    }
+
+    .dx-treelist-form-buttons-container {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .dx-treelist-form-buttons-container .dx-button-normal:first-child {
+        float: right;
+        margin-right: 20px;
+        padding: 0px;
+        border: 1px solid #4A6EE2;
+        background: #4A6EE2;
+    }
+    .dx-treelist-form-buttons-container .dx-button-normal:first-child > .dx-button-content {
+        padding: 3px 10px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        color: #FFF;
+    }
+    .dx-treelist-form-buttons-container .dx-button-normal:last-child {
+        border: 1px solid #4A6EE2;
+        color: #4A6EE2;
+    }
+    .dx-treelist-form-buttons-container .dx-button-normal:last-child:hover {
+        background: #ffffff;
+    }
+
+    .dx-treelist-form-buttons-container .dx-button-normal:last-child > .dx-button-content {
+        padding: 3px 10px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+    }
+    .list-title .dx-treelist-container .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr.dx-treelist-edit-form td {
+        padding:0px;
+    }
+    .list-title .dx-treelist-rowsview .dx-treelist-content .dx-form.dx-widget.dx-visibility-change-handler{
+        padding-left:20px;
+    }
+
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content .dx-treelist-table .dx-row .dx-command-edit.dx-command-edit-with-icons.showIcon {
+        height: 100% !important;
+    }
+    .ActionBtnLink {
+        font-size: 26px;
+        margin-top: -15px;
+        /*background: #f8f7f7;*/
+        padding: 5px 0px 10.3px 3px;
+        border: none;
+    }
+
+    .ActionBtnLink a {
+        color: #4A6EE2;
+        text-decoration: none;
+    }
+    .subTask-list.dx-treelist .dx-treelist-rowsview .dx-treelist-content .dx-treelist-table .dx-row .dx-command-edit-with-icons .dx-link {
+        padding-top: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        display: block;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content .dx-treelist-table .dx-row .dx-command-edit.dx-command-edit-with-icons {
+        position: absolute;
+        height: 30px;
+        border-left: 0px;
+        border-bottom: 0px;
+        width: 30px !important;
+        min-width: 30px !important;
+        padding-left: 3px;
+        right: 0;
+        top: 0;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content .dx-treelist-table .dx-row .dx-command-edit.dx-command-edit-with-icons.showIcon {
+        height: 100% !important;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr td:first-child {
+        /*position: relative;
+        border-bottom: 1px solid;*/
+        border: none;
+        width: 100%;
+    }
+    .assigneeToImgKanban{
+        width:16px;
+    }
+    #dataTitle {
+        font-family: 'Poppins', sans-serif;
+        /*padding-left: 3px;*/
+        font-size: 12px;
+        position: relative;
+       
+    }
+    #dataTitle a {
+        color: #1a399d;
+    }
+    .cardData-perComp {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        margin-left: 24px;
+        margin-top: 15px;
+    }
+    #dataTitle.cardData-title {
+        font-family: 'Poppins', sans-serif;
+        padding-left: 15px;
+        font-size: 13px;
+        margin-left: 9px;
+        text-align: left;
+    }
+    .cardData-title a, .cardData-title a:hover, .Estresource a, .Estresource a:hover{
+        color:#000;
+    }
+    .editbox-perComp.dx-texteditor.dx-editor-outlined {
+        background: #fff;   
+        border-bottom: 1px solid #ddd;
+        border-radius: 0px;
+        padding: 0px;
+        margin-bottom: 7px;
+        width: 100px;
+        border-width: 0px 0px 1px 0px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+    }
+    .editbox-perComp input[type="text"] {
+        padding: 0px 6px;
+        min-height: 22px;
+    }
+    .estHrs-txtBox {
+        border-bottom: 1px solid #ddd;
+        border-width: 0px 0px 1px 0px;
+        margin-bottom: 5px;
+        border-color: #ddd;
+    }
+    .estHrs-txtBox:focus {
+        border-color: #ddd;
+    }
+    .cardDate-item {
+        font-family: 'Poppins',sans-serif;
+        font-size: 12px;
+    }
+    .cardDate-item .dx-datebox-date.dx-datebox-calendar {
+       border:none;
+        border-radius: 0px;
+        font-family: 'Poppins',sans-serif;
+        font-size: 12px;
+        display: inline-block;
+        width: 146px
+    }
+    .cardDate-item .dx-datebox-date.dx-datebox-calendar.dx-state-hover{
+        border-color:#ddd;
+        background:#FFF;
+    }
+    .cardDate-item .dx-datebox-date.dx-datebox-calendar .dx-dropdowneditor-icon:hover, 
+    .cardDate-item .dx-dropdowneditor.dx-state-hover:not(.dx-custom-button-hovered) .dx-dropdowneditor-icon {
+        background-color: #FFF;
+    }
+    .Estresource {
+        border-top: 1px solid #ddd;
+        margin-top: 10px;
+        padding: 5px 0px;
+        font-family: 'Poppins',sans-serif;
+        font-size: 12px;
+        padding-left: 24px;
+        min-height:30px;
+    }
+    .cardDate-item .dx-datebox-date.dx-datebox-calendar input[type="text"] {
+        padding: 0px;
+        height: 20px;
+        vertical-align: top;
+        min-height: 20px;
+        font-family: 'Poppins',sans-serif !important;
+        font-size: 12px;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content table tr.dx-data-row {
+        border-bottom: 15px solid #f1f1f1;
+        background: #FFF;
+        position: relative;
+    }
+    /*.subTask-list .dx-treelist-rowsview .dx-treelist-content table tr.dx-data-row .dx-treelist-cell-expandable {
+        border-bottom: 15px solid #f1f1f1 !important;
+        display: block;
+    }*/
+    .subTask-list .dx-treelist-container .dx-treelist-header-panel{
+        border:none;
+    }
+    .subTask-list .dx-treelist-rowsview {
+        background: #F1F1F1;
+        border: none;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content table tr.dx-row.dx-freespace-row:last-child {
+        background-color: #f1f1f1;
+        position: relative;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content table.dx-treelist-table tr.dx-treelist-edit-form td:first-child {
+        padding: 15px 0px 0px 20px;
+    }
+    .titleEdit-box, .titleEdit-box:focus {
+        border-width: 0px 0px 1px 0px;
+        border-color: #ddd;
+    }
+    /*************Start CSS for custom checkbox*********/
+    .chkBoxWrap {
+        position: relative;
+        top: 2px;
+        margin-top: 16px;
+    }
+    .chkBoxWrap .dx-checkbox-checked .dx-checkbox-icon {
+        font: 9px/16px DXIcons;
+    }
+    .chkBoxWrap .dx-checkbox-icon {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #4A6EE2;
+    }
+    .chkBoxWrap .dx-checkbox-checked .dx-checkbox-icon:before{
+        width: 16px;
+        font-weight: 700;
+    }
+    /*************End CSS for custom checkbox*********/
+    .cardData-estHrs {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        margin-top: 4px;
+        margin-left: 24px;
+    }
+    .startDate-imgWrap {
+        display: inline-block;
+        /*position: absolute;
+        left: 5px;
+        margin-top: 2px;*/
+    }
+    .startDate-imgWrap img{
+        width: 16px;
+        margin-top: -2px;
+    }
+    .cardDate-itemWrap {
+        display: inline-block;
+        margin-left: 8px;
+        margin-top: 4px;
+        width: 86%;
+    }
+    .dueDate-imgWrap {
+        display: inline-block;
+        /*margin-top: 2px;
+        position: absolute;
+        left: 5px;*/
+    }
+    .dueDate-imgWrap img{
+        width:16px;
+        margin-top: -2px;
+    }
+    .subItem-wrap{
+        position:relative;
+    }
+    .categoriesTitle .dx-treelist-rowsview .dx-treelist-content table tr td:last-child{
+        padding-left:0px;
+    }
+    .categoriesTitle .dx-treelist-rowsview .dx-treelist-content table tr td:last-child div.dx-treelist-icon-container{
+        display:none;
+    }
+    .categoriesTitle .dx-treelist-rowsview .dx-treelist-content table tr td:last-child div.dx-treelist-text-content{
+        white-space: normal;
+    }
+    #dataTitle::first-letter{
+        text-transform:uppercase;
+    }
+
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content table tr td:first-child div.dx-treelist-icon-container .dx-treelist-collapsed span:before {
+        color: #4A6EE2;
+        font-size: 12px;
+        top: 34px;
+        content: "\f0fe";
+        font-family: "Font Awesome 5 Free";
+        left: 3px;
+    }
+    .txtTitle.titleEdit-box {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        margin-left: 20px;
+    }
+    .subTask-list .dx-treelist-rowsview .dx-treelist-content table tr td:first-child div.dx-treelist-icon-container .dx-treelist-expanded span:before {
+        color: #4A6EE2;
+        font-size: 12px;
+        top: 34px;
+        content: "\f146";
+        font-family: "Font Awesome 5 Free";
+        left: 2px;
+    }
+    .estHrs-txtBox.txtEstHrs {
+        margin-left: 23px;
+    }
+    .kanbanEdit-icon {
+        width: 16px;
+        position: relative;
+        top: 18px;
+        float: left;
+    }
+    /*.resource-select-dropdown.dx-texteditor.dx-editor-outlined {
+        border: none;
+    }*/
+    .resource-select-dropdown .dx-tag-content{
+        background:#FFF;
+    }
+    .resource-select-dropdown .dx-tag-content input {
+        font-family: 'Poppins',sans-serif;
+        font-size: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        margin-right:5px;
+    }
+</style>
+
+
+<script id="dxss_inlineCtrScriptResource">
+    var radioGroupItems = [
+        { text: "Fully Available", value: 0 },
+        { text: "Partially Available", value: 1 },
+        { text: "All Resources", value: 2 }
+    ];
+    var EditingAllow = 'true';
+    var TaskParameter = "";
+    var popupFilters = {};
+    var projectID = "";
+    //right ones
+    var currentRowIndexKanBan = 0;
+    var getResourceId = 0;
+    var Tasks;
+    var categories = [];
+    var currentTreeList = "";
+    var isResourceEdit = "true";
+    var LoadingCount = 0;
+    var tasklistrowindex = 0;
+    var TaskDataFull = [];
+    var pageIndex = 1;
+    var pageSize = 9;
+    var skip = 0;
+    var loadPanelKanban;
+    var kanbanScrollContainer;
+    
+    var ast_dataSource = new DevExpress.data.DataSource({
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            loadMode: "raw",
+            load: function (loadOptions) {
+                return $.get("/api/rmmapi/GetUsersInfo");
+            }
+        }),
+        pageSize: 15,
+        paginate: true
+    });
+
+    $(function () {
+       // RepaintTaskWorkflowKanBan();
+    });
+
+    var MyDataFieldkanban = "";   
+    function RepaintTaskWorkflowKanBan() {
+        if (TaskParameter == "All Tasks") {
+            MyDataFieldkanban = "AssignToPct";
+        }
+        else {
+            MyDataFieldkanban = "AssignedToName";
+        }
+        MyDataFieldkanban = "AssignToPct";
+        $.ajax({
+            url: "/api/kanbanapi/GetTask?TicketID=" + ticketID,
+            type: "GET",
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    Tasks = data;
+                    categories = Tasks.filter(function (Task) { return Task.Level == 0 }); 
+                    TaskDataFull = null;
+                    DrawKanBan(Tasks);
+                }
+                else
+                    DrawKanBan();
+            }
+        });
+    }
+
+    function DrawKanBan(data) {
+        LoadingCount = 0;
+         loadPanelKanban = $("#divLoadPanelKanBan").dxLoadPanel({
+            //shadingColor: "rgba(0,0,0,0.4)",
+            position: { of: "#kanban" },
+            visible: false,
+            showIndicator: true,
+            showPane: true,
+            //shading: true,
+             hideOnOutsideClick: false
+        }).dxLoadPanel("instance");
+
+        KanBanCategoryIds = [];
+        renderKanban($("#kanban"), categories);
+        function renderKanban($containerlocal, categories) {           
+            if (isKanBanViewLoaded === false) {
+                pageIndex = 1;
+                skip = 9 * (pageIndex - 1)
+                var currentCategoriesToLoad = categories.slice(skip, skip + 9);                
+                currentCategoriesToLoad.forEach(function (category) {
+                    renderList($containerlocal, category);
+                });
+
+            }
+            else
+            {
+                pageIndex = 1;
+                skip = pageSize * (pageIndex - 1);
+                var currentCategoriesToLoad = categories.slice(skip, skip + pageSize)
+                //$("#kanban .dx-scrollview-content").first()[0].empty();
+                $(".list").remove();
+                currentCategoriesToLoad.forEach(function (category) {
+                    renderList($("#kanban .dx-scrollview-content").first()[0], category);
+                })
+
+            }
+            
+            isKanBanViewLoaded = true;
+            //if ($("#kanban .dx-scrollview-content").first()[0] )
+
+
+            //categories.forEach(function (category) {            
+            //        renderList($containerlocal, category)            
+                
+            //});
+
+        
+            kanbanScrollContainer = $containerlocal.addClass("scrollable-board").dxScrollView({
+                direction: "horizontal",
+                showScrollbar: "always",
+                scrollByContent: true,
+                scrollByThumb: true,
+                //width: '2000px',
+                height: '785px',
+                //scrollByContent: true,
+
+                onScroll: function (e) {
+
+                    if (e.reachedRight) {                        
+                        loadPanelKanban.show();
+                        setTimeout(function () {
+                            e.component.beginUpdate();
+                            pageIndex++;                            
+                            //pageSize = Math.floor( pageSize / 2);
+                            skip = pageSize * (pageIndex - 1);
+                            var currentCategoriesToLoad = categories.slice(skip, skip + pageSize)
+                            currentCategoriesToLoad.forEach(function (category) {
+                                renderList($("#kanban .dx-scrollview-content").first()[0], category);
+                            })
+                            e.component.endUpdate();
+                            loadPanelKanban.hide();
+                        }, 500);
+
+                    }
+
+                }
+
+
+            }).dxScrollView('instance');
+            
+
+        }
+
+        function renderList($containerlocal, category, isInsert = false) {            
+            LoadingCount = LoadingCount + 1;
+            KanBanCategoryIds.push("treeList" + category.ID);
+            //var TreeListDataSource = Tasks.filter(function (Task21) { return Task21.ParentTaskID == category.ID || Task21.Level >= 2 });
+            var $list = $("<div>").addClass("list ls_" + category.ID).appendTo($containerlocal);
+            if (isInsert == true) {
+                $list = $("<div>").addClass("list ls_" + category.ID).insertBefore($containerlocal);
+            }
+            renderListTitle($list, category);
+            var $scroll = $("<div>").appendTo($list);
+            var $items = $("<div>").appendTo($scroll);
+
+            $scroll.addClass("scrollable-list").dxScrollView({
+                direction: "vertical",
+                showScrollbar: "always",
+                height: '650px'
+            });
+
+            var listInner = $("<div>").attr({ "id": "treeList" + category.ID, "class": "subTask-list" }).appendTo($items).dxTreeList({
+                dataSource: new DevExpress.data.DataSource({
+                    loadMode: "raw",
+                    key: "ID",
+                    load: function (loadOptions) {
+                        var TaskData = [];                        
+                        if (TaskDataFull != null && TaskDataFull.length != 0) {
+                            //TaskDataFull = data;
+                            TaskData = TaskDataFull.filter(function (d) { return d.ParentTaskID == category.ID || d.Level >= 2 });                            
+                        }
+                        else {                            
+                            $.ajax({
+                                url: "/api/kanbanapi/GetTask?TicketID=" + ticketID,
+                                type: "GET",
+                                async: false,
+                                success: function (data) {
+                                    TaskDataFull = data;
+                                    TaskData = data.filter(function (d) { return d.ParentTaskID == category.ID || d.Level >= 2 });
+                                    return TaskData;
+                                }
+                            })
+
+                        }
+                        return TaskData;
+                    },
+                    insert: function (values) { },
+                    update: function (key, values) { },
+                    remove: function (key) { }
+                }),
+                keyExpr: "ID",
+                parentIdExpr: "ParentTaskIDummy",
+                hasItemsExpr: "HasItem",
+                virtualModeEnabled: true,
+                // expandedRowKeys: [1, 2, 3],
+                noDataText: "",
+                showColumnHeaders: false,
+                //autoExpandAll: true,
+                height: '650px',
+                ////paging: {
+                ////    enabled: true,
+                ////    pageSize: 10
+                ////},
+                loadPanel: {
+                    enabled: true,
+                    hideOnOutsideClick: false
+                },
+                scrolling: {
+                    //mode: "virtual",
+                    mode: "standard",
+                    rowRenderingMode: "virtual"
+                },
+                row: { rowType: "detailAdaptive" },
+                buttons: [{
+                    name: "add",
+                    cssClass: "my-class"
+                }],
+                onToolbarPreparing: function (e) { e.toolbarOptions.visible = false; },
+                rowDragging:
+                {
+                    showDragIcons: false,
+                    allowDropInsideItem: true,
+                    allowReordering: true,
+                    group: "tasksGroup",
+                    onDragChange: function (e) {
+
+                    },
+                    onAdd: function (e) {                        
+                        if (e.itemData.ID != 0) {
+                            var Url = "";
+                            var sourceData = e.itemData;
+                            var level = sourceData.Level;
+                            var visibleRows = e.toComponent.getVisibleRows();
+                            var targetDataID = 0;
+                            if (category.ID == sourceData.ID) {
+                                return;
+                            }
+                            if (visibleRows != null && visibleRows.length != 0) {
+                                if (e.toIndex >= visibleRows.length) {
+                                    e.toIndex = visibleRows.length - 1;
+                                }
+                                targetDataID = visibleRows[e.toIndex].data.ID;
+
+                                Url = ugitConfig.apiBaseUrl + "/api/module/DragAndDrop?TicketPublicId=" + ticketID + "&toKey=" + sourceData.ID + "&fromKey=" + targetDataID;
+                            }
+                            else {
+                                if (category.ID == sourceData.ID) {
+                                    return;
+                                }
+                                targetDataID = category.ID;
+                                Url = ugitConfig.apiBaseUrl + "/api/module/DragAndDrop?TicketPublicId=" + ticketID + "&toKey=" + sourceData.ID + "&fromKey=" + targetDataID + "&firstAddInCategory=true";
+                            }
+                            $.ajax({
+                                url: Url,
+                                method: "POST",
+                                success: function (data) {
+                                    if (level == 0) {
+                                        //RepaintTaskWorkflowKanBan();
+                                        TaskDataFull = null;
+                                        $('.ls_' + sourceData.ID).remove();
+                                        e.toComponent.refresh(true);
+
+                                        if ($('.list').length <= 5) {
+                                            pageIndex++
+                                            skip = pageSize * (pageIndex - 1);
+                                            var currentCategoriesToLoad = categories.slice(skip, skip + pageSize)
+                                            currentCategoriesToLoad.forEach(function (category) {
+                                                renderList($("#kanban .dx-scrollview-content").first()[0], category);
+                                            });
+                                        }                                        
+                                    }
+                                    else {
+                                        //KanBanCategoryIds.forEach(function (kanBabCategoryId) {
+                                        //    var KanbanTree = $("#" + kanBabCategoryId).dxTreeList("instance");
+                                        //    KanbanTree.refresh();
+                                        //});
+                                        TaskDataFull = null;
+                                        e.toComponent.refresh(true);
+                                        e.fromComponent.refresh(true);
+                                        
+                                    }
+                                },
+                                error: function (error) { }
+                            })
+                        }
+                    },
+                    onReorder: function (e) {
+                        if (e.itemData.ID != 0) {
+                            var visibleRows = e.component.getVisibleRows();
+                            sourceData = e.itemData;
+                            targetData = visibleRows[e.toIndex].data;
+                            $.ajax({
+                                url: ugitConfig.apiBaseUrl + "/api/module/DragAndDrop?TicketPublicId=" + ticketID + "&toKey=" + sourceData.ID + "&fromKey=" + targetData.ID,
+                                method: "POST",
+                                success: function (data) {
+                                    TaskDataFull = null;
+                                    e.component.refresh(true);
+                                },
+                                error: function (error) { }
+                            })
+                        }
+                    }
+                },
+                columns: [{
+                    //dataField: "",
+                    allowAdding: true,
+                    allowEditing: true,
+                    minWidth: 100,
+                    maxWidth: 50,
+                    validationRules: [{ type: "required" }],
+                    cellTemplate: function (container1, options) {
+                        debugger;
+                        if (typeof options.data.Title != "undefined" && options.data.Title != null) {
+                            var $item = $("<div>")
+                                .addClass("subTask-card")
+                                .addClass("dx-card")
+                                .addClass("dx-theme-text-color")
+                                .addClass("dx-theme-background-color")
+
+                                .appendTo(container1);
+
+                            if (options.data.isCritical == true) {
+                                $item.addClass(isCritical);
+                            }
+                            $("<div>").addClass("Subcard-priority ").addClass("priority-" + options.data.Status.replace(' ', '').toLowerCase()).appendTo($item);
+
+
+
+                            //Start Title
+
+                            if (typeof options.data.Title != "undefined" && options.data.Title != null) {
+                                if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() != "false") {
+                                    var params = options.data.ID + "','" + options.data.ItemOrder + "','" + options.data.ParentTaskID + "','" + escape(options.data.Title);
+
+                                    $("<div id='dataTitle' class='cardData-title'>")
+                                        //.append("<span><a   href='javascript:void(0);'  title=" + options.data.Title + " ondblclick=openTaskEditDialog('" + params + "');>" + options.data.Title + "  </a></span>")
+                                        .append("<span><a   href='javascript:void(0);'  title=" + options.data.Title + " onclick=EditTitle(this); id=lblTitle_" + options.data.ID + ">" + options.data.Title + "  </a></span>")
+                                        .appendTo($item);
+                                }
+                                else {
+                                    $("<div id='dataTitle' class='cardData-title'>")
+                                        .append("<span>" + options.data.Title + "</span>")
+                                        .appendTo($item);
+                                }
+
+                            }
+                            $("<input>", { "type": "text", id: "txtTitle_" + options.data.ID, "taskid": options.data.ID, treeList: "treeList" + category.ID, class: "txtTitle titleEdit-box", value: options.data.Title, style: "display:none", onchange: "txtTitleChange(this);" }).appendTo($item);
+                            //end Title
+
+
+                            //start markascomplete
+                            var iscompleted = false;
+                            if (options.data.Status == "Completed" || options.data.PercentComplete == 100) {
+                                iscompleted = true;
+                            }
+                            //$("<div class='cardChk-wrap'>").append('<div id=chk_' + options.data.ID + ' type="checkbox" checked="true" class="markAsComplete markedChkd" title="mark As Complete" treeList="treeList' + category.ID + '" onclick="markascomplete(this);" value=' + options.data.ID + '  >').appendTo($item);
+
+
+                            $("<div class='cardDate-item chkBoxWrap'>").append(
+                                $("<div>", { "id": "startdate_" + options.data.ID }).dxCheckBox({
+                                    value: iscompleted,
+                                    onValueChanged: function (data) {
+                                        var TaskID = options.data.ID;
+                                        var treeList = $("#treeList" + category.ID).dxTreeList("instance");
+                                        if (data.value == true) {
+                                            $.ajax({
+                                                url: ugitConfig.apiBaseUrl + "/api/module/MarkTaskAsComplete",
+                                                method: "POST",
+                                                data: { TaskKeys: TaskID, TicketPublicId: ticketID, TaskType: "ModuleTasks" },
+                                                success: function (d) {
+
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "Status", "Completed");
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "PercentComplete", 100);
+                                                    DevExpress.ui.notify({ message: "Succesfully marked as complete ", width: 300, shading: false }, "success", 700);
+
+                                                    // treeList.refresh();
+                                                }
+                                            });
+                                        }
+                                        else if (data.value == false) {
+                                            var key = parseInt(TaskID);
+                                            var values = { Status: "In Progress", PercentComplete: 75 };
+                                            return $.ajax({
+                                                url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+                                                type: "PUT",
+                                                async: false,
+                                                data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+                                                success: function (data) {
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "Status", "In Progress");
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "PercentComplete", 75);
+                                                    //var result = markAscompleteMessage.alert("Task Status reverted", "");
+                                                    DevExpress.ui.notify({ message: "Succesfully marked as in complete ", width: 300, shading: false }, "success", 700);
+                                                    //treeList.refresh();
+                                                }
+                                            });
+                                        }
+                                    }
+                                })).appendTo($item);
+
+
+                            //end markascomplete
+
+
+                            //start Percntage complete
+                            $("<div class='cardData-perComp cardData-item'>").text("% Comp : ").append("<span id=lblPercentComp_" + options.data.ID + " onclick=editPercentComp(this) txtEstHrsId=txtEstHrs_" + options.data.ID + ">" + options.data.PercentComplete + "</span>").appendTo($item);
+                            $("<div>", { id: "txtPercentComp_" + options.data.ID, "taskid": options.data.ID, treeList: "treeList" + category.ID, class: "editbox-perComp PercentComplete", value: options.data.PercentComplete, style: "display:none", onchange: "txtPercentCompChange(this);" }).dxNumberBox({
+                                value: options.data.PercentComplete,
+                                min: 0,
+                                max: 100,
+                            }).appendTo($item);
+                            //end Percntage complete
+
+                            //Estimated Hours
+                            $("<div class='cardData-estHrs cardData-item'>").text("Est Hrs : ").append("<span id=lblEstHrs_" + options.data.ID + " onclick=editEstHrs(this) txtEstHrsId=txtEstHrs_" + options.data.ID + ">" + options.data.EstimatedHours + "</span>").appendTo($item);
+                            $("<input>", { "type": "text", id: "txtEstHrs_" + options.data.ID, "taskid": options.data.ID, treeList: "treeList" + category.ID, class: "estHrs-txtBox txtEstHrs", value: options.data.EstimatedHours, style: "display:none", onchange: "txtEstHrsChange(this);", "ActualHours": options.data.ActualHours }).appendTo($item);
+                            
+                            $("<div class='startDate-imgWrap' onclick='starteDateIconClick(this)' taskid= "+options.data.ID+">", { id: "divStartDate_" + options.data.ID, onclick: "starteDateIconClick(this)", "taskid": options.data.ID }).append("<img src='/content/images/calendarNew.png',></img>").appendTo($item);
+                            //start Date
+                            var now = new Date();
+                            var StartDate = new Date(options.data.StartDate).format("dd, MMMM, yyyy");
+                            var EndDate = new Date(options.data.DueDate).format("dd, MMM, yyyy");
+                            $("<div class='cardDate-item cardDate-itemWrap'>").append(
+                                $("<div>", { "id": "startdateCal_" + options.data.ID }).dxDateBox({
+                                    type: "date",
+                                    value: StartDate,
+                                    displayFormat: "dd/MMM/yyyy",
+                                    buttons: [
+
+                                    ],
+                                    onValueChanged: function (data) {                                        
+                                        var DueDate = options.data.DueDate;
+                                        var treeList = $("#treeList" + category.ID).dxTreeList("instance");
+                                        var duration = 0;
+                                        if (DifferenceInDays(data.value, DueDate) < 1) {
+                                            DevExpress.ui.dialog.alert("Start Date cannot smaller than Due Date : " + data.value, "Error");
+                                            treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "StartDate", data.previousValue);
+                                            return;
+                                        }
+                                        else {
+                                            duration = DifferenceInDays(data.value, DueDate);
+                                            var key = parseInt(options.data.ID);
+                                            var values = { StartDate: data.value, Duration: duration };
+                                            return $.ajax({
+                                                url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+                                                type: "PUT",
+                                                async: false,
+                                                data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+                                                success: function (d) {
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "StartDate", data.value);
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "Duration", duration);
+
+                                                }
+                                            });
+                                        }
+
+                                    },
+                                    onDateBoxContentReady: function (e) {
+                                        e.component.option('inputAttr', { readonly: true })
+                                    }
+                                }))
+                                .appendTo($item);
+                            //end start Date
+
+                            //start Due date
+                            $("<div class='dueDate-imgWrap' onclick='endDateIconClick(this)', taskid= "+options.data.ID +">").append("<img src='/content/images/calendarNew.png',></img>").appendTo($item);
+                            $("<div class='cardDate-itemWrap cardDate-item'>").append(
+                                $("<div>", { "id": "duedate_" + options.data.ID }).dxDateBox({
+                                    type: "date",
+                                    value: EndDate,
+                                    displayFormat: "dd/MMM/yyyy",
+                                    buttons: [],
+                                    onValueChanged: function (data) {
+                                        var startDate = options.data.StartDate;
+                                        var treeList = $("#treeList" + category.ID).dxTreeList("instance");
+                                        var duration = 0;
+                                        if (DifferenceInDays(startDate, data.value) < 1) {
+                                            DevExpress.ui.dialog.alert("Due Date cannot less than StartDate : " + data.value, "Error");
+                                            treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "DueDate", data.previousValue);
+                                            return;
+                                        }
+                                        else {
+                                            duration = DifferenceInDays(startDate, data.value);
+                                            var key = parseInt(options.data.ID);
+                                            var values = { DueDate: data.value, Duration: duration };
+                                            return $.ajax({
+                                                url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+                                                type: "PUT",
+                                                async: false,
+                                                data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+                                                success: function (d) {
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "DueDate", data.value);
+                                                    treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "Duration", duration);
+
+                                                }
+                                            });
+                                        }
+                                    },
+                                    onDateBoxContentReady: function (e) {
+                                        e.component.option('inputAttr', { readonly: true })
+                                    }
+                                }))
+                                .appendTo($item);
+
+
+                            // $("<div class='cardData-item'>").text("Start : ").append("<span id=lblStartDate_" + options.data.ID + " onclick=editStartDate(this) txtStartDate=startdate_" + options.data.ID + ">" + StartDate + "</span>").appendTo($item)
+                            // $("<div class='cardData-item'>").text("End : ").append("<span>" + EndDate + "</span>").appendTo($item)
+
+
+
+                            //old code resource
+                            ////if (TaskParameter === 'My Tasks') {
+                            ////    if (options.data.ChildCount === 0) {
+                            ////        var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "position:absolute; left:5px;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                            ////    }
+                            ////}
+                            ////else {
+                            ////    var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "position:absolute; left:5px;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                            ////}
+                            ////if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() == "true") {
+                            ////    var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, isResourceEdit: "false", "treeList": "treeList" + category.ID, "style": "position:absolute; left:5px;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                            ////}
+                            ////else {
+                            ////    var appendImg = null;
+                            ////}
+
+                            ////if (typeof options.data.AssignedTo != "undefined" && options.data.AssignedTo != null) {
+                            ////    var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                            ////}
+                            ////if (typeof str != "undefined" && str != null) {
+                            ////    if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() == "true") {
+                            ////        var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                            ////        var strwithspace = str.replace(" ", "&nbsp;")
+                            ////        $("<div id='dataId' class='Estresource'>")
+                            ////            .append("<span style='overflow: auto;margin-left: 24px;height:18px;'><a href='javascript:void(0);' onclick=openResourceTimeSheet('" + strwithspace + "');>" + options.data.AssignedToName + "</a></span>")
+                            ////            //.append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                            ////            .append(appendImg)
+                            ////            .appendTo(container1);
+                            ////    }
+                            ////    else {
+                            ////        var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                            ////        var strwithspace = str.replace(" ", "&nbsp;")
+                            ////        $("<div id='dataId' class='Estresource'>")
+                            ////            .append("<span style='overflow: auto;margin-left: 24px;height:18px;'>" + options.data.AssignedToName + "</span>")
+                            ////            //.append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                            ////            .append(appendImg)
+                            ////            .appendTo(container1);
+                            ////    }
+                            ////}
+                            ////else {
+                            ////    var str = '';
+                            ////    var strwithspace = str.replace(" ", "&nbsp;")
+                            ////    $("<div id='dataId' class='Estresource'>")
+                            ////        .append("<span style='float:left;overflow: auto;height:18px;'><a href='javascript:void(0);' onclick=openResourceTimeSheet('" + strwithspace + "');></a></span>")
+                            ////        //.append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                            ////        .append(appendImg)
+                            ////        .appendTo(container1);
+                            ////}                           
+                            var selectedUsers = options.data[MyDataFieldkanban];
+
+                            //display
+                            var users = options.data[MyDataFieldkanban];
+                            if (options.data.isShowTagBox == undefined || options.data.isShowTagBox == false) {
+                                var resourceEditStartBtn = $("<div/>", { 'onclick': `editStartResource(${options.data.ID},this)`, 'class': "resourceEditStartBtn_" + options.data.ID }).append("<img src= '/Content/Images/editNewIcon.png' class='kanbanEdit-icon'>");
+                                resourceEditStartBtn.appendTo(container1);
+                                if (typeof (users) != "object") {
+                                    users = ast_convertStrObject(options.data[MyDataFieldkanban]);
+                                }
+                                var ctn = $(`<div class='resourceDisplayDiv_${options.data.ID} Estresource' />`);
+                                if (users) {
+                                    var usersLink = [];
+                                    users.forEach(function (s) {
+                                        var uformat = "";
+                                        if (!isNaN(Number(s.pct)) && Number(s.pct) < 100 && Number(s.pct) > 0) {
+                                            uformat = s.displayValue + "[" + s.pct + "%]";
+                                        }
+                                        else {
+                                            uformat = s.displayValue;
+                                        }
+                                        usersLink.push($("<a style='padding-right:3px;' href='javascript:' onclick='openResourceTimeSheet(\"" + s.id + "\", \"" + s.displayValue.replace("'", "") + "\")' title=\"" + uformat + "\"  />").text(uformat));
+                                    });
+                                    usersLink.forEach(function (s, i) {
+                                        if (usersLink.length > 1 && usersLink.length - 1 == i) {
+                                            ctn.append($("<span />").text("; "));
+                                        }
+                                        ctn.append(s);
+                                    });
+                                }
+                                else {
+                                    ctn.append($("<span/>").text())
+                                }
+
+                                ctn.appendTo(container1);
+
+                                
+
+                            }
+                           
+
+                            var style = 'display:none';
+                            if (options.data.isShowTagBox != undefined && options.data.isShowTagBox == true) {
+                                var style = 'display:block';
+                            }
+                            var resourceEditEndBtn = $("<div/>", { 'onclick': `editEndResource(${options.data.ID},this)`, 'class': "resourceEditEndBtn_" + options.data.ID, "style": style, 'treeList': "treeList" + category.ID }).append("<img src= '/Content/Images/close-red.png' style= 'width:16px;position:relative;top:20px;right:5px;float:right;cursor:pointer;'>");
+                            resourceEditEndBtn.appendTo(container1)
+
+                            //edit code
+                            if (typeof (selectedUsers) != "object") {
+                                selectedUsers = ast_convertStrObject(options.data[MyDataFieldkanban]);
+                            }
+
+                            var pickerBt = $("<img>", { 'style': 'width:16px;right:25px;position:relative;top:-26px;float:right;cursor:pointer;', 'class': 'assigneeToImgKanban', 'title': 'Find user based on availability', 'src': '/Content/Images/add-groupBlue.png', 'id': options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "treeList": "treeList" + category.ID, });
+                            var userTagBox = $("<div class='resource-select-dropdown' id='tagBox_" + options.data.ID + "'/>").dxTagBox({
+                                width: 150,
+                                dataSource: ast_dataSource,
+                                searchTimeout: 1000,
+                                //items: [{ id: "0c55ef6d-b64e-4ab0-8172-0e7ed565f0ef", displayValue: "Sanjeev Kuwadekar" }, { id: "08c74834-0a9f-429b-85c1-af5ccae0c487", displayValue: "Prasad Upasani" }, { id: "0340bcae-5af5-4ce2-a612-e95ef34fb7b9", displayValue: "Adam Smith" }, { id: "c2357505-a4d9-4959-be78-5d302418eb7e", displayValue: "Amaya" }],
+                                displayExpr: "displayValue",
+                                searchEnabled: true,
+                                value: selectedUsers,
+                                searchExpr: "displayValue",
+                                showDropDownButton: true,
+                                tagTemplate: function (tagData, container) {
+
+                                    if (!tagData.pct)
+                                        tagData.pct = "100";
+                                    var editBt = $("<img style='width:16px' src='/Content/Images/editNewIcon.png' class='" + tagData.id + "_txtbox'  />");
+                                    var editBox = $("<input type='text' style='width:105px;' class='" + tagData.id + "_txtBt'    />");
+
+                                    editBox.val(tagData.displayValue + "[" + tagData.pct + "%]");
+                                    editBox.bind("click", function (e) {
+                                        this.focus();
+                                        var startIndex = $(this).val().indexOf("[") + 1;
+                                        var endIndex = $(this).val().indexOf("%");
+                                        ast_txtboxCreateSelectionK(this, startIndex, endIndex);
+                                        e.stopPropagation();
+                                    });
+                                    editBox.bind("keyup", function (e) {
+                                        var es = /\[[0-9%]*\]/g;
+                                        var matchPct = es.exec(editBox.val())
+                                        var pct = "100";
+                                        if (matchPct && matchPct.length > 0) {
+                                            val = matchPct[0].replace(/[\[%\]]*/g, '')
+                                            pct = $.trim(val);
+                                        }
+
+                                        var tagBoxCtl = userTagBox.dxTagBox("instance")
+                                        if (tagBoxCtl) {
+                                            var selectedTags = tagBoxCtl.option("value");
+                                            var pctUser = _.findWhere(selectedTags, { id: tagData.id });
+                                            if (pctUser) {
+                                                pctUser.pct = pct;
+                                                var userStr = ast_convertObjToStrK(selectedTags);
+                                                cellInfo.setValue(userStr);
+                                            }
+                                        }
+                                    });
+                                    editBt.bind("click", function (e) {
+                                        editBox.focus();
+                                        var startIndex = editBox.val().indexOf("[") + 1;
+                                        var endIndex = editBox.val().indexOf("%");
+                                        ast_txtboxCreateSelectionK(editBox.get(0), startIndex, endIndex);
+                                        e.stopPropagation();
+                                    });
+                                    return $("<div />")
+                                        .addClass("dx-tag-content")
+                                        .append(
+                                            editBox,
+                                            editBt,
+                                            $("<div />").addClass("dx-tag-remove-button")
+                                        );
+                                },
+                                onValueChanged: function (e) {
+                                    var userStr = ast_convertObjToStrK(e.value);
+                                    //treeList.option('dataSource')._items.filter(x => x.key == options.data.ID)[0].data.AssignToPct = userStrFormat
+                                    var values = { "AssignToPct": userStr };
+                                    
+                                    return $.ajax({
+                                        url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+                                        type: "PUT",
+                                        //async: false,
+                                        data: { key: JSON.stringify(options.data.ID), values: JSON.stringify(values), TicketId: ticketID },
+                                        success: function (data) {                                           
+                                            var treeList = $("#treeList" + category.ID).dxTreeList("instance");                                            
+                                            //treeList.option('dataSource')._items.filter(x => x.key == options.data.ID)[0].data.AssignToPct = userStr
+                                            treeList.cellValue(treeList.getRowIndexByKey(parseInt(options.data.ID)), "AssignToPct", userStr);;
+                                        }
+                                    })
+
+                                    
+                                    //cellInfo.setValue(userStr);
+                                    
+                                }
+
+                            });
+                            
+                            
+                            var mainContainer = $(`<div class=resourceEditDiv_${options.data.ID} style=${style} />`)
+                                    .append(userTagBox,
+                                        pickerBt);
+                                mainContainer.appendTo(container1);
+                            
+                            
+                        }
+
+                    }
+                }, {
+                    dataField: MyDataFieldkanban,
+                    caption: "Resource",
+                    allowEditing: true,
+                    visible: false,
+                    //minWidth: 120,
+                        editCellTemplate: function (cellElement, cellInfo) {
+                        ////if (TaskParameter === 'My Tasks') {
+                        ////    if (options.data.ChildCount === 0) {
+                        ////        var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                        ////    }
+                        ////}
+                        ////else {
+                        ////    var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                        ////}
+                        ////if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() == "true") {
+                        ////    var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "treeList": "treeList" + category.ID, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                        ////}
+                        ////else {
+                        ////    var appendImg = null;
+                        ////}
+                        //////
+                        ////if (typeof options.data.AssignedTo != "undefined" && options.data.AssignedTo != null) {
+                        ////    var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                        ////}
+                        ////if (typeof str != "undefined" && str != null) {
+                        ////    if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() == "true") {
+                        ////        var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                        ////        var strwithspace = str.replace(" ", "&nbsp;")
+                        ////        $("<div id='dataId'>")
+                        ////            .append("<span style='float: left;overflow: auto;'><a href='javascript:void(0);' onclick=openResourceTimeSheet('" + strwithspace + "');>" + options.data.AssignedToName + "</a></span>")
+                        ////            // .append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                        ////            .append(appendImg)
+                        ////            .appendTo(container1);
+                        ////    }
+                        ////    else {
+                        ////        var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                        ////        var strwithspace = str.replace(" ", "&nbsp;")
+                        ////        $("<div id='dataId'>")
+                        ////            .append("<span style='float: left;overflow: auto;'>" + options.data.AssignedToName + "</span>")
+                        ////            // .append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                        ////            .append(appendImg)
+                        ////            .appendTo(container1);
+                        ////    }
+                        ////}
+                        ////else {
+                        ////    var str = '';
+                        ////    var strwithspace = str.replace(" ", "&nbsp;")
+                        ////    $("<div id='dataId'>")
+                        ////        .append("<span style='float: left;overflow: auto;'><a href='javascript:void(0);' onclick=openResourceTimeSheet('" + strwithspace + "');></a></span>")
+                        ////        // .append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                        ////        .append(appendImg)
+                        ////        .appendTo(container1);
+                        ////}
+
+
+                        // new updated code:
+                        var selectedUsers = cellInfo.value;
+                        if (typeof (selectedUsers) != "object") {
+                            selectedUsers = ast_convertStrObject(cellInfo.value);
+                        }
+
+                            var pickerBt = $("<img>", { 'style':'width:16px;position:relative;top:-25px;right:1px;float:right;cursor:pointer;' ,'class':'assigneeToImgKanban', 'title':'Find user based on availability', 'src':'/Content/Images/add-groupBlue.png' , 'id': cellInfo.data.ID, "group": cellInfo.data.ParentTaskID, "startDate": cellInfo.data.StartDate, "endDate": cellInfo.data.DueDate, "treeList": "treeList" + category.ID, });
+                            var userTagBox = $("<div />").dxTagBox({
+                                width: 150,
+                                dataSource: ast_dataSource,
+                                searchTimeout: 1000,
+                                //items: [{ id: "0c55ef6d-b64e-4ab0-8172-0e7ed565f0ef", displayValue: "Sanjeev Kuwadekar" }, { id: "08c74834-0a9f-429b-85c1-af5ccae0c487", displayValue: "Prasad Upasani" }, { id: "0340bcae-5af5-4ce2-a612-e95ef34fb7b9", displayValue: "Adam Smith" }, { id: "c2357505-a4d9-4959-be78-5d302418eb7e", displayValue: "Amaya" }],
+                                displayExpr: "displayValue",
+                                searchEnabled: true,
+                                value: selectedUsers,
+                                searchExpr: "displayValue",
+                                showDropDownButton: true,
+                                tagTemplate: function (tagData, container) {
+
+                                    if (!tagData.pct)
+                                        tagData.pct = "100";
+                                    var editBt = $("<img style='width:16px' src='/Content/Images/editNewIcon.png' class='" + tagData.id + "_txtbox'  />");
+                                    var editBox = $("<input type='text' style='width:105px;' class='" + tagData.id + "_txtBt'    />");
+
+                                    editBox.val(tagData.displayValue + "[" + tagData.pct + "%]");
+                                    editBox.bind("click", function (e) {
+                                        this.focus();
+                                        var startIndex = $(this).val().indexOf("[") + 1;
+                                        var endIndex = $(this).val().indexOf("%");
+                                        ast_txtboxCreateSelectionK(this, startIndex, endIndex);
+                                        e.stopPropagation();
+                                    });
+                                    editBox.bind("keyup", function (e) {
+                                        var es = /\[[0-9%]*\]/g;
+                                        var matchPct = es.exec(editBox.val())
+                                        var pct = "100";
+                                        if (matchPct && matchPct.length > 0) {
+                                            val = matchPct[0].replace(/[\[%\]]*/g, '')
+                                            pct = $.trim(val);
+                                        }
+
+                                        var tagBoxCtl = userTagBox.dxTagBox("instance")
+                                        if (tagBoxCtl) {
+                                            var selectedTags = tagBoxCtl.option("value");
+                                            var pctUser = _.findWhere(selectedTags, { id: tagData.id });
+                                            if (pctUser) {
+                                                pctUser.pct = pct;
+                                                var userStr = ast_convertObjToStrK(selectedTags);
+                                                cellInfo.setValue(userStr);
+                                            }
+                                        }
+                                    });
+                                    editBt.bind("click", function (e) {
+                                        editBox.focus();
+                                        var startIndex = editBox.val().indexOf("[") + 1;
+                                        var endIndex = editBox.val().indexOf("%");
+                                        ast_txtboxCreateSelectionK(editBox.get(0), startIndex, endIndex);
+                                        e.stopPropagation();
+                                    });
+                                    return $("<div />")
+                                        .addClass("dx-tag-content")
+                                        .append(
+                                            editBox,
+                                            editBt,
+                                            $("<div />").addClass("dx-tag-remove-button")
+                                        );
+                                },
+                                onValueChanged: function (e) {
+                                    var userStr = ast_convertObjToStrK(e.value);
+                                    cellInfo.setValue(userStr);
+                                }
+
+                            });
+
+                        var mainContainer = $("<div />")
+                            .append(userTagBox,
+                                pickerBt);
+
+                        mainContainer.appendTo(cellElement);
+
+                    },
+                    //setCellValue: function (rowData, value) {
+                    //    var idandnamevalue = value.split("~");
+                    //    if (idandnamevalue.length > 1) {
+                    //        rowData.AssignedTo = idandnamevalue[0];
+                    //        rowData.AssignedToName = idandnamevalue[1];
+                    //    }
+                    //}
+                },
+
+                {
+                    dataField: "StartDate",
+                    caption: "Start Date",
+                    mode: "batch",
+                    visible: false,
+                    allowEditing: EditingAllow,
+                    dataType: "date",
+                    allowFiltering: false,
+                    width: 100,
+                    format: 'MMM d, yyyy',
+                    editorOptions: {
+                        showClearButton: true
+                    }
+                }, {
+                    allowAdding: true,
+                    dataField: "DueDate",
+                    caption: "Due Date",
+                    allowEditing: EditingAllow,
+                    allowFiltering: false,
+                    dataType: "date",
+                    width: 100,
+                    visible: false,
+                    format: 'MMM d, yyyy',
+                    editorOptions: {
+                        showClearButton: true
+                    }
+                }, {
+                    dataField: "EstimatedRemainingHours",
+                    caption: "ERH",
+                    visible: false,
+                    allowEditing: EditingAllow,
+                    allowFiltering: false,
+                    dataType: "number",
+                    width: 50,
+                },
+                {
+                    dataField: "EstimatedHours",
+                    caption: "Est Hrs.",
+                    visible: false,
+                    allowEditing: EditingAllow,
+                    allowFiltering: false,
+                    dataType: "number",
+                    width: 50,
+                },
+                {
+                    dataField: "Status",
+                    caption: "Status",
+                    visible: false,
+                    allowEditing: EditingAllow,
+                    width: 90,
+                    lookup: {
+                        dataSource: [
+                            "Not Started",
+                            "In Progress",
+                            "Completed",
+                            "Waiting",
+                        ]
+                    }
+                }, {
+                    dataField: "PercentComplete",
+                    caption: "% Comp.",
+                    visible: false,
+                    allowEditing: EditingAllow,
+                    allowFiltering: false,
+                    width: 60
+                }, {
+                    dataField: "Title",
+                    caption: "",
+                    visible: false,
+                    allowEditing: true,
+                    allowFiltering: false,
+                    width: 60
+                },
+                {
+                    dataField: "Duration",
+                    visible: false,
+                    caption: "Duration",
+
+                    allowEditing: false,
+                    allowFiltering: false,
+                    minWidth: 80
+
+                }, {
+                    type: "buttons",
+                    buttons: [{
+                        template: function (e) {
+                            var link = $("<div class='ActionBtnLink'>").append("<a id='ActionBtnLink' href='#'>...</a>")
+                            $('.ActionBtnLink').parent('td').addClass('hideIcon');
+                            link.on("click", function () {
+                                $(this).parent('td').toggleClass('showIcon');
+                            });
+                            return link;
+                        }
+                    }, {
+                        name: "add",
+                        cssClass: "my-add-class"
+
+                    }, {
+                        name: "edit",
+                        cssClass: "my-edit-class"
+                    }, {
+                        name: "delete",
+                        cssClass: "my-delete-class"
+                    }]
+
+                }],
+                showBorders: true,
+                wordWrapEnabled: true,
+                showRowLines: true,
+                showBorders: true,
+                columnAutoWidth: true,
+                editing: {
+                    mode: "form",
+                    form: {
+                        items: [{ itemType: "group", colSpan: 2, cssClass: "editForm-class", items: [{ dataField: "Title", colSpan: 2 }, { dataField: "StartDate" }, { dataField: "DueDate" }, { itemType: "group", colSpan: 2, items: [{ dataField: "EstimatedRemainingHours", colSpan: 1 }, { dataField: "EstimatedHours", colSpan: 1 }] }, { dataField: "Status" }, { dataField: "PercentComplete" }, { dataField: MyDataFieldkanban, Caption: "Resource" }] }],
+                        colCount: 2,
+                        labelLocation: "left",
+                        width: "90%",
+                    },
+                    allowAdding: true,
+                    allowUpdating: true,
+                    allowDeleting: true,
+                    useIcons: true,
+                    refreshMode: "reshape",
+                },
+                onRowUpdating: function (e) {                    
+                    var key = e.key;
+                    var values = e.newData;
+                    return $.ajax({
+                        url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+                        type: "PUT",
+                        data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+                        async: false,
+                        success: function (data) {                            
+                            //KanBanCategoryIds.forEach(function (kanBabCategoryId) {
+                            //    var KanbanTree = $("#" + kanBabCategoryId).dxTreeList("instance");
+                            //    KanbanTree.refresh(true);
+                            //});
+                            TaskDataFull = null;
+                            e.component.refresh(true);
+                        }
+                    })
+                },//end onRowUpdating
+
+                onRowRemoving: function (e) {
+                    var key = e.key;
+                    return $.ajax({
+                        url: ugitConfig.apiBaseUrl + "/api/module/DeleteTask",
+                        type: "DELETE",
+                        data: { key: key, TicketId: ticketID },
+                        async: false,
+                        success: function (data) {
+                            //KanBanCategoryIds.forEach(function (kanBabCategoryId) {
+                            //    var KanbanTree = $("#" + kanBabCategoryId).dxTreeList("instance");
+                            //    KanbanTree.refresh(true);
+                            //});
+                            TaskDataFull = null;
+                            e.component.refresh(true);
+                        }
+                    })
+                },//end onRowRemoving
+                onRowInserting: function (e) {                    
+                    e.data.ParentTaskID = e.data.ParentTaskIDummy;
+                    var values = e.data;
+
+                    return $.ajax({
+                        url: ugitConfig.apiBaseUrl + "/api/module/InsertTask",
+                        type: "POST",
+                        data: { values: JSON.stringify(values), TicketId: ticketID },
+                        async: false,
+                        success: function (data) {
+                            //KanBanCategoryIds.forEach(function (kanBabCategoryId) {
+                            //    var KanbanTree = $("#" + kanBabCategoryId).dxTreeList("instance");
+                            //    KanbanTree.refresh(true);
+                            //});
+
+                            TaskDataFull = null;
+                            e.component.refresh(true);
+                        }
+                    })
+
+                },// end onRowInserting
+                onInitNewRow: function (e) {
+                    e.data.ID = 0;
+                    e.data.PercentComplete = 0;
+                    e.data.Status = "Not Started";
+                    e.data.StartDate = new Date();
+                    e.data.DueDate = new Date();
+                    e.data.EstimatedHours = 0;
+                    e.data.ActualHours = 0;
+                    e.data.EstimatedRemainingHours = 0;
+                    e.data.Duration = 1;
+                    e.data.Contribution = 0;
+                },
+                onEditingStart: function (e) {
+
+                },
+                onContentReady: function(e) {                    
+                },
+                onEditorPreparing: function (e) {
+
+                    var kanbanEditTreeL = e.component;
+                    if (e.parentType === 'dataRow') {
+                        currentRowIndexKanBan = kanbanEditTreeL.getRowIndexByKey(e.row.key);
+                    }
+
+                    if (e.parentType === 'dataRow' && e.dataField === 'StartDate') {
+                        cellData = e.row.data;
+                        e.editorOptions.onValueChanged = function (obj) {
+                            if (obj.value == null) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.StartDate = obj.value;
+                                    cellData.DueDate = obj.value;
+                                }
+                                else {
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", null);
+                                }
+                            }
+                            else {
+                                if (obj.previousValue == null) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.StartDate = obj.value;
+                                        cellData.DueDate = obj.value;
+                                    }
+                                    else {
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                    }
+                                }
+                                else {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.StartDate = obj.value;
+                                        cellData.DueDate = obj.value;
+                                    }
+                                    else {
+                                        if (DifferenceInDays(obj.value, cellData.DueDate) < 1) {
+                                            DevExpress.ui.dialog.alert("Start Date cannot smaller than Due Date : " + obj.value, "Error");
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.previousValue);
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(obj.previousValue, cellData.DueDate));
+                                            e.row.data.Duration = DifferenceInDays(obj.previousValue, cellData.DueDate)
+                                            return;
+                                        }
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                    }
+                                }
+                            }
+                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(obj.value, cellData.DueDate));
+                            e.row.data.Duration = DifferenceInDays(obj.value, cellData.DueDate);
+                        }
+                    }
+                    if (e.parentType === 'dataRow' && e.dataField === 'DueDate') {
+                        cellData = e.row.data;
+                        e.editorOptions.onValueChanged = function (obj) {
+                            if (obj.value == null) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.StartDate = obj.value;
+                                    cellData.DueDate = obj.value;
+
+                                }
+                                else {
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", null);
+                                }
+                            }
+                            else {
+                                if (obj.previousValue == null) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.StartDate = obj.value;
+                                        cellData.DueDate = obj.value;
+                                    }
+                                    else {
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                    }
+                                }
+                                else {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.StartDate = obj.value;
+                                        cellData.DueDate = obj.value;
+                                    }
+                                    else {
+                                        if (DifferenceInDays(cellData.StartDate, obj.value) < 1) {
+                                            DevExpress.ui.dialog.alert("Due Date cannot exceed than StartDate : " + obj.value, "Error");
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.previousValue);
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(cellData.StartDate, obj.previousValue));
+                                            e.row.data.Duration = DifferenceInDays(cellData.StartDate, obj.previousValue);
+                                            return;
+                                        }
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                    }
+                                }
+                            }
+                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(cellData.StartDate, obj.value));
+                            e.row.data.Duration = DifferenceInDays(cellData.StartDate, obj.value);
+                        }
+                    }
+                    if (e.parentType === 'dataRow' && e.dataField === 'PercentComplete') {
+                        e.editorOptions.min = 0;
+                        e.editorOptions.max = 100;
+                        cellData = e.row.data;
+                        e.editorOptions.onValueChanged = function (obj) {
+                            //var d = _.find(kanbanEditTreeL._options.dataSource._items, function (current) { return current.key == cellData.ID; });
+                            if (obj.value >= 100) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.PercentComplete = obj.value;
+                                    cellData.Status = "Completed";
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", obj.value);
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", "Completed");
+                            }
+                            if (obj.value <= 0) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.PercentComplete = obj.value;
+                                    cellData.Status = "Not Started";
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", obj.value);
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", "Not Started");
+                            }
+                            if (obj.value > 0 && obj.value < 100) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.PercentComplete = obj.value;
+                                    cellData.Status = "In Progress";
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", obj.value);
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", "In Progress");
+                            }
+                        }
+                    }
+                    if (e.parentType === 'dataRow' && e.dataField === 'Status') {
+                        cellData = e.row.data;
+                        e.editorOptions.onValueChanged = function (obj) {
+                            //var d = _.find(kanbanEditTreeL._options.dataSource._items, function (current) { return current.key == cellData.ID; });
+                            if (obj.value == "Completed") {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.Status = obj.value;
+                                    cellData.PercentComplete = 100;
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 100);
+                            }
+                            if (obj.value == "Not Started") {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.Status = obj.value;
+                                    cellData.PercentComplete = 0;
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 0);
+                            }
+                            if (obj.value == "In Progress") {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.Status = obj.value;
+                                    cellData.PercentComplete = 0;
+                                }
+                                if (obj.previousValue == "Completed") {
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 90);
+                                }
+                                if (obj.previousValue == "Not Started") {
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 0);
+                                }
+                            }
+                            if (obj.value == "Waiting") {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.Status = obj.value;
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                            }
+                        }
+                    }
+                    if (e.parentType === 'dataRow' && e.dataField === 'EstimatedHours') {
+                        cellData = e.row.data;
+                        e.editorOptions.onValueChanged = function (obj) {
+                            if (currentRowIndexKanBan < 0) {
+                                cellData.EstimatedHours = obj.value;
+                                cellData.EstimatedRemainingHours = obj.value;
+                            }
+
+                            cellData.EstimatedRemainingHours = obj.value - cellData.ActualHours;
+                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedHours", obj.value)
+                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedRemainingHours", obj.value - cellData.ActualHours)
+                        }
+                    }
+                    if (e.parentType === 'dataRow' && e.dataField === 'EstimatedRemainingHours') {
+                        cellData = e.row.data;
+                        e.editorOptions.onValueChanged = function (obj) {
+                            if (currentRowIndexKanBan < 0) {
+                                cellData.EstimatedRemainingHours = obj.value;
+                                cellData.EstimatedHours = obj.value;
+                            }
+                            cellData.EstimatedHours = obj.value + cellData.ActualHours;
+                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedRemainingHours", obj.value)
+                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedHours", obj.value + cellData.ActualHours)
+                        }
+                    }
+
+                },// end onEditorPreparing
+                onRowPrepared: function (e) {
+                    $(e.rowElement).attr({ 'data-row-index': e.rowIndex });
+                },
+                onCellClick: function (e) {
+                    tasklistrowindex = e.rowIndex;
+                    Y = window.pageYOffset;
+                }
+            }).dxTreeList('instance');
+
+        }
+
+        function renderListTitle($containerlist, category) {
+            var bindCategory = [];
+            bindCategory[0] = category;
+            $("<div>")
+                .addClass("list-title categoriesTitle")
+                .addClass("dx-theme-text-color")
+                .text(category.Title).attr("id", "main_" + category.ID).appendTo($containerlist).dxTreeList({
+                    dataSource: new DevExpress.data.DataSource({
+                        loadMode: "raw",
+                        key: "ID",
+                        load: function (loadOptions) {                            
+                            return bindCategory;
+                        },
+                        insert: function (values) { return },
+                        update: function (key, values) { },
+                        remove: function (key) { }
+                    }),
+                     //dataSource: bindCategory,
+                    //dataSource: _.findWhere(kanBanViewDataSource._items, { key: parseInt(category.ID) }),
+                     keyExpr: "ID",
+                    parentIdExpr: "ParentTaskID",
+                    onToolbarPreparing: function (e) { e.toolbarOptions.visible = false; },
+                    showColumnHeaders: false,
+                    cacheEnabled: true,
+                    remoteOperations: false,
+                    rowDragging:
+                    {
+                        showDragIcons: false,
+                        allowDropInsideItem: true,
+                        allowReordering: true,
+                        group: "tasksGroup",
+                        onDragChange: function (e) {
+                        },
+                        onAdd: function (e) {                            
+                            if (e.toComponent.getVisibleRows() != null && e.toComponent.getVisibleRows().length != 0 ) {
+                                if (e.toIndex >= e.toComponent.getVisibleRows().length) {
+                                    e.toIndex = visibleRows.length - 1;
+                                }
+                                var targetData = e.toComponent.getVisibleRows()[e.toIndex].data;
+                                sourceData = e.itemData;
+                                $.ajax({
+                                    url: ugitConfig.apiBaseUrl + "/api/module/DragAndDrop?TicketPublicId=" + ticketID + "&toKey=" + sourceData.ID + "&fromKey=" + targetData.ID,
+                                    method: "POST",
+                                    success: function (data) {
+                                        TaskDataFull = null;
+                                        //RepaintTaskWorkflowKanBan();
+                                        var InsertBeforeThisList = $(".ls_" + category.ID);
+                                        e.itemData.ParentTaskID = 0;
+                                        e.itemData.ParentTaskIDummy = 0;
+                                        e.itemData.Level = 0;
+                                        renderList(InsertBeforeThisList, e.itemData, true);
+                                        var KanbanTree = $("#treeList" + category.ID).dxTreeList("instance"); 
+                                        //e.toComponent.refresh(true);
+                                        //renderList($("#kanban .dx-scrollview-content").first()[0], e.itemData);
+                                        e.fromComponent.refresh();
+                                    },
+                                    error: function (error) { }
+                                })
+                            }                            
+                        },
+                    },
+                    columns: [
+                        {
+                            type: "buttons",
+                            buttons: [{
+                                name: "add"
+                            }],
+                            minWidth: 30,
+                            width: 30,
+                        },
+                        {
+                            dataField: "Title",
+                            allowEditing: true,
+                            minWidth: 100,
+                            width:100,
+                            validationRules: [{ type: "required" }],
+                            cellTemplate: function (container1, options) {
+                            var $item = $("<div>")
+                                .addClass("titleCard")
+                                .addClass("dx-card")
+
+                                .appendTo(container1);
+                            if (options.data.isCritical == true) {
+                                    $item.addClass(isCritical);
+                                }
+                                $("<div>").addClass("titleCard-priority").addClass("priority-" + options.data.Status).appendTo($item);
+
+                                $("<div id='dataTitle'>")
+                                    .append("<span>" + options.data.Title + "</span>")
+                                    .appendTo($item);
+
+                            }
+                        },
+                        
+                        {
+                            dataField: MyDataFieldkanban,
+                            caption: "Resource",
+                            allowEditing: true,
+                            visible: false,
+                            minWidth: 120,
+                            editCellTemplate: function (cellElement, cellInfo) {                              
+                                ////if (TaskParameter === 'My Tasks') {
+                                ////    if (options.data.ChildCount === 0) {
+                                ////        var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                                ////    }
+                                ////}
+                                ////else {
+                                ////    var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                                ////}
+                                ////if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() == "true") {
+                                ////    var appendImg = $("<img>", { "src": "/content/images/add-groupBlue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "treeList": "main_" + category.ID, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImgKanban" });
+                                ////}
+                                ////else {
+                                ////    var appendImg = null;
+                                ////}
+                                //////
+                                ////if (typeof options.data.AssignedTo != "undefined" && options.data.AssignedTo != null) {
+                                ////    var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                                ////}
+                                ////if (typeof str != "undefined" && str != null) {
+                                ////    if (showBaseline.toLowerCase() != "true" && bActUser.toLowerCase() == "true") {
+                                ////        var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                                ////        var strwithspace = str.replace(" ", "&nbsp;")
+                                ////        $("<div id='dataId'>")
+                                ////            .append("<span style='float: left;overflow: auto;'><a href='javascript:void(0);' onclick=openResourceTimeSheet('" + strwithspace + "');>" + options.data.AssignedToName + "</a></span>")
+                                ////            // .append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                                ////            .append(appendImg)
+                                ////            .appendTo(container1);
+                                ////    }
+                                ////    else {
+                                ////        var str = options.data.AssignedTo + "','" + options.data.AssignedToName;
+                                ////        var strwithspace = str.replace(" ", "&nbsp;")
+                                ////        $("<div id='dataId'>")
+                                ////            .append("<span style='float: left;overflow: auto;'>" + options.data.AssignedToName + "</span>")
+                                ////            // .append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                                ////            .append(appendImg)
+                                ////            .appendTo(container1);
+                                ////    }
+                                ////}
+                                ////else {
+                                ////    var str = '';
+                                ////    var strwithspace = str.replace(" ", "&nbsp;")
+                                ////    $("<div id='dataId'>")
+                                ////        .append("<span style='float: left;overflow: auto;'><a href='javascript:void(0);' onclick=openResourceTimeSheet('" + strwithspace + "');></a></span>")
+                                ////        // .append($("<img>", { "src": "/content/images/moreoptions_blue.png", "ID": options.data.ID, "group": options.data.ParentTaskID, "startDate": options.data.StartDate, "endDate": options.data.DueDate, "style": "float: right;overflow: auto;cursor: pointer;", "class": "assigneeToImg" }))
+                                ////        .append(appendImg)
+                                ////        .appendTo(container1);
+                                ////}
+
+                                // new updated code:
+                                var selectedUsers = cellInfo.value;
+                                if (typeof (selectedUsers) != "object") {
+                                    selectedUsers = ast_convertStrObject(cellInfo.value);
+                                }
+
+                                var pickerBt = $("<img>", { 'style': 'width:16px;position:relative;top:-25px;float:right;cursor:pointer;', 'class': 'assigneeToImgKanban', 'title': 'Find user based on availability', 'src': '/Content/Images/add-groupBlue.png', 'id': cellInfo.data.ID, "group": cellInfo.data.ParentTaskID, "startDate": cellInfo.data.StartDate, "endDate": cellInfo.data.DueDate,  "treeList": "main_" + category.ID, });
+                                var userTagBox = $("<div />").dxTagBox({
+                                    width: 150,
+                                    dataSource: ast_dataSource,
+                                    searchTimeout: 1000,
+                                    //items: [{ id: "0c55ef6d-b64e-4ab0-8172-0e7ed565f0ef", displayValue: "Sanjeev Kuwadekar" }, { id: "08c74834-0a9f-429b-85c1-af5ccae0c487", displayValue: "Prasad Upasani" }, { id: "0340bcae-5af5-4ce2-a612-e95ef34fb7b9", displayValue: "Adam Smith" }, { id: "c2357505-a4d9-4959-be78-5d302418eb7e", displayValue: "Amaya" }],
+                                    displayExpr: "displayValue",
+                                    searchEnabled: true,
+                                    value: selectedUsers,
+                                    searchExpr: "displayValue",
+                                    showDropDownButton: true,
+                                    tagTemplate: function (tagData, container) {
+
+                                        if (!tagData.pct)
+                                            tagData.pct = "100";
+                                        var editBt = $("<img style='width:16px' src='/Content/Images/editNewIcon.png' class='" + tagData.id + "_txtbox'  />");
+                                        var editBox = $("<input type='text' style='width:105px;' class='" + tagData.id + "_txtBt'    />");
+
+                                        editBox.val(tagData.displayValue + "[" + tagData.pct + "%]");
+                                        editBox.bind("click", function (e) {
+                                            this.focus();
+                                            var startIndex = $(this).val().indexOf("[") + 1;
+                                            var endIndex = $(this).val().indexOf("%");
+                                            ast_txtboxCreateSelectionK(this, startIndex, endIndex);
+                                            e.stopPropagation();
+                                        });
+                                        editBox.bind("keyup", function (e) {
+                                            var es = /\[[0-9%]*\]/g;
+                                            var matchPct = es.exec(editBox.val())
+                                            var pct = "100";
+                                            if (matchPct && matchPct.length > 0) {
+                                                val = matchPct[0].replace(/[\[%\]]*/g, '')
+                                                pct = $.trim(val);
+                                            }
+
+                                            var tagBoxCtl = userTagBox.dxTagBox("instance")
+                                            if (tagBoxCtl) {
+                                                var selectedTags = tagBoxCtl.option("value");
+                                                var pctUser = _.findWhere(selectedTags, { id: tagData.id });
+                                                if (pctUser) {
+                                                    pctUser.pct = pct;
+                                                    var userStr = ast_convertObjToStrK(selectedTags);
+                                                    cellInfo.setValue(userStr);
+                                                }
+                                            }
+                                        });
+                                        editBt.bind("click", function (e) {
+                                            editBox.focus();
+                                            var startIndex = editBox.val().indexOf("[") + 1;
+                                            var endIndex = editBox.val().indexOf("%");
+                                            ast_txtboxCreateSelectionK(editBox.get(0), startIndex, endIndex);
+                                            e.stopPropagation();
+                                        });
+                                        return $("<div />")
+                                            .addClass("dx-tag-content")
+                                            .append(
+                                                editBox,
+                                                editBt,
+                                                $("<div />").addClass("dx-tag-remove-button")
+                                            );
+                                    },
+                                    onValueChanged: function (e) {
+                                        var userStr = ast_convertObjToStrK(e.value);
+                                        cellInfo.setValue(userStr);
+                                    }
+
+                                });
+
+                                var mainContainer = $("<div />")
+                                    .append(userTagBox,
+                                        pickerBt);
+
+                                mainContainer.appendTo(cellElement);
+
+                            },
+                            ////setCellValue: function (rowData, value) {
+                            ////    var idandnamevalue = value.split("~");
+                            ////    if (idandnamevalue.length > 1) {                                    
+                            ////        rowData.AssignedTo = idandnamevalue[0];
+                            ////        rowData.AssignedToName = idandnamevalue[1];
+                            ////    }
+
+
+                            ////}
+
+                        }, // end assign to
+
+                        {
+                            dataField: "StartDate",
+                            caption: "Start Date",
+                            mode: "batch",
+                            visible: false,
+                            allowEditing: EditingAllow,
+                            dataType: "date",
+                            allowFiltering: false,
+                            width: 100,
+                            //validationRules: [{ type: "required" }],
+                            format: 'MMM d, yyyy',
+                            editorOptions: {
+                                showClearButton: true
+                            }
+                        }, {
+                            allowAdding: true,
+                            dataField: "DueDate",
+                            caption: "Due Date",
+                            allowEditing: EditingAllow,
+                            allowFiltering: false,
+                            dataType: "date",
+                            width: 100,
+                            visible: false,
+                            //validationRules: [{ type: "required" }],
+                            format: 'MMM d, yyyy',
+                            editorOptions: {
+                                showClearButton: true
+                            }
+                        }, {
+                            dataField: "EstimatedRemainingHours",
+                            caption: "ERH",
+                            visible: false,
+                            allowEditing: EditingAllow,
+                            allowFiltering: false,
+                            dataType: "number",
+                            width: 50,
+                        },
+                        {
+                            dataField: "Title",
+                            caption: "",
+                            visible: false,
+                            allowEditing: true,
+                            allowFiltering: false,
+                            width: 60
+                        }, 
+                        {
+                            dataField: "EstimatedHours",
+                            caption: "Est Hrs.",
+                            visible: false,
+                            allowEditing: EditingAllow,
+                            allowFiltering: false,
+                            dataType: "number",
+                            width: 50,
+                        },
+
+                        {
+                            dataField: "Status",
+                            caption: "Status",
+                            visible: false,
+                            allowEditing: EditingAllow,
+                            width: 90,
+                            lookup: {
+                                dataSource: [
+                                    "Not Started",
+                                    "In Progress",
+                                    "Completed",
+                                    "Waiting",
+                                ]
+                            }
+                        }, {
+                            dataField: "PercentComplete",
+                            caption: "% Comp.",
+                            visible: false,
+                            allowEditing: EditingAllow,
+                            allowFiltering: false,
+                            width: 60
+                        }, {
+                            dataField: "Duration",
+                            visible: false,
+                            caption: "",
+
+                            allowEditing: false,
+                            allowFiltering: false,
+                            minWidth: 80
+
+                        }],
+                    showRowLines: true,
+                    showBorders: true,
+                    columnAutoWidth: true,
+                    loadPanel: {
+                        enabled: false
+                    },
+                    editing: {
+                        mode: "form",
+                        form: {
+                            items: [{ itemType: "group", colSpan: 2, cssClass: "editForm-class", items: [{ dataField: "Title", colSpan: 2 }, { dataField: "StartDate" }, { dataField: "DueDate" }, { itemType: "group", colSpan: 2, items: [{ dataField: "EstimatedRemainingHours", colSpan: 1 }, { dataField: "EstimatedHours", colSpan: 1 }] }, { dataField: "Status" }, { dataField: "PercentComplete" }, { dataField: MyDataFieldkanban, Caption: "Resource" }] }],
+                            colCount: 2,
+                            labelLocation: "left",
+                            width: "90%"
+
+                        },
+
+                        allowAdding: true,
+                        //allowUpdating: true,
+                        //allowDeleting: bDeletingAllow,
+                        useIcons: true,
+                        refreshMode: "reshape",
+                    },
+                    onRowInserting: function (e) {                        
+                        var values = e.data;
+                         return $.ajax({
+                            url: ugitConfig.apiBaseUrl + "/api/module/InsertTask",
+                            type: "POST",
+                             data: { values: JSON.stringify(values), TicketId: ticketID },
+                             async: false,
+                             success: function (data) {                                 
+                                TaskDataFull = null;
+                               // RepaintTaskWorkflowKanBan();
+                                
+                                //e.component.option('dataSource', bindCategory);
+                                //e.component.cancelEditData();
+                                //e.component.refresh(true);
+                                //var KanbanTree = $("#treeList" + category.ID).dxTreeList("instance"); 
+                                //var dataSource = KanbanTree.getDataSource();
+                                //dataSource.store().insert(data).then(function () {
+                                 //   dataSource.reload();
+                                //})
+
+                                 var InsertBeforeThisList = $(".ls_" + category.ID);
+                                 //e.itemData.ParentTaskID = 0;
+                                 //e.itemData.ParentTaskIDummy = 0;
+                                 //e.itemData.Level = 0;
+                                 renderList(InsertBeforeThisList, category, true);
+                                 //var KanbanTree = $("#treeList" + category.ID).dxTreeList("instance"); 
+                                 InsertBeforeThisList.remove();
+                                //KanbanTree.refresh(true);                                
+                             },
+                             error: function (e) {  }
+                        })
+                        
+                    },// end onRowInserting
+
+                   onInitNewRow: function (e) {
+                        e.data.ID = 0;
+                        e.data.PercentComplete = 0;
+                        e.data.Status = "Not Started";
+                        e.data.StartDate = new Date();
+                        e.data.DueDate = new Date();
+                        e.data.EstimatedHours = 0;
+                        e.data.ActualHours = 0;
+                        e.data.EstimatedRemainingHours = 0;
+                        e.data.Duration = 1;
+                        e.data.Contribution = 0;
+                    },
+                    onEditorPreparing: function (e) {                        
+                        var kanbanEditTreeL = e.component;
+                        if (e.parentType === 'dataRow') {
+                            currentRowIndexKanBan = kanbanEditTreeL.getRowIndexByKey(e.row.key);
+                        }
+
+                        if (e.parentType === 'dataRow' && e.dataField === 'StartDate') {
+                            cellData = e.row.data;
+                            e.editorOptions.onValueChanged = function (obj) {
+                                if (obj.value == null) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.StartDate = obj.value;
+                                        cellData.DueDate = obj.value;
+                                    }
+                                    else {
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", null);
+                                    }
+                                }
+                                else {
+                                    if (obj.previousValue == null) {
+                                        if (currentRowIndexKanBan < 0) {
+                                            cellData.StartDate = obj.value;
+                                            cellData.DueDate = obj.value;
+                                        }
+                                        else {
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                        }
+                                    }
+                                    else {
+                                        if (currentRowIndexKanBan < 0) {
+                                            cellData.StartDate = obj.value;
+                                            cellData.DueDate = obj.value;
+                                        }
+                                        else {
+                                            if (DifferenceInDays(obj.value, cellData.DueDate) < 1) {
+                                                DevExpress.ui.dialog.alert("Start Date cannot smaller than Due Date : " + obj.value, "Error");
+                                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.previousValue);
+                                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(obj.previousValue, cellData.DueDate));
+                                                e.row.data.Duration = DifferenceInDays(obj.previousValue, cellData.DueDate)
+                                                return;
+                                            }
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                        }
+                                    }
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(obj.value, cellData.DueDate));
+                                e.row.data.Duration = DifferenceInDays(obj.value, cellData.DueDate);
+                            }
+                        }
+                        if (e.parentType === 'dataRow' && e.dataField === 'DueDate') {
+                            cellData = e.row.data;
+                            e.editorOptions.onValueChanged = function (obj) {
+                                if (obj.value == null) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.StartDate = obj.value;
+                                        cellData.DueDate = obj.value;
+
+                                    }
+                                    else {
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", null);
+                                    }
+                                }
+                                else {
+                                    if (obj.previousValue == null) {
+                                        if (currentRowIndexKanBan < 0) {
+                                            cellData.StartDate = obj.value;
+                                            cellData.DueDate = obj.value;
+                                        }
+                                        else {
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "StartDate", obj.value);
+                                        }
+                                    }
+                                    else {
+                                        if (currentRowIndexKanBan < 0) {
+                                            cellData.StartDate = obj.value;
+                                            cellData.DueDate = obj.value;
+                                        }
+                                        else {
+                                            if (DifferenceInDays(cellData.StartDate, obj.value) < 1) {
+                                                DevExpress.ui.dialog.alert("Due Date cannot exceed than StartDate : " + obj.value, "Error");
+                                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.previousValue);
+                                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(cellData.StartDate, obj.previousValue));
+                                                e.row.data.Duration = DifferenceInDays(cellData.StartDate, obj.previousValue);
+                                                return;
+                                            }
+                                            kanbanEditTreeL.cellValue(currentRowIndexKanBan, "DueDate", obj.value);
+                                        }
+                                    }
+                                }
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Duration", DifferenceInDays(cellData.StartDate, obj.value));
+                                e.row.data.Duration = DifferenceInDays(cellData.StartDate, obj.value);
+                            }
+                        }
+                        if (e.parentType === 'dataRow' && e.dataField === 'PercentComplete') {
+                            e.editorOptions.min = 0;
+                            e.editorOptions.max = 100;
+                            cellData = e.row.data;
+                            e.editorOptions.onValueChanged = function (obj) {
+                                //var d = _.find(kanbanEditTreeL._options.dataSource._items, function (current) { return current.key == cellData.ID; });
+                                if (obj.value >= 100) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.PercentComplete = obj.value;
+                                        cellData.Status = "Completed";
+                                    }
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", "Completed");
+                                }
+                                if (obj.value <= 0) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.PercentComplete = obj.value;
+                                        cellData.Status = "Not Started";
+                                    }
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", "Not Started");
+                                }
+                                if (obj.value > 0 && obj.value < 100) {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.PercentComplete = obj.value;
+                                        cellData.Status = "In Progress";
+                                    }
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", "In Progress");
+                                }
+                            }
+                        }
+                        if (e.parentType === 'dataRow' && e.dataField === 'Status') {
+                            cellData = e.row.data;
+                            e.editorOptions.onValueChanged = function (obj) {
+                                //var d = _.find(kanbanEditTreeL._options.dataSource._items, function (current) { return current.key == cellData.ID; });
+                                if (obj.value == "Completed") {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.Status = obj.value;
+                                        cellData.PercentComplete = 100;
+                                    }
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 100);
+                                }
+                                if (obj.value == "Not Started") {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.Status = obj.value;
+                                        cellData.PercentComplete = 0;
+                                    }
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 0);
+                                }
+                                if (obj.value == "In Progress") {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.Status = obj.value;
+                                        cellData.PercentComplete = 0;
+                                    }
+                                    if (obj.previousValue == "Completed") {
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 90);
+                                    }
+                                    if (obj.previousValue == "Not Started") {
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                        kanbanEditTreeL.cellValue(currentRowIndexKanBan, "PercentComplete", 0);
+                                    }
+                                }
+                                if (obj.value == "Waiting") {
+                                    if (currentRowIndexKanBan < 0) {
+                                        cellData.Status = obj.value;
+                                    }
+                                    kanbanEditTreeL.cellValue(currentRowIndexKanBan, "Status", obj.value);
+                                }
+                            }
+                        }
+                        if (e.parentType === 'dataRow' && e.dataField === 'EstimatedHours') {
+                            cellData = e.row.data;
+                            e.editorOptions.onValueChanged = function (obj) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.EstimatedHours = obj.value;
+                                    cellData.EstimatedRemainingHours = obj.value;
+                                }
+                                cellData.EstimatedRemainingHours = obj.value - cellData.ActualHours;
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedHours", obj.value)
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedRemainingHours", obj.value - cellData.ActualHours)
+                            }
+                        }
+                        if (e.parentType === 'dataRow' && e.dataField === 'EstimatedRemainingHours') {
+                            cellData = e.row.data;
+                            e.editorOptions.onValueChanged = function (obj) {
+                                if (currentRowIndexKanBan < 0) {
+                                    cellData.EstimatedRemainingHours = obj.value;
+                                    cellData.EstimatedHours = obj.value;
+                                }
+                                cellData.EstimatedHours = obj.value + cellData.ActualHours;
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedRemainingHours", obj.value)
+                                kanbanEditTreeL.cellValue(currentRowIndexKanBan, "EstimatedHours", obj.value + cellData.ActualHours)
+                            }
+                        }
+
+                    },// end onEditorPreparing
+                    onRowPrepared: function (e) {
+
+                        $(e.rowElement).attr({ 'data-row-index': e.rowIndex });
+                    },
+                    onCellClick: function (e) {                        
+                        tasklistrowindex = e.rowIndex;
+                        Y = window.pageYOffset;
+                    }
+                }).dxTreeList("instance");
+
+            // .appendTo($container);
+
+        }
+
+    }
+
+
+   
+
+    //start bindDataPopup
+    function bindDatapopupKanBan(popupFilters) {        
+        var titleView = null;
+        if ($("#tileViewContainer").length > 0) {
+
+            var titleViewObj = $('#tileViewContainer').dxTileView('instance');
+            if (titleViewObj) {
+                titleViewObj.option("dataSource", "/api/rmmapi/FindResourceBasedOnGroup?" + $.param(popupFilters));
+                titleViewObj._refresh();
+            }
+        }
+        else {
+
+
+            titleView = $("<div id='tileViewContainer' style='clear:both;padding-top: 10px' />").dxTileView({
+                height: window.innerHeight - 170,
+                width: window.innerWidth - 250,
+                showScrollbar: true,
+                baseItemHeight: 65,
+                baseItemWidth: 150,
+                itemMargin: 15,
+                direction: "vertical",
+                elementAttr: { "class": "tileViewContainer" },
+                noDataText: "No resource available",
+                dataSource: "/api/rmmapi/FindResourceBasedOnGroup?" + $.param(popupFilters),
+                itemTemplate: function (itemData, itemIndex, itemElement) {
+                    var html = new Array();
+                    html.push("<div class='UserDetails'>");
+                    html.push("<div id='" + itemData.AssignedTo + "'>");
+                    //   html.push("<div id='" + itemData.AssignedTo + "'>");
+                    html.push("<div class='AssignedToName'>");
+                    html.push(itemData.AssignedToName);
+                    html.push("</div>");
+                    if (itemData.PctAllocation >= 100) {
+                        html.push("<div>");
+                        html.push("(" + itemData.PctAllocation + "%)");
+                        html.push("</div>");
+                    }
+                    else if (itemData.PctAllocation > 0) {
+                        html.push("<div style='padding-bottom:3px;'>");
+                        html.push("(" + (100 - Number(itemData.PctAllocation)) + "%)");
+                        html.push("</div>");
+                    }
+                    if (popupFilters.projectCount || popupFilters.projectVolume) {
+                        if (itemData.PctAllocation > 0) {
+                            html.push("<div class='capacitymain'>");
+                            html.push("<div class='capacityblock allocation-v" + itemData.TotalVolumeRange + "'>");
+                            html.push(itemData.TotalVolume);
+                            html.push("</div>");
+
+                            html.push("<div class='capacityblock allocation-c" + itemData.projectCountRange + "''>");
+                            html.push("#" + itemData.ProjectCount);
+                            html.push("</div>");
+                            html.push("</div>");
+                        }
+                    }
+                    html.push("</div>");
+                    html.push("</div>");
+
+                    itemElement.attr("class", "allocation-block allocation-r" + itemData.AllocationRange);
+                    itemElement.append(html.join(""));
+
+                },
+                onItemClick: function (e) {                    
+                    tasklistrowindex;
+                    var data = e.itemData;                  
+                    var treeList = $("#" + currentTreeList).dxTreeList("instance");
+                    if (getResourceId == 0) {                                                
+                        var preData = treeList.cellValue(tasklistrowindex, "AssignToPct");
+                        var assignedUsers = ast_convertStrObject(preData);
+                        if (!assignedUsers)
+                            assignedUsers = [];
+                        if (!assignedUsers.find(x => x.id == data.AssignedTo)) {
+                            assignedUsers.push({ id: data.AssignedTo, pct: "100", displayValue: data.AssignedToName });
+
+                        }
+                        var userStr = ast_convertObjToStrK(assignedUsers);
+                        treeList.cellValue(tasklistrowindex, "AssignToPct", userStr); 
+                    }
+                    else {
+                        // treeList.cellValue(treeList.getRowIndexByKey(parseInt(getResourceId)), "AssignedTo", data.AssignedTo + "~" + data.AssignedToName); 
+                        //treeList.cellValue(treeList.getRowIndexByKey(parseInt(getResourceId)), "AssignToPct", data.AssignedTo + ";~100;~" + data.AssignedToName); 
+
+                        var tagBox = $('#tagBox_' + getResourceId).dxTagBox("instance");
+                        if (tagBox != undefined) {
+                            var tagBox = $('#tagBox_' + getResourceId).dxTagBox("instance");                           
+                            var assignedUsers = tagBox._options.value;
+                            if (!assignedUsers)
+                                assignedUsers = [];
+                            if (!assignedUsers.find(x => x.id == data.AssignedTo)) {
+                                assignedUsers.push({ id: data.AssignedTo, pct: "100", displayValue: data.AssignedToName });
+                            }
+                            var userStrFormat = ast_convertObjToStr(assignedUsers);
+                            treeList.option('dataSource')._items.filter(x => x.key == getResourceId)[0].data.AssignToPct = userStrFormat
+                            treeList.cellValue(treeList.getRowIndexByKey(parseInt(getResourceId)), "AssignToPct", userStrFormat); 
+
+                            tagBox._options.value = assignedUsers;
+                            tagBox.repaint();
+                            var key = parseInt(getResourceId);
+                            var values = { "AssignToPct": userStrFormat };
+                            return $.ajax({
+                                url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+                                type: "PUT",
+                                data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+                                success: function (data) {
+                                    $('#popupContainerKanban').dxPopup('instance').hide();
+                                },
+                                error: function () { $('#popupContainerKanban').dxPopup('instance').hide(); }
+                            })
+                        }
+                        else
+                        {
+                            var preData = treeList.cellValue(treeList.getRowIndexByKey(parseInt(getResourceId)), "AssignToPct");
+                            var assignedUsers = ast_convertStrObject(preData);
+                            if (!assignedUsers)
+                                assignedUsers = [];
+
+                            if (!assignedUsers.find(x => x.id == data.AssignedTo)) {
+                                assignedUsers.push({ id: data.AssignedTo, pct: "100", displayValue: data.AssignedToName });
+                            }
+                            var userStr = ast_convertObjToStrK(assignedUsers);
+                            treeList.cellValue(treeList.getRowIndexByKey(parseInt(getResourceId)), "AssignToPct", userStr); 
+                        }
+                        
+                    }                   
+                    //if (isResourceEdit == "false")                                        
+                    $('#popupContainerKanban').dxPopup('instance').hide();
+                }
+
+            });
+        }
+
+        return titleView;
+    };
+    //end
+
+    //start resource click
+    $(document).on("click", "img.assigneeToImgKanban", function (e) {        
+        currentTreeList = $(this).attr("treeList");
+        isResourceEdit = $(this).attr("isResourceEdit");
+        getResourceId = $(this).attr("ID");
+        var groupid = $(this).attr("id");
+        var dataid = e.target.id;
+        // var data = _.find(gridDataSource._items, function (s) { return s.key.toString() === dataid; });
+        popupFilters.projectID = ticketID;
+        projectID = ticketID;
+        popupFilters.resourceAvailability = 2;
+        popupFilters.complexity = true;
+        popupFilters.projectVolume = false;
+        popupFilters.projectCount = false;
+        popupFilters.RequestTypes = false;
+        popupFilters.groupID = $(this).attr("group");
+        popupFilters.allocationStartDate = $(this).attr("startDate");
+        popupFilters.allocationEndDate = $(this).attr("endDate");
+        if (projectID.startsWith("OPM") || projectID.startsWith("PMM")) {
+            popupFilters.ModuleIncludes = true;
+        }
+        else {
+            popupFilters.ModuleIncludes = false;
+        }
+        popupFilters.JobTitles = "";
+        popupFilters.departments = "";
+        popupFilters.SelectedUserID = "";
+        popupFilters.ID = $(this).attr("ID");
+        RowId = $(this).attr("ID");
+        var popupTitle = "Available Resource";
+        //if (data && data.TypeName)
+        //popupTitle = "Available " + data.TypeName;
+
+        $("#popupContainerKanban").dxPopup({
+            title: popupTitle,
+            width: "85%",
+            height: "90%",
+            visible: true,
+            scrolling: true,
+            contentTemplate: function (contentElement) {
+                contentElement.append(
+                    $("<div style='float:left;padding-left:15px;padding-bottom: 10px' />").dxRadioGroup({
+                        dataSource: radioGroupItems,
+                        displayExpr: "text",
+                        value: _.findWhere(radioGroupItems, { value: popupFilters.resourceAvailability }),
+                        layout: "horizontal",
+                        onValueChanged: function (e) {
+                            popupFilters.resourceAvailability = e.value.value;
+                            bindDatapopupKanBan(popupFilters);
+                        }
+                    }),
+
+                    $("<div id='k_projecttype' class='chkFilterCheck' style='float:left;padding-left:15px;' />").dxCheckBox({
+                        text: "Project Type",
+                        onValueChanged: function (e) {
+                            popupFilters.RequestTypes = e.value;
+                            bindDatapopupKanBan(popupFilters);
+                        }
+                    }),
+
+                    $("<div id='k_capacity' class='chkFilterCheck' style='float:left;padding-left:5px;' />").dxCheckBox({
+                        text: "Capacity",
+                        value: popupFilters.projectVolume,
+                        onValueChanged: function (e) {
+                            popupFilters.projectVolume = e.value;
+                            popupFilters.projectCount = e.value;
+                            bindDatapopupKanBan(popupFilters);
+                        }
+                    }),
+
+                    $("<div id='k_complexity' class='chkFilterCheck' style='float:left;padding-left:5px;' />").dxCheckBox({
+                        text: "Complexity",
+                        value: popupFilters.complexity,
+                        onValueChanged: function (e) {
+
+                            popupFilters.complexity = e.value;
+                            bindDatapopupKanBan(popupFilters);
+                        },
+                    }),
+
+                    $("<div id='k_opportunities' class='chkFilterCheck' style='float:left;padding-left:5px;' />").dxCheckBox({
+                        text: "Opportunities",
+                        value: popupFilters.ModuleIncludes,
+                        onValueChanged: function (e) {
+                            popupFilters.ModuleIncludes = e.value;
+                            bindDatapopupKanBan(popupFilters);
+                        }
+                    }),
+
+                    $("<div class='filterctrl-jobDepartment' />").dxSelectBox({
+                        placeholder: "Limit By Department",
+                        valueExpr: "ID",
+                        displayExpr: "Title",
+                        dataSource: "/api/rmmapi/GetDepartments?GroupID=" + popupFilters.groupID,
+                        onSelectionChanged: function (selectedItems) {
+                            var items = selectedItems.selectedItem.ID;
+                            var tagBox = $("#tagboxTitles").dxTagBox("instance");
+                            popupFilters.departments = items;
+                            $.get("/api/rmmapi/GetGroupTitles?GroupID=" + popupFilters.groupID + "&DepartmentID=" + items, function (data, status) {
+                                JobTitleData = data;
+                                tagBox.option("dataSource", JobTitleData);
+                                tagBox.reset();
+                            });
+
+                            bindDatapopupKanBan(popupFilters);
+                        },
+                        onContentReady: function (e) {
+
+                        }
+                    }),
+                    $("<div id='tagboxTitles'  class='filterctrl-jobtitle'/>").dxTagBox({
+                        text: "Job Titles",
+                        placeholder: "Limit By Job Title",
+                        //valueExpr: "Title",
+                        //displayExpr: "Title",
+
+                        dataSource: "/api/rmmapi/GetGroupTitles?GroupID=" + popupFilters.groupID + "&DepartmentID=0",
+                        maxDisplayedTags: 2,
+                        onSelectionChanged: function (selectedItems) {
+                            var items = selectedItems.component._selectedItems;
+                            if (items.length > 0) {
+                                var lstItems = items.map(function (i) {
+                                    return i;
+                                });
+                                popupFilters.JobTitles = lstItems.join(';#');
+                            }
+                            else {
+                                popupFilters.JobTitles = '';
+                            }
+                            bindDatapopupKanBan(popupFilters);
+                        }
+                    }),
+
+                    $("<div class='filterctrl-userpicker' />").dxSelectBox({
+                        placeholder: "Choose Any User",
+                        valueExpr: "Id",
+                        displayExpr: "Name",
+                        searchEnabled: true,
+                        showClearButton: true,
+                        dataSource: "/api/rmmapi/GetUserList",
+                        onSelectionChanged: function (selectedItems) {                            
+                            if (selectedItems.selectedItem == null) {
+                                popupFilters.SelectedUserID = "";
+                                popupFilters.complexity = true;
+                                var checkcomplexity = $("#chkComplexity").dxCheckBox("instance");
+                                checkcomplexity.option("value", true);
+                                bindDatapopupKanBan(popupFilters);
+                            } else {
+                                var items = selectedItems.selectedItem.Id;
+                                popupFilters.SelectedUserID = items;
+                                popupFilters.complexity = false;
+                                bindDatapopupKanBan(popupFilters);
+                            }
+                        }
+                    }),
+                    bindDatapopupKanBan(popupFilters)
+                )
+
+            },
+            itemClick: function (e) {            
+            },
+            onContentReady: function (e) {                               
+                var arrResourceSelectFilter = [];
+                if (strResourceSelectFilter)
+                    arrResourceSelectFilter = strResourceSelectFilter.split(';#');
+
+                arrResourceSelectFilter.forEach(function (x, i) {
+                    var arrfilter = x.split('=');
+                    if (arrfilter && arrfilter.length == 2 && arrfilter[1] == 'true') {
+                        var chck = $('#k_' + arrfilter[0].toLowerCase());
+                        chck.css({ 'display': 'block' });
+                    }
+                    else {
+                        var chck = $('#k_' + arrfilter[0].toLowerCase());
+                        chck.css({ 'display': 'none' });
+                    }
+                });
+            }
+            
+        });
+        var popupInstance = $('#popupContainerKanban').dxPopup('instance');
+        popupInstance.option('title', popupTitle);
+    });
+
+
+
+
+    function EditTitle(anchor) {
+        
+        var lblTitle = $('#' + anchor.id);
+        var TaskID = anchor.id.split('_')[1];
+        var txtTitle = $("#txtTitle_" + TaskID);
+        txtTitle.show();
+        lblTitle.hide();  
+        txtTitle.focus();
+    }
+
+    function txtTitleChange(txt)
+    {        
+        var txtTitle = $('#' + txt.id);
+        var TaskID = txtTitle.attr("taskid");
+        var TreeListId = txtTitle.attr("treeList");
+        var lblTitle = $("#lblTitle_" + TaskID);
+        var key = parseInt(TaskID);
+        var values = { Title: txtTitle.val() };
+        return $.ajax({
+            url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+            type: "PUT",
+            async: false,
+            data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+            success: function (data) {
+                var treeList = $("#" + TreeListId).dxTreeList("instance");
+                treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "Title", txtTitle.val());
+                txtTitle.hide();
+                lblTitle.show();
+            }
+        });
+    }
+
+    function editEstHrs(span) {
+        var txtEstHrsId = span.attributes["txtEstHrsId"].value;
+        var txtEstHrs = $('#' + txtEstHrsId);
+        span.hidden = true;
+        txtEstHrs.show();
+        txtEstHrs.focus();
+
+    }
+
+    function txtEstHrsChange(txt) {        
+        var txtEstHrs = $('#' + txt.id);
+        var TaskID = txtEstHrs.attr("taskid");
+        var TreeListId = txtEstHrs.attr("treeList");
+        var ActualHours = txtEstHrs.attr("ActualHours");
+        var lblEstHrs = $("#lblEstHrs_" + TaskID);
+        var EstimatedRemainingHours = txtEstHrs.val() - ActualHours;
+       
+        var key = parseInt(TaskID);
+        var values = { EstimatedHours: txtEstHrs.val(), EstimatedRemainingHours: EstimatedRemainingHours};
+        return $.ajax({
+            url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+            type: "PUT",
+            async: false,
+            data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+            success: function (data) {
+                var treeList = $("#" + TreeListId).dxTreeList("instance");                
+                treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "EstimatedHours", txtEstHrs.val());
+                treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "EstimatedRemainingHours", EstimatedRemainingHours);
+                txtEstHrs.hide();
+                lblEstHrs.show();
+            }
+        });
+    }
+
+    $(document).on("blur", "input.txtEstHrs", function (e) {        
+        var TaskID = $(this).attr("taskid");
+        var lblEstHrs = $("#lblEstHrs_" + TaskID);
+        $(this).hide();
+        lblEstHrs.show();
+
+    });
+
+    $(document).on("blur", "div.PercentComplete", function (e) {        
+        var TaskID = $(this).attr("taskid");
+        var lblPercentComp = $("#lblPercentComp_" + TaskID);
+        $(this).hide();
+        lblPercentComp.show();
+
+    });
+
+    $(document).on("blur", "input.txtTitle", function (e) {        
+        var TaskID = $(this).attr("taskid");
+        var lblTitle = $("#lblTitle_" + TaskID);
+        $(this).hide();
+        lblTitle.show();
+
+    });
+
+    function editPercentComp(span) {        
+        var lblPercentComp = $('#' + span.id);
+        var TaskID = span.id.split('_')[1];
+        var divtxtPercentComp = $("#txtPercentComp_" + TaskID);        
+        divtxtPercentComp.show();
+        lblPercentComp.hide(); 
+        var txtPercentComp = $('#txtPercentComp_' + TaskID).dxNumberBox("instance");
+        txtPercentComp.focus();
+    }
+
+    function txtPercentCompChange(txt) {        
+        var txtPercentComp = $('#' + txt.id).dxNumberBox("instance");
+        var divTxtPercentComp = $('#' + txt.id);
+        var TaskID = divTxtPercentComp.attr("taskid");
+        var TreeListId = divTxtPercentComp.attr("treeList");
+        var lblPercentComp = $("#lblPercentComp_" + TaskID);
+        var key = parseInt(TaskID);
+        //var PercentComplete = txtPercentComp.val();
+        var PercentComplete =parseInt( txtPercentComp._getInputVal());
+
+        var status = "";
+        if (PercentComplete >= 100) {
+            PercentComplete = 100
+            status = "Completed";
+        }
+        if (PercentComplete <= 0) {
+            PercentComplete = 0; 
+            status = "Not Started";
+        }
+
+        if (PercentComplete > 0 && PercentComplete < 100) {
+            status = "In Progress";            
+        }
+
+        var values = { PercentComplete: PercentComplete, Status: status };
+        return $.ajax({
+            url: ugitConfig.apiBaseUrl + "/api/module/UpdateTask",
+            type: "PUT",
+            async: false,
+            data: { key: JSON.stringify(key), values: JSON.stringify(values), TicketId: ticketID },
+            success: function (data) {
+                var treeList = $("#" + TreeListId).dxTreeList("instance");
+                treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "PercentComplete", PercentComplete);
+                treeList.cellValue(treeList.getRowIndexByKey(parseInt(TaskID)), "Status", status);
+                divTxtPercentComp.hide();
+                lblPercentComp.show();
+            }
+        });
+    }
+
+    function starteDateIconClick(div) {       
+        var TaskID = div.attributes.taskid.value;
+        var stardateDateBox = $('#startdateCal_' + TaskID).dxDateBox('instance');
+        stardateDateBox.open();
+    }
+
+    function endDateIconClick(div) {       
+        var TaskID = div.attributes.taskid.value;
+        var DueDateBox = $('#duedate_' + TaskID).dxDateBox('instance');
+        DueDateBox.open();
+    }
+    //resource click end
+
+    function openResourceTimeSheet(assignedTo, assignedToName) {
+        var url = "/layouts/ugovernit/delegatecontrol.aspx?control=ResourceAllocationGrid&SelectedResource=" + assignedTo;
+        window.parent.UgitOpenPopupDialog(url, "", "Timeline for User : " + assignedToName, "95", "95", false, "");
+    }
+
+    function openTaskEditDialog(taskId, itemOrder, parentTaskID, taskTitle) {
+        var path = "/layouts/ugovernit/delegatecontrol.aspx?control=taskedit";
+        var params = "&taskID=" + taskId + "&parentTaskID=" + parentTaskID + "&ItemOrder=" + itemOrder + "&moduleName=" + "<%= ModuleName %>" + "&ticketId=" + ticketID + "&taskIndex=" + window.pageYOffset + "&folderName=Tasks&isTabActive=true";
+
+        if (taskTitle != null && taskTitle != undefined && taskTitle != "") {
+            taskTitle = unescape(taskTitle);
+            var maxLength = 70;
+
+            if (taskTitle.length > maxLength)
+                taskTitle = taskTitle.substring(0, maxLength) + "...";
+        }
+        else {
+            taskTitle = "";
+        }
+        window.parent.UgitOpenPopupDialog(path, params, "Edit Task: " + taskTitle, "90", "90", false);
+    }
+
+    //$("#kanban").on("scroll", function (e) {
+    //   // debugger;
+
+    //    horizontal = e.currentTarget.scrollLeft;
+    //    vertical = e.currentTarget.scrollTop;
+    //});
+
+
+    function ast_txtboxCreateSelectionK(field, start, end) {
+        if (field.createTextRange) {
+            var selRange = field.createTextRange();
+            selRange.collapse(true);
+            selRange.moveStart('character', start);
+            selRange.moveEnd('character', end);
+            selRange.select();
+            field.focus();
+        } else if (field.setSelectionRange) {
+            field.focus();
+            field.setSelectionRange(start, end);
+        } else if (typeof field.selectionStart != 'undefined') {
+            field.selectionStart = start;
+            field.selectionEnd = end;
+            field.focus();
+        }
+    }
+
+    function ast_convertObjToStrK(assigneeTo) {
+        if (!assigneeTo)
+            return null;
+        var userObj = [];
+
+        assigneeTo.forEach(function (s) {
+            var upct = [];
+            upct.push(s.id);
+            if (!s.pct)
+                s.pct = "100";
+            upct.push(s.pct);
+            if (s.displayValue)
+                upct.push(s.displayValue)
+            userObj.push(upct.join(";~"));
+        });
+        return userObj.join(";#");
+    }
+    
+    function editStartResource(taskId) {
+        var resourceDisplayDiv = $('.resourceDisplayDiv_' + taskId)
+        var resourceEditDiv = $('.resourceEditDiv_' + taskId);        
+        var resourceEditStartBtn = $('.resourceEditStartBtn_' + taskId);
+        var resourceEditEndBtn = $('.resourceEditEndBtn_' + taskId);
+        var TreeListId = resourceEditEndBtn[0].attributes.treelist.value;
+
+
+        resourceDisplayDiv.css({ 'display': 'none' });
+        resourceEditDiv.css({ 'display': 'block' });
+        resourceEditStartBtn.css({ 'display': 'none' });
+        resourceEditEndBtn.css({ 'display': 'block' });  
+
+        var treeList = $("#" + TreeListId).dxTreeList("instance");
+        //var preData = treeList.cellValue(treeList.getRowIndexByKey(parseInt(taskId)), "AssignToPct");
+         treeList.option('dataSource')._items.filter(x => x.key == taskId)[0].data.isShowTagBox = true;
+       // treeList.cellValue(treeList.getRowIndexByKey(parseInt(taskId)), "AssignToPct", preData);
+
+    }
+
+    function editEndResource(taskId) {
+        var resourceDisplayDiv = $('.resourceDisplayDiv_' + taskId)
+        var resourceEditDiv = $('.resourceEditDiv_' + taskId);
+        var resourceEditStartBtn = $('.resourceEditStartBtn_' + taskId);
+        var resourceEditEndBtn = $('.resourceEditEndBtn_' + taskId);
+        var TreeListId = resourceEditEndBtn[0].attributes.treelist.value;
+
+        resourceDisplayDiv.css({ 'display': 'block' });
+        resourceEditDiv.css({ 'display': 'none' });
+        resourceEditStartBtn.css({ 'display': 'block' });
+        resourceEditEndBtn.css({ 'display': 'none' });
+        
+        var treeList = $("#" + TreeListId).dxTreeList("instance");
+        var preData = treeList.cellValue(treeList.getRowIndexByKey(parseInt(taskId)), "AssignToPct");
+        treeList.option('dataSource')._items.filter(x => x.key == taskId)[0].data.isShowTagBox = false;
+        //var preData = treeList.option('dataSource')._items.filter(x => x.key == taskId)[0].data.AssignToPct;
+        treeList.cellValue(treeList.getRowIndexByKey(parseInt(taskId)), "AssignToPct", preData);
+
+
+    }
+</script>
+
+<div id="popupContainerKanban"></div>
+<div class="demo-container">
+    <div id="kanban"></div>
+
+</div>
+<div id="divLoadPanelKanBan"></div>
+
+

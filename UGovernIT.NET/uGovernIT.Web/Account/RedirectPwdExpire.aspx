@@ -1,0 +1,50 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RedirectPwdExpire.aspx.cs" Inherits="uGovernIT.Web.Account.RedirectPwdExpire" %>
+<%@ Import Namespace="uGovernIT.Utility" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="/content/themes/base/jquery-ui.css" rel="stylesheet" />
+   <link href="/content/bootstrap.css" rel="stylesheet" />
+   <link href="/content/bootstrap-theme.css" rel="stylesheet" />
+
+    <script src="/scripts/jquery-3.1.1.min.js"></script>
+    <script src="/scripts/jquery.cookie.js"></script>
+    <script src="/scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="/scripts/underscore.min.js"></script>
+    <asp:PlaceHolder runat="server">
+        <%= UGITUtility.LoadStyleSheet("/content/site.css") %>
+        <%= UGITUtility.LoadStyleSheet("/content/ugit_graybg.css") %>
+        <%= UGITUtility.LoadStyleSheet("/content/ugitcommon.css") %>
+        <%= UGITUtility.LoadStyleSheet("/Content/uGITStageGraphic.css") %>
+    </asp:PlaceHolder>
+    <script src="/Scripts/jquery.tablednd.js"></script>
+    <script src="/Scripts/interaction.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollToFixed/1.0.8/jquery-scrolltofixed-min.js"></script>
+    <script src="/Scripts/jquery.dialogextend.js"></script>
+     <asp:PlaceHolder ID="header" runat="server">
+      <script type="text/javascript">
+                var ugitConfig = {
+                    apiBaseUrl: "<%: ConfigurationManager.AppSettings["apiBaseUrl"] %>"
+                }
+      </script>
+
+      <%: Scripts.Render("~/bundles/ugitcommon") %>
+      <%: Scripts.Render("~/bundles/ugitdashboard") %>
+      <%: Scripts.Render("~/bundles/ugitmodule") %>
+    </asp:PlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            
+    <script>
+        $(function () {
+                    UgitOpenPopupDialog("/Account/ResetPasswordNew.aspx", "", 'Change Your Password', '600', '300', 0, "", true, true);
+                });
+</script>
+        </div>
+    </form>
+</body>
+</html>

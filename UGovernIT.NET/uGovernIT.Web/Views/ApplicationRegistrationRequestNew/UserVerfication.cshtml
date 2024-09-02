@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    var identify = ViewBag.identify;
+    var identifyact = ViewBag.identifyact;
+}
+
+<style>
+
+   
+
+    .activated {
+        display: none;
+    }
+
+</style>
+
+<div>
+    <h3 id="notactivated" class="@identify">Congrats! Your account is successfully activated.</h3>
+
+    <h3 id="activated" class="@identifyact">Your account is already activated </h3>
+</div>

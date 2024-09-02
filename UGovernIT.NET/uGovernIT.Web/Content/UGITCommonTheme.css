@@ -1,0 +1,233 @@
+﻿body {
+    color: black !important;
+}
+.customrowheight {
+    height: 50px;
+}
+
+.Y {
+    background-color: #F8F835;
+    text-align: center;
+    font-weight: bold !important;
+    padding: 5px;
+}
+
+.R {
+    background-color: #e24a7a;
+    color: white;
+    text-align: center;
+    font-weight: bold !important;
+    padding: 5px;
+}
+
+.G {
+    background-color: #5de9bf;
+    color: black;
+    text-align: center;
+    font-weight: bold !important;
+    padding: 5px;
+}
+
+.SummaryByTechnicianBlock {
+    background: none repeat scroll 0 0 #ECE8D3;
+    border: 4px double #FCCE92;
+    /*position: absolute;*/
+    z-index: 100;
+}
+
+.action-container {
+    background: none repeat scroll 0 0 #FFFFAA;
+    border: 1px solid #FFD47F;
+    float: left;
+    padding: 1px 5px 0;
+    position: absolute;
+    z-index: 800;
+    margin-top: -15px;
+    margin-left: 3px;
+    right: 0px;
+    top: 0px;
+}
+
+.hide {
+    display: none;
+}
+
+.globalfilter #dtFromErrorMessage, .globalfilter #dtToErrorMessage {
+    display: none;
+}
+
+.tbcntrlAgents ul > li {
+    border: 0px !important;
+}
+
+.btn-agents {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    text-wrap: normal;
+}
+
+.pnlAgentBtns {
+    float: right;
+}
+
+.test {
+    border: 0pt none;
+    position: absolute;
+    left: 0px !important;
+    top: -218px !important;
+}
+
+.dxeListBox_UGITNavyBlueDevEx div.dxlbd {
+    /*height: auto !important;*/
+    font-family: 'Poppins', sans-serif;
+}
+
+.dxeListBoxItemRow_UGITNavyBlueDevEx .dxeListBoxItem_UGITNavyBlueDevEx {
+    background: #f1f1f1;
+    padding: 10px;
+    height: auto;
+    font-size: 14px;
+}
+
+    /*.dxeButtonEdit_UGITNavyBlueDevEx {
+        width: 15%;
+        padding: 5px;
+        height: auto;
+        font-size: 14px !important;
+        margin-bottom: 20px;
+        border: 1px solid #CACACA;
+    }*/
+
+    .dxeListBoxItemRow_UGITNavyBlueDevEx .dxeListBoxItem_UGITNavyBlueDevEx:hover {
+        background: #03A9F4;
+        color: #fff;
+    }
+
+.dxdpLite .dxpc-headerText {
+    margin-left: 72px;
+}
+
+.column_choser {
+    display: block;
+    background: #FFF !important;
+    color: #fff;
+    border-radius: 4px;
+    font: 13px 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 4px 10px 3px 10px;
+    border: 1px solid #4A6EE2 !important;
+}
+
+.selectFromTo_field {
+    width: 104px;
+}
+
+.dxeButtonEdit_UGITNavyBlueDevEx.homeGrid_dropDown {
+    width: 287px;
+}
+
+.dxtc-leftIndent, .dxtc-rightIndent {
+    border-bottom: 0px solid #9da0aa !important;
+    width: 0px !important;
+}
+
+.dxtcLite_UGITNavyBlueDevEx .dxtc-stripContainer .dxtc-activeTab a {
+    color: #4A6EE2;
+    background-color: white;
+}
+
+.dxtcLite.dxtc-top > .dxtc-stripContainer {
+    padding-top: 1px;
+}
+
+.dxtcLite > .dxtc-stripContainer .dxtc-link {
+    padding: 6px 12px 7px;
+    display: block;
+    height: 100%;
+    color: #333333;
+    background-color: #F9F9F9;
+}
+
+.dxtcLite > .dxtc-stripContainer .dxtc-tabHover .dxtc-link {
+    background-color: #FFFFFF;
+    color: blue;
+    filter: brightness(120%);
+}
+
+
+
+.svcDashboard_actionBtn-1 {
+    background: #4fa1d6 !important;
+    color: #fff !important;
+    border: 1px solid #ccd4e1;
+    font-weight: 500;
+    font: 13px 'Roboto', sans-serif !important;
+    text-align: left;
+    width: 85px;
+    margin-left: 8px;
+    border-radius: 4px;
+}
+.svcDashboard_actionBtn-1 div.dxb img.dx-vam {
+    margin-top: 3px;
+    max-width: 11px;
+}
+.NewCustomdxpSummary_DevEx {
+    white-space: nowrap;
+    text-align: left;
+    vertical-align: middle;
+    padding: 1px 4px;
+    width: 200px;
+}
+
+.dxbButton_BlackGlass {
+    background-image: none !important;
+    border: none;
+}
+
+.ClassHideGutter {
+    background-image: none !important;
+    border: none;
+}
+
+.inputTextBox {
+    width: 60px;
+}
+
+
+/*.customgridview td.dxgv {  change when changin home grid
+        padding: 5px 1px !important;
+        font-family: Poppins !important;
+    }*/
+
+.dxmLite_UGITNavyBlueDevEx .dxm-popupMain .dx.dxm-gutter {
+    width: 100% !important;
+}
+
+/*.quickTicket > div input {
+        float: left;
+    }*/
+
+.quickTicket > div span {
+    float: right;
+}
+
+.selectFromTo_field_new {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    width: 104px;
+}
+
+#form .dx-layout-manager .dx-label-h-align.dx-flex-layout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+}
+
+#form .dx-form-group-with-caption > .dx-form-group-content {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+    border-top: 0px solid #ddd !important;
+    padding-bottom: 15px !important;
+}

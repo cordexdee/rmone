@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    var serviceID = ViewBag.ServiceID;
+}
+
+
+@*<link rel="stylesheet" type="text/css" href="/Content/click.css">
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/UgitNewUI.css">*@
+
+<style>
+    .default {
+        fill: rgb(132, 99, 118);
+    }
+
+    .in_progress {
+        background: rgb(60, 129, 23);
+    }
+</style>
+<div class="row">
+    @Html.Partial("RegistrationStatusNew")
+</div>
+
+@*<div id="statusLogin" class="applicationRegReq_statusbtn_wrap col-md-12 col-sm-12 col-xs-12">
+        <div>
+
+        </div>
+    </div>*@
+
+<script>
+
+         window.parent.UgitOpenPopupDialog('/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=ServicesWizard&serviceID=@serviceID&requestPage=SelfRegistration','' , 'Service:Registration of new tenant', 90, 90, 0,'%2flayouts%2fugovernit%2fdelegatecontrol.aspx');
+         function openTicketDialog(path, params, titleVal, width, height, stopRefresh, returnUrl) {
+             //set_cookie('UseManageStateCookies', 'true', null, "<SPContext.Current.Web.ServerRelativeUrl %>");
+             window.parent.parent.UgitOpenPopupDialog(path, params, titleVal, width, height, stopRefresh, returnUrl);
+
+         }
+
+         $('#userTenantInfoImg, #userTenantInfo').click(function () {
+             window.parent.UgitOpenPopupDialog('/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=ServicesWizard&serviceID=@serviceID&requestPage=SelfRegistration','' , 'Service:Registration of new tenant', 90, 90, 0,'%2flayouts%2fugovernit%2fdelegatecontrol.aspx');
+         });
+
+</script>

@@ -1,0 +1,49 @@
+﻿@model uGovernIT.Utility.Entities.DMSDB.ResultsViewModel
+@{
+    ViewBag.Title = "files and folders";
+    var accountType = Session["AccountType"] as string;
+    ViewBag.role = true;
+    ViewBag.isOffice365 = true;
+    Layout = "~/Views/Shared/_DMSLayout.cshtml";
+}
+@*<h2>@ViewBag.Title</h2>*@
+
+@*<div class="navbar-collapse collapse topMargin form-group" style="margin-top:50px;" role="navigation">
+    <div class="form-group">
+            <ul class="nav navbar-nav">
+                <li>
+                    @using (Html.BeginForm("GetMyFilesAndFolders", "O365Files"))
+                    {
+                        <button class="btn btn-link" id="get-files">Get my files and folders</button>
+                    }
+                </li>
+                <li>
+                    @using (Html.BeginForm("DeleteFileOrFolder", "O365Files"))
+                    {
+                        <button class="btn btn-link needs-id" id="delete-file" disabled>Delete a file or folder</button>
+                        <input class="selected-id" name="id"  />
+                    }
+                </li>
+            </ul>
+    </div>
+</div>*@
+<div>
+    <div class="files-outer">
+        @using (Html.BeginForm("GetMyFilesAndFolders", "O365Files"))
+        {
+            <button class="d-table-cell btn-link O365-main" id="get-files">Get my files and folders</button>
+        }
+        <div class="d-table-cell tar">
+            @*@using (Html.BeginForm("DeleteFileOrFolder", "O365Files"))
+                {
+                    <button class='btntab3 btndelete' type='submit' id="delete-file">Delete</button>
+                    <input class="selected-id" name="id" type="hidden" />
+                }*@
+        </div>
+
+
+
+        @Html.Partial("_ResultsPartial")
+    </div>
+
+</div>

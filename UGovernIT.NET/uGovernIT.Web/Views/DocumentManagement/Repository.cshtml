@@ -1,0 +1,154 @@
+﻿@*@model IEnumerable <uGovernIT.Utility.Entities.DMSDB.TreeViewModel>*@
+
+@model uGovernIT.Utility.Entities.DMSDB.TreeViewModel
+@{
+    var isAdmin = ViewBag.role;
+    ViewBag.Title = "Repository";
+    Layout = "~/Views/Shared/_DMSLayout.cshtml";
+    var isAdminValue = isAdmin == true ? "Admin" : null;
+}
+<title>Repository</title>
+<style>
+    .docUpload-btn {
+        font-family: 'Poppins', sans-serif !important;
+        background: #4A6EE2;
+        font-size: 12px !important;
+        color: #FFF;
+        font-weight: 600;
+        height: 28px;
+        width: 75px;
+    }
+    .docUpload-btn:hover{
+        color:#FFF;
+    }
+    .RecordsMessage {
+        margin-bottom: 0px;
+    }
+
+    #form {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    /*#fileuploader-container {
+        border: 1px solid #d3d3d3;
+        margin: 20px 20px 0 20px;
+    }*/
+
+    #form h3 {
+        margin-left: 20px;
+        font-weight: normal;
+        font-size: 22px;
+    }
+
+    .dx-fileuploader-file-status-message
+    {
+        visibility: hidden;
+    }
+    .docUpload-container {
+        border: 1px solid #ccd4e1;
+        font-family: 'Poppins', sans-serif;
+    }
+    .docUploader, .docUploader .dx-button-mode-contained {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+    }
+    .docUpload-label {
+        margin-top: 20px;
+    }
+.docUpload-container {
+        border: 1px solid #ccd4e1;
+        font-family: 'Poppins', sans-serif;
+    }
+    .docUpload-label p {
+        font-size: 12px;
+        margin-bottom: 3px;
+        color: #4A6EE2;
+        font-weight: 500;
+    }
+    .docUpload-inputCtrl input[type="text"] {
+        width: 100%;
+        border: 1px solid #ccd4e1;
+        border-radius: 4px;
+        height: 28px;
+        padding: 3px;
+    }
+</style>
+<script>
+    $(function () {
+        $("#file-uploader").dxFileUploader({
+            selectButtonText: "Browse",
+            labelText: "Drag and Drop Files Here",
+            multiple: true,
+            name: "files",
+            uploadMode: "useForm"
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $("#file-uploader").dxFileUploader({
+            selectButtonText: "Browse",
+            labelText: "Drag and Drop Files Here",
+            multiple: true,
+            name: "files",
+            uploadMode: "useForm"
+        });
+    });
+</script>
+@*<div class="navbar-collapse collapse topMargin" style="margin-top:10px;" role="navigation">
+    @if (isAdmin)
+    {
+        <ul class="nav navbar-nav">
+            <li><a id="CreateNewFolderLink" href="javascript:void(0)">Create New Folder</a></li>
+            <li><a id="UploadFileLink" href="javascript:void(0)">Upload File</a></li>
+        </ul>
+    }
+    </div>*@
+
+@ViewBag.AlertMsg
+<div class="container-fluid">
+    <div class="row">
+        <div hidden>
+            <input type="hidden" id="userRole" name="userRole" value="@isAdminValue" />
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                @*<div id="SelectedItemId"></div>*@
+            </div>
+            <div id="fileList" class="row">
+            </div>
+        </div>
+        <div id="resultDiv" class="text-success log"></div>
+    </div>
+    <div id="FileUploadDialog" align="left">
+        @using (Html.BeginForm(" ", " ", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadfileForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal RecordsMessage ">
+                <div class="padding5" id="versiondiv">
+                </div>
+                <div class="padding5">
+                    @*@Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple", @directory = "directory" })*@
+                    <div id="fileuploader-container" class="docUpload-container">
+                        <div id="file-uploader" class="docUploader"></div>
+                    </div>
+                </div>
+                <div class="padding5" style="margin-top:10px;">
+                    <div class="docUpload-label">
+                        <p>File Version:</p>
+                    </div>
+                    <div class="docUpload-inputCtrl">
+                        <input type="text" id="versionId" name="versionId" value="1.0" />
+                    </div>
+                </div>
+                <div class="padding5 " style="margin-top:20px; text-align:center;">
+                    <input type="submit" value="Upload" id="btnUpload" class="btn docUpload-btn" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div id="loading-image" class="modal" data-keyboard="false">
+</div>

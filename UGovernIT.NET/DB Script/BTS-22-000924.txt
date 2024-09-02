@@ -1,0 +1,200 @@
+-- Script added by Inderjeet Kaur on 6Sep2023 for BTS-22-000924
+
+IF (OBJECT_ID('dbo.FK__Studio__Division__41703E86', 'F') IS NOT NULL)
+BEGIN
+	ALTER TABLE dbo.Studio DROP CONSTRAINT FK__Studio__Division__41703E86
+END
+GO
+IF (OBJECT_ID('dbo.FK__Studio__CompanyL__407C1A4D', 'F') IS NOT NULL)
+BEGIN
+	ALTER TABLE dbo.Studio DROP CONSTRAINT FK__Studio__CompanyL__407C1A4D
+END
+GO
+
+
+--select * from Studio
+Alter Table Studio
+Add FieldDisplayName NVARCHAR(250) NULL
+GO
+
+Truncate table studio
+GO
+
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SF Studio 1', N'San Francisco > SF Studio 1', 12, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'San Francisco > SF Studio 1')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SF Studio 2', N'San Francisco > SF Studio 2', 12, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'San Francisco > SF Studio 2')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SF Studio 3', N'San Francisco > SF Studio 3', 12, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'San Francisco > SF Studio 3')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SF Studio 4', N'San Francisco > SF Studio 4', 12, NULL, N'35525396-e5fe-4692-9239-4df9305b915b', CAST(N'2022-11-03T11:37:45.060' AS DateTime), CAST(N'2022-11-03T11:37:45.060' AS DateTime), N'bdb437d6-9735-43e3-9038-bb9a2de32f23', N'bdb437d6-9735-43e3-9038-bb9a2de32f23', 0, N'', N'San Francisco > SF Studio 4')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'Serv Studio 1', N'Service > Serv Studio 1', 16, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Service > Serv Studio 1')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'Serv Studio 2', N'Service > Serv Studio 2', 16, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Service > Serv Studio 2')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SV Studio 1', N'Silicon Valley > SV Studio 1', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Silicon Valley > SV Studio 1')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SV Studio 2', N'Silicon Valley > SV Studio 2', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Silicon Valley > SV Studio 2')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'SV Studio 3', N'Silicon Valley > SV Studio 3', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2022-04-16T03:14:03.183' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Silicon Valley > SV Studio 3')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'LA Studio 1', N'Los Angeles > LA Studio 1', 15, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.200' AS DateTime), CAST(N'2023-09-15T16:28:37.690' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'44380d17-c887-488c-856b-31753e4197b7', 0, N'', N'Los Angeles > LA Studio 1')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'ST Studio 1', N'Structures > ST Studio 1', 14, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.200' AS DateTime), CAST(N'2022-04-16T03:14:03.200' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Structures > ST Studio 1')
+GO
+INSERT [dbo].[Studio] ([Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (N'ST Studio 2', N'Structures > ST Studio 2', 14, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.213' AS DateTime), CAST(N'2022-04-16T03:14:03.213' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'00000000-0000-0000-0000-000000000000', 0, N'', N'Structures > ST Studio 2')
+GO
+
+
+-- --select * from Studio
+
+UPDATE FieldConfiguration
+SET ParentFieldName = 'FieldDisplayName'
+WHERE FieldName = 'StudioLookup'
+GO
+
+
+
+
+
+-- ---------------------------------------------------------------
+-- Script added by Inderjeet Kaur on 8 Sep 2023 for BTS-22-000924
+
+INSERT INTO [dbo].[Config_ConfigurationVariable]
+           ([CategoryName]
+           ,[Description]
+           ,[KeyName]
+           ,[KeyValue]
+           ,[Title]
+           ,[Type]
+           ,[Internal]
+           ,[TenantID])
+     VALUES
+           ('General'
+           ,'To enable hierarchy between Studios and Division(Parent).'
+           ,'EnableStudioDivisionHierarchy'
+           ,'True'
+           ,'EnableStudioDivisionHierarchy'
+           ,'Bool'
+           ,0
+           ,'35525396-e5fe-4692-9239-4df9305b915b')
+
+-- -------------------------------------------------------------------------------
+-- Script added by Inderjeet Kaur on 13 Sep 2023 for BTS-22-000924
+-- -------------------------------------------------------------------------------
+
+-- -- Script to Update DivisionLookup in CPR, CNS and OPM tables
+Declare @tenantID nvarchar(128) = '35525396-E5FE-4692-9239-4DF9305B915B'
+--CPR
+update C set C.DivisionLookup=D.ID 
+from CRMProject C join CompanyDivisions D
+on C.CRMBusinessUnitChoice = D.Title
+where C.TenantID=@tenantID and D.TenantID=@tenantID
+
+--CNS
+update C set C.DivisionLookup=s.ID 
+from CRMservices C join CompanyDivisions s
+on C.StudioChoice = s.Title
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+-- Opportunity
+update C set C.DivisionLookup=s.ID 
+from Opportunity C join CompanyDivisions s
+on C.StudioChoice = s.Title
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+--
+--
+-- -- Script to Update StudioLookup in CPR, CNS and OPM tables
+
+Declare @tenantID nvarchar(128) = '35525396-E5FE-4692-9239-4DF9305B915B'
+--CPR
+update C set C.StudioLookup=s.ID 
+from CRMProject C join Studio s
+on C.StudioChoice = s.Title
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+--CNS
+update C set C.StudioLookup=s.ID 
+from CRMservices C join Studio s
+on C.StudioChoice = s.Title
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+-- Opportunity
+update C set C.StudioLookup=s.ID 
+from Opportunity C join Studio s
+on C.StudioChoice = s.Title
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+GO
+
+--
+-- Update Form Layout for every Module
+
+UPDATE Config_Module_FormLayout
+SET FieldName = 'DivisionLookup', ColumnType = 'Default'
+where 
+FieldDisplayName = 'Division'
+and FieldName = 'CRMBusinessUnitChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO 
+
+UPDATE Config_Module_FormLayout
+SET FieldName = 'StudioLookup', ColumnType = 'Default'
+where 
+FieldDisplayName = 'Studio'
+and FieldName = 'StudioChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+--
+
+update Config_Module_RequestRoleWriteAccess 
+set FieldName = 'StudioLookup'
+where FieldName = 'StudioChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+update Config_Module_RequestRoleWriteAccess 
+set FieldName = 'DivisionLookup'
+where FieldName = 'CRMBusinessUnitChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+
+--
+
+
+-- Script added by Inderjeet Kaur on 22 Sep 2023 for BTS-22-000924
+UPDATE S 
+SET S.FIELDDISPLAYNAME = D.TITLE + ' > ' + S.TITLE
+FROM STUDIO S JOIN COMPANYDIVISIONS D
+ON S.DIVISIONLOOKUP = D.ID
+GO
+
+
+
+--
+
+
+-- 
+-- Script added by Inderjeet Kaur on 20 Sep 2023 for BTS-23-001359: Missing Division
+-- Update DivisionLookup for the records as per the StudioLookup
+
+Declare @tenantID nvarchar(128) = '35525396-E5FE-4692-9239-4DF9305B915B'
+--CPR
+update C set C.DivisionLookup=s.DivisionLookup
+from CRMProject C inner join Studio s
+on C.StudioLookup = s.ID
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+--CNS
+update C set C.DivisionLookup=s.DivisionLookup
+from CRMservices C inner join Studio s
+on C.StudioLookup = s.ID
+where C.TenantID=@tenantID and s.TenantID=@tenantID
+
+-- Opportunity
+update C set C.DivisionLookup=s.DivisionLookup
+from Opportunity C inner join Studio s
+on C.StudioLookup = s.ID
+where C.TenantID=@tenantID and s.TenantID=@tenantID

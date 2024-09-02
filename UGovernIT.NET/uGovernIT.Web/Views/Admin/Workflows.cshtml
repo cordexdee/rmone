@@ -1,0 +1,224 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayouts.cshtml";
+    ViewBag.Title = "WorkFlow Control";
+    var moduleDictionary = ViewBag.moduleDictionary;
+}
+<style>
+    .popupAlign {
+        padding: 0px !important;
+        overflow: hidden;
+        height: 664px;
+        position: absolute;
+        right: 0;
+        top: 29%;
+        left: 32%;
+        right: 0px;
+        margin: 0 auto;
+    }
+
+
+</style>
+
+
+    <div style="width:60%;display: block;margin: auto;">
+        <p class="heading"> Workflows</p>
+        <div style="width: 100%;float: left;">
+            <div class="first-block">
+                <div class="inner center-bullet" style="width: 150px;height:110px;float: left;padding: 40px 0px 0px;margin-top: 0px;float: left; border-right:2px solid rgb(222, 181, 153);">
+                    <img class="icon_size " src="~/Content/Images/Admin/Configure/Workflows/gift-box.png" />
+                    <p class="icon_text" style="padding-top:5px;">Service Management</p>
+                </div>
+
+                <div id="mixedSlider">
+                    <div class="MS-content">
+                        <div class="item">
+                                <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/ipad-2.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["TSR"]','Module - Technical Service Request (TSR)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx',true);" />
+                                <div class="line"><span class="circleIcon"></span></div>
+                                <p class="icon_text svgicon">Incident (TSR)</p>
+                          
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/cause-trouble.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["RCA"]','Module - Root Cause Analysis (RCA)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx',true);" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text">Problem Analysis (RCA)</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/online-trolling.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["INC"]','Module - Outage Incidents (INC)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx',true);" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Critical Incident (Inc)</p>
+
+                        </div>
+                        <div class="item"> 
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/change-of-boss.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["ACR"]','Module - Application Change Request (ACR)','700px','700px','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Change Request (ACR)</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/secretary.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["DRQ"]','Module - Change Management (DRQ)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Change Control (DRQ)</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/settings.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["SVC"]','Module - Shared Services (SVC)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Service Catalog (SVC)</p>
+
+                        </div>
+
+                    </div>
+                    <div class="MS-controls">
+                        <button class="MS-left"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
+                        <button class="MS-right"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;float: left;">
+            <div class="second-block">
+                <div class="inner center-bullet" style="width: 150px;height:110px;padding: 40px 0px 0px;margin-top: 0px;float: left; border-right:2px solid rgb(222, 181, 153);">
+                    <img class="icon_size " src="~/Content/Images/Admin/Configure/Workflows/business-project.png" style="padding-top:0px;" />
+                
+                    <p class="icon_text" style="padding-top:5px;">Project Management</p>
+                </div>
+                <div id="mixedSlider2">
+                    <div class="MS-content">
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/group-request.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["NPR"]','Module - New Project Requests (NPR)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span class="circleIcon"></span></div>
+                            <p class="icon_text">Project Request (NPR)</p>
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/edit-a-document.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["PMM"]','Module -Project Management Module (PMM)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text">Project Execution (PMM)</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/newsstand.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["TSK"]','Module -Task Lists (TSK)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">To Do TaskLists (TSK)</p>
+
+                        </div>
+                        @*<div class="item">
+                            <img class="icon_size" src="~/Content/Images/Admin/Configure/Workflows/group-request.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text">Project Request (NPR)</p>
+
+                        </div>*@
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/time-tracking.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Scenario Planning</p>
+
+                        </div>
+
+                    </div>
+                    <div class="MS-controls">
+                        <button class="MS-left"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
+                        <button class="MS-right"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;float: left;">
+            <div class="third-block">
+                <div class="inner center-bullet" style="width: 150px;height:110px;padding: 40px 0px 0px;margin-top: 0px;float: left; border-right:2px solid rgb(222, 181, 153);">
+                    <img class="icon_size" src="~/Content/Images/Admin/Configure/Workflows/exchange-shapes-icon.png" style="padding-top:0px;" />
+                    <p class="icon_text" style="padding-top:5px;">Resource Management</p>
+                </div>
+
+                <div id="mixedSlider3">
+                    <div class="MS-content">
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/online-data-privacy.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["CMDB"]','Module-Asset Management (CMDB)','700px','700px','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span class="circleIcon"></span></div>
+                            <p class="icon_text">Assets</p>
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/check-mark-alone.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["APP"]','Module - Application Management (APP)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text">Applications</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/christianity.png" onclick="return Admin.loadModule('Workflows','/Layouts/uGovernIT/DelegateControl.aspx?control=moduleedit&ID=@moduleDictionary["RMM"]','Module-People Management (RMM)','700px;','700px;','%2fLayouts%2fuGovernIT%2fuGovernITConfiguration.aspx','true');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">People</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/remember-name-a.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Wiki</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/gears.png" onclick="return Admin.redirectModule('../Admin/Admin.aspx');" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Admin</p>
+
+                        </div>
+
+                    </div>
+                    <div class="MS-controls">
+                        <button class="MS-left"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
+                        <button class="MS-right"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;float: left;">
+            <div class="fourth-block">
+                <div class="inner center-bullet" style="width: 150px;height:110px;padding: 40px 0px 0px;margin-top: 0px;float: left; border-right:2px solid rgb(222, 181, 153);">
+                    <img class="icon_size" src="~/Content/Images/Admin/Configure/Workflows/record-preservation.png" style="padding-top:0px;" />
+                   
+                    <p class="icon_text" style="padding-top:5px;">Governance</p>
+                </div>
+                <div id="mixedSlider4" data-wrap="false">
+                    
+                    <div class="MS-content">
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/creative-portfolio.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text">Portfolio Management</p>
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/02-income.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text">Finance Management</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/magnifying-glass-large.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Executive Reporting</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/customer-satisfaction.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">Customer Relationship Management</p>
+
+                        </div>
+                        <div class="item">
+                            <img class="icon_size bar" src="~/Content/Images/Admin/Configure/Workflows/secretary.png" />
+                            <div class="line"><span></span></div>
+                            <p class="icon_text text-center">ContractManagement</p>
+
+                        </div>
+
+                    </div>
+                    <div class="MS-controls">
+                        <button class="MS-left"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
+                        <button class="MS-right"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+

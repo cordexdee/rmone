@@ -1,0 +1,733 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props" Condition="Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BDB7F985-1E86-4096-BEEE-BB303169E11A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>uGovernIT.Manager</RootNamespace>
+    <AssemblyName>uGovernIT.Manager</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.Core.3.3.23.1\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.S3, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.S3.3.3.18.3\lib\net45\AWSSDK.S3.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Docs.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Spreadsheet.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataVisualization.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.TreeMap.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeMap.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Bond, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Attributes, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.IO, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.JSON, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Runtime.CSharp.7.0.1\lib\net45\Bond.JSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Reflection, Version=7.0.1.100, Culture=neutral, PublicKeyToken=87e9ead25a117286, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bond.Core.CSharp.7.0.1\lib\net45\Bond.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Core, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Core.1.1.2\lib\net45\CacheManager.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Serialization.Bond, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Serialization.Bond.1.1.2\lib\net45\CacheManager.Serialization.Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="CacheManager.Serialization.Json, Version=1.1.2.0, Culture=neutral, PublicKeyToken=5b450b4fb65c4cdb, processorArchitecture=MSIL">
+      <HintPath>..\packages\CacheManager.Serialization.Json.1.1.2\lib\net45\CacheManager.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="FuzzySharp">
+      <HintPath>..\packages\FuzzySharp.2.0.2\lib\net461\FuzzySharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.7.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.7.11\lib\net46\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.7.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.7.11\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.3.4.2\lib\net47\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Identity.Client, Version=4.48.1.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.48.1\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.22.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.6.22.0\lib\net461\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.3.4.2\lib\net47\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard" />
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Drawing.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Office.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v22.1.Export, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v22.1.UI, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxScheduler.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGantt.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v22.1.Extensions, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v22.1.UI, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.Resources.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v22.1.Web, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v22.1.Wizard, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v22.1.UI, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v22.1.Extensions, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v22.1.Core.Desktop, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1.Reporting.Extensions, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="HtmlAgilityPack, Version=1.5.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.5.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NCalc, Version=1.3.8.0, Culture=neutral, PublicKeyToken=973cde3f1cafed03, processorArchitecture=MSIL">
+      <HintPath>..\packages\ncalc.1.3.8\lib\NCalc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.0.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=4.0.8.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.8\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BackgroundProcessStatusManager.cs" />
+    <Compile Include="Calculation.cs" />
+    <Compile Include="CheckListRolesManager.cs" />
+    <Compile Include="CheckListRoleTemplatesManager.cs" />
+    <Compile Include="CheckListsManager.cs" />
+    <Compile Include="CheckListTasksManager.cs" />
+    <Compile Include="CheckListTaskStatusManager.cs" />
+    <Compile Include="CheckListTaskTemplatesManager.cs" />
+    <Compile Include="CheckListTemplatesManager.cs" />
+    <Compile Include="Contract\DMSManagerBase.cs" />
+    <Compile Include="Core\AccountInfo.cs" />
+    <Compile Include="Core\AssetIncidentRelationsManager.cs" />
+    <Compile Include="Core\StatisticsConfigurationManager.cs" />
+    <Compile Include="Core\StatisticsManager.cs" />
+    <Compile Include="Core\ExternalProjectMapping.cs" />
+    <Compile Include="Core\StudioManager.cs" />
+    <Compile Include="Core\TicketEventManager.cs" />
+    <Compile Include="Core\DecisionLogHistoryManager.cs" />
+    <Compile Include="Core\EmailHelper.cs" />
+    <Compile Include="Core\ModuleBudgetHistoryManager.cs" />
+    <Compile Include="CreateTicket\CreateTicketManager.cs" />
+    <Compile Include="CRMActivitiesManager.cs" />
+    <Compile Include="CRMProjectAllocationManager.cs" />
+    <Compile Include="CRMRelationshipTypeManager.cs" />
+    <Compile Include="DMDocumentTypeListManager.cs" />
+    <Compile Include="DMSOperations\StorageUtil.cs" />
+    <Compile Include="DMSOperations\UtilityOperations.cs" />
+    <Compile Include="AvailablePRPAndAssignTo.cs" />
+    <Compile Include="Entities\NPRProjectReportEntity.cs" />
+    <Compile Include="Entities\ProjectReportEntity.cs" />
+    <Compile Include="GlobalRoleManager.cs" />
+    <Compile Include="HelpCardContentManager.cs" />
+    <Compile Include="HelpCardManager.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
+    <Compile Include="Helper\ExportListToExcel.cs" />
+    <Compile Include="Helper\FTPConfiguration.cs" />
+    <Compile Include="Helper\FTPHelper.cs" />
+    <Compile Include="Helper\ITG.cs" />
+    <Compile Include="Helper\TaskReminderProperties.cs" />
+    <Compile Include="Helper\showInMobile.cs" />
+    <Compile Include="HolidayCalendarEventViewTemplateContainer.cs" />
+    <Compile Include="ImportActualTimeHelper.cs" />
+    <Compile Include="ImportJobTitlesHelper.cs" />
+    <Compile Include="ImportUserRolesHelper.cs" />
+    <Compile Include="ImportTimeOffAllocationHelper.cs" />
+    <Compile Include="ImportProjectAllocationHelper.cs" />
+    <Compile Include="ImportServiceHelper.cs" />
+    <Compile Include="ImportUserHelper.cs" />
+    <Compile Include="Interface\IDMSManagerBase.cs" />
+    <Compile Include="Contract\DMSDocRepPermissionManagerBase.cs" />
+    <Compile Include="Interface\IDMSDocRepPermissionManagerBase.cs" />
+    <Compile Include="Intrastructure\IIdentityHelper.cs" />
+    <Compile Include="JobSchedulers\AssetImportJobScheduler.cs" />
+    <Compile Include="JobSchedulers\DailyTicketCounts.cs" />
+    <Compile Include="JobSchedulers\ProjectHealthAlertsScheduler.cs" />
+    <Compile Include="JobSchedulers\RebuildModuleStatisticsJob.cs" />
+    <Compile Include="JobSchedulers\RefreshResoureSummarySchedular.cs" />
+    <Compile Include="JobSchedulers\ReSyncAllProjectAllocationsJob.cs" />
+    <Compile Include="JobSchedulers\UpdateERPJobIDSchedular.cs" />
+    <Compile Include="JobSchedulers\UpdateResourceSummary.cs" />
+    <Compile Include="JobSchedulers\UpdateTicketAgeJob.cs" />
+    <Compile Include="JobSchedulers\WarmUpEntireCache.cs" />
+    <Compile Include="JobTitleManager.cs" />
+    <Compile Include="LeadCriteriaManager.cs" />
+    <Compile Include="LeadRankingManager.cs" />
+    <Compile Include="Managers\AgentsManager.cs" />
+    <Compile Include="Managers\CustomDRQDataSource.cs" />
+    <Compile Include="Managers\CustomUserValidator.cs" />
+    <Compile Include="Managers\EmployeeTypeManager.cs" />
+    <Compile Include="Managers\FunctionRoleManager.cs" />
+    <Compile Include="Managers\FunctionRoleMappingManager.cs" />
+    <Compile Include="Managers\UserProjectExperienceManager.cs" />
+    <Compile Include="Managers\ExperiencedTagManager.cs" />
+    <Compile Include="Managers\TicketCountTrendsManager.cs" />
+    <Compile Include="Managers\LandingPagesManager.cs" />
+    <Compile Include="Managers\PhraseManager.cs" />
+    <Compile Include="Managers\BaseLineDetailsManager.cs" />
+    <Compile Include="Managers\TenantOnBoardingHelper.cs" />
+    <Compile Include="Managers\TenantRegistrationManager.cs" />
+    <Compile Include="Managers\TenantStatusHelper.cs" />
+    <Compile Include="Managers\ProjectManager.cs" />
+    <Compile Include="Managers\UploadManager.cs" />
+    <Compile Include="Managers\UserCertificateManager.cs" />
+    <Compile Include="ModuleBudgetActualsHistoryManager.cs" />
+    <Compile Include="ModuleMonitorOptionHistoryManager.cs" />
+    <Compile Include="ModuleMonthlyBudgetHistoryManager.cs" />
+    <Compile Include="OpenHours.cs" />
+    <Compile Include="ModuleTaskHistoryManager.cs" />
+    <Compile Include="PMMCommentHistoryManager.cs" />
+    <Compile Include="PMM\NewProjectRequest.cs" />
+    <Compile Include="PMM\NPRorTemplateRequest.cs" />
+    <Compile Include="ProjectAllocationManager.cs" />
+    <Compile Include="ProjectComplexityManager.cs" />
+    <Compile Include="ProjectMonitorStateHistoryManager.cs" />
+    <Compile Include="ProjectSimilarityConfigManager.cs" />
+    <Compile Include="ProjectSimilarityMetricsManager.cs" />
+    <Compile Include="ProjectStageHistoryManager.cs" />
+    <Compile Include="ProjectStandardWorkItemManager.cs" />
+    <Compile Include="ProjectTaskKanabanHelper.cs" />
+    <Compile Include="QueryPreviewHelper.cs" />
+    <Compile Include="RankingCriteriaManager.cs" />
+    <Compile Include="RelatedCompanyManager.cs" />
+    <Compile Include="ReportMenuManager.cs" />
+    <Compile Include="Reports\UsersDetailTaskListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\UsersDetailTaskListReport.designer.cs">
+      <DependentUpon>UsersDetailTaskListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceTimeSheetSignOffManager.cs" />
+    <Compile Include="RMM\ViewModel\ActualHourModel.cs" />
+    <Compile Include="RMM\ViewModel\AllocationTemplateResourceModel.cs" />
+    <Compile Include="RMM\ViewModel\BillingAndMarginsRequest.cs" />
+    <Compile Include="RMM\ViewModel\BillingAndMarginsResponse.cs" />
+    <Compile Include="RMM\ViewModel\CopyTimesheetModel.cs" />
+    <Compile Include="RMM\ViewModel\ExecutiveKpi.cs" />
+    <Compile Include="RMM\ViewModel\FindTeamsRequest.cs" />
+    <Compile Include="RMM\ViewModel\FindTeamsResponse.cs" />
+    <Compile Include="RMM\ViewModel\MissedRevenueResponse.cs" />
+    <Compile Include="RMM\ViewModel\PotentialAllocationsRequest.cs" />
+    <Compile Include="RMM\ViewModel\ProjectExperienceModel.cs" />
+    <Compile Include="RMM\ViewModel\ResourceUtilizationIndex.cs" />
+    <Compile Include="ServiceAgentsManager.cs" />
+    <Compile Include="ResourceProjectComplexityManager.cs" />
+    <Compile Include="RMM\ComplexityKeyPair.cs" />
+    <Compile Include="RMM\Helper\ResourceDistributionItem.cs" />
+    <Compile Include="RMM\ProjectAllocationTemplateManager.cs" />
+    <Compile Include="RMM\ViewModel\AllocationTemplateModel.cs" />
+    <Compile Include="RMM\ViewModel\AllocationTemplateRequestModel.cs" />
+    <Compile Include="RMM\ViewModel\CRMAllocationDeleteModel.cs" />
+    <Compile Include="RMM\ViewModel\CRMAllocationListModel.cs" />
+    <Compile Include="RMM\ViewModel\CRMProjectAllocationModel.cs" />
+    <Compile Include="RMM\ViewModel\DeleteTemplateAllocationRequestModel.cs" />
+    <Compile Include="RMM\ViewModel\FindResourceRequest.cs" />
+    <Compile Include="RMM\ViewModel\FindResourceRequestModel.cs" />
+    <Compile Include="RMM\ViewModel\FindResourceResponse.cs" />
+    <Compile Include="RMM\ViewModel\MostAvailableResourceResponse.cs" />
+    <Compile Include="RMM\ViewModel\UpdateTemplateModel.cs" />
+    <Compile Include="RMM\ViewModel\VMSaveAllocationAsTemplate.cs" />
+    <Compile Include="ServiceTaskFlowChartHelper.cs" />
+    <Compile Include="StateManager.cs" />
+    <Compile Include="SubContractorManager.cs" />
+    <Compile Include="SubLocationManager.cs" />
+    <Compile Include="TenantScheduleManager.cs" />
+    <Compile Include="Helper\AnalyticSync.cs" />
+    <Compile Include="LinkCategoryManager.cs" />
+    <Compile Include="LinkViewManager.cs" />
+    <Compile Include="LinkItemsManager.cs" />
+    <Compile Include="GovernanceLinkItemManager.cs" />
+    <Compile Include="AnalyticDashboardManager.cs" />
+    <Compile Include="GovernanceLinkCategoryManager.cs" />
+    <Compile Include="MailTokenColumnNameManager.cs" />
+    <Compile Include="TenantManager.cs" />
+    <Compile Include="TenantValidation.cs" />
+    <Compile Include="UGITLogManager.cs" />
+    <Compile Include="UpdateServicesMasterManager.cs" />
+    <Compile Include="WikiArticlesManager.cs" />
+    <Compile Include="WikiCategoryManager.cs" />
+    <Compile Include="RequestRoleWriteAccessManager.cs" />
+    <Compile Include="ModuleFormLayoutManager.cs" />
+    <Compile Include="ModuleFormTabManager.cs" />
+    <Compile Include="AcrTypeManager.cs" />
+    <Compile Include="AllocationTypeManager.cs" />
+    <Compile Include="Core\BusinessStrategyManager.cs" />
+    <Compile Include="Helper\BusinessStrategyDashboard.cs" />
+    <Compile Include="HolidaysAndWorkdaysCalanderManager.cs" />
+    <Compile Include="ResourceAllocationMonthlyManager.cs" />
+    <Compile Include="ResourceUsageSummaryWeekWiseManager.cs" />
+    <Compile Include="ResourceUsageSummaryMonthWiseManager.cs" />
+    <Compile Include="ResourceAllocationManager.cs" />
+    <Compile Include="ResourceWorkItemsManager.cs" />
+    <Compile Include="AllocationManager.cs" />
+    <Compile Include="ResourceTimeSheetManager.cs" />
+    <Compile Include="Core\DecisionLogManager.cs" />
+    <Compile Include="Core\ModuleWorkflowHistoryArchiveManager.cs" />
+    <Compile Include="Core\InnerPageConfigurationManager.cs" />
+    <Compile Include="Core\TicketTemplateManager.cs" />
+    <Compile Include="Helper\ApplicationHelper.cs" />
+    <Compile Include="Managers\UserSkillManager.cs" />
+    <Compile Include="Intrastructure\ContextHelper.cs" />
+    <Compile Include="ModuleDefaultValueManager.cs" />
+    <Compile Include="ModuleMonitorManager.cs" />
+    <Compile Include="ModuleMonitorOptionManager.cs" />
+    <Compile Include="ModuleStageConstraintsManager.cs" />
+    <Compile Include="ModuleStageConstraintTemplatesManager.cs" />
+    <Compile Include="OrganizationManager.cs" />
+    <Compile Include="AdminCategoryManager.cs" />
+    <Compile Include="AdminConfigurationListManager.cs" />
+    <Compile Include="AgentJobHelper.cs" />
+    <Compile Include="ApplicationHelper.cs" />
+    <Compile Include="AssetModelViewManager.cs" />
+    <Compile Include="AssetVendorViewManager.cs" />
+    <Compile Include="BudgetCategoryViewManager.cs" />
+    <Compile Include="Cache\DashboardCache.cs" />
+    <Compile Include="ChartCache.cs" />
+    <Compile Include="ChartHelper.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="CompanyDivisionManager.cs" />
+    <Compile Include="ApplicationPasswordManager.cs" />
+    <Compile Include="ContactManager.cs" />
+    <Compile Include="CompanyManager.cs" />
+    <Compile Include="Core\ApplicationAccessManager.cs" />
+    <Compile Include="Core\ApplicationModuleManager.cs" />
+    <Compile Include="Core\ApplicationRoleManager.cs" />
+    <Compile Include="Core\ApplicationServersManager.cs" />
+    <Compile Include="Core\AppointmentsManager.cs" />
+    <Compile Include="Core\AssetsManager.cs" />
+    <Compile Include="Core\EnvironmentManager.cs" />
+    <Compile Include="Core\FormulaBuilder.cs" />
+    <Compile Include="Core\LifeCycleStageManager.cs" />
+    <Compile Include="Core\ModuleEscalationRuleManager.cs" />
+    <Compile Include="Core\BudgetActualsManager.cs" />
+    <Compile Include="Core\ModuleBudgetManager.cs" />
+    <Compile Include="Core\MailMessenger.cs" />
+    <Compile Include="Core\ModuleColumnManager.cs" />
+    <Compile Include="Core\ModuleMonthlyBudgetManager.cs" />
+    <Compile Include="Core\ModuleUserStatisticsManager.cs" />
+    <Compile Include="Core\ModuleUserTypeManager.cs" />
+    <Compile Include="Core\ModuleWorkflowHistoryManager.cs" />
+    <Compile Include="Core\NPRResourcesManager.cs" />
+    <Compile Include="Core\PageConfigurationManager.cs" />
+    <Compile Include="Core\ProcessAllTicketEscalationHelper.cs" />
+    <Compile Include="Core\TaskTemplateManager.cs" />
+    <Compile Include="Core\TicketRelationManager.cs" />
+    <Compile Include="Core\UGITLicense.cs" />
+    <Compile Include="Core\UGITTaskManager.cs" />
+    <Compile Include="Core\UGITTheme.cs" />
+    <Compile Include="DevxChartHelper.cs" />
+    <Compile Include="Helper\DashboardHelper.cs" />
+    <Compile Include="IManagerBase.cs" />
+    <Compile Include="Intrastructure\ApplicationDbContext.cs" />
+    <Compile Include="Intrastructure\IJobScheduler.cs" />
+    <Compile Include="JobSchedulers\AgentJobScheduler.cs" />
+    <Compile Include="JobSchedulers\BudgetDistributionSchedular.cs" />
+    <Compile Include="JobSchedulers\CleanupJobScheduler.cs" />
+    <Compile Include="JobSchedulers\EmailToTicketScheduler.cs" />
+    <Compile Include="ManagerBase.cs" />
+    <Compile Include="Managers\ChartTemplatesManager.cs" />
+    <Compile Include="Managers\DashboardFactTableManager.cs" />
+    <Compile Include="Managers\DashboardManager.cs" />
+    <Compile Include="Managers\DashboardPanelViewManager.cs" />
+    <Compile Include="Managers\DashboardSummaryManager.cs" />
+    <Compile Include="Managers\EditUrlManager.cs" />
+    <Compile Include="Managers\PopulateDashboard.cs" />
+    <Compile Include="Managers\ReportManager.cs" />
+    <Compile Include="Managers\AssetHelper.cs" />
+    <Compile Include="Managers\ModuleColumnHelper.cs" />
+    <Compile Include="Managers\Solarwind.cs" />
+    <Compile Include="Managers\TicketManager.cs" />
+    <Compile Include="Managers\UserProfileManager.cs" />
+    <Compile Include="Core\ConfigurationVariableManager.cs" />
+    <Compile Include="Core\EscalationProcess.cs" />
+    <Compile Include="Core\LifeCycleHelper.cs" />
+    <Compile Include="Core\ModuleStatistics.cs" />
+    <Compile Include="Core\Ticket.cs" />
+    <Compile Include="Core\EmailsManager.cs" />
+    <Compile Include="Managers\UserRolesManager.cs" />
+    <Compile Include="Core\UsersEmail.cs" />
+    <Compile Include="CustomEventDataSource.cs" />
+    <Compile Include="CustomEventList.cs" />
+    <Compile Include="DepartmentManager.cs" />
+    <Compile Include="DrqRapidTypesManager.cs" />
+    <Compile Include="DrqSyetemAreaViewManager.cs" />
+    <Compile Include="Entities\ChoiceValue.cs" />
+    <Compile Include="Entities\LookUpValueCollection.cs" />
+    <Compile Include="Entities\TabViewManager.cs" />
+    <Compile Include="Entities\UserValue.cs" />
+    <Compile Include="Entities\UserValueCollection.cs" />
+    <Compile Include="EventCategoryViewManager.cs" />
+    <Compile Include="ExpressionCalc.cs" />
+    <Compile Include="FactTableField.cs" />
+    <Compile Include="Core\FieldConfigurationManager.cs" />
+    <Compile Include="Core\MenuNavigationHelper.cs" />
+    <Compile Include="FieldLookupValue.cs" />
+    <Compile Include="FieldLookupValueCollection.cs" />
+    <Compile Include="FunctionalAreasManager.cs" />
+    <Compile Include="GetTableDataManager.cs" />
+    <Compile Include="ImpactManager.cs" />
+    <Compile Include="LocationManager.cs" />
+    <Compile Include="Managers\CustomTaskDataSource.cs" />
+    <Compile Include="Managers\FormLayoutManager.cs" />
+    <Compile Include="Managers\SchedulingDBContext.cs" />
+    <Compile Include="Managers\TicketHoursManager.cs" />
+    <Compile Include="MessageBoardManager.cs" />
+    <Compile Include="ModuleViewManager.cs" />
+    <Compile Include="Baseline.cs" />
+    <Compile Include="DocumentManager.cs" />
+    <Compile Include="RMMSummaryHelper.cs" />
+    <Compile Include="PMMEventViewClass.cs" />
+    <Compile Include="ReportConfigManager.cs" />
+    <Compile Include="TaskEmailViewManager.cs" />
+    <Compile Include="VendorSOWInvoiceDetailManager.cs" />
+    <Compile Include="SprintTaskManager.cs" />
+    <Compile Include="SprintSummaryManager.cs" />
+    <Compile Include="SprintManager.cs" />
+    <Compile Include="ProjectMonitorStateManager.cs" />
+    <Compile Include="PMMRiskManager.cs" />
+    <Compile Include="PMMReleaseManager.cs" />
+    <Compile Include="PMMIssueManager.cs" />
+    <Compile Include="PMMEventManager.cs" />
+    <Compile Include="PMMCommentManager.cs" />
+    <Compile Include="PrioirtyViewManager.cs" />
+    <Compile Include="ProjectClassViewManager.cs" />
+    <Compile Include="ProjectInitiativeViewManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHelper.cs" />
+    <Compile Include="Reports\ApplicationAccessReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationAccessReport.Designer.cs">
+      <DependentUpon>ApplicationAccessReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RequestPriorityManager.cs" />
+    <Compile Include="RequestTypeByLocationManager.cs" />
+    <Compile Include="RequestTypeManager.cs" />
+    <Compile Include="ScheduleActionsArchiveManager.cs" />
+    <Compile Include="Core\ScheduleActionsManager.cs" />
+    <Compile Include="Core\TicketRelationshipHelper.cs" />
+    <Compile Include="ServiceCategoryManager.cs" />
+    <Compile Include="ServiceQuestionManager.cs" />
+    <Compile Include="ServiceQuestionMappingManager.cs" />
+    <Compile Include="ServiceRequestManager.cs" />
+    <Compile Include="ServiceSectionManager.cs" />
+    <Compile Include="ServicesManager.cs" />
+    <Compile Include="ServiceTaskManager.cs" />
+    <Compile Include="SeverityManager.cs" />
+    <Compile Include="SlaRulesManager.cs" />
+    <Compile Include="SurveyFeedbackManager.cs" />
+    <Compile Include="UGITModuleConstraint.cs" />
+    <Compile Include="uHelper.cs" />
+    <Compile Include="VendorTypeManager.cs" />
+    <Compile Include="WikiContentsManager.cs" />
+    <Compile Include="WikiDiscussionManager.cs" />
+    <Compile Include="WikiLinksManager.cs" />
+    <Compile Include="WikiMenuLeftNavigationManager.cs" />
+    <Compile Include="WikiReviewsManager.cs" />
+    <Compile Include="WorkflowSLASummaryManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Report.Entities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uGovernIT.DAL\uGovernIT.DAL.csproj">
+      <Project>{efdb4ee9-af34-4c8f-aca8-38a4068d74a1}</Project>
+      <Name>uGovernIT.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uGovernIT.Utility\uGovernIT.Utility.csproj">
+      <Project>{7cd0aade-ecb5-4ce6-9ece-c5d75ed67f2d}</Project>
+      <Name>uGovernIT.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\uGovernIT.Util.Cache\uGovernIT.Util.Cache.csproj">
+      <Project>{6ecff551-1203-4f1e-a4ce-7fdbcf979168}</Project>
+      <Name>uGovernIT.Util.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\uGovernIT.Util.ImportExportMPP\uGovernIT.Util.ImportExportMPP.csproj">
+      <Project>{d94cce5f-e2d9-40ed-8206-40e5fd4cbac8}</Project>
+      <Name>uGovernIT.Util.ImportExportMPP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Util\uGovernIT.Util.Log\uGovernIT.Util.Log.csproj">
+      <Project>{15DE9399-0841-4B67-8818-1626AC32F3ED}</Project>
+      <Name>uGovernIT.Util.Log</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\ApplicationAccessReport.resx">
+      <DependentUpon>ApplicationAccessReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\UsersDetailTaskListReport.resx">
+      <DependentUpon>UsersDetailTaskListReport.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\AWSSDK.S3.3.3.18.3\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.props'))" />
+    <Error Condition="!Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets'))" />
+  </Target>
+  <Import Project="..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets" Condition="Exists('..\packages\Bond.CSharp.7.0.1\build\Bond.CSharp.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

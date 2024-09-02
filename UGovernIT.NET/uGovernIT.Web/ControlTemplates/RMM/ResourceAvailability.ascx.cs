@@ -1,0 +1,5433 @@
+﻿using DevExpress.Web;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using uGovernIT.Core;
+using uGovernIT.Helpers;
+using uGovernIT.Manager;
+using System.Linq;
+using uGovernIT.Utility;
+using uGovernIT.Utility.Entities;
+using System.Drawing;
+using System.Web.UI.HtmlControls;
+using DevExpress.Data;
+using System.Web;
+using uGovernIT.Util.Cache;
+using DevExpress.XtraExport.Implementation;
+using uGovernIT.DAL;
+using System.Web.Mvc;
+using uGovernIT.Manager.Core;
+using uGovernIT.Util.Log;
+using DevExpress.Charts.Native;
+using DevExpress.XtraReports.UI;
+using DevExpress.XtraPrinting.Shape;
+using DevExPrinting = DevExpress.XtraPrinting;
+using DevExpress.CodeParser;
+using uGovernIT.Manager.Managers;
+using DevExpress.XtraGrid;
+using System.Text.RegularExpressions;
+using DevExpress.XtraPrinting;
+using System.Threading;
+using DevExpress.Web.Internal.XmlProcessor;
+using DevExpress.XtraPrintingLinks;
+using System.IO;
+using System.Runtime.InteropServices.ComTypes;
+using DevExpress.XtraPrinting.NativeBricks;
+using System.Collections.Specialized;
+using System.Web.UI.DataVisualization.Charting;
+
+namespace uGovernIT.Web
+{
+    public partial class ResourceAvailability : System.Web.UI.UserControl
+    {
+        #region variables
+
+        public string FromDateCheck { get; set; }
+        public string ToDateCheck { get; set; }
+        public string ControlId { get; set; }
+        public string TicketId { get; set; }
+        public string FrameId;
+        public bool ReadOnly;
+        private string peopleGlobalRoleID;
+        double green = 80, lightgreen = 15, yellow = 99, red = 100, gray = 0, orange = 120;
+        private string formTitle = "Resource Utilization";
+        private string editParam = "CustomResourceAllocation";
+        public string absoluteUrlView = "/layouts/ugovernit/DelegateControl.aspx?control={0}&pageTitle={1}&isdlg=1&isudlg=1&Type={2}&SelectedUsersList={3}&IncludeClosed={4}";
+        string varUseCalendar = string.Empty;
+        DataTable resultTable;
+        public bool btnexport;
+        DataSet ds = new DataSet();
+        public string ResourceCapacity { get; set; }
+        public Unit Width { get; set; }
+        public Unit Height { get; set; }
+
+        List<string> sActionType = new List<string>();
+        protected DataTable resultedTable;
+
+        protected bool isResourceAdmin = false;
+        private string allowAllocationForSelf;
+        private bool allowAllocationViewAll;
+        protected List<UserProfile> userEditPermisionList = null;
+        public DateTime currentStartDate;
+        public DateTime currentEndDate;
+        protected List<ResourceAllocationMonthly> dtMonthlyAllocation;
+        protected DataTable dtRawDataAllResource;
+        DataTable allocationData = null;
+        protected List<ResourceWorkItems> allResourceWorkItemsSPList;
+        List<ResourceAllocationMonthly> currentSelectedRows = new List<ResourceAllocationMonthly>();
+        string currenSelectedUserID = string.Empty;
+        string UserList = string.Empty;
+        DataSet dsData = new DataSet();
+        protected bool enableDivision;
+        protected bool enableFunctionalArea = false;
+        protected DataSet dsFooter = null;
+        ApplicationContext applicationContext = HttpContext.Current.GetManagerContext();
+        //ResourceAllocationManager ObjResourceAllocationManager = null;
+        //ResourceAllocationMonthlyManager allcMManager = null;
+        ResourceWorkItemsManager workitemManager = null;
+        GlobalRoleManager roleManager = null;
+
+        DepartmentManager departmentManagerLoad = null;
+        UserProfileManager ObjUserProfileManager = null;
+        ConfigurationVariableManager ObjConfigurationVariableManager = null;
+        //JobTitleManager jobTitleManager = null;
+
+        //JobTitle jobTitle = null;
+        //UserProfile profile = null, userP = null;
+        private List<UserProfile> userProfiles = null;
+        private List<Department> departmentsLoad = null;
+        string hndYear = string.Empty;
+        private DateTime dateFrom;
+        private DateTime dateTo;
+        private ResourceAllocationManager ResourceAllocationManager = null;
+        private ResourceWorkItemsManager ResourceWorkItemsManager = null;
+        ConfigurationVariableManager ConfigVariableMGR = null;
+        ResourceProjectComplexityManager cpxManager = null;
+        DataTable dtFilterTypeData;
+        private string selectedCategory = string.Empty;
+        public string AllocationGanttURL = "/layouts/ugovernit/DelegateControl.aspx?control=allocationgantt";
+        List<string> selectedTypes = new List<string>();
+        private DataTable dataTable = null;
+        List<UserProfile> lstActiveUsersIds = null;
+        public bool IsCPRModuleEnabled
+        {
+            get
+            {
+                return uHelper.IsCPRModuleEnabled(applicationContext);
+            }
+        }
+
+        public string AddCombineMultiAllocationUrl = "/layouts/ugovernit/DelegateControl.aspx?control={0}&pageTitle={1}&isdlg=1&isudlg=1&Type={2}&refreshpage=0";
+        private int MonthColWidth = 60;
+        private bool DisablePlannedAllocation;
+        List<string> lstEstimateColorsAndFontColors = null;
+        List<string> lstAssignColorsAndFontColors = null;
+        bool stopToRegerateColumns = false;
+        private string selectedManager = string.Empty;
+        public string SelectedUser = string.Empty;
+        private string selecteddepartment = string.Empty;
+        private UserProfile CurrentUser;
+        public string selectedUsers;
+        private ModuleViewManager _moduleViewManager = null;
+        private DataRow moduleRow;
+        public string selectedDivision = string.Empty;
+        public bool CalledFromDirectorView = false;
+        public bool generateColumns = false;
+        public string DivisionLabel = "Division";
+
+        public bool isFilterApplying = false;
+        protected ModuleViewManager ModuleViewManager
+        {
+            get
+            {
+                if (_moduleViewManager == null)
+                {
+                    _moduleViewManager = new ModuleViewManager(applicationContext);
+                }
+                return _moduleViewManager;
+            }
+        }
+        public bool ShowClearFilter
+        {
+            get
+            {
+                return showClearFilter;
+            }
+
+            set
+            {
+                showClearFilter = value;
+            }
+        }
+        protected bool showClearFilter;
+        #endregion
+
+        #region pageEvents
+        protected override void OnInit(EventArgs e)
+        {
+            ObjUserProfileManager = new UserProfileManager(applicationContext);
+            departmentManagerLoad = new DepartmentManager(applicationContext);
+            ObjConfigurationVariableManager = new ConfigurationVariableManager(applicationContext);
+            ResourceAllocationManager = new ResourceAllocationManager(applicationContext);
+            ResourceWorkItemsManager = new ResourceWorkItemsManager(applicationContext);
+            ConfigVariableMGR = new ConfigurationVariableManager(applicationContext);
+            varUseCalendar = ObjConfigurationVariableManager.GetValue(DatabaseObjects.Columns.UseCalendar);
+            enableDivision = ObjConfigurationVariableManager.GetValueAsBool(ConfigConstants.EnableDivision);
+            DisablePlannedAllocation = ConfigVariableMGR.GetValueAsBool(ConfigConstants.DisablePlannedAllocation);
+            cpxManager = new ResourceProjectComplexityManager(applicationContext);
+            roleManager = new GlobalRoleManager(applicationContext);
+
+            DivisionLabel = ObjConfigurationVariableManager.GetValue(ConfigConstants.DivisionLabel);
+
+            EditPermisionList();
+            FillDropDownType();
+            userProfiles = ObjUserProfileManager.GetUsersProfile().Where(x => !x.UserName.EqualsIgnoreCase("SuperAdmin")).ToList();
+            CurrentUser = userProfiles.FirstOrDefault(x => x.Id.EqualsIgnoreCase(HttpContext.Current.CurrentUser().Id));
+            if (enableDivision)
+            {
+                departmentsLoad = departmentManagerLoad.GetDepartmentData();
+            }
+
+            if (uHelper.IsCPRModuleEnabled(applicationContext))
+            {
+                enableFunctionalArea = true;
+            }
+            if (enableFunctionalArea)
+            {
+                divFunctionalArea.Visible = false;
+            }
+            else
+            {
+                divFunctionalArea.Visible = true;
+            }
+
+
+            base.OnInit(e);
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (glType.DataSource == null)
+            {
+                glType.DataSource = dtFilterTypeData;
+                glType.DataBind();
+            }
+            AddCombineMultiAllocationUrl = UGITUtility.GetAbsoluteURL(string.Format(AddCombineMultiAllocationUrl, "combinedmultiallocationjs", "Add Allocation", "ResourceAllocation"));
+
+            UserProfile currentUserProfile = userProfiles.FirstOrDefault(x => x.Id.EqualsIgnoreCase(HttpContext.Current.CurrentUser().Id)); //HttpContext.Current.CurrentUser();
+
+            if (Request["AllocationViewType"] == "RMMAllocation")
+            {
+                divAllocation.Visible = true;   //temporally false for all view types
+            }
+            else
+            {
+                divAllocation.Visible = false;
+            }
+
+            ResourceCapacity = Request["IsResourceDrillDown"];
+
+            //changed to common config variable disabledplannedallocation instead of enableRMMAssignment, both serves same purpose
+            if (DisablePlannedAllocation)
+                divAllocation.Visible = false;
+
+            dataTable = (DataTable)glType.DataSource;
+
+            List<string> selectedActionType = glType.Text.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (string sau in selectedActionType)
+            {
+                DataRow row = dataTable.AsEnumerable().FirstOrDefault(x => x.Field<string>("LevelTitle") == sau);
+                if (row != null)
+                    sActionType.Add(Convert.ToString(row["LevelName"]));
+                else
+                    sActionType.Add(sau);
+            }
+
+            string ControlName = uHelper.GetPostBackControlId(this.Page);
+
+            if (ControlName == "gv")
+                UGITUtility.CreateCookie(Response, "filter", string.Format("type${0}", glType.Text));
+
+            if (ControlName == "ddlDepartment")
+            {
+                UGITUtility.CreateCookie(Response, "filterDepartment", string.Format("department${0}", ddlDepartment.GetValues()));
+                UGITUtility.CreateCookie(Response, "filterFunctionArea", string.Format("functionarea${0}", "0"));
+            }
+            else if (ControlName == "userGroupGridLookup")
+            {
+                // UGITUtility.CreateCookie(Response, "filter", string.Format("group${0}~#type${1}", ddlUserGroup.SelectedValue, selectedCategory));
+                hdnGenerateColumns.Value = "1";
+                generateColumns = true;
+            }
+            if (ControlName == "ddlFunctionalArea")
+            {
+                UGITUtility.CreateCookie(Response, "filterFunctionArea", string.Format("functionarea${0}", ddlFunctionalArea.SelectedValue));
+            }
+            if (ControlName == "ddlResourceManager")
+            {
+                //UGITUtility.CreateCookie(Response, "filterResource", string.Format("user${0}", ddlResourceManager.SelectedValue));
+                UGITUtility.CreateCookie(Response, "filterResource", string.Format("user${0}", Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value))));
+            }
+
+            if (!Page.IsPostBack)
+            {
+                
+                if (currentUserProfile != null && !string.IsNullOrEmpty(currentUserProfile.Department) && !CalledFromDirectorView && Request["AllocationViewType"] != "CapacityReport")
+                {
+                    if (enableDivision)
+                    {
+                        long deptartmentID = 0;
+                        deptartmentID = Convert.ToInt64(currentUserProfile.Department);
+                        var div = departmentsLoad.FirstOrDefault(x => x.TenantID == currentUserProfile.TenantID && x.ID == deptartmentID).DivisionIdLookup;
+
+                        currentUserProfile.Division = Convert.ToString(div);
+                        if (currentUserProfile.Division != null)
+                        {
+                            UGITUtility.DeleteCookie(Request, Response, "division");
+                            if (!currentUserProfile.IsManager)
+                            {
+                                SetCookie("division", Convert.ToString(currentUserProfile.Division));
+                                hdnaspDepartment.Value = currentUserProfile.Department;
+                                ddlDepartment.SetValues(currentUserProfile.Department);
+                            }
+                            else
+                            {
+                                UGITUtility.DeleteCookie(Request, Response, "filterResource");
+                                UGITUtility.CreateCookie(Response, "filterResource", string.Format("user${0}", currentUserProfile.Id));
+                                hdnaspDepartment.Value = "";
+                                ddlDepartment.SetValues("");
+                                ddlDepartment.SetText("All");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ddlDepartment.Value = currentUserProfile.Department;
+                        hdnaspDepartment.Value = currentUserProfile.Department;
+                    }
+                    LoadGlobalRolesOnDepartment(currentUserProfile.Department);
+                    LoadDdlResourceManager("", currentUserProfile.IsManager ? currentUserProfile.Id : "");
+                }
+                else
+                {
+                    if (enableDivision)
+                    {
+                        UGITUtility.DeleteCookie(Request, Response, "division");
+                        SetCookie("division", "");
+                        
+                    }
+                    UGITUtility.DeleteCookie(Request, Response, "filterResource");
+                    UGITUtility.CreateCookie(Response, "filterResource", string.Format("user${0}", currentUserProfile.Id));
+
+                    if (Request["AllocationViewType"] == "CapacityReport" && !string.IsNullOrWhiteSpace(Request["pDepartmentName"]))
+                    {
+
+                        hdndisplayMode.Value = !string.IsNullOrWhiteSpace(Request["RAdisplayMode"]) ? UGITUtility.ObjectToString(Request["RAdisplayMode"]) : "";
+                        string department = UGITUtility.ObjectToString(Request["pDepartmentName"]);
+                        hdnaspDepartment.Value = department;
+                        ddlDepartment.SetValues(department);
+                        LoadGlobalRolesOnDepartment(department);
+                        LoadDdlResourceManager(department, "");
+                    }
+                    else
+                    {
+                        hdnaspDepartment.Value = "";
+
+                        ddlDepartment.SetText("All");
+                        LoadGlobalRolesOnDepartment("");
+                        LoadDdlResourceManager("", currentUserProfile?.IsManager ?? false ? currentUserProfile.Id : "");
+                        if (currentUserProfile != null && currentUserProfile.IsManager && currentUserProfile.TenantID == applicationContext.TenantID)
+                        {
+                            ddlDepartment.SetValues("");
+                        }
+                    }
+                }
+
+            }
+
+            if (!IsPostBack)
+            {
+                if (Request["AllocationViewType"] == "ProjectAllocation")
+                {
+                    divProject.Visible = true;
+                    if (!string.IsNullOrEmpty(Request["pStartDate"]) && !string.IsNullOrEmpty(Request["pEndDate"]))
+                    {
+                        hdndtfrom.Value = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pStartDate"]).Year, Convert.ToDateTime(Request["pStartDate"]).Month, 1));
+                        FromDateCheck = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pStartDate"]).Year, Convert.ToDateTime(Request["pStartDate"]).Month, 1));
+                        hdndtto.Value = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month, System.DateTime.DaysInMonth(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month)));
+                        ToDateCheck = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month, System.DateTime.DaysInMonth(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month)));
+                    }
+                    else
+                    {
+                        hdndtfrom.Value = Convert.ToString(new DateTime(DateTime.Now.Year, 1, 1));
+                        FromDateCheck = Convert.ToString(new DateTime(DateTime.Now.Year, 1, 1));
+                        hdndtto.Value = Convert.ToString(new DateTime(DateTime.Now.Year, 12, 31));
+                        ToDateCheck = Convert.ToString(new DateTime(DateTime.Now.Year, 12, 31));
+                    }
+                    divFilter.Visible = false;
+                    chkAll.Visible = false;
+                    rbtnItemCount.Visible = false;
+
+                }
+                else if (Request["AllocationViewType"] == "CRMProjectAuto")
+                {
+                    divProject.Visible = false;
+
+                    if (Request["pStartDate"] != null)
+                        hdndtfrom.Value = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pStartDate"]).Year, Convert.ToDateTime(Request["pStartDate"]).Month, 1));
+                    FromDateCheck = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pStartDate"]).Year, Convert.ToDateTime(Request["pStartDate"]).Month, 1));
+                    if (Request["pEndDate"] != null)
+                        hdndtto.Value = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month, System.DateTime.DaysInMonth(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month)));
+                    ToDateCheck = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month, System.DateTime.DaysInMonth(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month)));
+
+                    peopleGlobalRoleID = Request["pGlobalRoleID"];
+                    divFilter.Visible = false;
+                }
+                else if (Request["IsResourceDrillDown"] == "true")
+                {
+                    divProject.Visible = false;
+
+                    if (Request["pStartDate"] != null)
+                        hdndtfrom.Value = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pStartDate"]).Year, Convert.ToDateTime(Request["pStartDate"]).Month, 1));
+                    FromDateCheck = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pStartDate"]).Year, Convert.ToDateTime(Request["pStartDate"]).Month, 1));
+
+                    if (Request["pEndDate"] != null)
+                        hdndtto.Value = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month, System.DateTime.DaysInMonth(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month)));
+                    ToDateCheck = Convert.ToString(new DateTime(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month, System.DateTime.DaysInMonth(Convert.ToDateTime(Request["pEndDate"]).Year, Convert.ToDateTime(Request["pEndDate"]).Month)));
+
+                    peopleGlobalRoleID = Request["pGlobalRoleID"];
+                    divFilter.Attributes.Add("style", "display:none");
+                    chkAll.Checked = true;
+
+                    divCheckbox.Visible = false;
+                    divProject.Visible = false;
+                    tdManager.Visible = false;
+                    tdManagerDropDown.Visible = false;
+                    tdType.Visible = false;
+                    tdTypeGridLookup.Visible = false;
+
+                    hdndisplayMode.Value = DisplayMode.Monthly.ToString();
+
+                    LoadDepartment();
+                    LoadFunctionalArea();
+                }
+                else
+                {
+
+                    divProject.Visible = false;
+                    divFilter.Visible = true;
+                    string defaultDisplayMode = ConfigVariableMGR.GetValue(ConfigConstants.DefaultRMMDisplayMode);
+                    if (Request["AllocationViewType"] == "CapacityReport")
+                    {
+                        DateTime fromDate = !string.IsNullOrWhiteSpace(Request["pStartDate"]) ? DateTime.ParseExact(UGITUtility.ObjectToString(Request["pStartDate"]), "dd/MM/yyyy", null) : DateTime.MinValue;
+                        DateTime toDate = !string.IsNullOrWhiteSpace(Request["pEndDate"]) ? DateTime.ParseExact(UGITUtility.ObjectToString(Request["pEndDate"]), "dd/MM/yyyy", null) : DateTime.MinValue;
+                        hdndisplayMode.Value = !string.IsNullOrWhiteSpace(Request["RAdisplayMode"]) ? UGITUtility.ObjectToString(Request["RAdisplayMode"]) : "";
+                        if (hdndisplayMode.Value == "Monthly")
+                        {
+
+                            hdndtfrom.Value = Convert.ToString(new DateTime(fromDate.Year, 1, 1));
+                            FromDateCheck = Convert.ToString(new DateTime(fromDate.Year, 1, 1));
+                            hdndtto.Value = Convert.ToString(new DateTime(fromDate.Year, 12, 31));
+                            ToDateCheck = Convert.ToString(new DateTime(fromDate.Year, 12, 31));
+                            hdndisplayMode.Value = DisplayMode.Monthly.ToString();
+                        }
+                        else
+                        {
+                            DateTime currentDate = fromDate;
+
+                            // First day of the month before the current month
+                            DateTime firstDayOfPreviousMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+                            // Last day of the month after the current month
+                            DateTime lastDayOfNextMonth = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(3).AddDays(-1);
+                            // Find the first Monday by iterating through the days of the week
+                            // and checking if it's Monday
+                            DateTime firstMonday = firstDayOfPreviousMonth;
+                            while (firstMonday.DayOfWeek != DayOfWeek.Monday)
+                            {
+                                firstMonday = firstMonday.AddDays(1);
+                            }
+                            hdndtfrom.Value = FromDateCheck = firstMonday.ToShortDateString();
+                            hdndtto.Value = ToDateCheck = lastDayOfNextMonth.ToShortDateString();
+                            hdndisplayMode.Value = DisplayMode.Weekly.ToString();
+                            hdnSelectedDate.Value = firstMonday.ToShortDateString();
+                        }
+                    }
+                    else
+                    {
+                        if (defaultDisplayMode == "Monthly")
+                        {
+
+                            hdndtfrom.Value = Convert.ToString(new DateTime(DateTime.Now.Year, 1, 1));
+                            FromDateCheck = Convert.ToString(new DateTime(DateTime.Now.Year, 1, 1));
+                            hdndtto.Value = Convert.ToString(new DateTime(DateTime.Now.Year, 12, 31));
+                            ToDateCheck = Convert.ToString(new DateTime(DateTime.Now.Year, 12, 31));
+                            hdndisplayMode.Value = DisplayMode.Monthly.ToString();
+                        }
+                        else
+                        {
+                            DateTime currentDate = DateTime.Now;
+
+                            // First day of the month before the current month
+                            DateTime firstDayOfPreviousMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+                            // Last day of the month after the current month
+                            DateTime lastDayOfNextMonth = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(3).AddDays(-1);
+                            // Find the first Monday by iterating through the days of the week
+                            // and checking if it's Monday
+                            DateTime firstMonday = firstDayOfPreviousMonth;
+                            while (firstMonday.DayOfWeek != DayOfWeek.Monday)
+                            {
+                                firstMonday = firstMonday.AddDays(1);
+                            }
+                            hdndtfrom.Value = FromDateCheck = firstMonday.ToShortDateString();
+                            hdndtto.Value = ToDateCheck = lastDayOfNextMonth.ToShortDateString();
+                            hdndisplayMode.Value = DisplayMode.Weekly.ToString();
+                            hdnSelectedDate.Value = firstMonday.ToShortDateString();
+                        }
+                    }
+                }
+
+                //hdndisplayMode.Value = DisplayMode.Monthly.ToString();
+                LoadDepartment();
+
+                if (Request["IsResourceDrillDown"] == "true")
+                {
+                    if (!string.IsNullOrEmpty(Convert.ToString(Request["pDepartmentName"])))
+                    {
+                        ddlDepartment.SetValues(Convert.ToString(Request["pDepartmentName"]));
+                        hdnaspDepartment.Value = Convert.ToString(Request["pDepartmentName"]);
+                    }
+
+                    LoadFunctionalArea();
+                }
+                else
+                {
+                    #region cookies
+
+                    string afilter = UGITUtility.GetCookieValue(Request, "filter");
+                    string afilterResource = UGITUtility.GetCookieValue(Request, "filterResource");
+                    string afilterFunctionalArea = UGITUtility.GetCookieValue(Request, "filterFunctionArea");
+                    string afilterDepartment = UGITUtility.GetCookieValue(Request, "filterDepartment");
+
+
+                    if (!string.IsNullOrEmpty(afilter))
+                    {
+                        string[] TypeVals = afilter.Split(new string[] { "$" }, StringSplitOptions.RemoveEmptyEntries);
+
+                        sActionType.Clear();
+                        if (TypeVals.Length > 1)
+                        {
+                            List<string> cookieselectedTypes = TypeVals[1].Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            foreach (string sau in cookieselectedTypes)
+                            {
+                                DataRow row = dataTable.AsEnumerable().FirstOrDefault(x => x.Field<string>("LevelName") == sau);
+                                if (row != null)
+                                {
+                                    sActionType.Add(Convert.ToString(row["LevelName"]));
+                                }
+                                else
+                                {
+                                    sActionType.Add(sau);
+                                }
+                            }
+                        }
+
+                        glType.Text = string.Join("; ", sActionType.ToArray());
+                    }
+
+                    if (!string.IsNullOrEmpty(afilterResource))
+                    {
+                        string[] Vals = afilterResource.Split(new string[] { "$" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (Vals.Count() > 0)
+                        {
+                            //ddlResourceManager.SelectedValue = Vals[1];
+                            if (cmbResourceManager.Items.FindByValue(Vals[1]) != null)
+                                cmbResourceManager.Items.FindByValue(Vals[1]).Selected = true;
+                            //cmbResourceManager.Value = Vals[1];
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(afilterDepartment))
+                    {
+                        string[] Vals = afilterDepartment.Split(new string[] { "$" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (Vals.Count() > 0)
+                        {
+                            ddlDepartment.SetValues(Vals[1]);
+                        }
+                    }
+
+                    LoadFunctionalArea();
+
+                    if (!string.IsNullOrEmpty(afilterFunctionalArea))
+                    {
+                        string[] Vals = afilterFunctionalArea.Split(new string[] { "$" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (Vals.Count() > 0)
+                        {
+                            ddlFunctionalArea.SelectedValue = Vals[1];
+                        }
+                    }
+
+                    #endregion
+                }
+
+                if (UGITUtility.ObjectToString(Request["IsChartDrillDown"]) == "true")
+                {
+                    hdnaspDepartment.Value = "";
+                }
+
+                string filterCountPercentageFTE = UGITUtility.GetCookieValue(Request, "filtercountpercentagefte");
+                if (string.IsNullOrWhiteSpace(filterCountPercentageFTE) && Request["AllocationViewType"] == "ProjectAllocation")
+                {
+                    filterCountPercentageFTE = "percentage";
+                }
+
+                if (filterCountPercentageFTE == "hrs")
+                    rbtnHrs.Checked = true;
+                else if (filterCountPercentageFTE == "percentage")
+                    rbtnPercentage.Checked = true;
+                else if (filterCountPercentageFTE == "availability")
+                    rbtnAvailability.Checked = true;
+                else if (filterCountPercentageFTE == "count")
+                    rbtnItemCount.Checked = true;
+                else
+                    rbtnFTE.Checked = true;
+
+                string allfilter = UGITUtility.GetCookieValue(Request, "filterAll");
+
+                if (allfilter == "all")
+                {
+                    chkAll.Checked = true;
+                }
+                else
+                {
+                    chkAll.Checked = false;
+                }
+
+                string closedfilter = UGITUtility.GetCookieValue(Request, "IncludeClosed");
+
+                if (closedfilter == "true")
+                {
+                    chkIncludeClosed.Checked = true;
+                }
+                else
+                {
+                    chkIncludeClosed.Checked = false;
+                }
+
+                if (userGroupGridLookup.DataSource == null)
+                {
+                    LoadGlobalRolesOnDepartment(hdnaspDepartment.Value);
+                }
+                if (!string.IsNullOrWhiteSpace(Request["GlobalRoleId"]))
+                {
+                    userGroupGridLookup.Value = UGITUtility.ObjectToString(Request["GlobalRoleId"]);
+                    hdnSelectedGroup.Value = UGITUtility.ObjectToString(Request["GlobalRoleId"]);
+                    UGITUtility.CreateCookie(Response, "filter", string.Format("group-{0}#type-{1}", UGITUtility.ObjectToString(Request["GlobalRoleId"]), glType.Text));
+                }
+            }
+
+            //List<Department> departments = new List<Department>();
+            //if (!string.IsNullOrEmpty(selectedDivision))
+            //{
+            //    SetCookie("division", selectedDivision);
+            //    departments = departmentsLoad.Where(d => d.DivisionIdLookup == UGITUtility.StringToLong(selectedDivision)).ToList();
+            //    hdnaspDepartment.Value = string.Join(",", departments.Select(d => d.ID));
+            //    ddlDepartment.SetValues(hdnaspDepartment.Value);
+            //}
+
+            hdnTypeLoader.Value = glType.Text;
+
+
+
+
+            //HttpCookie cookie = Request.Cookies["roleid"];
+            //if (cookie != null)
+            //{
+            //    if (cookie.Value != "" || cookie.Value == "0")
+            //    {
+            //        ddlUserGroup.ClearSelection();
+            //        if (ddlUserGroup.Items.FindByValue(cookie.Value) != null)
+            //        {
+            //            ddlUserGroup.Items.FindByValue(cookie.Value).Selected = true;
+            //        }
+            //        else
+            //        {
+            //            cookie.Value = "";
+            //            var response = HttpContext.Current.Response;
+            //            response.Cookies.Remove("roleid");
+            //            response.Cookies.Add(cookie);
+            //        }
+            //    }
+            //    //if (cookie.Value == "0")
+            //    //    ddlUserGroup.ClearSelection();
+            //}
+            if (!IsPostBack)
+            {
+                UGITUtility.CreateCookie(Response, "IsMultiUserSelected", "0");
+                UGITUtility.CreateCookie(Response, "IsMulti", "0");
+                PrepareAllocationGrid();
+            }
+            if (UGITUtility.GetCookieValue(Request, "IsMulti") == "1")
+            {
+                PrepareAllocationGrid();
+                UGITUtility.CreateCookie(Response, "IsMulti", "0");
+            }
+            if (Request["IsResourceDrillDown"] == "true")
+                chkAll.Checked = true;
+
+            #region color setting
+            string strResourceAllocationColor = ObjConfigurationVariableManager.GetValue(ConfigConstants.ResourceAllocationColor);
+            if (!string.IsNullOrEmpty(strResourceAllocationColor))
+            {
+                Dictionary<string, string> cpResourceAllocationColor = UGITUtility.GetCustomProperties(strResourceAllocationColor, Constants.Separator);
+
+                if (cpResourceAllocationColor.ContainsKey(Constants.Green))
+                {
+                    Double.TryParse(cpResourceAllocationColor[Constants.Green], out green);
+                }
+                if (cpResourceAllocationColor.ContainsKey(Constants.LightGreen))
+                {
+                    Double.TryParse(cpResourceAllocationColor[Constants.LightGreen], out lightgreen);
+                }
+                if (cpResourceAllocationColor.ContainsKey(Constants.Yellow))
+                {
+                    Double.TryParse(cpResourceAllocationColor[Constants.Yellow], out yellow);
+                }
+                if (cpResourceAllocationColor.ContainsKey(Constants.Red))
+                {
+                    Double.TryParse(cpResourceAllocationColor[Constants.Red], out red);
+                }
+
+                if (cpResourceAllocationColor.ContainsKey(Constants.Gray))
+                {
+                    Double.TryParse(cpResourceAllocationColor[Constants.Gray], out gray);
+                }
+                if (cpResourceAllocationColor.ContainsKey(Constants.Orange))
+                {
+                    Double.TryParse(cpResourceAllocationColor[Constants.Orange], out orange);
+                }
+            }
+            #endregion
+        }
+
+        private void EditPermisionList()
+        {
+            isResourceAdmin = ObjUserProfileManager.IsUGITSuperAdmin(HttpContext.Current.CurrentUser()) || ObjUserProfileManager.IsResourceAdmin(HttpContext.Current.CurrentUser());
+            //allowAllocationForSelf = ObjConfigurationVariableManager.GetValueAsBool(ConfigConstants.AllowAllocationForSelf);
+            allowAllocationForSelf = ObjConfigurationVariableManager.GetValue(ConfigConstants.AllowAllocationForSelf);
+            allowAllocationViewAll = ObjConfigurationVariableManager.GetValueAsBool(ConfigConstants.AllowAllocationViewAll);
+
+            if (!isResourceAdmin)
+            {
+                if (allowAllocationForSelf.EqualsIgnoreCase("Edit") && HttpContext.Current.CurrentUser().IsManager)
+                    userEditPermisionList = ObjUserProfileManager.LoadAuthorizedUsers(true);
+                else if (allowAllocationForSelf.EqualsIgnoreCase("Edit") || allowAllocationForSelf.EqualsIgnoreCase("View"))
+                    userEditPermisionList = ObjUserProfileManager.LoadAuthorizedUsers(allowAllocationForSelf);
+
+                if (userEditPermisionList != null)
+                    UserList = string.Join(",", userEditPermisionList.Select(x => x.Id).ToList());
+
+                if (allowAllocationForSelf.EqualsIgnoreCase("NoView"))
+                    UserList = "000";
+            }
+            else
+                UserList = string.Empty;
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            gvResourceAvailablity.DataBind();
+            base.OnPreRender(e);
+        }
+
+        #endregion
+
+        #region gridevent
+        protected void gvResourceAvailablity_DataBinding(object sender, EventArgs e)
+        {
+            if (gvResourceAvailablity.DataSource == null)
+            {
+                DataTable dtNewTable = GetAllocationData();
+                if (gvResourceAvailablity.Columns.Count > 0)
+                {
+                    string ordercolumn = Convert.ToString(((GridViewDataColumn)gvResourceAvailablity.Columns[DatabaseObjects.Columns.RResource]).SortOrder);
+
+                    if (ordercolumn.Contains("Asc"))
+                    {
+                        dtNewTable.DefaultView.Sort = "ResourceUser ASC";
+                    }
+                    else if (ordercolumn.Contains("Des"))
+                    {
+                        dtNewTable.DefaultView.Sort = "ResourceUser DESC";
+                    }
+
+                    dtNewTable = dtNewTable.DefaultView.ToTable();
+                }
+
+                gvResourceAvailablity.DataSource = dtNewTable;
+            }
+
+            if (generateColumns)
+            {
+                PrepareAllocationGrid();
+                hdnGenerateColumns.Value = "0";
+                generateColumns = false;
+            }
+        }
+
+        #endregion
+
+        #region helper method
+        private int GetDaysForDisplayMode(string dMode, DateTime dt)
+        {
+            int days = 30;
+            switch (dMode)
+            {
+                case "Daily":
+                    days = 1;
+                    break;
+                case "Weekly":
+                    {
+                        if (dt.ToString("ddd") == "Mon")
+                            days = 7;
+                        else if (dt.ToString("ddd") == "Tue")
+                            days = 6;
+                        else if (dt.ToString("ddd") == "Wed")
+                            days = 5;
+                        else if (dt.ToString("ddd") == "Thu")
+                            days = 4;
+                        else if (dt.ToString("ddd") == "Fri")
+                            days = 3;
+                        else if (dt.ToString("ddd") == "Sat")
+                            days = 2;
+                        else if (dt.ToString("ddd") == "Sun")
+                            days = 1;
+
+                        break;
+                    }
+                case "Monthly":
+                    days = (uHelper.FirstDayOfMonth(dt.AddMonths(1)) - dt).Days;
+                    break;
+                default:
+                    break;
+            }
+            return days;
+        }
+
+        public DateTime FirstDayOfWeek(DateTime date)
+        {
+            var candidateDate = date;
+            while (candidateDate.DayOfWeek != DayOfWeek.Monday)
+            {
+                candidateDate = candidateDate.AddDays(-1);
+            }
+            return candidateDate;
+        }
+
+        private int GetISOWeek(DateTime d)
+        {
+            return System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(d, System.Globalization.CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
+        private DataTable SummarizeDataTable(DataTable dtStaffSheet, string ColToSum)
+        {
+            var rows = dtStaffSheet.AsEnumerable();
+            var columns = dtStaffSheet.Columns.Cast<DataColumn>();
+            string columnToGroup = ColToSum;
+            DataColumn colToGroup = columns.First(c => c.ColumnName.Equals(columnToGroup, StringComparison.OrdinalIgnoreCase));
+            var colsToSum = columns.Where(c => c != colToGroup && c.Caption != "ItemOrder" && c.Caption != "Id" && c.Caption != "FullAllocation" && c.ColumnName != "ProjectCapacity" && c.ColumnName != "RevenueCapacity");
+            var columnsToSum = new HashSet<DataColumn>(colsToSum);
+
+            resultTable = dtStaffSheet.Clone(); // empty table, same schema
+            foreach (var group in rows.GroupBy(r => r[colToGroup]))
+            {
+                DataRow row = resultTable.Rows.Add();
+                foreach (var col in columns)
+                {
+                    if (columnsToSum.Contains(col))
+                    {
+                        if (col.ColumnName != "Id" && col.ColumnName != "ItemOrder" && col.ColumnName != "Resource" && col.ColumnName != "ProjectCapacity" && col.ColumnName != "RevenueCapacity")
+                        {
+                            double sum = group.Sum(r => r.Field<string>(col) == null ? 0 : Convert.ToDouble(r.Field<string>(col)));
+                            row[col.ColumnName] = Convert.ToDouble(sum); //sum.ToString("N2");
+                        }
+                    }
+                    else
+                        row[col.ColumnName] = group.First()[col];
+                }
+            }
+            return resultTable;
+        }
+        #endregion
+
+        #region GetData
+        private DataTable GetAllocationData()
+        {
+            UserProfile currentUserProfile = HttpContext.Current.CurrentUser();
+            //bool IsAssignedallocation = false; 
+            string type = string.Empty;
+            DataTable data = new DataTable();
+            string AllocationType = string.Empty;
+            List<ResourceWorkItems> lstRWorkItem = null;
+            List<UserProfile> lstUProfile;
+            //if (Request["AllocationViewType"] == "RMMAllocation")
+            //{
+            //    if (rbtnAssigned.Checked)
+            //        IsAssignedallocation = true;
+            //    else
+            //        IsAssignedallocation = false;
+            //}
+            if (rbtnEstimate.Checked)
+                AllocationType = "Estimated";
+            else
+                AllocationType = "Planned";
+
+            // Code to check for empty hidden values, when switching between #, % ,FTE, Availability radio buttons & assigning values from cookies
+            if (hdndisplayMode.Value == "")
+            {
+                hdndisplayMode.Value = UGITUtility.GetCookieValue(Request, "RAdisplayMode");
+                if (string.IsNullOrEmpty(hdndisplayMode.Value))
+                    hdndisplayMode.Value = DisplayMode.Monthly.ToString();
+            }
+            if (hdndtfrom.Value == "")
+            {
+                hdndtfrom.Value = UGITUtility.GetCookieValue(Request, "RAdtfrom");
+                if (string.IsNullOrEmpty(hdndtfrom.Value))
+                    hdndtfrom.Value = new DateTime(DateTime.Now.Year, 1, 1).ToString();
+                FromDateCheck = new DateTime(DateTime.Now.Year, 1, 1).ToString();
+
+            }
+            if (hdndtto.Value == "")
+            {
+                hdndtto.Value = UGITUtility.GetCookieValue(Request, "RAdtto");
+                if (string.IsNullOrEmpty(hdndtto.Value))
+                    hdndtto.Value = new DateTime(DateTime.Now.Year, 12, 31).ToString();
+                ToDateCheck = new DateTime(DateTime.Now.Year, 12, 31).ToString();
+            }
+            UGITUtility.CreateCookie(Response, "RAdisplayMode", hdndisplayMode.Value);
+            UGITUtility.CreateCookie(Response, "RAdtfrom", hdndtfrom.Value);
+            UGITUtility.CreateCookie(Response, "RAdtto", hdndtto.Value);
+
+
+            if (rbtnFTE.Checked)
+                type = "FTE";
+            else if (rbtnPercentage.Checked)
+                type = "PERCENT";
+            else if (rbtnAvailability.Checked)
+                type = "AVAILABILITY";
+            else if (rbtnHrs.Checked)
+                type = "HRS";
+            else
+                type = "COUNT";
+
+            string managerUser = (!string.IsNullOrEmpty(Convert.ToString(cmbResourceManager.Value))) ? Convert.ToString(cmbResourceManager.Value) : "";
+
+            List<string> selUsers = new List<string>();
+            string roleID = "";// ddlUserGroup.SelectedValue != "0" && ddlUserGroup.SelectedValue != "" ? ddlUserGroup.SelectedValue : "";
+            if (userGroupGridLookup?.GridView?.GetSelectedFieldValues("Id")?.Count > 0)
+            {
+                roleID = string.Join(",", userGroupGridLookup.GridView.GetSelectedFieldValues("Id"));
+            }
+            if (hdndisplayMode.Value == "Monthly")
+            {
+                if (managerUser == "")
+                {
+                    cmbResourceManager.Value = string.Empty; cmbResourceManager.SelectedIndex = 0;
+                    cmbResourceManager.Items.FindByValue("0").Selected = true;
+                }
+
+                string allResources = string.Empty;
+                string allClosed = string.Empty;
+                if ((Convert.ToString(chkAll.Checked) == "True") || (Convert.ToString(chkAll.Checked) == "1"))
+                {
+                    allResources = "True";
+                }
+                else
+                {
+                    allResources = "False";
+                }
+
+                if ((Convert.ToString(chkIncludeClosed.Checked) == "True") || (Convert.ToString(chkAll.Checked) == "1"))
+                {
+                    allClosed = "True";
+                }
+                else
+                {
+                    allClosed = "False";
+                }
+                string levelName = string.Join(",", sActionType);
+                string yearMonthly = string.Empty;
+
+                if (!string.IsNullOrEmpty(hdndtfrom.Value))
+                {
+                    yearMonthly = Convert.ToDateTime(hdndtfrom.Value).ToString("yyyy");
+                }
+
+                Dictionary<string, object> RUValues = new Dictionary<string, object>();
+                RUValues.Add("@TenantID", applicationContext.TenantID);
+                RUValues.Add("@IncludeAllResources", allResources);
+                RUValues.Add("@IncludeClosedProject", allClosed);
+                RUValues.Add("@DisplayMode", type);  //FTE, COUNT, PERCENT, AVAILABILITY
+                RUValues.Add("@Department", hdnaspDepartment.Value == "undefined" ? string.Empty : hdnaspDepartment.Value.TrimEnd(','));
+                RUValues.Add("@StartDate", Convert.ToDateTime(hdndtfrom.Value).ToString("MM-dd-yyyy"));
+                RUValues.Add("@EndDate", Convert.ToDateTime(hdndtto.Value).ToString("MM-dd-yyyy"));
+                RUValues.Add("@ResourceManager", string.IsNullOrEmpty(managerUser) ? "0" : managerUser);
+                RUValues.Add("@AllocationType", AllocationType);
+                RUValues.Add("@LevelName", levelName);
+                RUValues.Add("@GlobalRoleId", roleID);
+                RUValues.Add("@Mode", UGITUtility.ObjectToString(hdndisplayMode.Value));
+                RUValues.Add("@ShowAvgColumns", CalledFromDirectorView? "1" : "0");
+                RUValues.Add("@SoftAllocation", chkIncludeSoftAllocations.Checked);
+                RUValues.Add("@OnlyNCO", chkOnlyNCO.Checked);
+
+                DataTable dataTable = new DataTable();
+                dsData = GetTableDataManager.GetDataSet("ResourceUtilzation", RUValues);
+                dataTable = dsData.Tables[0];
+                data = dataTable;
+            }
+            else
+            {
+                Dictionary<string, object> values = new Dictionary<string, object>();
+                values.Add("@TenantID", applicationContext.TenantID);
+                values.Add("@Mode", hdndisplayMode.Value);
+                values.Add("@StartDate", Convert.ToDateTime(hdndtfrom.Value).ToString("MM-dd-yyyy"));
+                values.Add("@EndDate", Convert.ToDateTime(hdndtto.Value).ToString("MM-dd-yyyy"));
+                values.Add("@Department", hdnaspDepartment.Value == "undefined" ? string.Empty : hdnaspDepartment.Value.TrimEnd(','));
+                values.Add("@ResourceManager", managerUser == string.Empty ? "0" : managerUser);
+                values.Add("@DisplayMode", type);
+                values.Add("@IncludeAllResources", chkAll.Checked);
+                values.Add("@IncludeClosedProject", chkIncludeClosed.Checked);
+                values.Add("@AllocationType", AllocationType);
+                values.Add("@LevelName", string.Join(",", sActionType));
+
+                values.Add("@GlobalRoleId", roleID);
+                values.Add("@ShowAvgColumns", CalledFromDirectorView ? "1" : "0");
+                values.Add("@SoftAllocation", chkIncludeSoftAllocations.Checked);
+                values.Add("@OnlyNCO", chkOnlyNCO.Checked);
+
+                dsData = GetTableDataManager.GetDataSet("ResourceUtilzationWeekly", values);
+                
+                if (dsData.Tables.Count > 0)
+                    data = dsData.Tables[0];
+
+                if (!string.IsNullOrEmpty(hdnaspDepartment.Value) || !string.IsNullOrEmpty(roleID) || managerUser != "0")
+                {
+                    if (dsData != null && dsData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int j = 0; j < dsData.Tables[0].Rows.Count; j++)
+                        {
+                            selUsers.Add(Convert.ToString(dsData.Tables[0].Rows[j]["Id"]));
+                        }
+                    }
+                }
+
+                if (selUsers.Count > 0)
+                {
+                    string[] selusers = selUsers.ToArray();
+                    selectedUsers = string.Join(", ", selusers);
+                    SetCookie("GridUsers", selectedUsers);
+                }
+                else
+                {
+                    SetCookie("GridUsers", "");
+                }
+            }
+            if (!string.IsNullOrEmpty(Convert.ToString(Request["pGlobalRoleID"]))) // load group users
+            {
+                lstUProfile = ObjUserProfileManager.GetUsersByGlobalRoleID(peopleGlobalRoleID);
+            }
+            else if (!string.IsNullOrEmpty(Convert.ToString(Request["ticketId"])))
+            {
+                lstUProfile = new List<UserProfile>();
+                string typeName = uHelper.getModuleNameByTicketId(Request["ticketId"]);
+                lstRWorkItem = workitemManager.LoadWorkItemsById(typeName, Request["ticketId"], null);
+                if (lstRWorkItem != null)
+                {
+                    UserProfile newlstitem = null;
+                    List<string> lstIDs = lstRWorkItem.Select(x => x.Resource).Distinct().ToList();
+                    foreach (string id in lstIDs)
+                    {
+                        newlstitem = ObjUserProfileManager.LoadById(id);
+                        if (newlstitem != null)
+                            lstUProfile.Add(newlstitem);
+                    }
+                }
+            }
+            else
+            {
+                if (Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)) != "0" && Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)) != "")
+                {
+                    lstUProfile = ObjUserProfileManager.GetUserByManager(Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)));
+
+                    UserProfile newlstitem = ObjUserProfileManager.GetUsersProfile().FirstOrDefault(x => x.Id == Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)));
+                    if (newlstitem != null)
+                        lstUProfile.Add(newlstitem);
+                }
+                else
+                {
+                    lstUProfile = ObjUserProfileManager.GetUsersProfile();
+                }
+
+                if (userGroupGridLookup?.GridView?.GetSelectedFieldValues("Id")?.Count > 0)
+                {
+                    List<string> gIds = userGroupGridLookup.GridView.GetSelectedFieldValues("Id").Select(x => (string)x).ToList();
+                    List<UserProfile> lstGroupUsers = ObjUserProfileManager.GetUsersProfile().Where(x => gIds.Contains(x.GlobalRoleId)).ToList();
+                    lstUProfile = lstGroupUsers.FindAll(x => lstUProfile.Any(y => y.Id == x.Id));
+                }
+            }
+            return data;
+        }
+
+        private void PrepareAllocationGrid()
+        {
+            if (isFilterApplying == false)
+            {
+                //string dept = Convert.ToString(hdnaspDepartment.Value);
+                //string managerUser = (!string.IsNullOrEmpty(Convert.ToString(cmbResourceManager.Value))) ? Convert.ToString(cmbResourceManager.Value) : "";
+                //LoadDdlResourceManager(dept, managerUser);
+
+                gvResourceAvailablity.Columns.Clear();
+                gvResourceAvailablity.TotalSummary.Clear();
+                if (gvResourceAvailablity.Columns.Count <= 0)
+                {
+                    GridViewCommandColumn gridViewCommandColumn = new GridViewCommandColumn();
+                    gridViewCommandColumn.ShowSelectCheckbox = true;
+                    gridViewCommandColumn.Caption = " ";
+                    gridViewCommandColumn.Width = new Unit("20px");
+                    gvResourceAvailablity.Columns.Add(gridViewCommandColumn);
+
+                    GridViewDataTextColumn colId = new GridViewDataTextColumn();
+                    colId.Caption = "#";
+                    colId.FieldName = DatabaseObjects.Columns.ItemOrder;
+                    colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.HeaderStyle.Font.Bold = true;
+                    colId.Width = new Unit("20px");
+                    colId.ExportWidth = 70;
+                    gvResourceAvailablity.Columns.Add(colId);
+
+
+                    colId = new GridViewDataTextColumn();
+                    colId.FieldName = DatabaseObjects.Columns.Id;
+                    colId.Caption = DatabaseObjects.Columns.Id;
+                    colId.Visible = false;
+                    colId.VisibleIndex = -1;
+                    gvResourceAvailablity.Columns.Add(colId);
+
+                    colId = new GridViewDataTextColumn();
+                    colId.FieldName = DatabaseObjects.Columns.Resource;
+                    colId.Caption = DatabaseObjects.Columns.RResource; //DatabaseObjects.Columns.Resource;
+                    colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Left;
+                    colId.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+                    colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Left;
+                    colId.Width = new Unit("100px");
+                    //
+                    if (ResourceCapacity != "true")//Request["ResourceCapacity"] == "true")
+                    {
+                        if (Request["pStartDate"] == null && Request["pEndDate"] == null)
+                            colId.DataItemTemplate = new HoverMenuDataTemplate();
+                    }
+                    colId.PropertiesTextEdit.EncodeHtml = false;
+                    colId.HeaderStyle.Font.Bold = true;
+                    colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.True;
+                    colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.True;
+                    colId.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.True;
+                    colId.SortOrder = ColumnSortOrder.Ascending;
+                    colId.ExportWidth = 200;
+                    gvResourceAvailablity.Columns.Add(colId);
+
+
+                    gvResourceAvailablity.TotalSummary.Add(SummaryItemType.Custom, DatabaseObjects.Columns.Resource);
+
+                    ASPxSummaryItem item = new ASPxSummaryItem(DatabaseObjects.Columns.Resource, SummaryItemType.Custom);
+                    item.Tag = "ResourceItem";
+
+                    gvResourceAvailablity.TotalSummary.Add(item);
+
+
+                    colId = new GridViewDataTextColumn();
+                    colId.FieldName = DatabaseObjects.Columns.ProjectCapacity;
+
+                    if (chkIncludeClosed.Checked == false)
+                        colId.Caption = "# Active";
+                    else
+                        colId.Caption = "# Lifetime";
+                    colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.Width = new Unit("40px");
+                    colId.ExportWidth = 90;
+                    colId.HeaderStyle.Font.Bold = true;
+                    colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                    colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.False;
+                    colId.Visible = !CalledFromDirectorView;
+                    gvResourceAvailablity.Columns.Add(colId);
+
+
+                    colId = new GridViewDataTextColumn();
+                    colId.FieldName = DatabaseObjects.Columns.RevenueCapacity;
+                    if (chkIncludeClosed.Checked == false)
+                        colId.Caption = "$ Active";
+                    else
+                        colId.Caption = "$ Lifetime";
+                    colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    colId.Width = new Unit("40px");
+                    colId.ExportWidth = 90;
+                    colId.HeaderStyle.Font.Bold = true;
+                    colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                    colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.False;
+                    colId.Visible = !CalledFromDirectorView;
+                    gvResourceAvailablity.Columns.Add(colId);
+                    if (CalledFromDirectorView)
+                    {
+                        colId = new GridViewDataTextColumn();
+                        colId.FieldName = "AvgerageUtil";
+                        colId.Caption = "Avrg Utilization";
+                        colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.Width = new Unit("45px");
+                        colId.ExportWidth = 90;
+                        colId.HeaderStyle.Font.Bold = true;
+                        colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                        colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.False;
+                        colId.PropertiesEdit.DisplayFormatString = "{0}%";
+                        colId.Visible = CalledFromDirectorView;
+                        gvResourceAvailablity.Columns.Add(colId);
+
+                        colId = new GridViewDataTextColumn();
+                        colId.FieldName = "AvgerageChargeableUtil";
+                        colId.Caption = "Avrg Chargeable";
+                        colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.Width = new Unit("50px");
+                        colId.ExportWidth = 90;
+                        colId.HeaderStyle.Font.Bold = true;
+                        colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                        colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.False;
+                        colId.PropertiesEdit.DisplayFormatString = "{0}%";
+                        colId.Visible = CalledFromDirectorView;
+                        gvResourceAvailablity.Columns.Add(colId);
+                    }
+                    GridViewBandColumn bdCol = new GridViewBandColumn();
+                    string currentDate = string.Empty;
+                    for (DateTime dt = Convert.ToDateTime(hdndtfrom.Value); Convert.ToDateTime(hdndtto.Value) >= dt; dt = dt.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dt)))
+                    {
+                        FromDateCheck = Convert.ToDateTime(hdndtfrom.Value).ToString();
+                        ToDateCheck = Convert.ToDateTime(hdndtto.Value).ToString();
+
+                        int weeks = Convert.ToInt32((Convert.ToDateTime(hdndtto.Value) - Convert.ToDateTime(hdndtfrom.Value)).TotalDays / 7);
+
+                        //if (hdndisplayMode.Value == "Daily")
+                        //{
+                        //    if (FirstDayOfWeek(dt).ToString("MMM-dd-yy") != currentDate && !string.IsNullOrEmpty(currentDate))
+                        //    {
+                        //        gvResourceAvailablity.Columns.Add(bdCol);
+                        //        bdCol = new GridViewBandColumn();
+                        //    }
+                        //    if (FirstDayOfWeek(dt).ToString("MMM-dd-yy") != currentDate)
+                        //    {
+                        //        if (FirstDayOfWeek(dt).Month == dt.Month)
+                        //        {
+                        //            bdCol.Caption = FirstDayOfWeek(dt).ToString("MMM-dd-yy");
+                        //            currentDate = FirstDayOfWeek(dt).ToString("MMM-dd-yy");
+                        //        }
+                        //        else
+                        //        {
+                        //            bdCol.Caption = dt.ToString("MMM-dd-yy");
+                        //            currentDate = dt.ToString("MMM-dd-yy");
+                        //        }
+                        //        bdCol.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                        //        bdCol.HeaderStyle.Font.Bold = true;
+                        //        if ((!divProject.Visible && rbtnProject.Checked) || (divProject.Visible && rbtnAll.Checked))
+                        //        {
+                        //            bdCol.HeaderTemplate = new CommandGridViewBandColumn(bdCol);
+                        //        }
+                        //    }
+
+                        //}
+                        if (hdndisplayMode.Value == "Weekly")
+                        {
+                            if (dt.ToString("MMM-yy") != currentDate && !string.IsNullOrEmpty(currentDate))
+                            {
+                                gvResourceAvailablity.Columns.Add(bdCol);
+                                bdCol = new GridViewBandColumn();
+                            }
+
+                            if (dt.ToString("MMM-yy") != currentDate)
+                            {
+                                bdCol.Caption = dt.ToString("MMM-yy");
+                                bdCol.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                                bdCol.HeaderStyle.Font.Bold = true;
+                                if ((!divProject.Visible && rbtnProject.Checked) || (divProject.Visible && rbtnAll.Checked))
+                                {
+                                    bdCol.HeaderTemplate = new CommandGridViewBandColumn(bdCol);
+                                }
+                                currentDate = dt.ToString("MMM-yy");
+                            }
+                        }
+                        else
+                        {
+                            if (dt.ToString("yyyy") != currentDate && !string.IsNullOrEmpty(currentDate))
+                            {
+                                gvResourceAvailablity.Columns.Add(bdCol);
+                                bdCol = new GridViewBandColumn();
+                            }
+
+                            if (dt.ToString("yyyy") != currentDate)
+                            {
+                                bdCol.Caption = dt.ToString("yyyy");
+                                SetCookie("year", dt.ToString("yyyy"));
+                                bdCol.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                                bdCol.HeaderStyle.Font.Bold = true;
+                                if ((!divProject.Visible && rbtnProject.Checked) || (divProject.Visible && rbtnAll.Checked))
+                                {
+                                    bdCol.HeaderTemplate = new CommandGridViewBandColumn(bdCol);
+                                }
+                                currentDate = dt.ToString("yyyy");
+                            }
+                        }
+
+
+                        colId = new GridViewDataTextColumn();
+                        if (hdndisplayMode.Value == "Monthly")
+                        {
+                            colId.FieldName = dt.ToString("MMM-dd-yy");
+                            colId.Caption = dt.ToString("MMM");
+                            if (ResourceCapacity != "true")//Request["ResourceCapacity"] == "true")
+                            {
+                                if ((!divProject.Visible && rbtnProject.Checked) || (divProject.Visible && rbtnAll.Checked))
+                                {
+                                    colId.HeaderTemplate = new CommandColumnHeaderTemplate(colId);
+                                }
+                            }
+                        }
+                        else if (hdndisplayMode.Value == "Weekly")
+                        {
+                            colId.FieldName = dt.ToString("MMM-dd-yy");
+                            colId.Caption = dt.ToString("MMM-dd");
+                            if (ResourceCapacity != "true")//Request["ResourceCapacity"] == "true")
+                            {
+                                if ((!divProject.Visible && rbtnProject.Checked) || (divProject.Visible && rbtnAll.Checked))
+                                {
+                                    colId.HeaderTemplate = new CommandColumnHeaderTemplate(colId);
+                                }
+                            }
+                            if (weeks == 4)
+                            {
+                                //colId.ExportWidth = 180;
+                            }
+                            else
+                            {
+                                //colId.ExportWidth = 140;
+                            }
+
+                        }
+                        else
+                        {
+                            colId.FieldName = dt.ToString("MMM-dd-yy");
+                            colId.Caption = dt.ToString("dd");
+                        }
+
+                        colId.UnboundType = DevExpress.Data.UnboundColumnType.String;
+
+
+                        colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                        colId.PropertiesTextEdit.EncodeHtml = false;
+                        colId.HeaderStyle.Font.Bold = true;
+                        colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                        colId.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                        colId.HeaderStyle.Border.BorderStyle = BorderStyle.None;
+                        colId.CellStyle.Border.BorderStyle = BorderStyle.None;
+                        if (hdndisplayMode.Value == "Monthly")
+                        {
+                            if (Request["pStartDate"] != null && Request["pEndDate"] != null)
+                            {
+                                colId.Width = new Unit("80px");
+                            }
+                            else
+                            {
+                                colId.Width = new Unit("40px");
+                                //colId.ExportWidth = 70;
+                            }
+                        }
+                        else if (hdndisplayMode.Value == "Daily")
+                        {
+                            colId.Width = new Unit("100px");
+                        }
+                        else
+                        {
+                            colId.Width = new Unit("35px");
+                        }
+
+                        bdCol.Columns.Add(colId);
+
+                        ASPxSummaryItem itemDFTE = new ASPxSummaryItem(dt.ToString("MMM-dd-yy"), SummaryItemType.Custom);
+                        itemDFTE.DisplayFormat = "N2";
+                        gvResourceAvailablity.TotalSummary.Add(itemDFTE);
+
+                        ASPxSummaryItem itemTFTE = new ASPxSummaryItem(dt.ToString("MMM-dd-yy"), SummaryItemType.Custom);
+                        itemTFTE.Tag = "TFTE";
+                        itemTFTE.DisplayFormat = "N2";
+                        gvResourceAvailablity.TotalSummary.Add(itemTFTE);
+                    }
+                    if (currentDate == bdCol.Caption)
+                    {
+                        gvResourceAvailablity.Columns.Add(bdCol);
+                    }
+                }
+
+                //Height = 750;
+
+                //if (Height != null && Height.Value > 0)
+                //{
+                //    gvResourceAvailablity.Settings.VerticalScrollableHeight = Convert.ToInt32(Height.Value - 180);
+                //    gvResourceAvailablity.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
+                //}
+            }
+        }
+
+
+        protected void LoadDdlResourceManager(string values = "", string selectedMgr = "")
+        {
+
+            List<UserProfile> lstUserProfile = new List<UserProfile>();
+            List<string> lstDepartments = UGITUtility.ConvertStringToList(values, Constants.Separator6);
+            if (values == "undefined" || values == "0" || string.IsNullOrEmpty(values))
+                lstUserProfile = ObjUserProfileManager.GetUsersProfile().Where(x => x.IsManager == true && x.Enabled == true).OrderBy(x => x.Name).ToList();
+            else
+                lstUserProfile = ObjUserProfileManager.GetUsersProfile().Where(x => x.IsManager == true && x.Enabled == true && lstDepartments.Contains(x.Department)).OrderBy(x => x.Name).ToList();
+
+            cmbResourceManager.Items.Clear();
+
+            if (lstUserProfile != null)
+            {
+                foreach (UserProfile userProfileItem in lstUserProfile)
+                {
+                    cmbResourceManager.Items.Add(new ListEditItem(userProfileItem.Name, userProfileItem.Id.ToString()));
+                }
+
+                cmbResourceManager.Items.Insert(0, new ListEditItem("All Users", "0"));
+            }
+            else
+            {
+                cmbResourceManager.Items.Insert(0, new ListEditItem("All Users", "0"));
+            }
+
+
+            var formKeys = Request.Form?.AllKeys?.ToList();
+            if (formKeys?.Any(x => x.EndsWith("ddlResourceManager")) == true)
+            {
+                selectedMgr = Request[formKeys.First(x => x.EndsWith("ddlResourceManager"))];
+            }
+
+            if (!string.IsNullOrEmpty(selectedMgr) && cmbResourceManager.Items.FindByValue(selectedMgr) != null)
+            {
+                cmbResourceManager.Items.FindByValue(selectedMgr).Selected = true;
+            }
+
+        }
+
+        private void LoadDepartment()
+        {
+            CompanyManager companyManager = new CompanyManager(applicationContext);
+            List<Company> companies = new List<Company>();
+            companies = companyManager.Load();
+            DepartmentManager departmentManager = new DepartmentManager(applicationContext);
+
+        }
+
+        private void LoadFunctionalArea()
+        {
+            FunctionalAreasManager functionalAreasManager = new FunctionalAreasManager(applicationContext);
+            List<FunctionalArea> funcationalArealst = functionalAreasManager.LoadFunctionalAreas();
+
+            List<FunctionalArea> filterFuncationalArealst = new List<FunctionalArea>();
+            if (ddlDepartment.GetValues() != null && ddlDepartment.GetValues() != string.Empty)
+                filterFuncationalArealst = funcationalArealst.Where(x => !x.Deleted && x.DepartmentLookup != null && x.DepartmentLookup.Value == UGITUtility.StringToInt(ddlDepartment.GetValues())).ToList();
+            else
+                filterFuncationalArealst = funcationalArealst.Where(x => !x.Deleted).ToList();
+
+            ddlFunctionalArea.DataValueField = DatabaseObjects.Columns.ID;
+            ddlFunctionalArea.DataTextField = DatabaseObjects.Columns.Title;
+
+            ddlFunctionalArea.DataSource = filterFuncationalArealst;
+            ddlFunctionalArea.DataBind();
+            ddlFunctionalArea.Items.Insert(0, new ListItem("None", "0"));
+        }
+
+        protected void FillDropDownType()
+        {
+            DataTable dtTypeDate = AllocationTypeManager.LoadLevel1(applicationContext);
+            if (dtTypeDate != null)
+            {
+                for (int i = dtTypeDate.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (dtTypeDate.Rows[i]["LevelTitle"] == DBNull.Value)
+                    {
+                        dtTypeDate.Rows[i].Delete();
+                    }
+                }
+                dtTypeDate.AcceptChanges();
+
+
+
+                //DataRow dtrow = dtTypeDate.NewRow();
+                //dtrow["LevelTitle"] = "ALL";
+                //dtrow["LevelName"] = "ALL";
+                //dtTypeDate.Rows.InsertAt(dtrow, 0);
+
+                dtFilterTypeData = dtTypeDate;
+                glType.DataSource = dtFilterTypeData;
+                glType.DataBind();
+
+            }
+        }
+
+        #endregion
+
+
+        #region Events
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            var objSelected = gvResourceAvailablity.GetSelectedFieldValues(DatabaseObjects.Columns.Id);
+            if (objSelected != null && objSelected.Count > 0)
+            {
+                string sourceUrl = string.Empty;
+                if (Context.Request["source"] != null && Context.Request["source"].Trim() != string.Empty)
+                {
+                    sourceUrl = Context.Request["source"].Trim();
+                }
+                Dictionary<string, string> dict = new Dictionary<string, string>();
+                dict.Add("ControlId", this.ControlId);
+                dict.Add("LookupId", Convert.ToString(objSelected[0]));
+                dict.Add("frameUrl", sourceUrl);
+                var vals = UGITUtility.GetJsonForDictionary(dict);
+                uHelper.ClosePopUpAndEndResponse(Context, false, vals);
+            }
+        }
+
+        protected void ddlIntervalType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PrepareAllocationGrid();
+        }
+
+        //protected void chkPercentage_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (chkPercentage.Checked)
+        //    {
+        //        chkItemCount.Checked = false;
+        //    }
+        //    SetCookiesCheckboxFilters();
+        //}
+
+        private void SetCookiesCheckboxFilters()
+        {
+
+            if (chkAll.Checked)
+            {
+                UGITUtility.CreateCookie(Response, "filterAll", "all");
+            }
+            else
+            {
+                UGITUtility.CreateCookie(Response, "filterAll", "");
+            }
+            if (chkIncludeClosed.Checked)
+            {
+                UGITUtility.CreateCookie(Response, "IncludeClosed", "true");
+            }
+            else
+            {
+                UGITUtility.CreateCookie(Response, "IncludeClosed", "");
+            }
+        }
+
+        protected void chkColor_CheckedChanged(object sender, EventArgs e)
+        {
+            SetCookiesCheckboxFilters();
+        }
+
+        protected void chkIncludeClosed_CheckedChanged(object sender, EventArgs e)
+        {
+            SetCookiesCheckboxFilters();
+            PrepareAllocationGrid();
+        }
+
+        protected void previousYear_Click(object sender, ImageClickEventArgs e)
+        {
+            if (hdndisplayMode.Value == DisplayMode.Weekly.ToString())
+            {
+                DateTime selectedMonth = UGITUtility.StringToDateTime(hdnSelectedDate.Value);
+                DateTime nextMonth = selectedMonth.AddMonths(1);
+                DateTime previousMonth = selectedMonth.AddMonths(-1);
+                hdnSelectedDate.Value = selectedMonth.AddMonths(-1).ToString("MMM-dd-yy");
+                hdndtfrom.Value = UGITUtility.ObjectToString(GetFirstMondayOfMonth(previousMonth));
+                hdndtto.Value = UGITUtility.ObjectToString(GetLastMondayOfMonth(nextMonth));
+            }
+            //else if (hdndisplayMode.Value == DisplayMode.Daily.ToString())
+            //{
+            //    hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(hdndtfrom.Value).AddDays(-7));
+            //    hdndtto.Value = Convert.ToString(Convert.ToDateTime(hdndtto.Value).AddDays(-7));
+            //}
+            else
+            {
+                //FromDateCheck = Convert.ToString(Convert.ToDateTime(FromDateCheck).AddYears(-1));
+                if (string.IsNullOrEmpty(hdndtfrom.Value) || (string.IsNullOrEmpty(hdndtto.Value)))
+                {
+                    string year = UGITUtility.GetCookieValue(Request, "year");
+                    string fromDate = year + "-01-01 00:00:00.000";
+                    string endDate = year + "-12-31 00:00:00.000";
+                    hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(fromDate).AddYears(-1));
+                    hdndtto.Value = Convert.ToString(Convert.ToDateTime(endDate).AddYears(-1));
+                }
+                else
+                {
+                    hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(hdndtfrom.Value).AddYears(-1));
+                    hdndtto.Value = Convert.ToString(Convert.ToDateTime(hdndtto.Value).AddYears(-1));
+                }
+                //hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(hdndtfrom.Value).AddYears(-1));
+                //hdndtto.Value = Convert.ToString(Convert.ToDateTime(hdndtto.Value).AddYears(-1));
+                //ToDateCheck = Convert.ToString(Convert.ToDateTime(ToDateCheck).AddYears(-1));
+            }
+            PrepareAllocationGrid();
+            dtMonthlyAllocation = null;
+            dtRawDataAllResource = null;
+            gvResourceAvailablity.DataSource = GetAllocationData();
+        }
+
+        protected void nextYear_Click(object sender, ImageClickEventArgs e)
+        {
+            if (hdndisplayMode.Value == DisplayMode.Weekly.ToString())
+            {
+                DateTime selectedMonth = UGITUtility.StringToDateTime(hdnSelectedDate.Value);
+                DateTime nextMonth = selectedMonth.AddMonths(3);
+                DateTime previousMonth = selectedMonth.AddMonths(1);
+                hdnSelectedDate.Value = selectedMonth.AddMonths(1).ToString("MMM-dd-yy");
+                hdndtfrom.Value = UGITUtility.ObjectToString(GetFirstMondayOfMonth(previousMonth));
+                hdndtto.Value = UGITUtility.ObjectToString(GetLastMondayOfMonth(nextMonth));
+                
+            }
+            //else if (hdndisplayMode.Value == DisplayMode.Daily.ToString())
+            //{
+            //    hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(hdndtfrom.Value).AddDays(7));
+            //    hdndtto.Value = Convert.ToString(Convert.ToDateTime(hdndtto.Value).AddDays(7));
+            //}
+            else
+            {
+                if (string.IsNullOrEmpty(hdndtfrom.Value) || (string.IsNullOrEmpty(hdndtto.Value)))
+                {
+                    string year = UGITUtility.GetCookieValue(Request, "year");
+                    string fromDate = year + "-01-01 00:00:00.000";
+                    string endDate = year + "-12-31 00:00:00.000";
+                    hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(fromDate).AddYears(1));
+                    hdndtto.Value = Convert.ToString(Convert.ToDateTime(endDate).AddYears(1));
+                }
+                else
+                {
+                    hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(hdndtfrom.Value).AddYears(1));
+                    hdndtto.Value = Convert.ToString(Convert.ToDateTime(hdndtto.Value).AddYears(1));
+                }
+                //FromDateCheck = Convert.ToString(Convert.ToDateTime(FromDateCheck).AddYears(1));
+                //hdndtfrom.Value = Convert.ToString(Convert.ToDateTime(hdndtfrom.Value).AddYears(1));
+                //hdndtto.Value = Convert.ToString(Convert.ToDateTime(hdndtto.Value).AddYears(1));
+                //ToDateCheck = Convert.ToString(Convert.ToDateTime(ToDateCheck).AddYears(1));
+            }
+            PrepareAllocationGrid();
+            dtMonthlyAllocation = null;
+            dtRawDataAllResource = null;
+            gvResourceAvailablity.DataSource = GetAllocationData();
+        }
+
+        public DateTime GetLastMondayOfMonth(DateTime date)
+        {
+            // First, determine the last day of the month for the given date
+            DateTime lastDayOfMonth = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+
+            return lastDayOfMonth;
+        }
+
+        public DateTime GetFirstMondayOfMonth(DateTime date)
+        {
+            // Determine the first day of the month for the given date
+            DateTime firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+
+            // Calculate the number of days to add to reach the first Monday
+            int daysToAdd = (DayOfWeek.Monday - firstDayOfMonth.DayOfWeek + 7) % 7;
+
+            // Calculate the date of the first Monday by adding the days to the first day of the month
+            DateTime firstMondayOfMonth = firstDayOfMonth.AddDays(daysToAdd);
+
+            return firstMondayOfMonth;
+        }
+
+        protected void ddlUserGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //uHelper.CreateCookie(Response, "filter", string.Format("group-{0}", ddlUserGroup.SelectedValue));
+            string selectedValue = string.Join(",", userGroupGridLookup.GridView.GetSelectedFieldValues("Id"));
+            UGITUtility.CreateCookie(Response, "filter", string.Format("group-{0}#type-{1}", selectedValue, glType.Text));
+            hdnSelectedGroup.Value = selectedValue;
+
+            PrepareAllocationGrid();
+        }
+
+        protected void ddlResourceManager_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UGITUtility.GetCookieValue(Request, "filterResource");
+            PrepareAllocationGrid();
+        }
+
+        protected void ddlFunctionalArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UGITUtility.GetCookieValue(Request, "filterFunctionArea");
+            PrepareAllocationGrid();
+        }
+
+
+        protected void btnDrilDown_Click(object sender, EventArgs e)
+        {
+            if (hdndisplayMode.Value == DisplayMode.Monthly.ToString())
+            {
+                hdndisplayMode.Value = DisplayMode.Weekly.ToString();
+
+                //modification related to grid header.
+                if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Mon")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime());
+                else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Tue")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(6));
+                else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Wed")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(5));
+                else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Thu")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(4));
+                else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Fri")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(3));
+                else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Sat")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(2));
+                else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Sun")
+                    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(1));
+
+                DateTime enddateweekly = hdnSelectedDate.Value.ToDateTime().AddMonths(1).AddDays(-1);
+                if (enddateweekly.ToString("ddd") == "Mon")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(6));
+                else if (enddateweekly.ToString("ddd") == "Tue")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(5));
+                else if (enddateweekly.ToString("ddd") == "Wed")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(4));
+                else if (enddateweekly.ToString("ddd") == "Thu")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(3));
+                else if (enddateweekly.ToString("ddd") == "Fri")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(2));
+                else if (enddateweekly.ToString("ddd") == "Sat")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(1));
+                else if (enddateweekly.ToString("ddd") == "Sun")
+                    hdndtto.Value = Convert.ToString(enddateweekly.AddDays(0));
+
+                DateTime firstDayOfPreviousMonth = Convert.ToDateTime(hdndtfrom.Value).AddDays(1 - Convert.ToDateTime(hdndtfrom.Value).Day);
+
+                // Find the day of the week for the first day of the previous month
+                DayOfWeek dayOfWeek = firstDayOfPreviousMonth.DayOfWeek;
+
+                // Calculate the number of days to add to reach the first Monday
+                int daysToAdd = (DayOfWeek.Monday - dayOfWeek + 7) % 7;
+
+                // Calculate the date of the previous month's first Monday
+                DateTime previousMonthsFirstMonday = firstDayOfPreviousMonth.AddDays(daysToAdd);
+
+                DateTime nextMonth = Convert.ToDateTime(hdndtto.Value).AddMonths(2);
+                if (nextMonth.Month - firstDayOfPreviousMonth.Month > 2)
+                    nextMonth = nextMonth.AddMonths(-1);
+
+                // Calculate the last Monday of the next month
+                DateTime lastMondayOfNextMonth = GetLastMondayOfMonth(nextMonth);
+                while (lastMondayOfNextMonth.DayOfWeek != DayOfWeek.Monday)
+                {
+                    lastMondayOfNextMonth = lastMondayOfNextMonth.AddDays(-1);
+                }
+
+
+                hdndtfrom.Value = Convert.ToString(previousMonthsFirstMonday);
+                // Calculate the date 4 weeks after endDate
+
+                hdndtto.Value = Convert.ToString(lastMondayOfNextMonth);
+
+            }
+            //else if (hdndisplayMode.Value == DisplayMode.Weekly.ToString())
+            //{
+            //    hdndisplayMode.Value = DisplayMode.Daily.ToString();
+            //    hdndtfrom.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime());
+
+            //    if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Mon")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(7));
+            //    else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Tue")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(6));
+            //    else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Wed")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(5));
+            //    else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Thu")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(4));
+            //    else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Fri")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(3));
+            //    else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Sat")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(2));
+            //    else if (hdnSelectedDate.Value.ToDateTime().ToString("ddd") == "Sun")
+            //        hdndtto.Value = Convert.ToString(hdnSelectedDate.Value.ToDateTime().AddDays(1));
+            //}
+
+            PrepareAllocationGrid();
+        }
+
+        protected void btnDrilUp_Click(object sender, EventArgs e)
+        {
+            if (hdndisplayMode.Value == DisplayMode.Weekly.ToString())
+            {
+                hdndisplayMode.Value = DisplayMode.Monthly.ToString();
+
+                if (Request["pStartDate"] != null && Request["pEndDate"] != null)
+                {
+
+                    DateTime tempstartDate = Convert.ToDateTime(Request["pStartDate"]);
+                    DateTime tempendDate = Convert.ToDateTime(Request["pEndDate"]);
+                    DateTime tempDate = DateTime.ParseExact(hdnSelectedDate.Value, "MMM-yy", null);
+
+                    if (tempstartDate.Year == tempDate.Year)
+                    {
+                        hdndtfrom.Value = Convert.ToString(tempstartDate);
+                        hdndtto.Value = Convert.ToString(tempendDate);
+                    }
+                    else
+                    {
+                        hdndtfrom.Value = Convert.ToString(new DateTime(tempDate.Year, tempstartDate.Month, tempstartDate.Day));
+                        hdndtto.Value = Convert.ToString(new DateTime(tempDate.Year, tempendDate.Month, tempendDate.Day));
+                    }
+
+                }
+                else
+                {
+                    DateTime tempDate = DateTime.ParseExact(hdnSelectedDate.Value, "MMM-yy", null);
+                    hdndtfrom.Value = Convert.ToString(new DateTime(tempDate.Year, 1, 1));
+                    hdndtto.Value = Convert.ToString(new DateTime(tempDate.Year, 12, 31));
+                }
+            }
+            //else if (hdndisplayMode.Value == DisplayMode.Daily.ToString())
+            //{
+            //    hdndisplayMode.Value = DisplayMode.Weekly.ToString();
+
+            //    DateTime tempfromDate = new DateTime(Convert.ToDateTime(hdnSelectedDate.Value).Year, Convert.ToDateTime(hdnSelectedDate.Value).Month, 1);
+
+            //    if (tempfromDate.ToString("ddd") == "Mon")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate);
+            //    else if (tempfromDate.ToString("ddd") == "Tue")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate.AddDays(6));
+            //    else if (tempfromDate.ToString("ddd") == "Wed")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate.AddDays(5));
+            //    else if (tempfromDate.ToString("ddd") == "Thu")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate.AddDays(4));
+            //    else if (tempfromDate.ToString("ddd") == "Fri")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate.AddDays(3));
+            //    else if (tempfromDate.ToString("ddd") == "Sat")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate.AddDays(2));
+            //    else if (tempfromDate.ToString("ddd") == "Sun")
+            //        hdndtfrom.Value = Convert.ToString(tempfromDate.AddDays(1));
+
+            //    DateTime enddateweekly = tempfromDate.AddMonths(1).AddDays(-1);
+
+            //    if (enddateweekly.ToString("ddd") == "Mon")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(6));
+            //    else if (enddateweekly.ToString("ddd") == "Tue")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(5));
+            //    else if (enddateweekly.ToString("ddd") == "Wed")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(4));
+            //    else if (enddateweekly.ToString("ddd") == "Thu")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(3));
+            //    else if (enddateweekly.ToString("ddd") == "Fri")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(2));
+            //    else if (enddateweekly.ToString("ddd") == "Sat")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(1));
+            //    else if (enddateweekly.ToString("ddd") == "Sun")
+            //        hdndtto.Value = Convert.ToString(enddateweekly.AddDays(0));
+            //}
+
+            PrepareAllocationGrid();
+        }
+
+        protected void rbtnProject_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void rbtnAll_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            SetCookiesCheckboxFilters();
+            PrepareAllocationGrid();
+        }
+
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        protected void rbtnItemCount_CheckedChanged(object sender, EventArgs e)
+        {
+            //UGITUtility.CreateCookie(Response, "filtercountpercentagefte", "count");
+            SetCookie("filtercountpercentagefte", "count");
+            PrepareAllocationGrid();
+        }
+
+        //protected void rbtnPercentage_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    //UGITUtility.CreateCookie(Response, "filtercountpercentagefte", "percentage");
+        //    SetCookie("filtercountpercentagefte", "percentage");
+        //    PrepareAllocationGrid();
+        //}
+        //protected void rbtnHrs_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    SetCookie("filtercountpercentagefte", "Hrs");
+        //    PrepareAllocationGrid();
+        //}
+
+        //protected void rbtnFTE_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    //UGITUtility.CreateCookie(Response, "filtercountpercentagefte", "fte");
+        //    SetCookie("filtercountpercentagefte", "fte");
+        //    PrepareAllocationGrid();
+        //}
+        ////change by Hareram
+        //protected void rbtnAvailability_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    //UGITUtility.CreateCookie(Response, "filtercountpercentagefte", "availability");
+        //    SetCookie("filtercountpercentagefte", "availability");
+        //    PrepareAllocationGrid();
+        //}
+        #endregion
+
+        private void SetCookie(string Name, string Value)
+        {
+            UGITUtility.CreateCookie(Response, Name, Value);
+        }
+
+        // Variables that store summary values.  
+        //double ResourceFTE;
+        //double ResourceTotalFTE;
+        protected void gvResourceAvailablity_CustomSummaryCalculate(object sender, CustomSummaryEventArgs e)
+        {
+            if (e.IsTotalSummary)
+            {
+                // Finalization.  
+                if (e.SummaryProcess == CustomSummaryProcess.Finalize)
+                {
+                    DevExpress.Web.ASPxSummaryItem item = ((DevExpress.Web.ASPxSummaryItem)e.Item);
+
+                    if (item.FieldName == DatabaseObjects.Columns.Resource)
+                    {
+                        if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "ResourceItem")
+                            e.TotalValue = "Total Capacity (FTE)";
+                        else
+                            e.TotalValue = "Allocated Demand (FTE)";
+                    }
+                    if (item.FieldName != DatabaseObjects.Columns.Resource)
+                    {
+                        if (hdndisplayMode.Value == "Monthly")
+                        {
+                            int currentYear = Convert.ToInt32(DateTime.Now.Year);
+                            int selectedYear = Convert.ToInt32(Convert.ToDateTime(hdndtfrom.Value).ToString("yyyy"));
+
+                            if ((currentYear - selectedYear < -2) || (currentYear - selectedYear > 3))
+                            {
+                                if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE" && ds?.Tables?.Count > 2)
+                                {
+                                    if (UGITUtility.IfColumnExists(item.FieldName, ds.Tables[2]))
+                                        e.TotalValue = ds.Tables[2].Rows[0][item.FieldName];
+                                }
+                                else if (ds?.Tables?.Count > 1)
+                                {
+                                    if (UGITUtility.IfColumnExists(item.FieldName, ds.Tables[1]))
+                                        e.TotalValue = ds.Tables[1].Rows[0][item.FieldName];
+                                }
+                            }
+                            else
+                            {
+                                if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE" && dsData != null)
+                                {
+                                    if (UGITUtility.IfColumnExists(item.FieldName, dsData.Tables[2]))
+                                        //e.TotalValue = ds.Tables[2].Rows[0][item.FieldName];
+                                        e.TotalValue = dsData.Tables[2].Rows[0][item.FieldName];
+                                }
+                                else if (dsData.Tables[1].Rows.Count > 0)
+                                {
+                                    if (UGITUtility.IfColumnExists(item.FieldName, dsData.Tables[1]))
+                                        //e.TotalValue = ds.Tables[1].Rows[0][item.FieldName];
+
+                                        e.TotalValue = dsData.Tables[1].Rows[0][item.FieldName];
+                                }
+                            }
+
+                        }
+                        else if (hdndisplayMode.Value == "Weekly")
+                        {
+                            if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE" && dsData?.Tables?.Count > 2)
+                            {
+                                if (UGITUtility.IfColumnExists(item.FieldName, dsData.Tables[2]))
+                                    e.TotalValue = dsData.Tables[2].Rows[0][item.FieldName];
+                            }
+                            else
+                            {
+                                if (UGITUtility.IfColumnExists(item.FieldName, dsData.Tables[1]))
+                                    e.TotalValue = dsData.Tables[1].Rows[0][item.FieldName];
+                            }
+                        }
+
+
+
+                    }
+
+                }
+            }
+        }
+
+        protected void gvResourceAvailablity_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            List<Department> departments = new List<Department>();
+            if (!string.IsNullOrEmpty(selectedDivision))
+            {
+                SetCookie("division", selectedDivision);
+                departments = departmentsLoad.Where(d => d.DivisionIdLookup == UGITUtility.StringToLong(selectedDivision)).ToList();
+                hdnaspDepartment.Value = string.Join(",", departments.Select(d => d.ID));
+                ddlDepartment.SetValues(hdnaspDepartment.Value);
+            }
+
+            LoadFunctionalArea();
+            PrepareAllocationGrid();
+        }
+
+        protected void cbpManagers_Callback(object sender, CallbackEventArgsBase e)
+        {
+            string parameters = UGITUtility.ObjectToString(e.Parameter);
+            string[] values = UGITUtility.SplitString(parameters, Constants.Separator2);
+            if (values.Count() >= 1)
+            {
+                if (cmbResourceManager.SelectedItem != null)
+                    LoadDdlResourceManager(values[0], UGITUtility.ObjectToString(cmbResourceManager.SelectedItem.Value));
+                else
+                    LoadDdlResourceManager(values[0]);
+            }
+            else
+            {
+                LoadDdlResourceManager();
+            }
+            if (cmbResourceManager.SelectedItem == null)
+                cmbResourceManager.Items.FindByValue("0").Selected = true;
+        }
+
+        protected void cbpResourceAvailability_Callback(object sender, CallbackEventArgsBase e)
+        {
+            string parameters = UGITUtility.ObjectToString(e.Parameter);
+            string[] arrParams = UGITUtility.SplitString(parameters, Constants.CommentSeparator);
+            if (arrParams.Count() > 0)
+            {
+                string[] values = UGITUtility.SplitString(arrParams[0], Constants.Separator2);
+                if (values.Count() >= 1)
+                {
+                    LoadGlobalRolesOnDepartment(values[1]);
+                    if (values[1].EqualsIgnoreCase("undefined"))
+                        hdnaspDepartment.Value = "";
+                    else
+                        hdnaspDepartment.Value = values[1];
+                }
+            }
+
+            ASPxCallbackPanel gv = (ASPxCallbackPanel)sender;
+            gv.JSProperties["cpResourceAvailabilityCallback"] = hdnaspDepartment.Value;
+        }
+
+        private void LoadGlobalRolesOnDepartment(string values)
+        {
+            JobTitleManager jobTitleManager = new JobTitleManager(applicationContext);
+            List<JobTitle> jobTitles = new List<JobTitle>();
+            List<string> lstDepartments = UGITUtility.ConvertStringToList(values, Constants.Separator6);
+            if (string.IsNullOrEmpty(values) || values == "undefined")
+                jobTitles = jobTitleManager.Load();
+            else
+                jobTitles = jobTitleManager.Load(x => lstDepartments.Contains(UGITUtility.ObjectToString(x.DepartmentId)));
+
+            List<string> jobtitleids = jobTitles.Select(x => x.RoleId).ToList();
+
+            GlobalRoleManager roleManager = new GlobalRoleManager(applicationContext);
+            List<GlobalRole> globalRoles = new List<GlobalRole>();
+            globalRoles = uHelper.GetGlobalRoles(applicationContext, false).Where(x => jobtitleids.Contains(x.Id)).OrderBy(y => y.Name).ToList();//roleManager.Load(x => jobtitleids.Contains(x.Id)).OrderBy(y => y.Name).ToList();
+            if (globalRoles != null)
+            {
+                ddlUserGroup.DataSource = globalRoles;
+                ddlUserGroup.DataTextField = "Name";
+                ddlUserGroup.DataValueField = "ID";
+                ddlUserGroup.DataBind();
+                if (userGroupGridLookup != null)
+                {
+                    userGroupGridLookup.KeyFieldName = "Id";
+                    userGroupGridLookup.DataSource = globalRoles;
+                    userGroupGridLookup.DataBind();
+                }
+            }
+            ddlUserGroup.Items.Insert(0, new ListItem("All Roles", "0"));
+
+            HttpCookie cookie = Request.Cookies["roleid"];
+            if (cookie != null)
+            {
+                if (cookie.Value != "" || cookie.Value == "0")
+                {
+                    ddlUserGroup.ClearSelection();
+                    if (ddlUserGroup.Items.FindByValue(cookie.Value) != null)
+                    {
+                        ddlUserGroup.Items.FindByValue(cookie.Value).Selected = true;
+                    }
+                    else
+                    {
+                        cookie.Value = "";
+                        var response = HttpContext.Current.Response;
+                        response.Cookies.Remove("roleid");
+                        response.Cookies.Add(cookie);
+                    }
+                }
+                //if (cookie.Value == "0")
+                //    ddlUserGroup.ClearSelection();
+            }
+        }
+
+        protected void ddlUserGroup_Init(object sender, EventArgs e)
+        {
+            string hdndept = UGITUtility.ObjectToString(Request[hdnaspDepartment.UniqueID]);
+            if (string.IsNullOrEmpty(hdndept))
+            {
+                GlobalRoleManager globalRoleManager = new GlobalRoleManager(applicationContext);
+                List<GlobalRole> roles = uHelper.GetGlobalRoles(applicationContext, false); //globalRoleManager.Load(x => !x.Deleted).OrderBy(x => x.Name).ToList();
+                if (roles != null)
+                {
+                    ddlUserGroup.DataSource = roles.OrderBy(x => x.Name);
+                    ddlUserGroup.DataTextField = "Name";
+                    ddlUserGroup.DataValueField = "Id";
+                    ddlUserGroup.DataBind();
+                }
+
+                ddlUserGroup.Items.Insert(0, new ListItem("All Roles", ""));
+            }
+            else
+            {
+                LoadGlobalRolesOnDepartment(hdndept);
+            }
+        }
+
+        public class CommandColumnHeaderTemplate : ITemplate
+        {
+            GridViewDataTextColumn colID = null;
+            public CommandColumnHeaderTemplate(GridViewDataTextColumn coID)
+            {
+                this.colID = coID;
+            }
+
+            #region ITemplate Members
+
+            public void InstantiateIn(Control container)
+            {
+                HyperLink hnkButton = new HyperLink();
+                hnkButton.Text = this.colID.Caption;
+                container.Controls.Add(hnkButton);
+                //if (!string.IsNullOrEmpty(HttpContext.Current.Request["pGroupName"]) && !string.IsNullOrEmpty(HttpContext.Current.Request["ticketId"]))
+                ////if (HttpContext.Current.Request["rbtnProject"] == "checked")
+                ////{
+                string func = string.Format("ClickOnDrillDown(this,'{0}','{1}')", colID.FieldName, colID.Caption);
+                hnkButton.Attributes.Add("onclick", func);
+                //}
+            }
+
+            #endregion
+        }
+
+        public class CommandGridViewBandColumn : ITemplate
+        {
+            GridViewBandColumn colBDC = null;
+
+            public CommandGridViewBandColumn(GridViewBandColumn coID)
+            {
+                this.colBDC = coID;
+            }
+
+            #region ITemplate Members
+
+            public void InstantiateIn(Control container)
+            {
+                HtmlGenericControl HContainer = new HtmlGenericControl("Div");
+                HyperLink hnkBDButton = new HyperLink();
+                hnkBDButton.Style.Add("vertical-align", "top");
+                hnkBDButton.Text = this.colBDC.Caption;
+                //container.Controls.Add(hnkBDButton);
+                string func = string.Format("ClickOnDrillUP(this,'{0}')", colBDC.Caption);
+                hnkBDButton.Attributes.Add("onclick", func);
+
+                HContainer.Controls.Add(new LiteralControl("<image style=\"padding-right:7px;\" src=\"/content/images/back-arrowBlue.png\" onclick=\"ClickOnPrevious()\" class=\"resource-img-gantt\"  />"));
+                HContainer.Controls.Add(hnkBDButton);
+                HContainer.Controls.Add(new LiteralControl("<image style=\"padding-left:7px;\" src=\"/content/images/next-arrowBlue.png\" onclick=\"ClickOnNext()\" class=\"resource-img-gantt\"  />"));
+                container.Controls.Add(HContainer);
+            }
+
+            #endregion
+        }
+
+        public class HoverMenuDataTemplate : ITemplate
+        {
+            public void InstantiateIn(Control container)
+            {
+                GridViewDataItemTemplateContainer gridContainer = (GridViewDataItemTemplateContainer)container;
+
+                HtmlGenericControl divContainer = new HtmlGenericControl("Div");
+                divContainer.ID = string.Format("div_title_{0}", gridContainer.KeyValue);
+                divContainer.Style.Add("float", "left");
+                divContainer.Style.Add("width", "100%");
+                divContainer.Style.Add("position", "relative");
+
+                HtmlGenericControl innerDivContainer = new HtmlGenericControl("Div");
+                innerDivContainer.ID = string.Format("actionButtons{0}", gridContainer.KeyValue);
+                innerDivContainer.Style.Add("display", "none");
+                innerDivContainer.Style.Add("width", "15px");
+                innerDivContainer.Style.Add("position", "absolute");
+                innerDivContainer.Style.Add("right", "0px");
+                innerDivContainer.Style.Add("float", "right");
+                string userName = DataBinder.Eval(container, string.Format("DataItem.{0}", DatabaseObjects.Columns.Resource)).ToString();
+
+                innerDivContainer.Controls.Add(new LiteralControl("<image style=\"padding-right:7px; width:20px;\" src=\"/content/images/plus-blue.png\" onclick=\"OpenAddAllocationPopup('" + gridContainer.KeyValue + "', '" + userName + "')\"  />"));
+                divContainer.Controls.Add(new LiteralControl(string.Format("<span style='float:left;'>{0}</span>", userName)));
+                divContainer.Controls.Add(innerDivContainer);
+                container.Controls.Add(divContainer);
+
+
+
+            }
+        }
+
+        protected void cmbResourceManager_Callback(object sender, CallbackEventArgsBase e)
+        {
+            UGITUtility.GetCookieValue(Request, "filterResource");
+            PrepareAllocationGrid();
+        }
+
+        protected void cmbResourceManager_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UGITUtility.GetCookieValue(Request, "filterResource");
+            PrepareAllocationGrid();
+        }
+
+        protected void btnExcelExport_Click(object sender, EventArgs e)
+        {
+            btnexport = true;
+            allocationData = GetAllocationData();
+            for (int i = 0; i < allocationData.Columns.Count; i++)
+            {
+                if (allocationData.Columns[i].ColumnName != "ItemOrder" && allocationData.Columns[i].ColumnName != "ResourceUserAllocated" && allocationData.Columns[i].ColumnName != "Id" && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.Resource && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.ProjectCapacity && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.RevenueCapacity && allocationData.Columns[i].ColumnName != "Avrg Utilization" && allocationData.Columns[i].ColumnName != "Avrg Chargeable")
+                {
+                    for (int rows = 0; rows < allocationData.Rows.Count; rows++)
+                    {
+                        string displaymode = rbtnHrs.Checked == true ? "H" : rbtnItemCount.Checked == true ? "C" : rbtnPercentage.Checked == true ? "P" : rbtnFTE.Checked == true ? "F" : "A";
+                        string strResourceAllocationColorPalete = ObjConfigurationVariableManager.GetValue(ConfigConstants.ResourceAllocationColorPalete);
+
+                        string rowValue = allocationData.Rows[rows][allocationData.Columns[i].ColumnName].ToString();
+                        string newrowValue = !string.IsNullOrWhiteSpace(rowValue) ? GetValueFromInput(UGITUtility.ObjectToString(rowValue), displaymode) : "";
+                        double cellvalue = !string.IsNullOrWhiteSpace(rowValue) ? UGITUtility.StringToDouble(GetValueFromInput(UGITUtility.ObjectToString(rowValue), "P")) : 0;
+                        allocationData.Rows[rows][allocationData.Columns[i].ColumnName] = cellvalue > 0 ? newrowValue + ":" + Convert.ToString(cellvalue) : newrowValue;
+                    }
+                }
+            }
+
+
+            gvResourceAvailablity.DataSource = allocationData;
+
+
+            ASPxButton aSPxButtonCommand = (ASPxButton)sender;
+
+            if (aSPxButtonCommand.ClientInstanceName == "btnExcelExportCSV")
+            {
+                CsvExportOptionsEx optionsEx = new CsvExportOptionsEx();
+                optionsEx.ExportType = DevExpress.Export.ExportType.WYSIWYG;
+                optionsEx.TextExportMode = TextExportMode.Text;
+
+                gridExporter.WriteCsvToResponse("Resource Utilization", true, optionsEx);
+            }
+            else
+            {
+                DevExpress.XtraPrinting.XlsExportOptionsEx options = new DevExpress.XtraPrinting.XlsExportOptionsEx();
+
+                options.ExportType = DevExpress.Export.ExportType.WYSIWYG;
+                options.TextExportMode = TextExportMode.Text;
+                gridExporter.WriteXlsToResponse("Resource Utilization", options);
+            }
+        }
+
+        protected void btnPdfExport_Click(object sender, EventArgs e)
+        {
+            ResourceAvailabilityloadingPanel.Visible = true;
+            btnexport = true;
+            string pageHeaderInfo;
+            string deptDetailInfo;
+            string deptShortInfo;
+
+            if (ddlDepartment.dropBox.Text.Contains(",") || ddlDepartment.dropBox.Text == "<Various>")
+            {
+                deptShortInfo = "Various Departments";
+                deptDetailInfo = RMMSummaryHelper.GetSelectedDepartmentsInfo(applicationContext, Convert.ToString(hdnaspDepartment.Value), enableDivision);
+            }
+            else if (ddlDepartment.dropBox.Text == "All")
+            {
+                deptShortInfo = "All Departments";
+                deptDetailInfo = ddlDepartment.dropBox.Text;
+            }
+            else
+            {
+                deptShortInfo = ddlDepartment.dropBox.Text;
+                deptDetailInfo = ddlDepartment.dropBox.Text;
+            }
+            DateTime fromDate = Convert.ToDateTime(hdndtfrom.Value);
+            DateTime toDate = Convert.ToDateTime(hdndtto.Value);
+            //string PageNamePDF = "<span style='font-weight: bold'>Resource Utilization:</span>";
+
+            pageHeaderInfo = string.Format("Resource Utilization: {0}; {1} to {2}", deptShortInfo, uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+            //pageHeaderInfo = string.Format("{0} {1}; {2} to {3}", PageNamePDF, deptShortInfo, uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+            string reportFooterInfo = string.Format("\nSelection Criteria");//\n   {0}: {1}\n   {2}: {3} to {4}", "Departments", deptDetailInfo, "Date Range", uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+            if (!string.IsNullOrEmpty(selecteddepartment))
+            {
+                reportFooterInfo = reportFooterInfo + string.Format("\n {0}: {1}", "Departments", deptDetailInfo);
+            }
+            if (userGroupGridLookup != null && !string.IsNullOrWhiteSpace(userGroupGridLookup.Text))
+            {
+                reportFooterInfo = reportFooterInfo + string.Format("\n {0}: {1}", "Role", userGroupGridLookup.Text); //ObjUserProfileManager.GetUserNameById(ddlUserGroup.SelectedValue));
+            }
+            if (!string.IsNullOrEmpty(selectedManager))
+            {
+                reportFooterInfo = reportFooterInfo + string.Format("\n {0}: {1}", "Manager", ObjUserProfileManager.GetUserNameById(selectedManager));
+            }
+            if(sActionType.Count() > 0)
+            {
+                reportFooterInfo = reportFooterInfo + string.Format("\n {0}: {1}", "Type", UGITUtility.ConvertListToString(sActionType, Constants.Separator6));
+            }
+            if (chkAll.Checked)
+                reportFooterInfo = reportFooterInfo + string.Format("\n All Resources Included.");
+            if (!chkIncludeClosed.Checked)
+                reportFooterInfo = reportFooterInfo + string.Format("\n Closed Projects Included.");
+
+            reportFooterInfo = reportFooterInfo + string.Format("\n {0}: {1} to {2}", "Date Range", uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+
+            allocationData = GetAllocationData();
+
+            allocationData = GetAllocationData();
+
+            for (int i = 0; i < allocationData.Columns.Count; i++)
+            {
+                if (allocationData.Columns[i].ColumnName != "ItemOrder" && allocationData.Columns[i].ColumnName != "ResourceUserAllocated" && allocationData.Columns[i].ColumnName != "Id" && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.Resource && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.ProjectCapacity && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.RevenueCapacity && allocationData.Columns[i].ColumnName != "Avrg Utilization" && allocationData.Columns[i].ColumnName != "Avrg Chargeable")
+                {
+                    for (int rows = 0; rows < allocationData.Rows.Count; rows++)
+                    {
+                        string displaymode = rbtnHrs.Checked == true ? "H" : rbtnItemCount.Checked == true ? "C" : rbtnPercentage.Checked == true ? "P" : rbtnFTE.Checked == true ? "F" : "A";
+                        string strResourceAllocationColorPalete = ObjConfigurationVariableManager.GetValue(ConfigConstants.ResourceAllocationColorPalete);
+
+                        string rowValue = allocationData.Rows[rows][allocationData.Columns[i].ColumnName].ToString();
+                        string newrowValue = !string.IsNullOrWhiteSpace(rowValue) ? GetValueFromInput(UGITUtility.ObjectToString(rowValue), displaymode) : "";
+                        double cellvalue = !string.IsNullOrWhiteSpace(rowValue) ? UGITUtility.StringToDouble(GetValueFromInput(UGITUtility.ObjectToString(rowValue), "P")) : 0;
+                        allocationData.Rows[rows][allocationData.Columns[i].ColumnName] = cellvalue > 0 ? newrowValue + ":" + Convert.ToString(cellvalue) : newrowValue;
+                    }
+                }
+            }
+
+            gvResourceAvailablity.DataSource = allocationData;
+
+            gridExporter.Landscape = true;
+            gridExporter.PaperKind = System.Drawing.Printing.PaperKind.A4Plus;
+
+            gridExporter.LeftMargin = 65;
+            gridExporter.RightMargin = 1;
+            gridExporter.TopMargin = -1;
+            gridExporter.BottomMargin = -1;
+            
+            gridExporter.PageHeader.Font.Size = 11;
+            gridExporter.PageHeader.Font.Name = "Arial";
+            gridExporter.PageHeader.Center = pageHeaderInfo;
+            gridExporter.PageHeader.Font.Bold = true;
+
+            gridExporter.PageFooter.Center = "Page [Page # of Pages #]";
+            gridExporter.PageFooter.Left = "[Date Printed]";
+            gridExporter.ReportFooter = reportFooterInfo;
+
+            gridExporter.WritePdfToResponse("Resource Utilization");
+
+            Thread.Sleep(1000);
+
+            ResourceAvailabilityloadingPanel.Visible = false;
+        }
+
+        protected void gridExporter_RenderBrick(object sender, ASPxGridViewExportRenderingEventArgs e)
+        {
+            e.BrickStyle.Font = new Font("Calibri", 11f);
+            if (e.RowType == GridViewRowType.Header)
+                return;
+            GridViewDataColumn dataColumn = e.Column as GridViewDataColumn;
+
+            DateTime fromDate = Convert.ToDateTime(hdndtfrom.Value);
+            DateTime toDate = Convert.ToDateTime(hdndtto.Value);
+
+            if (e.RowType == GridViewRowType.Data && dataColumn != null)
+            {
+                e.BrickStyle.Sides = DevExPrinting.BorderSide.All;
+                e.BrickStyle.BorderColor = System.Drawing.Color.Black;
+                e.BrickStyle.BorderWidth = 1;
+                //e.BrickStyle.BorderStyle = DevExpress.XtraPrinting.BrickBorderStyle.Inset;
+                e.Column.CellStyle.Height = new Unit("10px");
+                if (dataColumn.FieldName == "ResourceUser")
+                {
+                    //if (hdndisplayMode.Value == "Weekly")
+                    //{
+                    //    string[] resourceNameHtml = e.Text.Split('>');
+                    //    string[] resourceName = resourceNameHtml[1].Split('<');
+                    //    string resource = resourceName[0];
+                    //    e.Text = resource;
+                    //}
+                    e.BrickStyle.TextAlignment = DevExPrinting.TextAlignment.MiddleLeft;
+                }
+                else
+                {
+                    e.BrickStyle.TextAlignment = DevExPrinting.TextAlignment.MiddleCenter;
+                }
+                
+                if (dataColumn.FieldName != "ResourceUser" && dataColumn.FieldName != "ItemOrder" && dataColumn.FieldName != "ProjectCapacity" && dataColumn.FieldName != "RevenueCapacity")
+                {
+                    for (DateTime dt = Convert.ToDateTime(fromDate); Convert.ToDateTime(toDate) > dt; dt = dt.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dt)))
+                    {
+                        string estAlloc = string.Empty;
+                        string backColor = string.Empty;
+                        string foreColor = string.Empty;
+
+                        if (dataColumn.FieldName == dt.ToString("MMM-dd-yy"))
+                        {
+                            object estAllocValue = e.GetValue(dt.ToString("MMM-dd-yy")); //#90ee90>1
+                            if (estAllocValue is null)
+                            {
+                                estAlloc = "";
+
+                            }
+                            else
+                            {
+                                var obj = gvResourceAvailablity.GetRow(e.VisibleIndex);
+                                DateTime dtStart = DateTime.MinValue;
+                                if (dataColumn.Caption == "#")
+                                    e.Text = Convert.ToString(e.VisibleIndex + 1);
+                                
+                                var dataRowView = obj as DataRowView;
+                                DateTime.TryParse(dataColumn.FieldName, out dtStart);
+                                UserProfile userProfile = ObjUserProfileManager.GetUsersProfile().FirstOrDefault(x => x.Id.EqualsIgnoreCase(UGITUtility.ObjectToString(dataRowView[DatabaseObjects.Columns.Id])));
+                                string displaymode = rbtnHrs.Checked == true ? "H" : rbtnItemCount.Checked == true ? "C" : rbtnPercentage.Checked == true ? "P" : rbtnFTE.Checked == true ? "F" : "A";
+                                string strResourceAllocationColorPalete = ObjConfigurationVariableManager.GetValue(ConfigConstants.ResourceAllocationColorPalete);
+
+                                if (!string.IsNullOrEmpty(UGITUtility.ObjectToString(estAllocValue)))
+                                {
+                                    if (!string.IsNullOrEmpty(strResourceAllocationColorPalete))
+                                    {
+                                        Dictionary<string, string> cpResourceAllocationColorPalete = UGITUtility.GetCustomProperties(strResourceAllocationColorPalete, Constants.Separator);
+
+                                        double cellvalue = !string.IsNullOrWhiteSpace(Convert.ToString(estAllocValue)) ? UGITUtility.StringToDouble(estAllocValue.ToString().Split(':')[1]) : 0;
+                                        e.Text = estAllocValue.ToString().Split(':')[0];
+                                        if (displaymode == "P" || displaymode == "A")
+                                            e.Text = e.Text + "%";
+
+                                        if (cellvalue >= orange)
+                                        {
+                                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Orange]));
+                                            e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                        }
+                                        else if (cellvalue >= green && cellvalue < orange)
+                                        {
+                                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Green]));//Green
+                                            e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                        }
+                                        else if (cellvalue >= gray && cellvalue < green)
+                                        {
+                                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Gray]));//Gray
+                                            e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                        }
+                                        else if (cellvalue >= red && cellvalue < gray)
+                                        {
+                                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Red]));//Red
+                                            e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                        }
+                                        else
+                                            e.Text = e.Text;  //no color
+                                    }
+                                }
+                                else
+                                {
+                                    if (userProfile.UGITStartDate < dtStart)
+                                    {
+                                        if (!string.IsNullOrEmpty(strResourceAllocationColorPalete))
+                                        {
+                                            Dictionary<string, string> cpResourceAllocationColorPalete = UGITUtility.GetCustomProperties(strResourceAllocationColorPalete, Constants.Separator);
+
+                                            if (displaymode == "P")
+                                            {
+                                                e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Red]));
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                                e.Text = "0%";
+                                            }
+                                            else if (displaymode == "A")
+                                            {
+                                                e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Green]));
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                                e.Text = "100%";
+                                            }
+                                            else
+                                            {
+                                                e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Red]));
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#fff");
+                                                e.Text = "0";
+                                            }
+                                        }
+                                    }
+                                    else
+                                        e.Text = "";
+                                }
+                                if (userProfile.UGITStartDate > dtStart || userProfile.UGITEndDate < dtStart)
+                                {
+                                    e.Text = "";
+                                }
+                            }
+                            //e.BrickStyle.Sides = DevExPrinting.BorderSide.All;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void imgNewGanttAllocation_Click(object sender, EventArgs e)
+        {
+
+            GetAllocationData();
+
+            hndYear = UGITUtility.GetCookieValue(Request, "year");
+
+            string pageHeaderInfo;
+            string deptDetailInfo;
+            string deptShortInfo;
+
+            if (ddlDepartment.dropBox.Text.Contains(",") || ddlDepartment.dropBox.Text == "<Various>")
+            {
+                deptShortInfo = "Various Departments";
+                deptDetailInfo = RMMSummaryHelper.GetSelectedDepartmentsInfo(applicationContext, Convert.ToString(hdnaspDepartment.Value), enableDivision);
+            }
+            else if (ddlDepartment.dropBox.Text == "All")
+            {
+                deptShortInfo = "All Departments";
+                deptDetailInfo = ddlDepartment.dropBox.Text;
+            }
+            else
+            {
+                deptShortInfo = ddlDepartment.dropBox.Text;
+                deptDetailInfo = ddlDepartment.dropBox.Text;
+            }
+            DateTime fromDate = Convert.ToDateTime(hdndtfrom.Value);
+            DateTime toDate = Convert.ToDateTime(hdndtto.Value);
+            pageHeaderInfo = string.Format("Resource Utilization: {0}; {1} to {2}", deptShortInfo, uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+            string reportFooterInfo = string.Format("\nSelection Criteria\n   {0}: {1}\n   {2}: {3} to {4}", "Departments", deptDetailInfo, "Date Range", uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+
+            DataTable dtGanttExport = new DataTable();
+            dtGanttExport = GetAllocationDataGantt();
+            gvPreview.DataSource = dtGanttExport;
+            gvPreview.DataBind();
+
+            ASPxGridViewExporter1.Landscape = true;
+            ASPxGridViewExporter1.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            ASPxGridViewExporter1.LeftMargin = 1;
+            ASPxGridViewExporter1.RightMargin = 1;
+            ASPxGridViewExporter1.TopMargin = -1;
+            ASPxGridViewExporter1.BottomMargin = -1;
+            ASPxGridViewExporter1.PageHeader.Font.Size = 11;
+            ASPxGridViewExporter1.PageHeader.Font.Name = "Arial";
+            ASPxGridViewExporter1.PageHeader.Center = pageHeaderInfo;
+            ASPxGridViewExporter1.PageFooter.Center = "Page [Page # of Pages #]";
+            ASPxGridViewExporter1.PageFooter.Left = "[Date Printed]";
+            ASPxGridViewExporter1.ReportFooter = reportFooterInfo;
+            ASPxGridViewExporter1.MaxColumnWidth = 400;
+            ASPxGridViewExporter1.Styles.GroupRow.Font.Name = "Arial";
+            ASPxGridViewExporter1.Styles.GroupRow.Font.Size = 10;
+            ASPxGridViewExporter1.Styles.GroupRow.ForeColor = Color.Black;
+            ASPxGridViewExporter1.Styles.Footer.Font.Name = "Arial";
+            ASPxGridViewExporter1.Styles.Footer.Font.Size = 10;
+            ASPxGridViewExporter1.Styles.Footer.Font.Bold = true;
+            ASPxGridViewExporter1.Styles.Footer.ForeColor = Color.White;
+            ASPxGridViewExporter1.Styles.Footer.BackColor = System.Drawing.ColorTranslator.FromHtml("#808080");
+            ASPxGridViewExporter1.WritePdfToResponse("Resource Utilization Gantt");
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Export", "alert('File Exported')", true);
+
+        }
+
+        #region GanttData
+        public void GetAllocationFooter()
+        {
+            Dictionary<string, object> RUValues = new Dictionary<string, object>();
+            string AllocationType = string.Empty;
+            string allResources = string.Empty;
+            string allClosed = string.Empty;
+            string type = string.Empty;
+            if ((Convert.ToString(chkAll.Checked) == "True") || (Convert.ToString(chkAll.Checked) == "1"))
+            {
+                allResources = "True";
+            }
+            else
+            {
+                allResources = "False";
+            }
+
+            if ((Convert.ToString(chkIncludeClosed.Checked) == "True") || (Convert.ToString(chkAll.Checked) == "1"))
+            {
+                allClosed = "True";
+            }
+            else
+            {
+                allClosed = "False";
+            }
+            if (rbtnEstimate.Checked)
+                AllocationType = "Estimated";
+            else
+                AllocationType = "Planned";
+            string managerUser = (!string.IsNullOrEmpty(Convert.ToString(cmbResourceManager.Value))) ? Convert.ToString(cmbResourceManager.Value) : "";
+            if (rbtnFTE.Checked)
+                type = "FTE";
+            else if (rbtnPercentage.Checked)
+                type = "PERCENT";
+            else if (rbtnAvailability.Checked)
+                type = "AVAILABILITY";
+            else if (rbtnHrs.Checked)
+                type = "HRS";
+            else
+                type = "COUNT";
+            string levelName = string.Join(",", sActionType);
+            string roleID = ddlUserGroup.SelectedValue != "0" && ddlUserGroup.SelectedValue != "" ? ddlUserGroup.SelectedValue : "";
+
+            RUValues.Add("@TenantID", applicationContext.TenantID);
+            RUValues.Add("@IncludeAllResources", allResources);
+            RUValues.Add("@IncludeClosedProject", allClosed);
+            RUValues.Add("@DisplayMode", type);  //FTE, COUNT, PERCENT, AVAILABILITY
+            RUValues.Add("@Department", hdnaspDepartment.Value == "undefined" ? string.Empty : hdnaspDepartment.Value.TrimEnd(','));
+            RUValues.Add("@StartDate", Convert.ToDateTime(hdndtfrom.Value).ToString("MM-dd-yyyy"));
+            RUValues.Add("@EndDate", Convert.ToDateTime(hdndtto.Value).ToString("MM-dd-yyyy"));
+            RUValues.Add("@ResourceManager", string.IsNullOrEmpty(managerUser) ? "0" : managerUser);
+            RUValues.Add("@AllocationType", AllocationType);
+            RUValues.Add("@LevelName", levelName);
+            RUValues.Add("@GlobalRoleId", roleID);
+            RUValues.Add("@Mode", UGITUtility.ObjectToString(hdndisplayMode.Value)); 
+
+            dsFooter = GetTableDataManager.GetDataSet("ResourceUtlizationFooter", RUValues);
+        }
+        public DataTable GetAllocationDataGantt()
+        {
+            DataTable data = new DataTable();
+            data.Columns.Add(DatabaseObjects.Columns.Id, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.ItemOrder, typeof(int));
+            data.Columns.Add(DatabaseObjects.Columns.Resource, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.Name, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.Title, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.TicketId, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.Project, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.AllocationStartDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.AllocationEndDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.PlannedStartDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.PlannedEndDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.PctEstimatedAllocation, typeof(int));
+            data.Columns.Add(DatabaseObjects.Columns.PctPlannedAllocation, typeof(int));
+            data.Columns.Add("AllocationType", typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.WorkItemID, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.AllocationID, typeof(int));
+            data.Columns.Add("ProjectNameLink", typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.Closed, typeof(bool));
+            data.Columns.Add(DatabaseObjects.Columns.ModuleName, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.ModuleRelativePagePath, typeof(string));
+            data.Columns.Add("ExtendedDate", typeof(string));
+            data.Columns.Add("ExtendedDateAssign", typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.SubWorkItem, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.ERPJobID, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.ContactLookup, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.CRMCompanyLookup, typeof(string));
+            data.Columns.Add(DatabaseObjects.Columns.PreconStartDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.PreconEndDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.EstimatedConstructionStart, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.EstimatedConstructionEnd, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.CloseoutDate, typeof(DateTime));
+            data.Columns.Add(DatabaseObjects.Columns.SoftAllocation, typeof(bool));
+            data.Columns.Add("NCO", typeof(string));
+            data.Columns.Add("AllStartDates", typeof(string));
+            data.Columns.Add("AllEndDates", typeof(string));
+            DataTable dtlist = new DataTable();
+
+            GetAllocationFooter();
+
+            if (hdndisplayMode.Value == "Weekly")
+            {
+                dateFrom = Convert.ToDateTime(hdndtfrom.Value);
+                dateTo = Convert.ToDateTime(hdndtto.Value);
+
+            }
+            else
+            {
+
+                int selectedYear = UGITUtility.StringToInt(hndYear);
+                dateFrom = new DateTime(selectedYear, 1, 1);
+                dateTo = new DateTime(selectedYear + 1, 1, 1);
+
+            }
+            dtlist = ResourceAllocationManager.GetDatelist(hdndisplayMode.Value, dateFrom, dateTo);
+            data.Merge(dtlist);
+            data.Clear();
+
+            if (dateFrom == DateTime.MinValue || dateTo == DateTime.MinValue)
+            {
+                if (string.IsNullOrEmpty(hndYear))
+                {
+                    lblSelectedYear.Text = DateTime.Now.Year.ToString();
+                    hndYear = lblSelectedYear.Text;
+                }
+                dateFrom = new DateTime(Convert.ToInt16(hndYear), 1, 1);
+                dateTo = dateFrom.AddMonths(12);
+            }
+            if (!string.IsNullOrEmpty(ddlDepartment.GetValues()))
+            {
+                selecteddepartment = ddlDepartment.GetValues();
+            }
+            else if (!string.IsNullOrEmpty(hdnaspDepartment.Value))
+            {
+                selecteddepartment = hdnaspDepartment.Value;
+            }
+
+            if (hdndisplayMode.Value == "Weekly")
+            {
+                dateFrom = Convert.ToDateTime(hdndtfrom.Value);
+                dateTo = Convert.ToDateTime(hdndtto.Value);
+
+            }
+            else
+            {
+                int selectedYear = UGITUtility.StringToInt(hndYear);
+                dateFrom = new DateTime(selectedYear, 1, 1);
+                dateTo = new DateTime(selectedYear + 1, 1, 1);
+            }
+            if (dateFrom == DateTime.MinValue || dateTo == DateTime.MinValue)
+            {
+                if (string.IsNullOrEmpty(hndYear))
+                {
+                    lblSelectedYear.Text = DateTime.Now.Year.ToString();
+                    hndYear = lblSelectedYear.Text;
+                }
+                dateFrom = new DateTime(Convert.ToInt16(hndYear), 1, 1);
+                dateTo = dateFrom.AddMonths(12);
+            }
+            if (Request["selectedManager"] != null && Request["selectedManager"] != "0")
+            {
+                selectedManager = Convert.ToString(Request["selectedManager"]);
+            }
+            else if (cmbResourceManager.SelectedIndex != -1)
+            {
+                selectedManager = Convert.ToString(cmbResourceManager.Value);
+            }
+            if (!string.IsNullOrEmpty(Request["SelectedCategory"]))
+                selectedCategory = UGITUtility.StripHTML(Request["SelectedCategory"]);
+            else if (!string.IsNullOrEmpty(glType.Text))
+            {
+                if (dataTable == null)
+                    dataTable = (DataTable)glType.DataSource;
+
+                selectedTypes = glType.Text.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<string> selectModules = new List<string>();
+
+                foreach (string sType in selectedTypes)
+                {
+                    DataRow row = dataTable.AsEnumerable().FirstOrDefault(x => x.Field<string>("LevelTitle") == sType);
+                    if (row != null)
+                    {
+                        selectModules.Add(Convert.ToString(row["LevelName"]));
+                        //if (Convert.ToString(row["ColumnType"]) == "Module")
+                        //{
+                        //    if (!containsModules)
+                        //        containsModules = true;
+                        //}
+                    }
+                    else
+                    {
+                        selectModules.Add(sType);
+                    }
+                }
+
+                selectedCategory = string.Join("#", selectModules.ToArray());
+            }
+            List<UserProfile> lstUProfile = new List<UserProfile>();
+
+            bool limitedUsers = false;
+
+            //lstUProfile = ObjUserProfileManager.GetUsersProfile();
+            if (Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)) != "0" && Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)) != "")
+            {
+                lstUProfile = ObjUserProfileManager.GetUserByManager(Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)), true);
+
+                UserProfile newlstitem = ObjUserProfileManager.GetUsersProfile().FirstOrDefault(x => x.Id == Convert.ToString(UGITUtility.ObjectToString(cmbResourceManager.Value)));
+                if (newlstitem != null)
+                    lstUProfile.Add(newlstitem);
+            }
+            else
+            {
+                lstUProfile = ObjUserProfileManager.GetUsersProfile();
+            }
+
+            if (userGroupGridLookup?.GridView?.GetSelectedFieldValues("Id")?.Count > 0)
+            {
+                List<string> gIds = userGroupGridLookup.GridView.GetSelectedFieldValues("Id").Select(x => (string)x).ToList();
+                List<UserProfile> lstGroupUsers = ObjUserProfileManager.GetUsersProfile().Where(x => gIds.Contains(x.GlobalRoleId)).ToList();
+                lstUProfile = lstGroupUsers.FindAll(x => lstUProfile.Any(y => y.Id == x.Id));
+            }
+
+
+            string filteredUsers = string.Empty; // UGITUtility.GetCookieValue(Request, "GridUsers");
+            string SelectedUsers = string.Empty;
+            if (!string.IsNullOrEmpty(filteredUsers))
+            {
+                SelectedUsers = filteredUsers;
+                limitedUsers = true;
+            }
+            else
+            {
+                SelectedUsers = string.Empty;
+                limitedUsers = false;
+            }
+
+            if (!string.IsNullOrEmpty(TicketId))
+            {
+                limitedUsers = false;
+            }
+
+            DataTable dtResult = null;
+            DataTable workitems = null;
+            List<string> userIds = new List<string>();
+
+            //SelectedUsers = "ce015a93-a2b6-41e1-ac8b-0dfba3b24661";   //Benny Zang: testing code
+            //limitedUsers = true;
+            if (limitedUsers)
+            {
+                if (!string.IsNullOrEmpty(SelectedUsers) && SelectedUsers != "null")
+                {
+                    userIds = UGITUtility.ConvertStringToList(SelectedUsers, Constants.Separator6);
+                }
+                else
+                {
+                    userIds = lstUProfile.Select(x => x.Id).ToList();
+                }
+                dtResult = ResourceAllocationManager.LoadRawTableByResource(userIds, 4, dateFrom, dateTo);
+                workitems = ResourceWorkItemsManager.LoadRawTableByResource(userIds, 4);
+
+            }
+            else
+            {
+                dtResult = ResourceAllocationManager.LoadRawTableByResource(null, 4, dateFrom, dateTo);
+                workitems = RMMSummaryHelper.GetOpenworkitems(applicationContext, chkIncludeClosed.Checked);
+            }
+
+
+            if (!string.IsNullOrEmpty(TicketId))
+            {
+                DataRow[] ticketRows = dtResult.Select("TicketID = " + TicketId);
+                dtResult = ticketRows.CopyToDataTable();
+
+                DataRow[] workitemRows = workitems.Select($"{DatabaseObjects.Columns.WorkItem} = {TicketId}");
+                workitems = workitemRows.CopyToDataTable();
+            }
+
+            //filter data based on closed check
+            if (!chkIncludeClosed.Checked)
+            {
+                // Filter by Open Tickets.
+                List<string> LstClosedTicketIds = new List<string>();
+                //get closed ticket instead of open ticket and then filter all except closed ticket
+                DataTable dtClosedTickets = RMMSummaryHelper.GetClosedTicketIds(applicationContext);
+                if (dtClosedTickets != null && dtClosedTickets.Rows.Count > 0)
+                {
+                    LstClosedTicketIds.AddRange(dtClosedTickets.AsEnumerable().Select(x => x.Field<string>(DatabaseObjects.Columns.TicketId)));
+                }
+                if (dtResult != null && dtResult.Rows.Count > 0)
+                {
+                    DataRow[] dr = dtResult.AsEnumerable().Where(x => !LstClosedTicketIds.Contains(x.Field<string>(DatabaseObjects.Columns.TicketId), StringComparer.OrdinalIgnoreCase)).ToArray();
+                    if (dr != null && dr.Length > 0)
+                        dtResult = dr.CopyToDataTable();
+                    else
+                        dtResult.Rows.Clear();
+                }
+            }
+
+            //Load Tickets object before loop to improve perfromance
+            TicketManager objTicketManager = new TicketManager(applicationContext);
+            DataTable dtAllModuleTickets = objTicketManager.GetAllProjectTickets();
+
+
+            if (dtResult == null)
+                return data;
+
+            var allocationGroupData = dtResult.AsEnumerable()
+                .GroupBy(row => new
+                {
+                    Id = row.Field<string>("WorkItem"),
+                    ResourceId = row.Field<string>("ResourceId"),
+                })
+                .Select(group => new AllocationData()
+                {
+                    ResourceId = group.Key.ResourceId,
+                    WorkItem = group.Key.Id,
+                    SubWorkItem = string.Join(",", group.Select(row => row.Field<string>("SubWorkItem"))),
+                    // Add other aggregated properties here
+                    AllocationID = UGITUtility.ObjectToString(group.First().Field<long>("ID")),
+                    ResourceUser = group.First().Field<string>("ResourceUser"),
+                    WorkItemType = group.First().Field<string>("WorkItemType"),
+                    WorkItemLink = group.First().Field<string>("WorkItemLink"),
+                    AllocationStartDate = group.Min(row => row.Field<DateTime?>("AllocationStartDate") ?? DateTime.MinValue),
+                    AllocationEndDate = group.Max(row => row.Field<DateTime?>("AllocationEndDate") ?? DateTime.MinValue),
+                    PctAllocation = group.Sum(row => row.Field<double>("PctAllocation")),
+                    WorkItemID = string.Join(",", group.Select(row => row.Field<long>("WorkItemID")).Distinct()),
+                    ShowEditButton = false,
+                    ShowPartialEdit = false,
+                    PlannedStartDate = group.Min(row => row.Field<DateTime?>("PlannedStartDate") ?? DateTime.MinValue),
+                    PlannedEndDate = group.Max(row => row.Field<DateTime?>("PlannedEndDate") ?? DateTime.MinValue),
+                    PctPlannedAllocation = group.Sum(row => row.Field<double?>("PctPlannedAllocation") ?? 0),
+                    EstStartDate = group.Min(row => row.Field<DateTime?>("EstStartDate") ?? DateTime.MinValue),
+                    EstEndDate = group.Max(row => row.Field<DateTime?>("EstEndDate") ?? DateTime.MinValue),
+                    PctEstimatedAllocation = group.Sum(row => row.Field<double?>("PctEstimatedAllocation") ?? 0),
+                    SoftAllocation = string.Join(",", group.Select(row=>row.Field<bool>("SoftAllocation").ToString())),
+                    AllStartDates = string.Join(",", group.Select(row => row.Field<DateTime?>("AllocationStartDate") ?? DateTime.MinValue)),
+                    AllEndDates = string.Join(",", group.Select(row => row.Field<DateTime?>("AllocationEndDate") ?? DateTime.MinValue))
+                }).ToArray();
+
+
+
+            DataTable dtAllocationMonthly = null;
+            DataTable dtAllocationWeekly = null;
+
+            if (hdndisplayMode.Value == "Weekly")
+            {
+                dtAllocationWeekly = LoadAllocationWeeklySummaryView();
+            }
+            else
+                dtAllocationMonthly = LoadAllocationMonthlyView();
+
+
+            ILookup<object, DataRow> dtAllocLookups = null;
+            ILookup<object, DataRow> dtWeeklyLookups = null;
+            //Grouping on AllocationMonthly datatable based on ResourceWorkItemLookup
+            if (dtAllocationMonthly != null && dtAllocationMonthly.Rows.Count > 0)
+                dtAllocLookups = dtAllocationMonthly.AsEnumerable().ToLookup(x => x[DatabaseObjects.Columns.ResourceWorkItemLookup]);
+            //Grouping on AllocationWeekly datatable based on WorkItemID
+            if (dtAllocationWeekly != null && dtAllocationWeekly.Rows.Count > 0)
+                dtWeeklyLookups = dtAllocationWeekly.AsEnumerable().ToLookup(x => x[DatabaseObjects.Columns.WorkItemID]);
+
+            Dictionary<string, DataRow> tempTicketCollection = new Dictionary<string, DataRow>();
+            #region data creating
+            UserProfile userDetails = null;
+            List<string> lstSelectedDepartment = UGITUtility.ConvertStringToList(selecteddepartment, Constants.Separator6);
+            List<string> departmentTempUserIds = lstUProfile.Where(a => lstSelectedDepartment.Exists(d => d == a.Department)).Select(x => x.Id).ToList();
+            List<string> managerTempUserIds = lstUProfile.Where(a => a.ManagerID == selectedManager).Select(x => x.Id).ToList();
+            List<UserProfile> lstUsersHavingAllocations = new List<UserProfile>();
+            if (!string.IsNullOrEmpty(selecteddepartment))
+            {
+                lstActiveUsersIds = lstUProfile.Where(a => lstSelectedDepartment.Exists(d => d == a.Department)
+                && a.UGITStartDate <= dateTo && a.UGITEndDate >= dateFrom).ToList();
+            }
+            else
+                lstActiveUsersIds = lstUProfile.Where(a => a.UGITStartDate <= dateTo && a.UGITEndDate >= dateFrom).ToList();
+
+            if (!string.IsNullOrEmpty(selectedManager) && selectedManager != "0")
+                lstActiveUsersIds = lstActiveUsersIds.Where(a => a.ManagerID == selectedManager).ToList();
+
+            //            var allocationData = lstActiveUsersIds.AsEnumerable()
+            //.GroupBy(row => new
+            //{
+            //Id = "None",
+            //ResourceId = row.Id,
+            //})
+            //.Select(group => new AllocationData()
+            //{
+            //ResourceId = group.Key.ResourceId,
+            //WorkItem = "None",
+            //SubWorkItem = "",
+            //        // Add other aggregated properties here
+            //        AllocationID = "",
+            //ResourceUser = group.Key.ResourceId,
+            //WorkItemType = "",
+            //WorkItemLink = "",
+            //AllocationStartDate = group.First().UGITStartDate,
+            //AllocationEndDate = group.First().UGITEndDate,
+            //PctAllocation = 0,
+            //WorkItemID = "",
+            //ShowEditButton = false,
+            //ShowPartialEdit = false,
+            //PlannedStartDate = DateTime.MinValue,
+            //PlannedEndDate = DateTime.MinValue,
+            //PctPlannedAllocation = 0,
+            //EstStartDate = DateTime.MinValue,
+            //EstEndDate = DateTime.MinValue,
+            //PctEstimatedAllocation = 0,
+            //SoftAllocation = "false",
+            //AllStartDates = UGITUtility.ObjectToString(group.First().UGITStartDate),
+            //AllEndDates = UGITUtility.ObjectToString(group.First().UGITEndDate)
+            //}).ToArray();
+            //            var alldata = allocationGroupData.Concat(allocationData);
+
+            var allocationData = dtResult.AsEnumerable()
+            .GroupBy(row => new
+            {
+                ResourceId = row.Field<string>("ResourceId"),
+            })
+            .Select(group => new AllocationData()
+            {
+                ResourceId = group.Key.ResourceId,
+                SubWorkItem = "",
+                AllocationID = "",
+                ResourceUser = group.First().Field<string>("ResourceUser"),
+                WorkItemType = "",
+                WorkItemLink = "",
+                AllocationStartDate = group.Min(row => row.Field<DateTime?>("AllocationStartDate") ?? DateTime.MinValue),
+                AllocationEndDate = group.Max(row => row.Field<DateTime?>("AllocationEndDate") ?? DateTime.MinValue),
+                PctAllocation = group.Sum(row => row.Field<double>("PctAllocation")),
+                WorkItemID = "",
+                ShowEditButton = false,
+                ShowPartialEdit = false,
+                PlannedStartDate = DateTime.MinValue,
+                PlannedEndDate = DateTime.MinValue,
+                PctPlannedAllocation = 0,
+                EstStartDate = DateTime.MinValue,
+                EstEndDate = DateTime.MinValue,
+                PctEstimatedAllocation = 0,
+                SoftAllocation = "false",
+                AllStartDates = "",
+                AllEndDates = ""
+            }).ToArray();
+
+
+            TicketManager ticketManager = new TicketManager(applicationContext);
+            ModuleViewManager moduleManager = new ModuleViewManager(applicationContext);
+
+            foreach (var dr in allocationGroupData)
+            {
+                string userid = Convert.ToString(dr.ResourceId);
+                if (string.IsNullOrEmpty(userid))
+                    continue;
+
+                userDetails = lstActiveUsersIds.FirstOrDefault(x => x.Id.EqualsIgnoreCase(userid));
+
+                if (userDetails == null || (!chkAll.Checked && !userDetails.Enabled))
+                    continue;
+                lstUsersHavingAllocations.Add(userDetails);
+
+                List<string> lstWorkItemIds = UGITUtility.ConvertStringToList(dr.WorkItemID, Constants.Separator6);
+                DataRow newRow = data.NewRow();
+                newRow[DatabaseObjects.Columns.Id] = userid;
+                newRow[DatabaseObjects.Columns.ItemOrder] = 1;
+                if (btnexport)
+                {
+                    newRow[DatabaseObjects.Columns.Resource] = userDetails.Name;
+                }
+                else
+                {
+                    newRow[DatabaseObjects.Columns.Resource] = Convert.ToString(dr.ResourceUser);
+                }
+                newRow[DatabaseObjects.Columns.Name] = userDetails.Name;
+                newRow[DatabaseObjects.Columns.SoftAllocation] = UGITUtility.StringToBoolean(dr.SoftAllocation);
+                newRow[DatabaseObjects.Columns.SubWorkItem] = UGITUtility.ObjectToString(dr.SubWorkItem);
+                newRow["AllStartDates"] = UGITUtility.ObjectToString(dr.AllStartDates);
+                newRow["AllEndDates"] = UGITUtility.ObjectToString(dr.AllEndDates);
+
+                DataRow drWorkItem = null;
+                if (workitems != null && workitems.Rows.Count > 0)
+                {
+                    DataRow[] filterworkitemrow = workitems.AsEnumerable().Where(x => lstWorkItemIds.Contains(UGITUtility.ObjectToString(x.Field<long>("ID")))).ToArray();
+                    if (filterworkitemrow != null && filterworkitemrow.Length > 0)
+                        drWorkItem = filterworkitemrow[0];
+                }
+
+                if (drWorkItem != null && drWorkItem[DatabaseObjects.Columns.WorkItem] != null)
+                {
+                    string workItem = Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItem]);
+                    string[] arrayModule = selectedCategory.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries);
+                    string moduleName = string.Empty;
+                    if (UGITUtility.IsValidTicketID(workItem))
+                        moduleName = uHelper.getModuleNameByTicketId(workItem);
+
+                    UGITModule module = ModuleViewManager.LoadByName(moduleName, true);
+                    Page.Title = module != null ? module.ModuleName + "Tickets" : "";
+                    DataTable moduledt = UGITUtility.ObjectToData(module);
+                    if (moduledt.Rows.Count > 0)
+                        moduleRow = UGITUtility.ObjectToData(module).Rows[0];
+
+                    DataRow moduleDetail = moduleRow;
+
+                    if (!string.IsNullOrEmpty(moduleName))
+                    {
+                        if (arrayModule.Contains(moduleName) || arrayModule.Length == 0)
+                        {
+
+                            module = moduleManager.GetByName(moduleName);
+                            if (module == null)
+                                continue;
+
+                            //check for active modules.
+                            if (!UGITUtility.StringToBoolean(module.EnableRMMAllocation))
+                                continue;
+                            DataRow dataRow = null;
+                            if (tempTicketCollection.ContainsKey(workItem))
+                                dataRow = tempTicketCollection[workItem];
+                            else
+                            {
+                                dataRow = dtAllModuleTickets.AsEnumerable().FirstOrDefault(row => row.Field<string>("TicketId") == workItem);
+                                if (dataRow != null)
+                                {
+                                    tempTicketCollection.Add(workItem, dataRow);
+                                }
+                            }
+                            if (dataRow != null)
+                            {
+                                string ticketID = workItem;
+                                string title = UGITUtility.TruncateWithEllipsis(Convert.ToString(dataRow[DatabaseObjects.Columns.Title]), 50);
+                                if (!string.IsNullOrEmpty(ticketID))
+                                {
+                                    string prefixcolumn = uHelper.getAltTicketIdField(applicationContext, moduleName);
+                                    string prefixTitle = string.Empty;
+                                    if (UGITUtility.IfColumnExists(dataRow, prefixcolumn))
+                                        prefixTitle = Convert.ToString(dataRow[prefixcolumn]);
+                                    newRow[DatabaseObjects.Columns.Title] = string.Format("{0}: {1}", string.IsNullOrEmpty(prefixTitle) ? ticketID : prefixTitle, title);
+                                    newRow[DatabaseObjects.Columns.ERPJobID] = UGITUtility.ObjectToString(dataRow[DatabaseObjects.Columns.ERPJobID]);
+                                    newRow[DatabaseObjects.Columns.CRMCompanyLookup] = UGITUtility.ObjectToString(dataRow[DatabaseObjects.Columns.CRMCompanyTitleLookup]);
+                                    if (UGITUtility.StringToBoolean(dataRow[DatabaseObjects.Columns.Closed]))
+                                        newRow[DatabaseObjects.Columns.Closed] = true;
+                                    newRow[DatabaseObjects.Columns.PreconStartDate] = UGITUtility.StringToDateTime(dataRow[DatabaseObjects.Columns.PreconStartDate]);
+                                    newRow[DatabaseObjects.Columns.PreconEndDate] = UGITUtility.StringToDateTime(dataRow[DatabaseObjects.Columns.PreconEndDate]);
+                                    newRow[DatabaseObjects.Columns.EstimatedConstructionStart] = UGITUtility.StringToDateTime(dataRow[DatabaseObjects.Columns.EstimatedConstructionStart]);
+                                    newRow[DatabaseObjects.Columns.EstimatedConstructionEnd] = UGITUtility.StringToDateTime(dataRow[DatabaseObjects.Columns.EstimatedConstructionEnd]);
+                                    newRow[DatabaseObjects.Columns.CloseoutDate] = UGITUtility.StringToDateTime(dataRow[DatabaseObjects.Columns.CloseoutDate]);
+                                }
+                                else
+                                {
+                                    newRow[DatabaseObjects.Columns.Title] = title;// title;
+                                    newRow[DatabaseObjects.Columns.Project] = title;
+                                }
+                                newRow[DatabaseObjects.Columns.TicketId] = workItem;
+                                newRow[DatabaseObjects.Columns.WorkItemID] = UGITUtility.StringToLong(Convert.ToString(drWorkItem[DatabaseObjects.Columns.Id])) + Constants.Separator + Convert.ToString(dr.WorkItemID);
+
+                                //condition for add new column for breakup gantt chart...
+                                string plannedStartDate = Convert.ToString(dr.PlannedStartDate);
+                                string plannedEndDate = Convert.ToString(dr.PlannedEndDate);
+
+                                string estStartDate = Convert.ToString(dr.EstStartDate);
+                                string estEndDate = Convert.ToString(dr.EstEndDate);
+                                string expression = $"{DatabaseObjects.Columns.TicketId}='{workItem}' AND {DatabaseObjects.Columns.Id}='{userid}'";
+                                if (data != null && data.Rows.Count > 0)
+                                {
+                                    DataRow[] row = data.Select(expression);
+
+                                    if (!string.IsNullOrEmpty(plannedStartDate) && !string.IsNullOrEmpty(plannedEndDate))
+                                    {
+                                        newRow[DatabaseObjects.Columns.PlannedStartDate] = dr.PlannedStartDate;
+                                        newRow[DatabaseObjects.Columns.PlannedEndDate] = dr.PlannedEndDate;
+                                        newRow["ExtendedDateAssign"] = dr.PlannedStartDate + Constants.Separator1 + dr.PlannedEndDate;
+
+                                        newRow[DatabaseObjects.Columns.PctPlannedAllocation] = UGITUtility.StringToInt(dr.PctPlannedAllocation);
+                                    }
+
+                                    if (!string.IsNullOrEmpty(estStartDate) && !string.IsNullOrEmpty(estEndDate) && estEndDate != "01-01-1753 00:00:00")
+                                    {
+                                        newRow[DatabaseObjects.Columns.AllocationStartDate] = dr.EstStartDate;
+                                        newRow[DatabaseObjects.Columns.AllocationEndDate] = dr.EstEndDate;
+                                        newRow["ExtendedDate"] = dr.EstStartDate + Constants.Separator1 + dr.EstEndDate;
+
+                                        newRow[DatabaseObjects.Columns.PctEstimatedAllocation] = UGITUtility.StringToInt(dr.PctEstimatedAllocation);
+                                    }
+
+                                    newRow["ProjectNameLink"] = string.Format("<a href='{0}' style='color:black;font-weight:800px !important;'>{2}</a>", uHelper.GetHyperLinkControlForTicketID(module,
+                                           workItem, true, title).NavigateUrl, ticketID, UGITUtility.TruncateWithEllipsis(title, 40));
+
+                                    newRow[DatabaseObjects.Columns.ModuleName] = moduleName;
+                                    newRow[DatabaseObjects.Columns.ModuleRelativePagePath] = module.DetailPageUrl;
+
+
+                                    if (hdndisplayMode.Value == "Weekly" && dtWeeklyLookups != null)
+                                    {
+                                        foreach (string s in lstWorkItemIds)
+                                        {
+                                            DataRow[] dttemp = dtWeeklyLookups[UGITUtility.StringToLong(s)].ToArray();
+
+                                            if (dttemp != null && dttemp.Length > 0)
+                                                ViewTypeAllocation(data, newRow, dttemp);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (dtAllocLookups != null)
+                                        {
+                                            foreach (string s in lstWorkItemIds)
+                                            {
+                                                DataRow[] dttemp = dtAllocLookups[UGITUtility.ObjectToString(s)].ToArray();
+                                                if (dttemp != null && dttemp.Length > 0)
+                                                    ViewTypeAllocation(data, newRow, dttemp);
+                                            }
+                                        }
+                                    }
+
+                                    data.Rows.Add(newRow);
+                                    //}
+                                }
+                                else
+                                {
+                                    if (!string.IsNullOrEmpty(plannedStartDate) && !string.IsNullOrEmpty(plannedEndDate))
+                                    {
+                                        newRow[DatabaseObjects.Columns.PlannedStartDate] = dr.PlannedStartDate;
+                                        newRow[DatabaseObjects.Columns.PlannedEndDate] = dr.PlannedEndDate;
+                                        newRow["ExtendedDateAssign"] = dr.PlannedStartDate + Constants.Separator1 + dr.PlannedEndDate;
+                                        newRow[DatabaseObjects.Columns.PctPlannedAllocation] = UGITUtility.StringToInt(dr.PctPlannedAllocation);
+                                    }
+
+                                    if (!string.IsNullOrEmpty(estStartDate) && !string.IsNullOrEmpty(estEndDate))
+                                    {
+                                        newRow[DatabaseObjects.Columns.AllocationStartDate] = dr.EstStartDate;
+                                        newRow[DatabaseObjects.Columns.AllocationEndDate] = dr.EstEndDate;
+                                        newRow["ExtendedDate"] = dr.EstStartDate + Constants.Separator1 + dr.EstEndDate;
+                                        newRow[DatabaseObjects.Columns.PctEstimatedAllocation] = UGITUtility.StringToInt(dr.PctEstimatedAllocation);
+                                    }
+
+                                    newRow["ProjectNameLink"] = string.Format("<a href='{0}' title='{2}' style='color:black;font-weight:800px !important;'>{1}</a>", uHelper.GetHyperLinkControlForTicketID(module,
+                                           workItem, true, title).NavigateUrl, UGITUtility.TruncateWithEllipsis(title, 40), title ?? string.Empty);
+
+                                    newRow[DatabaseObjects.Columns.ModuleName] = moduleName;
+                                    newRow[DatabaseObjects.Columns.ModuleRelativePagePath] = module.DetailPageUrl;
+
+                                    if (hdndisplayMode.Value == "Weekly" && dtWeeklyLookups != null)
+                                    {
+                                        foreach (string s in lstWorkItemIds)
+                                        {
+                                            DataRow[] dttemp = dtWeeklyLookups[UGITUtility.StringToLong(s)].ToArray();
+                                            if (dttemp != null && dttemp.Length > 0)
+                                                ViewTypeAllocation(data, newRow, dttemp);
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (dtAllocLookups != null)
+                                        {
+                                            foreach (string s in lstWorkItemIds)
+                                            {
+                                                DataRow[] dttemp = dtAllocLookups[UGITUtility.ObjectToString(s)].ToArray();
+                                                if (dttemp != null && dttemp.Length > 0)
+                                                {
+                                                    ViewTypeAllocation(data, newRow, dttemp);
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                    data.Rows.Add(newRow);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ////code commented so that resource utlization screen data and pdf data match
+                        ////This condition set to remove PTO types but core only use PTO type other then module type so return for all non module types
+                        //if (ConfigVariableMGR.GetValueAsBool(ConfigConstants.HidePTOonGantt))
+                        //    continue;
+
+                        if (arrayModule.Length > 0 && !arrayModule.Contains(Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType])))
+                            continue;
+
+                        if (data != null && data.Rows.Count > 0)
+                        {
+                            string expression = string.Format("{0}= '{1}' AND {2}='{3}' AND {4}='{5}'", DatabaseObjects.Columns.TicketId, workItem, DatabaseObjects.Columns.Id, userid, DatabaseObjects.Columns.SubWorkItem, Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]));
+                            DataRow[] row = data.Select(expression);
+
+                            if (row != null && row.Count() > 0)
+                            {
+                                if (!string.IsNullOrEmpty(Convert.ToString(dr.EstStartDate)) && !string.IsNullOrEmpty(Convert.ToString(dr.EstEndDate)))
+                                {
+                                    row[0]["ExtendedDate"] = Convert.ToString(row[0]["ExtendedDate"]) + Constants.Separator + dr.EstStartDate + Constants.Separator1 + dr.EstEndDate;
+
+                                    if (!string.IsNullOrEmpty(Convert.ToString(row[0][DatabaseObjects.Columns.AllocationStartDate])) && !string.IsNullOrEmpty(Convert.ToString(dr.EstStartDate)) && (Convert.ToDateTime(row[0][DatabaseObjects.Columns.AllocationStartDate]) > Convert.ToDateTime(dr.EstStartDate)))
+                                        row[0][DatabaseObjects.Columns.AllocationStartDate] = dr.EstStartDate;
+
+                                    if (!string.IsNullOrEmpty(Convert.ToString(row[0][DatabaseObjects.Columns.AllocationEndDate])) && !string.IsNullOrEmpty(Convert.ToString(dr.EstEndDate)) && (Convert.ToDateTime(row[0][DatabaseObjects.Columns.AllocationEndDate]) < Convert.ToDateTime(dr.EstEndDate)))
+                                        row[0][DatabaseObjects.Columns.AllocationEndDate] = dr.EstEndDate;
+                                }
+
+                                if (hdndisplayMode.Value == "Weekly" && dtWeeklyLookups != null)
+                                {
+                                    foreach (string s in lstWorkItemIds)
+                                    {
+                                        DataRow[] dttemp = dtWeeklyLookups[UGITUtility.StringToLong(s)].ToArray();
+                                        if (dttemp != null && dttemp.Length > 0)
+                                            ViewTypeAllocation(data, row[0], dttemp);
+                                    }
+                                }
+                                else
+                                {
+                                    if (dtAllocLookups != null)
+                                    {
+                                        foreach (string s in lstWorkItemIds)
+                                        {
+                                            DataRow[] dttemp = dtAllocLookups[UGITUtility.ObjectToString(s)].ToArray();
+
+                                            if (dttemp != null && dttemp.Length > 0)
+                                            {
+                                                ViewTypeAllocation(data, row[0], dttemp, false);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                string title = UGITUtility.TruncateWithEllipsis(workItem, 50);
+                                if (string.IsNullOrEmpty(Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem])))
+                                {
+                                    newRow[DatabaseObjects.Columns.Title] = string.Format("{0} > {1}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title);// title;
+                                    newRow[DatabaseObjects.Columns.Project] = string.Format("{0} > {1}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title);
+                                }
+                                else
+                                {
+                                    newRow[DatabaseObjects.Columns.Title] = string.Format("{0} > {1} > {2}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title, Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]));// title;
+                                    newRow[DatabaseObjects.Columns.Project] = string.Format("{0} > {1} > {2}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title, Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]));
+                                }
+
+                                newRow[DatabaseObjects.Columns.TicketId] = workItem;
+                                newRow["ProjectNameLink"] = workItem;
+                                newRow[DatabaseObjects.Columns.ModuleName] = Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]);
+                                newRow[DatabaseObjects.Columns.SubWorkItem] = Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]);
+                                newRow[DatabaseObjects.Columns.WorkItemID] = UGITUtility.StringToLong(Convert.ToString(drWorkItem[DatabaseObjects.Columns.Id])) + Constants.Separator + Convert.ToString(dr.WorkItemID);
+
+                                if (!string.IsNullOrEmpty(Convert.ToString(dr.EstStartDate)) && !string.IsNullOrEmpty(Convert.ToString(dr.EstEndDate)))
+                                {
+                                    newRow[DatabaseObjects.Columns.AllocationStartDate] = dr.EstStartDate;
+                                    newRow[DatabaseObjects.Columns.AllocationEndDate] = dr.EstEndDate;
+
+                                    newRow["ExtendedDate"] = dr.EstStartDate + Constants.Separator1 + dr.EstEndDate;
+                                    newRow[DatabaseObjects.Columns.PctEstimatedAllocation] = UGITUtility.StringToInt(dr.PctEstimatedAllocation);
+                                }
+
+                                if (hdndisplayMode.Value == "Weekly" && dtWeeklyLookups != null)
+                                {
+                                    foreach (string s in lstWorkItemIds)
+                                    {
+                                        DataRow[] dttemp = dtWeeklyLookups[UGITUtility.StringToLong(s)].ToArray();
+                                        if (dttemp != null && dttemp.Length > 0)
+                                            ViewTypeAllocation(data, newRow, dttemp);
+                                    }
+                                }
+                                else
+                                {
+                                    if (dtAllocLookups != null)
+                                    {
+                                        foreach (string s in lstWorkItemIds)
+                                        {
+                                            DataRow[] dttemp = dtAllocLookups[UGITUtility.ObjectToString(s)].ToArray();
+
+                                            if (dttemp != null && dttemp.Length > 0)
+                                            {
+                                                ViewTypeAllocation(data, newRow, dttemp, false);
+                                            }
+                                        }
+                                    }
+                                }
+                                data.Rows.Add(newRow);
+                            }
+                        }
+                        else
+                        {
+                            string title = UGITUtility.TruncateWithEllipsis(workItem, 50);
+                            if (string.IsNullOrEmpty(Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem])))
+                            {
+                                newRow[DatabaseObjects.Columns.Title] = string.Format("{0} > {1}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title);// title;
+                                newRow[DatabaseObjects.Columns.Project] = string.Format("{0} > {1}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title);
+                            }
+                            else
+                            {
+                                newRow[DatabaseObjects.Columns.Title] = string.Format("{0} > {1} > {2}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title, Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]));// title;
+                                newRow[DatabaseObjects.Columns.Project] = string.Format("{0} > {1} > {2}", Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]), title, Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]));
+                            }
+
+                            newRow[DatabaseObjects.Columns.TicketId] = workItem;
+                            newRow[DatabaseObjects.Columns.ModuleName] = Convert.ToString(drWorkItem[DatabaseObjects.Columns.WorkItemType]);
+                            newRow[DatabaseObjects.Columns.SubWorkItem] = Convert.ToString(drWorkItem[DatabaseObjects.Columns.SubWorkItem]);
+                            newRow[DatabaseObjects.Columns.WorkItemID] = UGITUtility.StringToInt(Convert.ToString(drWorkItem[DatabaseObjects.Columns.Id])) + Constants.Separator + Convert.ToString(dr.WorkItemID);
+                            newRow["ProjectNameLink"] = workItem;
+
+                            if (!string.IsNullOrEmpty(Convert.ToString(dr.EstStartDate)) && !string.IsNullOrEmpty(Convert.ToString(dr.EstEndDate)))
+                            {
+                                newRow[DatabaseObjects.Columns.AllocationStartDate] = dr.EstStartDate;
+                                newRow[DatabaseObjects.Columns.AllocationEndDate] = dr.EstEndDate;
+
+                                newRow["ExtendedDate"] = dr.EstStartDate + Constants.Separator1 + dr.EstEndDate;
+                                newRow[DatabaseObjects.Columns.PctEstimatedAllocation] = UGITUtility.StringToInt(dr.PctEstimatedAllocation);
+                            }
+
+                            if (hdndisplayMode.Value == "Weekly" && dtWeeklyLookups != null)
+                            {
+                                foreach (string s in lstWorkItemIds)
+                                {
+                                    DataRow[] dttemp = dtWeeklyLookups[UGITUtility.StringToLong(s)].ToArray();
+                                    if (dttemp != null && dttemp.Length > 0)
+                                        ViewTypeAllocation(data, newRow, dttemp);
+                                }
+                            }
+                            else
+                            {
+                                if (dtAllocLookups != null)
+                                {
+                                    foreach (string s in lstWorkItemIds)
+                                    {
+                                        DataRow[] dttemp = dtAllocLookups[UGITUtility.ObjectToString(s)].ToArray();
+                                        if (dttemp != null && dttemp.Length > 0)
+                                        {
+                                            ViewTypeAllocation(data, newRow, dttemp, false);
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            data.Rows.Add(newRow);
+                        }
+                    }
+                }
+            }
+
+
+            DateTime dateF = Convert.ToDateTime(dateFrom);
+            DateTime dateT = Convert.ToDateTime(dateTo);
+            DateTime allocationMonthStartDate = DateTime.MinValue;
+            DateTime allocationMonthEndDate = DateTime.MinValue;
+
+            foreach (UserProfile user in lstActiveUsersIds)
+            {
+                DataRow newRow = data.NewRow();
+                bool rowHasData = false;
+                newRow[DatabaseObjects.Columns.Id] = user.Id;
+                newRow[DatabaseObjects.Columns.ItemOrder] = 1;
+                newRow[DatabaseObjects.Columns.Resource] = user.Name;
+                newRow[DatabaseObjects.Columns.Name] = user.Name;
+
+                var allocGroupRow = allocationData.FirstOrDefault(x => x.ResourceId == user.Id);
+                if (allocGroupRow != null)
+                { 
+                    allocationMonthStartDate = new DateTime(allocGroupRow.AllocationStartDate.Value.Year, allocGroupRow.AllocationStartDate.Value.Month, 1);
+                    allocationMonthEndDate = new DateTime(allocGroupRow.AllocationEndDate.Value.Year, allocGroupRow.AllocationEndDate.Value.Month, 1);
+                }
+
+                for (DateTime dt = dateF; dateT > dt; dt = dt.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dt)))
+                {
+                    if ((user.UGITStartDate <= dt && dt < user.UGITEndDate ) )
+                    {
+                        if (allocGroupRow != null && (dt >= allocationMonthStartDate && dt <= allocationMonthEndDate))
+                            continue;
+                        if (data.Columns.Contains(dt.ToString("MMM-dd-yy") + "E"))
+                        {
+                            newRow[dt.ToString("MMM-dd-yy") + "E"] = 0;
+                            rowHasData = true;
+                        }
+                    }
+
+                }
+                if(rowHasData)
+                    data.Rows.Add(newRow);
+            }
+
+            #endregion
+            data.DefaultView.Sort = string.Format("{0} ASC ,{1} ASC, {2} ASC, {3} ASC", DatabaseObjects.Columns.Name, DatabaseObjects.Columns.Closed, DatabaseObjects.Columns.Project, DatabaseObjects.Columns.Title);
+            return data;
+        }
+
+        private void ViewTypeAllocation(DataTable data, DataRow newRow, DataRow[] dttemp, bool Assigned = true)
+        {
+            double yearquaAllocE = 0;
+            double yearquaAllocA = 0;
+
+            double halfyearquaAllocE1 = 0;
+            double halfyearquaAllocE2 = 0;
+            double halfyearquaAllocA1 = 0;
+            double halfyearquaAllocA2 = 0;
+
+            double quaterquaAllocE1 = 0;
+            double quaterquaAllocE2 = 0;
+            double quaterquaAllocE3 = 0;
+            double quaterquaAllocE4 = 0;
+            double quaterquaAllocA1 = 0;
+            double quaterquaAllocA2 = 0;
+            double quaterquaAllocA3 = 0;
+            double quaterquaAllocA4 = 0;
+
+            foreach (DataRow rowitem in dttemp)
+            {
+                if (hdndisplayMode.Value == "Yearly")
+                {
+                    if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Year == UGITUtility.StringToInt(hndYear))
+                    {
+                        yearquaAllocE += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 12;
+                        yearquaAllocA += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 12;
+                    }
+
+                    DateTime yearColumn = new DateTime(UGITUtility.StringToInt(hndYear), 1, 1);
+                    if (data.Columns.Contains((yearColumn).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(yearColumn).ToString("MMM-dd-yy") + "E"] = Math.Round(yearquaAllocE, 2);
+                    }
+
+                    if (Assigned)
+                    {
+                        if (data.Columns.Contains((yearColumn).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(yearColumn).ToString("MMM-dd-yy") + "A"] = Math.Round(yearquaAllocA, 2);
+                        }
+                    }
+                }
+                else if (hdndisplayMode.Value == "HalfYearly")
+                {
+                    if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Year == UGITUtility.StringToInt(hndYear))
+                    {
+                        if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month < 7)
+                        {
+                            halfyearquaAllocE1 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 6;
+                            halfyearquaAllocA1 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 6;
+                        }
+
+                        if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month > 6)
+                        {
+                            halfyearquaAllocE2 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 6;
+                            halfyearquaAllocA2 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 6;
+                        }
+                    }
+
+                    DateTime halfyearColumn1 = new DateTime(UGITUtility.StringToInt(hndYear), 1, 1);
+                    DateTime halfyearColumn2 = new DateTime(UGITUtility.StringToInt(hndYear), 7, 1);
+                    if (data.Columns.Contains((halfyearColumn1).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(halfyearColumn1).ToString("MMM-dd-yy") + "E"] = Math.Round(halfyearquaAllocE1, 2);
+                    }
+
+                    if (data.Columns.Contains((halfyearColumn2).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(halfyearColumn2).ToString("MMM-dd-yy") + "E"] = Math.Round(halfyearquaAllocE2, 2);
+                    }
+
+                    if (Assigned)
+                    {
+                        if (data.Columns.Contains((halfyearColumn1).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(halfyearColumn1).ToString("MMM-dd-yy") + "A"] = Math.Round(halfyearquaAllocA1, 2);
+                        }
+
+                        if (data.Columns.Contains((halfyearColumn2).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(halfyearColumn2).ToString("MMM-dd-yy") + "A"] = Math.Round(halfyearquaAllocA2, 2);
+                        }
+                    }
+
+                }
+                else if (hdndisplayMode.Value == "Quarterly")
+                {
+                    if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Year == UGITUtility.StringToInt(hndYear))
+                    {
+                        if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month < 4)
+                        {
+                            quaterquaAllocE1 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 3;
+                            quaterquaAllocA1 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 3;
+                        }
+                        else if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month > 3 && Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month < 7)
+                        {
+                            quaterquaAllocE2 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 3;
+                            quaterquaAllocA2 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 3;
+                        }
+                        else if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month > 6 && Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).Month < 10)
+                        {
+                            quaterquaAllocE3 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 3;
+                            quaterquaAllocA3 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 3;
+                        }
+                        else
+                        {
+                            quaterquaAllocE4 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]) / 3;
+                            quaterquaAllocA4 += UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctPlannedAllocation]) / 3;
+                        }
+                    }
+
+                    DateTime quaterColumn1 = new DateTime(UGITUtility.StringToInt(hndYear), 1, 1);
+                    DateTime quaterColumn2 = new DateTime(UGITUtility.StringToInt(hndYear), 4, 1);
+                    DateTime quaterColumn3 = new DateTime(UGITUtility.StringToInt(hndYear), 7, 1);
+                    DateTime quaterColumn4 = new DateTime(UGITUtility.StringToInt(hndYear), 10, 1);
+
+                    if (data.Columns.Contains((quaterColumn1).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(quaterColumn1).ToString("MMM-dd-yy") + "E"] = Math.Round(quaterquaAllocE1, 2);
+                    }
+
+                    if (data.Columns.Contains((quaterColumn2).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(quaterColumn2).ToString("MMM-dd-yy") + "E"] = Math.Round(quaterquaAllocE2, 2);
+                    }
+
+                    if (data.Columns.Contains((quaterColumn3).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(quaterColumn3).ToString("MMM-dd-yy") + "E"] = Math.Round(quaterquaAllocE3, 2);
+                    }
+
+                    if (data.Columns.Contains((quaterColumn4).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[(quaterColumn4).ToString("MMM-dd-yy") + "E"] = Math.Round(quaterquaAllocE4, 2);
+                    }
+
+                    if (Assigned)
+                    {
+                        if (data.Columns.Contains((quaterColumn1).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(quaterColumn1).ToString("MMM-dd-yy") + "A"] = Math.Round(quaterquaAllocA1, 2);
+                        }
+
+                        if (data.Columns.Contains((quaterColumn2).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(quaterColumn2).ToString("MMM-dd-yy") + "A"] = Math.Round(quaterquaAllocA2, 2);
+                        }
+
+                        if (data.Columns.Contains((quaterColumn3).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(quaterColumn3).ToString("MMM-dd-yy") + "A"] = Math.Round(quaterquaAllocA3, 2);
+                        }
+
+                        if (data.Columns.Contains((quaterColumn4).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[(quaterColumn4).ToString("MMM-dd-yy") + "A"] = Math.Round(quaterquaAllocA4, 2);
+                        }
+                    }
+
+                }
+                else if (hdndisplayMode.Value == "Weekly")
+                {
+                    if (data.Columns.Contains(Convert.ToDateTime(rowitem[DatabaseObjects.Columns.WeekStartDate]).ToString("MMM-dd-yy") + "E") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.WeekStartDate]).ToString("MMM-dd-yy") + "E"] = UGITUtility.StringToDouble(newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.WeekStartDate]).ToString("MMM-dd-yy") + "E"])
+                            + Math.Round(UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.ActualPctAllocation]), 2);
+                    }
+
+                    if (Assigned)
+                    {
+                        if (data.Columns.Contains(Convert.ToDateTime(rowitem[DatabaseObjects.Columns.WeekStartDate]).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.WeekStartDate]).ToString("MMM-dd-yy") + "A"] = UGITUtility.StringToDouble(newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.WeekStartDate]).ToString("MMM-dd-yy") + "A"]) 
+                                + Math.Round(UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.ActualPctAllocation]), 2);
+                        }
+                    }
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.AllocationStartDate])))
+                    {
+                        DateTime AllocationStartDate = UGITUtility.StringToDateTime(newRow[DatabaseObjects.Columns.AllocationStartDate]);
+                        DateTime AllocationMonthStartDate = new DateTime(AllocationStartDate.Year, AllocationStartDate.Month, 1);
+                        DateTime allocationEndDate = UGITUtility.StringToDateTime(newRow[DatabaseObjects.Columns.AllocationEndDate]);
+                        if (Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]) >= AllocationMonthStartDate && Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]) <= allocationEndDate)
+                        {
+                            if (data.Columns.Contains(Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).ToString("MMM-dd-yy") + "E"))
+                            {
+                                newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).ToString("MMM-dd-yy") + "E"] = UGITUtility.StringToDouble(newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).ToString("MMM-dd-yy") + "E"]) +
+                                    Math.Round(UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]), 2);
+                            }
+                        }
+                    }
+                    if (Assigned)
+                    {
+                        if (data.Columns.Contains(Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).ToString("MMM-dd-yy") + "A") && !String.IsNullOrEmpty(Convert.ToString(newRow[DatabaseObjects.Columns.PlannedStartDate])))
+                        {
+                            newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).ToString("MMM-dd-yy") + "A"] = UGITUtility.StringToDouble(newRow[Convert.ToDateTime(rowitem[DatabaseObjects.Columns.MonthStartDate]).ToString("MMM-dd-yy") + "A"]) 
+                                + Math.Round(UGITUtility.StringToDouble(rowitem[DatabaseObjects.Columns.PctAllocation]), 2);
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        private DataTable LoadAllocationMonthlyView()
+        {
+            ResourceAllocationMonthlyManager allocationMonthlyManager = new ResourceAllocationMonthlyManager(applicationContext);
+            return allocationMonthlyManager.LoadAllocationMonthlyView(Convert.ToDateTime(dateFrom),
+                Convert.ToDateTime(dateTo), chkIncludeClosed.Checked);
+
+        }
+
+        private DataTable LoadAllocationWeeklySummaryView()
+        {
+            try
+            {
+                DateTime dtFrom = dateFrom;
+                DateTime dtTo = dateTo;
+
+                string commQuery = string.Empty;
+                ResourceUsageSummaryWeekWiseManager allocationWeekWiseManager = new ResourceUsageSummaryWeekWiseManager(applicationContext);
+                commQuery = string.Format("{0} >= '{1}' AND {0} <= '{2}'", DatabaseObjects.Columns.WeekStartDate, Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo));
+
+                DataTable dtAllocationWeekWise = GetTableDataManager.GetTableData(DatabaseObjects.Tables.ResourceUsageSummaryWeekWise, $"{DatabaseObjects.Columns.TenantID}='{applicationContext.TenantID}'" + "AND " + commQuery);
+                return dtAllocationWeekWise;
+            }
+            catch (Exception ex)
+            {
+                ULog.WriteException(ex);
+            }
+            return null;
+        }
+
+        //private void LoadAllocationTimeline()
+        //{
+        //    if (pnlAllocationTimeline.Controls.Count < 1)
+        //    {
+        //        ResourceAllocationGridNew _allocationGantt = Page.LoadControl("~/ControlTemplates/RMONE/ResourceAllocationGridNew.ascx") as ResourceAllocationGridNew;
+
+        //        _allocationGantt.UserAll = UGITUtility.ObjectToString(Request["userall"]);
+        //        //_allocationGantt.IncludeClosed = UGITUtility.ObjectToString(Request["includeClosed"]);
+        //        //if (selectedUsersList != null && selectedUsersList.Count > 0)
+        //        //{
+        //        //    List<string> userids = selectedUsersList.Select(x => x.Id).ToList();
+        //        //    _allocationGantt.SelectedUsers = UGITUtility.ConvertListToString(userids, Constants.Separator6);
+        //        //    _allocationGantt.SelectedUser = _allocationGantt.SelectedUsers;
+        //        //}
+        //        //else if (!string.IsNullOrEmpty(selectedUsersId))
+        //        //    _allocationGantt.SelectedUser = selectedUsersId;
+        //        //else
+        //        _allocationGantt.SelectedUser = UGITUtility.ObjectToString(cmbResourceManager.SelectedItem?.Value);
+
+        //        if (!string.IsNullOrEmpty(_allocationGantt.SelectedUser))
+        //        {
+        //            if (_allocationGantt.SelectedUser != "0")
+        //            {
+        //                UGITUtility.CreateCookie(Response, "SelectedUser", _allocationGantt.SelectedUser);
+        //            }
+        //            else
+        //            {
+        //                UGITUtility.CreateCookie(Response, "SelectedUser", string.Empty);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            UGITUtility.CreateCookie(Response, "SelectedUser", string.Empty);
+        //        }
+        //        //UGITUtility.CreateCookie(Response, "SelectedUser", "");
+        //        _allocationGantt.SelectedYear = "2023";
+        //        _allocationGantt.Height = 550;
+        //        pnlAllocationTimeline.Controls.Add(_allocationGantt);
+        //    }
+        //    pnlAllocationTimeline.ClientVisible = true;
+        //}
+
+        protected void gvPreview_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+        {
+            string foreColor = "#000000";
+            string Estimatecolor = "#24b6fe";
+            string Assigncolor = "#24b6fe";
+            string moduleName = Convert.ToString(e.GetValue(DatabaseObjects.Columns.ModuleName));
+            if (lstEstimateColorsAndFontColors != null && lstEstimateColorsAndFontColors.Count > 0)
+            {
+                string value = Convert.ToString(lstEstimateColorsAndFontColors.FirstOrDefault(x => x.Contains(moduleName)));
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    Estimatecolor = UGITUtility.SplitString(value, Constants.Separator, 1);
+                    foreColor = UGITUtility.SplitString(value, Constants.Separator, 2);
+                }
+            }
+
+            if (lstAssignColorsAndFontColors != null && lstAssignColorsAndFontColors.Count > 0)
+            {
+                string value = Convert.ToString(lstAssignColorsAndFontColors.FirstOrDefault(x => x.Contains(moduleName)));
+                Assigncolor = UGITUtility.SplitString(value, Constants.Separator, 1);
+                //foreColor = UGITUtility.SplitString(value, Constants.Separator, 2);
+            }
+            if (e.DataColumn.FieldName != DatabaseObjects.Columns.Resource && e.DataColumn.FieldName != "AllocationType" && e.DataColumn.FieldName != DatabaseObjects.Columns.AllocationStartDate && e.DataColumn.FieldName != DatabaseObjects.Columns.AllocationEndDate && e.DataColumn.FieldName != DatabaseObjects.Columns.Title)
+            {
+                int defaultBarH = 12;
+                if (DisablePlannedAllocation)
+                    defaultBarH = 24;
+                string html;
+                DateTime plndD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.PlannedStartDate));
+                DateTime estD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.AllocationStartDate));
+                string type = UGITUtility.ObjectToString(e.GetValue("ProjectNameLink"));
+
+                string tickId = string.Empty;
+                string allStartDates = string.Empty;
+                string allEndDates = string.Empty;
+                //DateTime oPreconStart = DateTime.MinValue;
+                //DateTime oPreconEnd = DateTime.MinValue;
+                //DateTime oConstStart = DateTime.MinValue;
+                //DateTime oConstEnd = DateTime.MinValue;
+                //DateTime oCloseout = DateTime.MinValue;
+
+                DateTime aStartDate = DateTime.MinValue;
+                DateTime aEndDate = DateTime.MinValue;
+                DateTime aPreconStart = DateTime.MinValue;
+                DateTime aPreconEnd = DateTime.MinValue;
+                DateTime aConstStart = DateTime.MinValue;
+                DateTime aConstEnd = DateTime.MinValue;
+                DateTime aCloseout = DateTime.MinValue;
+                string id = string.Empty;
+                bool aSoftAllocation = true;
+                string project = string.Empty;
+                string allocId = string.Empty;
+                if (e.VisibleIndex > 0)
+                {
+                    DataRow row = gvPreview.GetDataRow(e.VisibleIndex);
+                    tickId = row[DatabaseObjects.Columns.TicketId].ToString();
+                    aStartDate = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.AllocationStartDate]);
+                    aEndDate = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.AllocationEndDate]);
+                    aPreconStart = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.PreconStartDate]);
+                    aPreconEnd = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.PreconEndDate]);
+                    aConstStart = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.EstimatedConstructionStart]);
+                    aConstEnd = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.EstimatedConstructionEnd]);
+                    aCloseout = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.CloseoutDate]);
+                    aSoftAllocation = UGITUtility.StringToBoolean(row[DatabaseObjects.Columns.SoftAllocation]);
+                    project = UGITUtility.ObjectToString(row[DatabaseObjects.Columns.Title]);
+                    id = row[DatabaseObjects.Columns.Id].ToString();
+                    allocId = UGITUtility.ObjectToString(row[DatabaseObjects.Columns.AllocationID]);
+
+                    allStartDates = UGITUtility.ObjectToString(row["AllStartDates"]);
+                    allEndDates = UGITUtility.ObjectToString(row["allEndDates"]);
+                }
+
+                //if (tickId != "CPR-23-000628")
+                //    return;
+                DateTime dateF = Convert.ToDateTime(dateFrom);
+                DateTime dateT = Convert.ToDateTime(dateTo);
+                for (DateTime dt = dateF; dateT > dt; dt = dt.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dt)))
+                {
+                    html = "";
+                    if (e.DataColumn.FieldName == dt.ToString("MMM-dd-yy") + "E")
+                    {
+                        string estAlloc = Convert.ToString(e.GetValue(dt.ToString("MMM-dd-yy") + "E"));
+                        string roundleftbordercls = string.Empty;
+                        string roundrightbordercls = string.Empty;
+                        string backgroundColor = string.Empty;
+                        if (aStartDate == DateTime.MinValue || aEndDate == DateTime.MinValue)
+                            return;
+                        // classed to set round corners on bar end points
+                        if (hdndisplayMode.Value != "Weekly")
+                        {
+                            if (aStartDate.Year < dt.Year && dt.Month == 1)
+                            {
+                                roundleftbordercls = "RoundLeftSideCorner";
+                            }
+                            if (aEndDate.Year > dt.Year && dt.Month == 12)
+                            {
+                                roundrightbordercls = "RoundRightSideCorner";
+                            }
+                            if (aStartDate.Month == dt.Month && aStartDate.Year == dt.Year)
+                            {
+                                roundleftbordercls = "RoundLeftSideCorner";
+                            }
+                            if (aEndDate.Month == dt.Month && aEndDate.Year == dt.Year)
+                            {
+                                roundrightbordercls = "RoundRightSideCorner";
+                            }
+                        }
+                        else if (hdndisplayMode.Value == "Weekly")
+                        {
+
+                            if (aStartDate >= dt && aStartDate.AddDays(-6) < dt)
+                            {
+                                roundleftbordercls = "RoundLeftSideCorner";
+                            }
+                            if (aEndDate >= dt && aEndDate <= dt.AddDays(6))
+                            {
+                                roundrightbordercls = "RoundRightSideCorner";
+                            }
+                        }
+
+                        backgroundColor = GetGanttCellBackGroundColor(aPreconStart, aPreconEnd, aConstStart, aConstEnd, dt);
+
+                        if (dt.Month == aConstStart.Month && dt.Month == aPreconEnd.Month)
+                        {
+                            if (aEndDate <= aPreconEnd)
+                            {
+                                backgroundColor = "preconbgcolor";
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(estAlloc) && estAlloc != "0")
+                        {
+                            if (aSoftAllocation)
+                                backgroundColor = "softallocationbgcolor";
+                            if (moduleName != null && moduleName.Equals("Time Off"))
+                            {
+                                //backgroundColor = "ptobgcolor";
+                                html = GeneratePtoCard(dt, id, defaultBarH, type);
+                                e.Cell.CssClass += " ptoAlignmentClass";
+                            }
+                            else
+                            {
+                                estAlloc = estAlloc + "% <br>";
+
+                                int NoOfDays = 0;
+                                int remainingDays = 0;
+                                string widthEstAlloc = string.Empty;
+
+                                if (aStartDate.Month == dt.Month && aStartDate.Year == dt.Year)
+                                {
+                                    NoOfDays = aStartDate.Day;
+                                    remainingDays = 30 - NoOfDays;
+                                    widthEstAlloc = Convert.ToString((remainingDays * 100) / 30);
+                                    roundleftbordercls = "RoundLeftSideCorner";
+                                    backgroundColor = GetGanttCellBackGroundColor(aPreconStart, aPreconEnd, aConstStart, aConstEnd, aStartDate);
+                                }
+                                else if (aEndDate.Month == dt.Month && aEndDate.Year == dt.Year)
+                                {
+                                    NoOfDays = aEndDate.Day;
+                                    widthEstAlloc = Convert.ToString((NoOfDays * 100) / 30);
+                                    roundrightbordercls = "RoundRightSideCorner";
+                                    roundleftbordercls = "";
+                                    backgroundColor = GetGanttCellBackGroundColor(aPreconStart, aPreconEnd, aConstStart, aConstEnd, aEndDate);
+                                }
+
+
+                                if (dt.Month == aConstStart.Month && dt.Month == aPreconEnd.Month)
+                                {
+                                    if (aEndDate <= aPreconEnd)
+                                    {
+                                        NoOfDays = aEndDate.Day;
+                                        widthEstAlloc = Convert.ToString((NoOfDays * 100) / 30);
+                                    }
+                                }
+
+                                if (!string.IsNullOrEmpty(widthEstAlloc))
+                                {
+                                    if (Convert.ToInt32(widthEstAlloc) >= 50)
+                                    {
+                                        if (roundleftbordercls == "RoundLeftSideCorner")
+                                        {
+                                            html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:right;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                        }
+                                        else if (roundrightbordercls == "RoundRightSideCorner")
+                                        {
+                                            html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                        }
+                                        else
+                                        {
+                                            html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:100%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (roundleftbordercls == "RoundLeftSideCorner")
+                                        {
+                                            html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:right;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'></div>";
+                                        }
+                                        else if (roundrightbordercls == "RoundRightSideCorner")
+                                        {
+                                            html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'></div>";
+                                        }
+                                        else
+                                        {
+                                            html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:100%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:100%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            html = $" <div class='{roundleftbordercls} {roundrightbordercls}' style='float:left;width:100%;padding-left:{defaultBarH}px;height: {defaultBarH}px;'></div>";
+                        }
+                        e.Cell.Text = html;
+                        //sets alternate color to columns
+                        if (e.DataColumn.VisibleIndex % 2 == 0)
+                            e.Cell.BackColor = Color.WhiteSmoke;
+                    }
+                }
+            }
+
+        }
+
+        protected void gvPreview_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            try
+            {
+                // Retrieve updated data from the data source
+                DataTable data = GetAllocationData();
+                PrepareAllocationGridGantt();
+                // Bind the updated data to the grid
+
+            }
+            catch (Exception ex)
+            {
+                ULog.WriteException(ex, ex.Message);
+            }
+        }
+
+        private void PrepareAllocationGridGantt()
+        {
+            gvPreview.Columns.Clear();
+            gvPreview.GroupSummary.Clear();
+            gvPreview.TotalSummary.Clear();
+
+            int fullScreenWidth = UGITUtility.StringToInt(UGITUtility.GetCookieValue(Request, "screenWidth"));
+            int noOfColumns = 14;
+            if (hdndisplayMode.Value == "Weekly")
+                noOfColumns = 16;
+            if (fullScreenWidth > 0)
+            {
+                int remainingwidthforcols = fullScreenWidth - 300;
+                MonthColWidth = UGITUtility.StringToInt(remainingwidthforcols / noOfColumns);
+            }
+
+            gvPreview.Templates.GroupRowContent = new GridGroupRowContentTemplateNew(userEditPermisionList, isResourceAdmin, rbtnPercentage.Checked, chkIncludeClosed.Checked, selectedCategory, MonthColWidth);
+            gvPreview.SettingsPager.AlwaysShowPager = false;
+            gvPreview.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+
+            GridViewDataTextColumn colId = new GridViewDataTextColumn();
+            colId.FieldName = DatabaseObjects.Columns.Resource;
+            colId.Caption = DatabaseObjects.Columns.Resource;
+            colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Left;
+            //colId.Width = new Unit("200px");
+            colId.PropertiesTextEdit.EncodeHtml = false;
+            colId.HeaderStyle.Font.Bold = true;
+            colId.GroupIndex = 0;
+            colId.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+            colId.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.True;
+            colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.True;
+            colId.ExportCellStyle.Font.Names = new string[] { "Arial" };
+            colId.ExportCellStyle.Font.Bold = true;
+            colId.FixedStyle = GridViewColumnFixedStyle.Left;
+            gvPreview.Columns.Add(colId);
+
+            colId = new GridViewDataTextColumn();
+            colId.FieldName = DatabaseObjects.Columns.Name;
+            colId.Caption = DatabaseObjects.Columns.Name;
+            colId.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
+            colId.PropertiesTextEdit.EncodeHtml = false;
+            colId.Visible = false;
+            //colId.SortOrder = ColumnSortOrder.Ascending;
+            colId.Settings.SortMode = ColumnSortMode.Custom;
+            colId.FixedStyle = GridViewColumnFixedStyle.Left;
+            colId.ExportCellStyle.Font.Names = new string[] { "Arial" };
+            colId.ExportCellStyle.Font.Bold = true;
+            gvPreview.Columns.Add(colId);
+
+            colId = new GridViewDataTextColumn();
+            colId.FieldName = DatabaseObjects.Columns.Id;
+            colId.Caption = DatabaseObjects.Columns.Id;
+            colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.Width = new Unit("300px");
+            colId.PropertiesTextEdit.EncodeHtml = false;
+            colId.HeaderStyle.Font.Bold = true;
+            colId.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.True;
+            colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.False;
+            colId.Visible = false;
+            colId.FixedStyle = GridViewColumnFixedStyle.Left;
+            colId.ExportCellStyle.Font.Names = new string[] { "Arial" };
+            colId.ExportCellStyle.Font.Bold = true;
+            gvPreview.Columns.Add(colId);
+
+            colId = new GridViewDataTextColumn();
+            colId.FieldName = DatabaseObjects.Columns.Title;
+            colId.HeaderCaptionTemplate = new GridTitleHeaderTemplate(UGITUtility.ObjectToString(Request["SelectedUser"]));
+            colId.Caption = "";
+            colId.HeaderStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            colId.EditCellStyle.HorizontalAlign = HorizontalAlign.Left;
+            //colId.Width = new Unit("400px");
+            colId.ExportWidth = 400;
+            colId.ExportCellStyle.Font.Names = new string[] { "Arial" };
+            colId.ExportCellStyle.Font.Size = 9;
+            colId.PropertiesTextEdit.EncodeHtml = false;
+            colId.HeaderStyle.Font.Bold = true;
+            colId.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+            colId.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.False;
+            colId.FixedStyle = GridViewColumnFixedStyle.Left;
+            gvPreview.Columns.Add(colId);
+
+            gvPreview.TotalSummary.Add(SummaryItemType.Custom, DatabaseObjects.Columns.Title);
+
+            var IsShowTotalCapicityFTE = true; // ConfigVariableMGR.GetValueAsBool(ConfigConstants.ShowTotalCapicityFTE);
+            if (IsShowTotalCapicityFTE)
+            {
+                ASPxSummaryItem item = new ASPxSummaryItem(DatabaseObjects.Columns.Title, SummaryItemType.Custom);
+                item.Tag = "ResourceItem";
+
+                gvPreview.TotalSummary.Add(item);
+            }
+
+            GridViewBandColumn bdCol = new GridViewBandColumn();
+            bdCol.ExportCellStyle.Font.Names = new string[] { "Arial" };
+            bdCol.ExportCellStyle.Font.Bold = true;
+            string currentDate = string.Empty;
+
+
+            for (DateTime dt = dateFrom; dateTo > dt; dt = dt.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dt)))
+            {
+                int weeks = Convert.ToInt32((Convert.ToDateTime(hdndtto.Value) - Convert.ToDateTime(hdndtfrom.Value)).TotalDays / 7);
+
+                if (dt.ToString("yyyy") != currentDate && !string.IsNullOrEmpty(currentDate))
+                {
+                    bdCol.Name = dt.ToString("MMM-dd-yy") + "E";
+                    bdCol.HeaderTemplate = new MonthUpGridViewBandColumn(bdCol, hdndisplayMode.Value);
+                    gvPreview.Columns.Add(bdCol);
+                    bdCol = new GridViewBandColumn();
+                }
+
+                if (dt.ToString("yyyy") != currentDate)
+                {
+                    bdCol.Caption = dt.ToString("yyyy");
+                    bdCol.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                    bdCol.HeaderStyle.Font.Bold = true;
+                    bdCol.HeaderTemplate = new MonthUpGridViewBandColumn(bdCol, hdndisplayMode.Value);
+                    currentDate = dt.ToString("yyyy");
+                }
+
+                GridViewDataTextColumn ColIdData = new GridViewDataTextColumn();
+                if (hdndisplayMode.Value == "Weekly")
+                {
+                    if (dt.DayOfWeek != DayOfWeek.Monday)
+                        continue;
+                    ColIdData.FieldName = dt.ToString("MMM-dd-yy") + "E";
+                    ColIdData.Caption = dt.ToString("dd-MMM");
+                    if (weeks == 4)
+                    {
+                        ColIdData.ExportWidth = 130;
+                    }
+                    else
+                    {
+                        ColIdData.ExportWidth = 110;
+                    }
+                }
+                else if (hdndisplayMode.Value == "Quarterly")
+                {
+                    ColIdData.FieldName = dt.ToString("MMM-dd-yy") + "E";
+                    ColIdData.Caption = dt.ToString("MMM");
+                }
+                else if (hdndisplayMode.Value == "HalfYearly")
+                {
+                    ColIdData.FieldName = dt.ToString("MMM-dd-yy") + "E";
+                    ColIdData.Caption = dt.ToString("MMM");
+                }
+                else if (hdndisplayMode.Value == "Yearly")
+                {
+                    ColIdData.FieldName = dt.ToString("MMM-dd-yy") + "E";
+                    ColIdData.Caption = dt.ToString("MMM");
+                }
+                else
+                {
+                    ColIdData.FieldName = dt.ToString("MMM-dd-yy") + "E";
+                    ColIdData.Caption = dt.ToString("MMM");
+                    ColIdData.ExportWidth = 56;
+                }
+                ColIdData.CellStyle.CssClass = "timeline-td";
+                ColIdData.UnboundType = DevExpress.Data.UnboundColumnType.String;
+                ColIdData.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                ColIdData.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                ColIdData.EditCellStyle.HorizontalAlign = HorizontalAlign.Center;
+                ColIdData.HeaderStyle.Font.Bold = true;
+
+                ColIdData.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                ColIdData.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                ColIdData.HeaderTemplate = new MonthDownHeaderTemplate(ColIdData, hdndisplayMode.Value);
+
+                //ColIdData.Width = new Unit("160" + "px");
+                //ColIdData.ExportWidth = 56;
+                ColIdData.ExportCellStyle.Font.Names = new string[] { "Arial" };
+                ColIdData.ExportCellStyle.Font.Bold = true;
+
+                CreateGridSummaryColumn(gvPreview, dt.ToString("MMM-dd-yy") + "E");
+
+                bdCol.Columns.Add(ColIdData);
+
+
+                ASPxSummaryItem itemCFTE = new ASPxSummaryItem(dt.ToString("MMM-dd-yy") + "E", SummaryItemType.Custom);
+                itemCFTE.DisplayFormat = "N2";
+                gvPreview.TotalSummary.Add(itemCFTE);
+
+                if (IsShowTotalCapicityFTE)
+                {
+                    ASPxSummaryItem itemTFTE = new ASPxSummaryItem(dt.ToString("MMM-dd-yy") + "E", SummaryItemType.Custom);
+                    itemTFTE.Tag = "TFTE";
+                    itemTFTE.DisplayFormat = "N2";
+                    gvPreview.TotalSummary.Add(itemTFTE);
+                }
+            }
+            gvPreview.Columns.Add(bdCol);
+
+            if (Height != null && Height.Value > 0)
+            {
+                gvPreview.Settings.VerticalScrollableHeight = Convert.ToInt32(Height.Value - 260);
+                gvPreview.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
+            }
+        }
+
+        private void CreateGridSummaryColumn(DevExpress.Web.ASPxGridView gvPreview, string column)
+        {
+            ASPxSummaryItem summary = new ASPxSummaryItem(column, DevExpress.Data.SummaryItemType.Custom);
+            summary.ShowInGroupFooterColumn = column;
+            summary.DisplayFormat = "{0}";
+            gvPreview.GroupSummary.Add(summary);
+
+            if (column == DatabaseObjects.Columns.AllocationStartDate)
+            {
+                ASPxSummaryItem summaryStartDate = new ASPxSummaryItem(column, DevExpress.Data.SummaryItemType.Custom);
+                summaryStartDate.ShowInGroupFooterColumn = column;
+                summaryStartDate.DisplayFormat = "{0:MMM-dd-yyyy}";
+                gvPreview.GroupSummary.Add(summaryStartDate);
+            }
+            if (column == DatabaseObjects.Columns.AllocationEndDate)
+            {
+                ASPxSummaryItem summaryEndDate = new ASPxSummaryItem(column, DevExpress.Data.SummaryItemType.Custom);
+                summaryEndDate.ShowInGroupFooterColumn = column;
+                summaryEndDate.DisplayFormat = "{0:MMM-dd-yyyy}";
+                gvPreview.GroupSummary.Add(summaryEndDate);
+            }
+
+        }
+
+        public string GeneratePtoCard(DateTime currentDate, string userId, int defaultBarH, string workItem)
+        {
+            string html = string.Empty;
+            string marginLeft = string.Empty;
+            DateTime startDate = currentDate;
+            DateTime endDate = DateTime.MinValue;
+            Tuple<int, int> addDays = new Tuple<int, int>(10, 20);
+            if (hdndisplayMode.Value == "Weekly")
+            {
+                endDate = currentDate.AddDays(6);
+                addDays = new Tuple<int, int>(2, 4);
+            }
+            else if (hdndisplayMode.Value == "Quarterly")
+            {
+                endDate = startDate.AddMonths(3);
+                int firstInterval = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+                int secondInterval = firstInterval + DateTime.DaysInMonth(startDate.Year, startDate.Month + 1);
+                addDays = new Tuple<int, int>(firstInterval, secondInterval);
+            }
+            else
+            {
+                int lastDayOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+                endDate = new DateTime(startDate.Year, startDate.Month, lastDayOfMonth);
+            }
+            DataTable dt = ResourceAllocationManager.LoadRawTableByResource(userId.Split(',').ToList(), 4, dateFrom, dateTo);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                DataRow[] monthlyData = dt.Select($"{DatabaseObjects.Columns.AllocationStartDate}<='{endDate}' and {DatabaseObjects.Columns.AllocationEndDate} >= '{startDate}'" +
+                                            $"and {DatabaseObjects.Columns.WorkItemType}='Time Off' and {DatabaseObjects.Columns.WorkItemLink}='{workItem}'");
+
+                if (monthlyData.Count() > 0)
+                {
+                    foreach (DataRow data in monthlyData)
+                    {
+                        string taskId = data.Field<long>(DatabaseObjects.Columns.Id).ToString();
+                        string resourceName = data.Field<string>(DatabaseObjects.Columns.Resource).ToString().Replace("'", "`");
+                        DateTime fromDate = data.Field<DateTime>(DatabaseObjects.Columns.AllocationStartDate);
+                        DateTime toDate = data.Field<DateTime>(DatabaseObjects.Columns.AllocationEndDate);
+                        if ((fromDate >= startDate && fromDate <= startDate.AddDays(addDays.Item1)) || fromDate < startDate)
+                        {
+                            marginLeft = "0%";
+                        }
+                        else if (fromDate > startDate.AddDays(addDays.Item1) && fromDate <= startDate.AddDays(addDays.Item2))
+                        {
+                            marginLeft = "30%";
+                        }
+                        else
+                        {
+                            marginLeft = "60%";
+                        }
+                        if (fromDate == toDate)
+                        {
+                            //html += $"<a href=\"#\" onclick=\"OpenTimeOffAllocation('{taskId}', '{resourceName}')\"  >";
+                            //html += $"<div class='RoundLeftSideCorner RoundRightSideCorner ptobgcolor jqtooltip' title = '{fromDate.ToString("dd MMM, yyyy")}' style='width:40%;margin-bottom:5%;color:white;margin-left:{marginLeft};height:{defaultBarH}px;padding-top:5px;font-weight:500;'>1</div>";
+                            //html += "</a>";
+                            html = "1";
+                        }
+                        else
+                        {
+                            double dayDiff = 0;
+                            dayDiff = GetOverlappingDays(startDate, endDate, fromDate, toDate);
+                            dayDiff += 1;
+                            //html += $"<a href=\"#\" onclick=\"OpenTimeOffAllocation('{taskId}', '{resourceName}')\"  >";
+                            //html += $"<div class='RoundLeftSideCorner RoundRightSideCorner ptobgcolor jqtooltip' title = '{fromDate.ToString("dd MMM, yyyy")} to {toDate.ToString("dd MMM, yyyy")}' style='width:40%;margin-bottom:5%;color:white;margin-left:{marginLeft};height:{defaultBarH}px;padding-top:5px;font-weight:500;'>{dayDiff}</div>";
+                            //html += "</a>";
+                            html = Convert.ToString(dayDiff);
+                        }
+                    }
+                }
+            }
+            return html;
+        }
+
+        public static double GetOverlappingDays(DateTime firstStart, DateTime firstEnd, DateTime secondStart, DateTime secondEnd)
+        {
+            DateTime maxStart = firstStart > secondStart ? firstStart : secondStart;
+            DateTime minEnd = firstEnd < secondEnd ? firstEnd : secondEnd;
+            TimeSpan interval = minEnd - maxStart;
+            double returnValue = interval > TimeSpan.FromSeconds(0) ? interval.TotalDays : 0;
+            return returnValue;
+        }
+        protected void ExportCallback_Callback(object source, CallbackEventArgs e)
+        {
+            hndYear = UGITUtility.GetCookieValue(Request, "year");
+            string deptDetailInfo;
+            string deptShortInfo;
+
+            if (ddlDepartment.dropBox.Text.Contains(",") || ddlDepartment.dropBox.Text.Contains(";")|| ddlDepartment.dropBox.Text == "<Various>")
+            {
+                deptShortInfo = "Various Departments";
+                deptDetailInfo = RMMSummaryHelper.GetSelectedDepartmentsInfo(applicationContext, Convert.ToString(hdnaspDepartment.Value), enableDivision);
+            }
+            else if (ddlDepartment.dropBox.Text == "All")
+            {
+                deptShortInfo = "All Departments";
+                deptDetailInfo = ddlDepartment.dropBox.Text;
+            }
+            else
+            {
+                deptShortInfo = ddlDepartment.dropBox.Text;
+                deptDetailInfo = ddlDepartment.dropBox.Text;
+            }
+            DateTime fromDate = Convert.ToDateTime(hdndtfrom.Value);
+            DateTime toDate = Convert.ToDateTime(hdndtto.Value);
+            string pageHeaderInfo = string.Format("Resource Utilization: {0}; {1} to {2}", deptShortInfo, uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+
+            string reportFooterInfo = string.Format("\nSelection Criteria \n   {0}: {1}\n   {2}: {3} to {4}", "Departments", deptDetailInfo, "Date Range", uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+            if (userGroupGridLookup?.GridView?.GetSelectedFieldValues("Id")?.Count > 0)
+            {
+                List<string> gIds = userGroupGridLookup.GridView.GetSelectedFieldValues("Id").Select(x => (string)x).ToList();
+                string roleName = roleManager.Load(x => gIds.Contains(x.Id))?.Select(x => x.Name)?.Aggregate((x, y) => x + ", " + y) ?? string.Empty;
+                reportFooterInfo = reportFooterInfo + string.Format("\n {0}: {1}", "Role", roleName);
+            }
+            if (UGITUtility.ObjectToString(cmbResourceManager.Value) != "0")
+            {
+                reportFooterInfo = reportFooterInfo + string.Format("\n   {0}: {1}", "Manager", ObjUserProfileManager.GetUserNameById(UGITUtility.ObjectToString(cmbResourceManager.Value)));
+            }
+            if (!string.IsNullOrEmpty(glType.Text))
+            {
+                reportFooterInfo = reportFooterInfo + string.Format("\n   {0}: {1}", "Type", glType.Text);
+            }
+            if (chkAll.Checked)
+                reportFooterInfo = reportFooterInfo + string.Format("\n   All Resources Included.");
+            if (chkIncludeClosed.Checked)
+                reportFooterInfo = reportFooterInfo + string.Format("\n   Closed Projects Included.");
+
+            //reportFooterInfo = reportFooterInfo + string.Format("\n   {0}: {1} to {2}", "Date Range", uHelper.GetDateStringInFormat(applicationContext, fromDate, false), uHelper.GetDateStringInFormat(applicationContext, toDate, false));
+
+            DataTable dtGanttExport = new DataTable();
+            dtGanttExport = GetAllocationDataGantt();
+            gvPreview.DataSource = dtGanttExport;
+            gvPreview.DataBind();
+
+            ASPxGridViewExporter1.Landscape = true;
+
+            PrintingSystemBase ps = new PrintingSystemBase();
+            ps.PageSettings.Landscape = true;
+            ps.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            ps.PageSettings.LeftMargin = 5;
+            ps.PageSettings.RightMargin = 5;
+            ps.PageSettings.TopMargin = 5;
+            ps.PageSettings.BottomMargin = 5;
+
+            PrintableComponentLinkBase lnk = new PrintableComponentLinkBase(ps);
+            lnk.Component = ASPxGridViewExporter1;
+            lnk.PrintingSystemBase.Document.AutoFitToPagesWidth = 1;
+            lnk.PrintingSystemBase.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
+
+            CompositeLinkBase compositeLink = new CompositeLinkBase(ps);
+            compositeLink.Links.AddRange(new object[] { lnk });
+            compositeLink.Landscape = true;
+
+            // Handle the CreateMarginalHeaderArea event to add the header text on every page
+            compositeLink.CreateMarginalHeaderArea += (sender, _headerArgs) =>
+            {
+                TextBrick headerBrick = new TextBrick();
+                headerBrick.BackColor = Color.Transparent;
+                headerBrick.BorderColor = Color.Transparent;
+                headerBrick.Text = pageHeaderInfo;
+                headerBrick.Font = new Font("Arial", 10); // Customize font and size as needed
+
+                SizeF textSize = _headerArgs.Graph.MeasureString(pageHeaderInfo, headerBrick.Font);
+                float headerTextHeight = textSize.Height;
+                float headerTextWidth = textSize.Width + 5;
+                float headerTextX = (_headerArgs.Graph.ClientPageSize.Width - headerTextWidth) / 2;
+                float headerTextY = 10;
+                headerBrick.Rect = new RectangleF(headerTextX, headerTextY, headerTextWidth, headerTextHeight);
+                _headerArgs.Graph.DrawBrick(headerBrick);
+            };
+
+            // Create TextBrick objects for each line in the footer
+            List<TextBrick> footerBricks = new List<TextBrick>();
+
+            string[] footerLines = reportFooterInfo.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            float lineHeight = 20;
+
+            foreach (string line in footerLines)
+            {
+                TextBrick textBrick = new TextBrick();
+                textBrick.BackColor = Color.Transparent;
+                textBrick.BorderColor = Color.Transparent;
+                textBrick.Text = line;
+                textBrick.Font = new Font("Arial", 15);
+                footerBricks.Add(textBrick);
+            }
+
+            // Handle the CreateReportFooterArea event to add the footer
+            lnk.CreateReportFooterArea += (sender, footerArgs) =>
+            {
+                float y = 0; // Initial Y position
+                foreach (TextBrick textBrick in footerBricks)
+                {
+                    footerArgs.Graph.DrawBrick(textBrick, new RectangleF(0, y, footerArgs.Graph.ClientPageSize.Width, lineHeight));
+                    y += lineHeight; // Adjust Y position for the next line
+                }
+            };
+
+            compositeLink.CreateDocument();
+
+            // Handle the CreateMarginalFooterArea event to add the date and page number in the footer
+            compositeLink.CreateMarginalFooterArea += (sender, _footerArgs) =>
+            {
+                // Calculate the total page count after document creation
+                int totalPageCount = compositeLink.PrintingSystemBase.PageCount;
+
+                float footerWidth = _footerArgs.Graph.ClientPageSize.Width;
+
+                // Draw page number on the right side
+                PageInfoBrick pageInfoBrick = new PageInfoBrick();
+                pageInfoBrick.BackColor = Color.Transparent;
+                pageInfoBrick.BorderColor = Color.Transparent;
+                pageInfoBrick.PageInfo = PageInfo.NumberOfTotal;
+                pageInfoBrick.Format = "Page {0} of {1}";
+                pageInfoBrick.Font = new Font("Arial", 10); // Customize font and size as needed
+                pageInfoBrick.Alignment = BrickAlignment.Center;
+                float pageInfoWidth = 100; // Adjust the width as needed
+                pageInfoBrick.Rect = new RectangleF(footerWidth - pageInfoWidth, 10, pageInfoWidth, 20); // Adjust the position as needed
+                _footerArgs.Graph.DrawBrick(pageInfoBrick);
+
+                // Calculate the remaining width for the date brick
+                float dateWidth = footerWidth - pageInfoWidth;
+
+                // Draw custom date on the left side
+                TextBrick dateBrick = new TextBrick();
+                dateBrick.BackColor = Color.Transparent;
+                dateBrick.BorderColor = Color.Transparent;
+                dateBrick.Text = DateTime.Now.ToString("yyyy-MM-dd"); // Customize date format as needed
+                dateBrick.Font = new Font("Arial", 10); // Customize font and size as needed
+                dateBrick.Rect = new RectangleF(10, 10, dateWidth, 20); // Adjust the position as needed
+                _footerArgs.Graph.DrawBrick(dateBrick);
+            };
+            compositeLink.CreateDocument();
+            MemoryStream _mstream = new MemoryStream();
+            compositeLink.PrintingSystemBase.ExportToPdf(_mstream);
+            Session["_mstream"] = _mstream;
+            Session["exporttype"] = e.Parameter.ToString();
+        }
+
+        protected void response_btn_Click(object sender, EventArgs e)
+        {
+            MemoryStream stream = Session["_mstream"] as MemoryStream;
+            string exporttype = Session["exporttype"].ToString();
+            WriteToResponse("Resource Utilization Gantt", true, exporttype, stream);
+        }
+        protected void WriteToResponse(string fileName, bool saveAsFile, string fileFormat, MemoryStream stream)
+        {
+            if (Page == null || Page.Response == null) return;
+            string disposition = saveAsFile ? "attachment" : "inline";
+            Page.Response.Clear();
+            Page.Response.Buffer = false;
+            Page.Response.AppendHeader("Content-Type", string.Format("application/{0}", fileFormat));
+            Page.Response.AppendHeader("Content-Transfer-Encoding", "binary");
+            Page.Response.AppendHeader("Content-Disposition", string.Format("{0}; filename={1}.{2}", disposition, HttpUtility.UrlEncode(fileName).Replace("+", "%20"), fileFormat));
+            Page.Response.BinaryWrite(stream.ToArray());
+            try
+            {
+                Page.Response.Flush();
+                Page.Response.End();
+            }
+            catch (System.Threading.ThreadAbortException)
+            {
+
+            }
+        }
+        protected void gvPreview_DataBinding(object sender, EventArgs e)
+        {
+            if (allocationData == null)
+            {
+                try
+                {
+                    allocationData = GetAllocationDataGantt();
+                }
+                catch (Exception ex)
+                {
+                    ULog.WriteException(ex, ex.Message);
+                }
+
+                if (!stopToRegerateColumns)
+                    PrepareAllocationGridGantt();
+            }
+            gvPreview.DataSource = allocationData;
+
+        }
+        DateTime dtstartDate;
+        DateTime dtEndDate;
+        double ResourceFTE;
+        //double ResourceTotalFTE;
+        double pctSum;
+        string datePattern = @"^[A-Za-z]{3}-\d{2}-\d{2}[A-Za-z]$";
+
+        protected void gvResourceAvailablity_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+        {
+            if (e.RowType == DevExpress.Web.GridViewRowType.Data)
+            {
+                DataRow currentRow = gvResourceAvailablity.GetDataRow(e.VisibleIndex);
+                UserProfile userProfile = ObjUserProfileManager.GetUsersProfile().FirstOrDefault(x => x.Id.EqualsIgnoreCase(Convert.ToString(currentRow[DatabaseObjects.Columns.Id])));
+                if (userProfile == null)
+                    return;
+                string absoluteRowUrlView = "/layouts/ugovernit/DelegateControl.aspx?control={0}&pageTitle={1}&isdlg=1&isudlg=1&Type={2}&SelectedUsersList={3}";
+                absoluteRowUrlView = UGITUtility.GetAbsoluteURL(string.Format(absoluteUrlView, "addworkitem", "Add Allocation", "ResourceAllocation", userProfile.Id, chkIncludeClosed.Checked));
+                string userid = UGITUtility.ObjectToString(currentRow[DatabaseObjects.Columns.Id]);
+                string username = UGITUtility.ObjectToString(currentRow[DatabaseObjects.Columns.Resource]);
+                string func = string.Format("openResourceAllocationDialog('{0}','{1}','{2}')", absoluteRowUrlView, "Resource Utilization", Server.UrlEncode(Request.Url.AbsolutePath));
+                if (e.Row.Cells.Count > 1)
+                {
+                    bool isUserEnabled = userProfile.Enabled;
+                    string userLinkUrl = UGITUtility.GetAbsoluteURL(string.Format("/layouts/ugovernit/delegatecontrol.aspx?control=ResourceAllocationGridNew&ViewName=FindAvailability&isRedirectFromCardView=true&showuserresume=true&selecteddepartment=-1&SelectedResource={0}", userid));
+                    string TitleLink = string.Format("<a href='javascript:window.parent.UgitOpenPopupDialog(\"{0}\",\"\", \"Timeline for User : {1}\", \"90\",\"90\", false,\"{2}\")'>{3}</a>",
+                                                    userLinkUrl, username, Uri.EscapeDataString(Request.Path), isUserEnabled ? username : $"<span style =\"color:red;\">{username}</span>");
+
+                    if ((userEditPermisionList != null && userEditPermisionList.Exists(x => x.Id == userProfile.Id)) || isResourceAdmin)
+                    {
+                        if (isUserEnabled)
+                            e.Row.Cells[1].Text = string.Format("<div onmouseover='ShowEditImage(this)' onmouseout='HideEditImage(this)' >{0} {1}</div>", TitleLink, "<image style=\"padding-right:5px;visibility:hidden; width:20px\" src=\"/content/images//plus-blue.png\" onclick=\"javascript:" + func + "  \"  />");
+                        else
+                            e.Row.Cells[1].Text = string.Format("<div>{0} {1}</div>", TitleLink, "<image style=\"padding-right:5px;visibility:hidden; width:20px\" src=\"/content/images//plus-blue.png\" onclick=\"javascript:" + func + "  \"  />");
+                    }
+                }
+            }
+        }
+
+        protected void mnuExportOptions_ItemClick(object source, MenuItemEventArgs e)
+        {
+            string strCommand = e.Item.ToString();
+            btnexport = true;
+            allocationData = GetAllocationData();
+            for (int i = 0; i < allocationData.Columns.Count; i++)
+            {
+                if (allocationData.Columns[i].ColumnName != "ItemOrder" && allocationData.Columns[i].ColumnName != "ResourceUserAllocated" && allocationData.Columns[i].ColumnName != "Id" && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.Resource && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.ProjectCapacity && allocationData.Columns[i].ColumnName != DatabaseObjects.Columns.RevenueCapacity && allocationData.Columns[i].ColumnName != "Avrg Utilization" && allocationData.Columns[i].ColumnName != "Avrg Chargeable")
+                {
+                    for (int rows = 0; rows < allocationData.Rows.Count; rows++)
+                    {
+                        string displaymode = rbtnHrs.Checked == true ? "H" : rbtnItemCount.Checked == true ? "C" : rbtnPercentage.Checked == true ? "P" : rbtnFTE.Checked == true ? "F" : "A";
+                        string strResourceAllocationColorPalete = ObjConfigurationVariableManager.GetValue(ConfigConstants.ResourceAllocationColorPalete);
+
+                        string rowValue = allocationData.Rows[rows][allocationData.Columns[i].ColumnName].ToString();
+                        string newrowValue = !string.IsNullOrWhiteSpace(rowValue) ? GetValueFromInput(UGITUtility.ObjectToString(rowValue), displaymode) : "";
+                        double cellvalue = !string.IsNullOrWhiteSpace(rowValue) ? UGITUtility.StringToDouble(GetValueFromInput(UGITUtility.ObjectToString(rowValue), "P")) : 0;
+                        allocationData.Rows[rows][allocationData.Columns[i].ColumnName] = cellvalue > 0 ? newrowValue + ":" + Convert.ToString(cellvalue) : newrowValue;
+                    }
+                }
+            }
+
+            gvResourceAvailablity.DataSource = allocationData;
+
+            if (strCommand == "CSV")
+            {
+                CsvExportOptionsEx optionsEx = new CsvExportOptionsEx();
+                optionsEx.ExportType = DevExpress.Export.ExportType.WYSIWYG;
+                optionsEx.TextExportMode = TextExportMode.Text;
+                gridExporter.WriteCsvToResponse("Resource Utilization", true, optionsEx);
+            }
+            else
+            {
+                DevExpress.XtraPrinting.XlsExportOptionsEx options = new DevExpress.XtraPrinting.XlsExportOptionsEx();
+                options.ExportType = DevExpress.Export.ExportType.WYSIWYG;
+                options.TextExportMode = TextExportMode.Text;
+                gridExporter.WriteXlsToResponse("Resource Utilization", options);
+            }
+        }
+
+        protected void gvResourceAvailablity_BeforeHeaderFilterFillItems(object sender, ASPxGridViewBeforeHeaderFilterFillItemsEventArgs e)
+        {
+            isFilterApplying = true;
+            PrepareAllocationGrid();
+        }
+
+        protected void gvResourceAvailablity_HeaderFilterFillItems(object sender, ASPxGridViewHeaderFilterEventArgs e)
+        {
+            isFilterApplying = true;
+            PrepareAllocationGrid();
+        }
+
+        protected void gvResourceAvailablity_AfterPerformCallback(object sender, ASPxGridViewAfterPerformCallbackEventArgs e)
+        {
+            isFilterApplying = false;
+            PrepareAllocationGrid();
+            if (e.CallbackName == "APPLYHEADERCOLUMNFILTER" || e.CallbackName == "APPLYFILTER")
+            {
+                ShowClearFilter = IsFilterOn();  //!IsPreview && 
+                if (gvResourceAvailablity.JSProperties.ContainsKey("cpShowClearFilter"))
+                {
+                    gvResourceAvailablity.JSProperties["cpShowClearFilter"] = IsFilterOn(); //!IsPreview && 
+                }
+                else
+                {
+                    gvResourceAvailablity.JSProperties.Add("cpShowClearFilter", IsFilterOn()); // !IsPreview && 
+                }
+
+                if (gvResourceAvailablity.JSProperties.ContainsKey("cpClientID"))
+                {
+                    gvResourceAvailablity.JSProperties["cpClientID"] = customMessageContainer.ClientID; //!IsPreview && 
+                }
+                else
+                {
+                    gvResourceAvailablity.JSProperties.Add("cpClientID", customMessageContainer.ClientID); // !IsPreview && 
+                }
+            }
+        }
+        private bool IsFilterOn()
+        {
+            return (gvResourceAvailablity.FilterEnabled && !string.IsNullOrEmpty(gvResourceAvailablity.FilterExpression)); // (grid.SortCount > 0) ||
+        }
+
+        private void ClearALLFilters()
+        {
+            customMessageContainer.Style.Add("display", "none");
+            ShowClearFilter = false;
+        }
+
+        private void UISettingAfterFilter()
+        {
+            if (Page.IsPostBack)
+                return;
+
+            showClearFilter = IsFilterOn();
+        }
+
+        protected void gvResourceAvailablity_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+        {
+            try
+            {
+                var obj = gvResourceAvailablity.GetRow(e.VisibleIndex);
+                DateTime dtStart = DateTime.MinValue;
+                if (e.DataColumn.Caption == "#")
+                    e.Cell.Text = Convert.ToString(e.VisibleIndex + 1);
+                var dataRowView = obj as DataRowView;
+                UserProfile userProfile = ObjUserProfileManager.GetUsersProfile().FirstOrDefault(x => x.Id.EqualsIgnoreCase(UGITUtility.ObjectToString(dataRowView[DatabaseObjects.Columns.Id])));
+                if (e.DataColumn.FieldName != "ItemOrder" && e.DataColumn.FieldName != DatabaseObjects.Columns.Resource && e.DataColumn.FieldName != DatabaseObjects.Columns.ProjectCapacity && e.DataColumn.FieldName != DatabaseObjects.Columns.RevenueCapacity && e.DataColumn.Caption != "Avrg Utilization" && e.DataColumn.Caption != "Avrg Chargeable")
+                {
+                    DateTime.TryParse(e.DataColumn.FieldName, out dtStart);
+                    string displaymode = rbtnHrs.Checked == true ? "H": rbtnItemCount.Checked == true ? "C" : rbtnPercentage.Checked == true ? "P" : rbtnFTE.Checked == true ? "F" : "A";
+                    string strResourceAllocationColorPalete = ObjConfigurationVariableManager.GetValue(ConfigConstants.ResourceAllocationColorPalete);
+
+                    if (!string.IsNullOrEmpty(UGITUtility.ObjectToString(e.CellValue)))
+                    {
+                        string absoluteUrlEdit = string.Empty;
+                        absoluteUrlEdit = UGITUtility.GetAbsoluteURL(string.Format("/layouts/ugovernit/DelegateControl.aspx?control={0}&ID={1}&startDate={2}&endDate={3}&allocationType={4}&monthlyAllocationEdit=false&showtimeoff=true&IsRedirectFromUtilization=true&IncludeClosed={5}", editParam, userProfile.Id, dtStart.ToShortDateString(), dtStart.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dtStart) - 1).ToShortDateString(), rbtnEstimate.Checked == true ? ResourceAllocationType.Estimated : ResourceAllocationType.Planned, chkIncludeClosed.Value));
+                        string func = string.Format("openResourceAllocationDialog('{0}','{1}','{2}')", absoluteUrlEdit, formTitle, Server.UrlEncode(Request.Url.AbsolutePath));                        
+                        e.Cell.Attributes.Add("style", "cursor: pointer;");
+                        e.Cell.Attributes.Add("onclick", func);
+                        if (!string.IsNullOrEmpty(strResourceAllocationColorPalete))
+                        {
+                            Dictionary<string, string> cpResourceAllocationColorPalete = UGITUtility.GetCustomProperties(strResourceAllocationColorPalete, Constants.Separator);
+
+                            double cellvalue = UGITUtility.StringToDouble(GetValueFromInput(UGITUtility.ObjectToString(e.CellValue), "P"));
+                            e.Cell.Text = GetValueFromInput(UGITUtility.ObjectToString(e.CellValue), displaymode);
+                            if (displaymode == "P" || displaymode == "A")
+                                e.Cell.Text = e.Cell.Text + "%";
+
+                            if (cellvalue >= orange)
+                            {
+                                e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Orange]) + ";color:#fff>" + e.Cell.Text + "</div>"; //Orange
+                            }
+                            else if (cellvalue >= green && cellvalue < orange)
+                            {
+                                e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Green]) + ";color:#fff>" + e.Cell.Text + "</div>";//Green
+                            }
+                            else if (cellvalue >= gray && cellvalue < green)
+                            {
+                                e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Gray]) + ";color:#fff;>" + e.Cell.Text + "</div>";//Gray
+                            }
+                            else if (cellvalue >= red && cellvalue < gray)
+                            {
+                                e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Red]) + ";color:#fff;>" + e.Cell.Text + "</div>";//Red
+                            }
+                            else
+                            {
+                                e.Cell.Text = "<div>" + e.Cell.Text + "</div>";  //no color
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (userProfile.UGITStartDate < dtStart)
+                        {
+                            if (!string.IsNullOrEmpty(strResourceAllocationColorPalete))
+                            {
+                                Dictionary<string, string> cpResourceAllocationColorPalete = UGITUtility.GetCustomProperties(strResourceAllocationColorPalete, Constants.Separator);
+
+                                if (displaymode == "P")
+                                    e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Red]) + ";color:#fff;>0%</div>";
+                                else if (displaymode == "A")
+                                    e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Green]) + ";color:#fff;>100%</div>";
+                                else
+                                    e.Cell.Text = "<div style=background-color:" + UGITUtility.ObjectToString(cpResourceAllocationColorPalete[Constants.Red]) + ";color:#fff;>0</div>";
+                            }
+                        }
+                        else
+                            e.Cell.Text = "";
+                    }
+                    if (userProfile.UGITStartDate > dtStart ||  userProfile.UGITEndDate < dtStart)
+                    {
+                        e.Cell.Attributes.Remove("style");
+                        e.Cell.Attributes.Remove("onclick");
+                        e.Cell.Text = "";
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                ULog.WriteException(ex.ToString());
+            }
+
+        }
+        public string GetValueFromInput(string input, string condition)
+        {
+            string[] parts = input.Split('#');
+
+            foreach (string part in parts)
+            {
+                string[] keyValue = part.Split(':');
+
+                if (keyValue.Length == 2 && keyValue[0] == condition)
+                {
+                    return keyValue[1];
+                }
+            }
+
+            // Return an appropriate value if the condition is not found
+            return "Not found";
+        }
+        protected void gvPreview_CustomSummaryCalculate(object sender, DevExpress.Data.CustomSummaryEventArgs e)
+        {
+            #region group summary
+            if (e.IsGroupSummary)
+            {
+                if (e.SummaryProcess == CustomSummaryProcess.Start)
+                {
+                    dtstartDate = DateTime.MinValue;
+                    dtEndDate = DateTime.MinValue;
+                    pctSum = 0;
+                }
+
+                // Calculation. 
+                if (e.SummaryProcess == CustomSummaryProcess.Calculate)
+                {
+                    DevExpress.Web.ASPxSummaryItem item = ((DevExpress.Web.ASPxSummaryItem)e.Item);
+
+                    if (item.FieldName == "AllocationStartDate" && !string.IsNullOrEmpty(Convert.ToString(e.GetValue("AllocationStartDate"))))
+                    {
+                        if (dtstartDate == DateTime.MinValue)
+                            dtstartDate = Convert.ToDateTime(e.FieldValue);
+                        else if (Convert.ToDateTime(e.GetValue("AllocationStartDate")) < dtstartDate)
+                        {
+                            dtstartDate = Convert.ToDateTime(e.FieldValue);
+                        }
+                    }
+
+                    if (item.FieldName == "AllocationStartDate" && !string.IsNullOrEmpty(Convert.ToString(e.GetValue("PlannedStartDate"))))
+                    {
+                        if (dtstartDate == DateTime.MinValue)
+                            dtstartDate = Convert.ToDateTime(e.GetValue("PlannedStartDate"));
+                        else if (Convert.ToDateTime(e.GetValue("PlannedStartDate")) < dtstartDate)
+                        {
+                            dtstartDate = Convert.ToDateTime(e.GetValue("PlannedStartDate"));
+                        }
+                    }
+
+                    if (item.FieldName == "AllocationEndDate" && !string.IsNullOrEmpty(Convert.ToString(e.GetValue("AllocationEndDate"))))
+                    {
+                        if (dtEndDate == DateTime.MinValue)
+                            dtEndDate = Convert.ToDateTime(e.FieldValue);
+                        else if (Convert.ToDateTime(e.GetValue("AllocationEndDate")) > dtEndDate)
+                        {
+                            dtEndDate = Convert.ToDateTime(e.FieldValue);
+                        }
+                    }
+
+                    if (item.FieldName == "AllocationEndDate" && !string.IsNullOrEmpty(Convert.ToString(e.GetValue("PlannedEndDate"))))
+                    {
+                        if (dtEndDate == DateTime.MinValue)
+                            dtEndDate = Convert.ToDateTime(e.GetValue("PlannedEndDate"));
+                        else if (Convert.ToDateTime(e.GetValue("PlannedEndDate")) > dtEndDate)
+                        {
+                            dtEndDate = Convert.ToDateTime(e.GetValue("PlannedEndDate"));
+                        }
+                    }
+
+                    if (Regex.IsMatch(item.FieldName, datePattern))
+                    {
+                        bool softAllocationValue = UGITUtility.StringToBoolean(e.GetValue("SoftAllocation"));
+                        if (!softAllocationValue)
+                            pctSum += UGITUtility.StringToDouble(e.FieldValue);
+                    }
+                }
+                // Finalization.  
+                if (e.SummaryProcess == CustomSummaryProcess.Finalize)
+                {
+
+                    DevExpress.Web.ASPxSummaryItem item = ((DevExpress.Web.ASPxSummaryItem)e.Item);
+
+                    if (item.FieldName == "AllocationStartDate")
+                    {
+                        if (dtstartDate != DateTime.MinValue)
+                            e.TotalValue = dtstartDate.ToString("MMM-dd-yyyy");
+                        else
+                            e.TotalValue = "";
+
+                    }
+                    if (item.FieldName == "AllocationEndDate")
+                    {
+                        if (dtEndDate != DateTime.MinValue)
+                            e.TotalValue = dtEndDate.ToString("MMM-dd-yyyy");
+                        else
+                            e.TotalValue = "";
+                    }
+
+                    if (Regex.IsMatch(item.FieldName, datePattern))
+                    {
+                        e.TotalValue = pctSum;
+                    }
+                }
+            }
+            #endregion
+
+            #region total summary
+            if (e.IsTotalSummary)
+            {
+                if (e.SummaryProcess == CustomSummaryProcess.Start)
+                {
+                    ResourceFTE = 0.0;
+                    //ResourceTotalFTE = 0.0;
+                }
+
+                // Calculation. 
+                if (e.SummaryProcess == CustomSummaryProcess.Calculate)
+                {
+                    DevExpress.Web.ASPxSummaryItem item = ((DevExpress.Web.ASPxSummaryItem)e.Item);
+
+                    if (item.FieldName != DatabaseObjects.Columns.Resource && item.FieldName != DatabaseObjects.Columns.Id
+                        && item.FieldName != DatabaseObjects.Columns.Title && item.FieldName != "AllocationType"
+                        && item.FieldName != DatabaseObjects.Columns.AllocationStartDate
+                        && item.FieldName != DatabaseObjects.Columns.AllocationEndDate)
+                    {
+                        if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "")
+                            ResourceFTE += UGITUtility.StringToDouble(Convert.ToString(e.FieldValue));
+                    }
+
+                }
+                // Finalization.  
+                if (e.SummaryProcess == CustomSummaryProcess.Finalize)
+                {
+                    DevExpress.Web.ASPxSummaryItem item = ((DevExpress.Web.ASPxSummaryItem)e.Item);
+
+                    if (item.FieldName == DatabaseObjects.Columns.Title)
+                    {
+                        if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "ResourceItem")
+                            e.TotalValue = "Total Capacity";
+                        else
+                            e.TotalValue = "Allocated Demand";
+                    }
+
+                    if (item.FieldName != DatabaseObjects.Columns.Resource && item.FieldName != DatabaseObjects.Columns.Id && item.FieldName != DatabaseObjects.Columns.Title && item.FieldName != "AllocationType" && item.FieldName != DatabaseObjects.Columns.AllocationStartDate && item.FieldName != DatabaseObjects.Columns.AllocationEndDate)
+                    {
+                        string columnName = item.FieldName.Remove(item.FieldName.Length - 1);
+                        if (hdndisplayMode.Value == "Monthly")
+                        {
+                            int currentYear = Convert.ToInt32(DateTime.Now.Year);
+                            int selectedYear = Convert.ToInt32(Convert.ToDateTime(hdndtfrom.Value).ToString("yyyy"));
+
+                            if ((currentYear - selectedYear < -2) || (currentYear - selectedYear > 3))
+                            {
+                                if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE" && ds?.Tables?.Count > 2)
+                                {
+                                    if (UGITUtility.IfColumnExists(columnName, dsFooter.Tables[2]))
+                                        e.TotalValue = dsFooter.Tables[1].Rows[0][columnName];
+                                }
+                                else if (dsFooter?.Tables?.Count > 1)
+                                {
+                                    if (UGITUtility.IfColumnExists(columnName, dsFooter.Tables[1]))
+                                        e.TotalValue = dsFooter.Tables[0].Rows[0][columnName];
+                                }
+                            }
+                            else
+                            {
+                                if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE" && dsFooter != null)
+                                {
+                                    if (UGITUtility.IfColumnExists(columnName, dsFooter.Tables[1]))
+                                        e.TotalValue = dsFooter.Tables[1].Rows[0][columnName];
+                                }
+                                else if (dsFooter.Tables[0].Rows.Count > 0)
+                                {
+                                    if (UGITUtility.IfColumnExists(columnName, dsFooter.Tables[0]))
+                                        e.TotalValue = dsFooter.Tables[0].Rows[0][columnName];
+                                }
+                            }
+
+                        }
+                        else if (hdndisplayMode.Value == "Weekly")
+                        {
+                            if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE" && dsFooter?.Tables?.Count > 1)
+                            {
+                                if (UGITUtility.IfColumnExists(columnName, dsFooter.Tables[1]))
+                                    e.TotalValue = dsFooter.Tables[1].Rows[0][columnName];
+                            }
+                            else
+                            {
+                                if (UGITUtility.IfColumnExists(columnName, dsFooter.Tables[0]))
+                                    e.TotalValue = dsFooter.Tables[0].Rows[0][columnName];
+                            }
+                        }
+
+
+
+                        //foreach (UserProfile userProfile in lstActiveUsersIds)
+                        //{
+                        //    if (userProfile.UGITStartDate < UGITUtility.StringToDateTime(item.FieldName.Remove(item.FieldName.Length - 1)) && userProfile.UGITEndDate > UGITUtility.StringToDateTime(item.FieldName.Remove(item.FieldName.Length - 1)))
+                        //        ResourceTotalFTE++;
+                        //}
+
+                        //if (((DevExpress.Web.ASPxSummaryItemBase)(e.Item)).Tag == "TFTE")
+                        //{
+                        //    e.TotalValue = Math.Round(ResourceTotalFTE, 2);
+                        //}
+                        //else
+                        //{
+                        //    e.TotalValue = Math.Round(ResourceFTE / 100, 2);
+                        //}
+                    }
+                }
+            }
+            #endregion
+        }
+        #endregion
+        protected void ASPxGridViewExporter1_RenderBrick(object sender, ASPxGridViewExportRenderingEventArgs e)
+        {
+            #region GanttMnager
+
+            if (e.RowType == GridViewRowType.Header)
+            {
+                e.BrickStyle.Font = new Font("Arial", 11, FontStyle.Bold);
+                return;
+            }
+
+            GridViewDataColumn dataColumn = e.Column as GridViewDataColumn;
+
+            DateTime fromDate = Convert.ToDateTime(hdndtfrom.Value);
+            DateTime toDate = Convert.ToDateTime(hdndtto.Value);
+
+            string foreColor = "#000000";
+            string Estimatecolor = "#24b6fe";
+            string Assigncolor = "#24b6fe";
+            string moduleName = Convert.ToString(e.GetValue(DatabaseObjects.Columns.ModuleName));
+            if (lstEstimateColorsAndFontColors != null && lstEstimateColorsAndFontColors.Count > 0)
+            {
+                string value = Convert.ToString(lstEstimateColorsAndFontColors.FirstOrDefault(x => x.Contains(moduleName)));
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    Estimatecolor = UGITUtility.SplitString(value, Constants.Separator, 1);
+                    foreColor = UGITUtility.SplitString(value, Constants.Separator, 2);
+                }
+            }
+
+            if (lstAssignColorsAndFontColors != null && lstAssignColorsAndFontColors.Count > 0)
+            {
+                string value = Convert.ToString(lstAssignColorsAndFontColors.FirstOrDefault(x => x.Contains(moduleName)));
+                Assigncolor = UGITUtility.SplitString(value, Constants.Separator, 1);
+                //foreColor = UGITUtility.SplitString(value, Constants.Separator, 2);
+            }
+
+            if (dataColumn != null)
+            {
+                e.BrickStyle.BorderWidth = 1;
+                e.Column.ExportCellStyle.Wrap = DevExpress.Utils.DefaultBoolean.True;
+                if (dataColumn.FieldName != DatabaseObjects.Columns.Resource && dataColumn.FieldName != "AllocationType" && dataColumn.FieldName != DatabaseObjects.Columns.AllocationStartDate && dataColumn.FieldName != DatabaseObjects.Columns.AllocationEndDate && dataColumn.FieldName != DatabaseObjects.Columns.Title)
+                {
+                    e.BrickStyle.TextAlignment = TextAlignment.MiddleCenter;
+                    int defaultBarH = 12;
+                    if (DisablePlannedAllocation)
+                        defaultBarH = 24;
+                    string html;
+                    DateTime plndD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.PlannedStartDate));
+                    DateTime estD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.AllocationStartDate));
+                    string type = UGITUtility.ObjectToString(e.GetValue("ProjectNameLink"));
+
+                    string tickId = string.Empty;
+                    string allStartDates = string.Empty;
+                    string allEndDates = string.Empty;
+                    //DateTime oPreconStart = DateTime.MinValue;
+                    //DateTime oPreconEnd = DateTime.MinValue;
+                    //DateTime oConstStart = DateTime.MinValue;
+                    //DateTime oConstEnd = DateTime.MinValue;
+                    //DateTime oCloseout = DateTime.MinValue;
+
+                    DateTime aStartDate = DateTime.MinValue;
+                    DateTime aEndDate = DateTime.MinValue;
+                    DateTime aPreconStart = DateTime.MinValue;
+                    DateTime aPreconEnd = DateTime.MinValue;
+                    DateTime aConstStart = DateTime.MinValue;
+                    DateTime aConstEnd = DateTime.MinValue;
+                    DateTime aCloseout = DateTime.MinValue;
+                    string id = string.Empty;
+                    bool aSoftAllocation = true;
+                    string project = string.Empty;
+                    string allocId = string.Empty;
+                    if (e.VisibleIndex > 0)
+                    {
+                        DataRow row = gvPreview.GetDataRow(e.VisibleIndex);
+                        tickId = row[DatabaseObjects.Columns.TicketId].ToString();
+                        aStartDate = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.AllocationStartDate]);
+                        aEndDate = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.AllocationEndDate]);
+                        aPreconStart = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.PreconStartDate]);
+                        aPreconEnd = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.PreconEndDate]);
+                        aConstStart = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.EstimatedConstructionStart]);
+                        aConstEnd = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.EstimatedConstructionEnd]);
+                        aCloseout = UGITUtility.StringToDateTime(row[DatabaseObjects.Columns.CloseoutDate]);
+                        aSoftAllocation = UGITUtility.StringToBoolean(row[DatabaseObjects.Columns.SoftAllocation]);
+                        project = UGITUtility.ObjectToString(row[DatabaseObjects.Columns.Title]);
+                        id = row[DatabaseObjects.Columns.Id].ToString();
+                        allocId = UGITUtility.ObjectToString(row[DatabaseObjects.Columns.AllocationID]);
+
+                        allStartDates = UGITUtility.ObjectToString(row["AllStartDates"]);
+                        allEndDates = UGITUtility.ObjectToString(row["allEndDates"]);
+                    }
+
+                    //if (tickId != "CPR-23-000628")
+                    //    return;
+                    DateTime dateF = Convert.ToDateTime(dateFrom);
+                    DateTime dateT = Convert.ToDateTime(dateTo);
+                    for (DateTime dt = dateF; dateT > dt; dt = dt.AddDays(GetDaysForDisplayMode(hdndisplayMode.Value, dt)))
+                    {
+                        html = "";
+                        if (dataColumn.FieldName == dt.ToString("MMM-dd-yy") + "E")
+                        {
+                            string estAlloc = Convert.ToString(e.GetValue(dt.ToString("MMM-dd-yy") + "E"));
+                            string roundleftbordercls = string.Empty;
+                            string roundrightbordercls = string.Empty;
+                            string backgroundColor = string.Empty;
+                            if (aStartDate == DateTime.MinValue || aEndDate == DateTime.MinValue)
+                            {
+                                if (e.Text == "0")
+                                    e.Text = "0%";
+                                return;
+                            }
+                            // classed to set round corners on bar end points
+                            if (hdndisplayMode.Value != "Weekly")
+                            {
+                                if (aStartDate.Year < dt.Year && dt.Month == 1)
+                                {
+                                    roundleftbordercls = "RoundLeftSideCorner";
+                                }
+                                if (aEndDate.Year > dt.Year && dt.Month == 12)
+                                {
+                                    roundrightbordercls = "RoundRightSideCorner";
+                                }
+                                if (aStartDate.Month == dt.Month && aStartDate.Year == dt.Year)
+                                {
+                                    roundleftbordercls = "RoundLeftSideCorner";
+                                }
+                                if (aEndDate.Month == dt.Month && aEndDate.Year == dt.Year)
+                                {
+                                    roundrightbordercls = "RoundRightSideCorner";
+                                }
+                            }
+                            else if (hdndisplayMode.Value == "Weekly")
+                            {
+
+                                if (aStartDate >= dt && aStartDate.AddDays(-6) < dt)
+                                {
+                                    roundleftbordercls = "RoundLeftSideCorner";
+                                }
+                                if (aEndDate >= dt && aEndDate <= dt.AddDays(6))
+                                {
+                                    roundrightbordercls = "RoundRightSideCorner";
+                                }
+                            }
+
+                            backgroundColor = GetGanttCellBackGroundColor(aPreconStart, aPreconEnd, aConstStart, aConstEnd, dt);
+
+                            if (dt.Month == aConstStart.Month && dt.Month == aPreconEnd.Month)
+                            {
+                                if (aEndDate <= aPreconEnd)
+                                {
+                                    backgroundColor = "preconbgcolor";
+                                }
+                            }
+
+                            if (!string.IsNullOrEmpty(estAlloc) && estAlloc != "0")
+                            {
+                                if (aSoftAllocation)
+                                    backgroundColor = "#ecf1f9";
+                                if (moduleName != null && moduleName.Equals("Time Off"))
+                                {
+                                    backgroundColor = "#909090"; //ptobgcolor
+                                    html = GeneratePtoCard(dt, id, defaultBarH, type);
+                                    //e.     CssClass += " ptoAlignmentClass";
+                                    e.Text = estAlloc + "%"; //html;
+                                    e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(backgroundColor);
+                                    e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+
+                                }
+                                else
+                                {
+                                    estAlloc = estAlloc + "%";
+                                    e.Column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                                    int NoOfDays = 0;
+                                    int remainingDays = 0;
+                                    string widthEstAlloc = string.Empty;
+
+                                    if (aStartDate.Month == dt.Month && aStartDate.Year == dt.Year)
+                                    {
+                                        NoOfDays = aStartDate.Day;
+                                        remainingDays = 30 - NoOfDays;
+                                        widthEstAlloc = Convert.ToString((remainingDays * 100) / 30);
+                                        roundleftbordercls = "RoundLeftSideCorner";
+                                        backgroundColor = GetGanttCellBackGroundColor(aPreconStart, aPreconEnd, aConstStart, aConstEnd, aStartDate);
+                                    }
+                                    else if (aEndDate.Month == dt.Month && aEndDate.Year == dt.Year)
+                                    {
+                                        NoOfDays = aEndDate.Day;
+                                        widthEstAlloc = Convert.ToString((NoOfDays * 100) / 30);
+                                        roundrightbordercls = "RoundRightSideCorner";
+                                        roundleftbordercls = "";
+                                        backgroundColor = GetGanttCellBackGroundColor(aPreconStart, aPreconEnd, aConstStart, aConstEnd, aEndDate);
+                                    }
+
+
+                                    if (dt.Month == aConstStart.Month && dt.Month == aPreconEnd.Month)
+                                    {
+                                        if (aEndDate <= aPreconEnd)
+                                        {
+                                            NoOfDays = aEndDate.Day;
+                                            widthEstAlloc = Convert.ToString((NoOfDays * 100) / 30);
+                                        }
+                                    }
+
+                                    if (!string.IsNullOrEmpty(widthEstAlloc))
+                                    {
+                                        if (Convert.ToInt32(widthEstAlloc) >= 50)
+                                        {
+                                            //if (roundleftbordercls == "RoundLeftSideCorner")
+                                            //{
+                                            //    //html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:right;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+
+                                            //    e.Text = estAlloc;
+                                            //    e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(Estimatecolor);
+                                            //    e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml(foreColor);
+                                            //}
+                                            //else if (roundrightbordercls == "RoundRightSideCorner")
+                                            //{
+                                            //    html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                            //}
+                                            //else
+                                            //{
+                                            //    html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:100%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                            //}
+
+                                            e.Text = estAlloc;
+                                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(backgroundColor);
+                                            if (backgroundColor == "#005C9B"
+                                                || backgroundColor == "#351B82"
+                                                || backgroundColor == "#52BED9"
+                                                || backgroundColor == "#3F6DB8"
+                                                || backgroundColor == "#3E6CB6"
+                                                )
+                                            {
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+                                            }
+                                            else
+                                            {
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml(foreColor);
+                                            }
+                                            //e.BrickStyle.Padding = new DevExpress.XtraPrinting.PaddingInfo(50, 0, 0, 0);
+                                        }
+                                        else
+                                        {
+                                            //if (roundleftbordercls == "RoundLeftSideCorner")
+                                            //{
+                                            //    html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:right;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'></div>";
+                                            //}
+                                            //else if (roundrightbordercls == "RoundRightSideCorner")
+                                            //{
+                                            //    html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:{widthEstAlloc}%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'></div>";
+                                            //}
+                                            //else
+                                            //{
+                                            //    html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:100%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                            //}
+
+                                            e.Text = estAlloc;
+                                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(backgroundColor);
+                                            if (backgroundColor == "#005C9B"
+                                                || backgroundColor == "#351B82"
+                                                || backgroundColor == "#52BED9"
+                                                || backgroundColor == "#3F6DB8"
+                                                || backgroundColor == "#3E6CB6"
+                                                )
+                                            {
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+                                            }
+                                            else
+                                            {
+                                                e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml(foreColor);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //html = $"<div class='{roundleftbordercls} {roundrightbordercls} {backgroundColor}' style='float:left;width:100%;color:{foreColor};background-color: {Estimatecolor};height: {defaultBarH}px;padding-top:4px;'>{estAlloc}</div>";
+                                        e.Text = estAlloc;
+                                        e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(backgroundColor);
+
+                                        if (backgroundColor == "#005C9B"
+                                                || backgroundColor == "#351B82"
+                                                || backgroundColor == "#52BED9"
+                                                || backgroundColor == "#3F6DB8"
+                                                || backgroundColor == "#3E6CB6"
+                                                )
+                                        {
+                                            e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+                                        }
+                                        else
+                                        {
+                                            e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml(foreColor);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //UserProfile userProfile = ObjUserProfileManager.GetUsersProfile().FirstOrDefault(x => x.Id.EqualsIgnoreCase(id));
+                                //if (userProfile != null && userProfile.UGITStartDate < dt && userProfile.UGITEndDate >= dt)
+                                //    e.Text = "0%";
+                                //else
+                                    e.Text = "";
+                            }
+                            //e.Text = html;
+                            //e.Value = html;
+                            //sets alternate color to columns
+                            //if (dataColumn.VisibleIndex % 2 == 0)
+                            //    e.BrickStyle.BackColor = Color.WhiteSmoke;
+                        }
+
+
+                    }
+                }
+            }
+            #endregion
+
+            #region allocationCode
+            //if (e.RowType == GridViewRowType.Header)
+            //    return;
+            //GridViewDataColumn dataColumn = e.Column as GridViewDataColumn;
+            //string Estimatecolor = "#24b6fe";
+            //string moduleName = "";
+            //bool rbtnFTE = false;
+            //bool chkIncludeClosed = false;
+            //List<SummaryResourceProjectComplexity> rComplexity = new List<SummaryResourceProjectComplexity>();
+            //if (e.RowType == GridViewRowType.Group)
+            //{
+            //    user = profileManager.GetUserInfoByIdOrName(e.Text);
+
+            //    if (string.IsNullOrEmpty(selectedCategory))
+            //        rComplexity = cpxManager.Load(x => x.UserId.EqualsIgnoreCase(user.Id));
+            //    else
+            //        rComplexity = cpxManager.Load(x => x.UserId.EqualsIgnoreCase(user.Id) && selectedCategory.Split(new string[] { "#" }, StringSplitOptions.RemoveEmptyEntries).ToList().Any(y => x.ModuleNameLookup.Contains(y)));
+
+            //    //e.Text = fieldConfigMgr.GetFieldConfigurationData(fieldConfig, e.Text);
+
+            //    if (rComplexity.Count() > 0)
+            //    {
+            //        if (chkIncludeClosed == false) //(chkIncludeClosed.Value == false)
+            //            e.Text = string.Format("{2}\t# Active: {0}/$ Active: {1}", rComplexity.Sum(x => x.Count), UGITUtility.FormatNumber(rComplexity.Sum(x => x.HighProjectCapacity), "currency"), e.Text);
+            //        else
+            //            e.Text = string.Format("{2}\t# Lifetime: {0}/$ Lifetime: {1}", rComplexity.Sum(x => x.AllCount), UGITUtility.FormatNumber(rComplexity.Sum(x => x.AllHighProjectCapacity), "currency"), e.Text);
+            //    }
+
+            //    e.BrickStyle.Font = new Font(FontFamily.GenericSerif, 10, FontStyle.Bold);
+            //    e.BrickStyle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#4A90E2");
+            //    e.BrickStyle.Sides = DevExPrinting.BorderSide.Bottom;
+            //    e.BrickStyle.BorderColor = System.Drawing.ColorTranslator.FromHtml("#d9dae0");//Grey border lines
+            //    e.BrickStyle.BackColor = System.Drawing.Color.White;
+            //}
+
+            //if (e.RowType == GridViewRowType.Data && dataColumn != null)
+            //{
+            //    e.BrickStyle.Sides = DevExPrinting.BorderSide.Bottom | DevExPrinting.BorderSide.Top;
+            //    e.BrickStyle.BorderColor = System.Drawing.Color.White;
+            //    e.BrickStyle.BorderWidth = 0;
+            //    e.BrickStyle.BorderStyle = DevExpress.XtraPrinting.BrickBorderStyle.Inset;
+            //    moduleName = Convert.ToString(e.GetValue(DatabaseObjects.Columns.ModuleName));
+            //    if (moduleName == "GroupTotalRow")
+            //    {
+            //        e.BrickStyle.BackColor = System.Drawing.Color.AliceBlue;
+            //        e.BrickStyle.BorderColor = System.Drawing.Color.White;
+            //        e.BrickStyle.BorderWidth = 6;
+            //    }
+            //    if (dataColumn.FieldName == "AllocationStartDate" || dataColumn.FieldName == "AllocationEndDate")
+            //    {
+            //        if (string.IsNullOrEmpty(e.Text.ToString()))
+            //            e.Text = "01/01/1900";
+            //        e.Text = string.Format("{0:MMM dd, yyyy}", Convert.ToDateTime(e.Text));
+            //    }
+            //    if (dataColumn.FieldName != DatabaseObjects.Columns.Resource && dataColumn.FieldName != "AllocationType" && dataColumn.FieldName != DatabaseObjects.Columns.AllocationStartDate && dataColumn.FieldName != DatabaseObjects.Columns.AllocationEndDate && dataColumn.FieldName != DatabaseObjects.Columns.Title)
+            //    {
+            //        DateTime plndD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.PlannedStartDate));
+            //        DateTime estD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.AllocationStartDate));
+            //        string foreColor = "#000000";
+            //        for (DateTime dt = dateFrom; dateTo > dt; dt = dt.AddDays(GetDaysForDisplayMode("Monthly", dt)))
+            //        {
+            //            if (rbtnFTE) //(rbtnFTE.Checked || rbtnBar.Checked)
+            //            {
+
+            //                if (dataColumn.FieldName == dt.ToString("MMM-dd-yy") + "E")
+            //                {
+            //                    string estAlloc = Convert.ToString(e.GetValue(dt.ToString("MMM-dd-yy") + "E"));
+            //                    string AssignAlloc = Convert.ToString(e.GetValue(dt.ToString("MMM-dd-yy") + "A"));
+
+            //                    string html = string.Empty;
+            //                    if (!string.IsNullOrEmpty(estAlloc))
+            //                    {
+            //                        // html = estAlloc + "% <br>";
+            //                        html = string.Format("{0:0.00}", Math.Round(UGITUtility.StringToDouble(estAlloc) / 100, 2));
+            //                    }
+
+            //                    if (!string.IsNullOrEmpty(AssignAlloc) & plndD != DateTime.MinValue)
+            //                    {
+            //                        // html += AssignAlloc + "%";
+            //                        html += string.Format("{0:0.00}", Math.Round(UGITUtility.StringToDouble(AssignAlloc) / 100, 2));
+            //                    }
+
+            //                    e.Text = html;
+
+            //                    //if (!string.IsNullOrEmpty(estAlloc) && !estAlloc.Equals("0"))
+            //                    //{
+            //                    //    e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(Estimatecolor);
+            //                    //}
+            //                }
+            //            }
+            //            else
+            //            {
+            //                //DateTime plndD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.PlannedStartDate));
+            //                //DateTime estD = UGITUtility.StringToDateTime(e.GetValue(DatabaseObjects.Columns.AllocationStartDate));
+            //                string estAlloc;
+            //                if (dataColumn.FieldName == dt.ToString("MMM-dd-yy") + "E")
+            //                {
+            //                    object estAllocValue = e.GetValue(dt.ToString("MMM-dd-yy") + "E");
+            //                    if (estAllocValue != System.DBNull.Value)
+            //                        estAlloc = Math.Ceiling(Convert.ToDecimal(e.GetValue(dt.ToString("MMM-dd-yy") + "E"))).ToString();
+            //                    else
+            //                        estAlloc = Convert.ToString(e.GetValue(dt.ToString("MMM-dd-yy") + "E"));
+            //                    string AssignAlloc = Convert.ToString(e.GetValue(dt.ToString("MMM-dd-yy") + "A"));
+
+            //                    string html = string.Empty;
+            //                    if (!string.IsNullOrEmpty(estAlloc) && !estAlloc.Equals("0"))
+            //                    {
+            //                        html = $"{estAlloc}%";
+            //                    }
+
+            //                    if (!string.IsNullOrEmpty(AssignAlloc) & plndD != DateTime.MinValue)
+            //                    {
+            //                        html += $"{AssignAlloc}%";
+            //                    }
+
+            //                    e.Text = html;
+            //                    //create bars with module specific colours
+            //                    if (moduleName != "GroupTotalRow")
+            //                    {
+            //                        if (lstEstimateColorsAndFontColors != null)
+            //                        {
+            //                            string value = Convert.ToString(lstEstimateColorsAndFontColors.FirstOrDefault(x => x.Contains(moduleName)));
+            //                            if (!string.IsNullOrWhiteSpace(value))
+            //                            {
+            //                                Estimatecolor = UGITUtility.SplitString(value, Constants.Separator, 1);
+            //                                foreColor = UGITUtility.SplitString(value, Constants.Separator, 2);
+            //                            }
+            //                        }
+            //                        //if (moduleName == "Time Off" || moduleName == "CNS")
+            //                        //    e.BrickStyle.ForeColor = System.Drawing.Color.White;
+            //                        e.BrickStyle.ForeColor = ColorTranslator.FromHtml(foreColor);
+            //                        if (!string.IsNullOrEmpty(estAlloc) && !estAlloc.Equals("0"))
+            //                        {
+            //                            e.BrickStyle.BackColor = System.Drawing.ColorTranslator.FromHtml(Estimatecolor);
+            //                            e.BrickStyle.BorderColor = System.Drawing.Color.White;
+            //                            e.BrickStyle.BorderWidth = 6;
+            //                        }
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    if (!string.IsNullOrEmpty(e.Text) && !e.Text.Contains("%"))
+            //                    {
+            //                        e.Text = $"{e.Text}%";
+            //                    }
+            //                }
+            //            }
+
+            //        }
+            //    }
+            //}
+            #endregion
+        }
+
+        public static string GetGanttCellBackGroundColor(DateTime aPreconStart, DateTime aPreconEnd, DateTime aConstStart, DateTime aConstEnd, DateTime dt)
+        {
+            string backgroundColor;
+            DateTime dtEnd = new DateTime(dt.Year, dt.Month, DateTime.DaysInMonth(dt.Year, dt.Month));
+            ////classes to set color based on dates
+            if ((dt >= aPreconStart && dt <= aPreconEnd) && (dtEnd >= aConstStart && dtEnd <= aConstEnd))
+                backgroundColor = "#3E6CB6"; //preconbgcolor-constbgcolor
+            else if ((dt >= aConstStart && dt <= aConstEnd) && (aConstEnd != DateTime.MinValue && dtEnd >= aConstEnd))
+                backgroundColor = "#3F6DB8"; //constbgcolor-closeoutbgcolor
+            else if (dt >= aPreconStart && dt <= aPreconEnd)
+                backgroundColor = "#52BED9"; //preconbgcolor
+            else if (dt >= aConstStart && dt <= aConstEnd)
+                backgroundColor = "#005C9B"; //constbgcolor
+            else if (aConstEnd != DateTime.MinValue && dt >= aConstEnd)
+                backgroundColor = "#351B82"; //closeoutbgcolor
+            else
+                backgroundColor = "#D6DAD9"; // if allocation does not falls in any stage consider it as precon stage
+            return backgroundColor;
+        }
+
+    }
+
+    enum DisplayMode
+    {
+        Daily,
+        Weekly,
+        Monthly,
+        HalfYearly,
+        Yearly
+    }
+}

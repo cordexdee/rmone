@@ -1,0 +1,182 @@
+﻿
+
+@{
+//Helper objHelper = new Helper();
+//var rootMenu = objHelper.MenuList(); //ViewBag.role;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @{
+        var AssemblyVersion = ViewBag.AssemblyVersion;
+    }
+
+    @Styles.Render("~/Content/commoncss")
+    @Styles.Render("~/Content/DashboardCss")
+    @*@Styles.Render("~/Content/adminfont")*@
+    @Styles.Render("~/Content/DashboardCss")
+
+    @Scripts.Render("~/bundles/commonjs")
+    @Scripts.Render("~/bundles/DashboardJs")
+    
+    
+
+    <link href="~/Content/CSS/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/CSS/Dashboard/style.css" rel="stylesheet" />
+    <title>uGoventIT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ 
+
+   
+
+</head>
+<body>
+    <div class="page-container">
+        <!--/content-inner-->
+        <div class="left-content">
+            <div class="inner-content">
+                <!-- header-starts -->
+
+                <div class="header_bg">
+
+                    <div class="header">
+                        <div class="jumbotron" style="padding: 20px;background: none;">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-6 col-md-6 col-6">
+                                    <div class="col-sm-6 col-md-6 col-6 logoText1" style="display:none;">
+                                        <p style="color: #4A6EE1;font-size: 24px;">uGoventIT </p>
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-6 search">
+                                        <input type="submit" value="">
+                                        <input type="text" value="" placeholder="search...">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-6">
+                                    <div class="rectangle col-sm-2">
+                                        <img src="~/Content/Images/AppIcon/serviece_management.png" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" aria-hidden="true" style="font-size: 75px;" align="center">
+                                    </div>
+                                    <div class="rectangle col-sm-2">
+                                        <img src="~/Content/Images/AppIcon/question_mark.png" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" aria-hidden="true" style="font-size: 75px;" align="center">
+                                    </div>
+                                    <div class="rectangle col-sm-2">
+                                        <span><i class="fa fa-bell" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" aria-hidden="true" style="font-size: 75px;" align="center"></i></span>
+                                    </div>
+
+
+                                    <div class="post-container col-sm-6">
+                                        <div class="post-thumb"><img src="~/Content/Images/AppIcon/user.png" /> </div>
+                                        <div class="post-title">Rupnesh Sharma</div>
+                                        <div class="post-content" style="font-size: 10px !important;">Super Administrator</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- //header-ends -->
+                <!--content-->
+                @Html.Partial("_DashboardSummary")
+                <div>
+                    @RenderBody()
+                </div>
+                <!--content-->
+            </div>
+        </div>
+        <!--//content-inner-->
+        <!--/sidebar-menu-->
+        <div class="sidebar-menu">
+            <header class="logo1">
+                <h3 style="color: #4A6EE1;"><span class="logoText" style="display:block; float: left;">uGoventIT </span><a href="#" class="sidebar-icon"> <!--<span class="fa fa-bars"></span>--> <img src="~/Content/Images/AppIcon/menu-open.png" /> </a> </h3>
+            </header>
+            <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+            <div class="menu">
+                <ul id="menu">
+
+                    <li id="menu-academico">
+                        <a href="#"><!--<i class="fa fa-table"></i>--> <img class="sideicon" src="~/Content/Images/AppIcon/service_management_gray.png" /> <span> Service Management</span>  <span class="fa fa-angle-right" style="float: right"></span></a>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes"><a href="#">Services</a></li>
+                            <li id="menu-academico-avaliacoes"><a href="#">Problem Resolution</a></li>
+                            <li id="menu-academico-boletim"><a href="#">Technical Service Request</a></li>
+                            <li id="menu-academico-avaliacoes"><a href="#">Application Change Request</a></li>
+                            <li id="menu-academico-avaliacoes"><a href="#">Change Management</a></li>
+                            <li id="menu-academico-boletim"><a href="#">Bug Tracking</a></li>
+                            <li id="menu-academico-boletim"><a href="#">Outage Incidents</a></li>
+                            <li id="menu-academico-boletim"><a href="#">Root Cause Analysis</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-academico">
+                        <a href="#"><!--<i class="fa fa-table"></i>--> <img class="sideicon" src="~/Content/Images/AppIcon/project_management_gray.png" /> <span> Project Management</span>  <span class="fa fa-angle-right" style="float: right"></span></a>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes"><a href="#">1</a></li>
+                            <li id="menu-academico-avaliacoes"><a href="#">2</a></li>
+                            <li id="menu-academico-boletim"><a href="#">3</a></li>
+                        </ul>
+                    </li>
+
+                    <li id="menu-academico">
+                        <a href="#"><!--<i class="lnr lnr-layers"></i>--> <img class="sideicon" src="~/Content/Images/AppIcon/resource_management_gray.png" /> <span>Resource Management</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes"><a href="tabs.html">1</a></li>
+                            <li id="menu-academico-boletim"><a href="calender.html">2</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><!--<i class="lnr lnr-chart-bars"></i>--> <img class="sideicon" src="~/Content/Images/AppIcon/dashboard_gray.png" /> <span>Dashboard & Reports</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                        <ul>
+                            <li><a href="input.html"> 1</a></li>
+                            <li><a href="validation.html">2</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><!--<i class="lnr lnr-chart-bars"></i>--> <img class="sideicon" src="~/Content/Images/AppIcon/vendor_management_gray.png" /> <span>Vendor Management</span> <span class="fa fa-angle-right" style="float: right"></span></a>
+                        <ul>
+                            <li><a href="input.html"> 1</a></li>
+                            <li><a href="validation.html">2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+
+        <div style="padding-top: 10px;">
+            <footer></footer>
+        </div>
+    </div>
+    @*<script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/Dashboard/dashboard.js"></script>*@
+
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion + "'></script>", "~/Scripts/bootstrap.min.js")
+    @Scripts.RenderFormat("<script type='text/javascript' src='{0}?v=" + AssemblyVersion + "'></script>", "~/Scripts/dashboard.js")
+
+    <script>
+        var toggle = true;
+
+        $(".sidebar-icon").click(function () {
+            if (toggle) {
+                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                $("#menu span").css({ "position": "absolute" });
+            }
+            else {
+                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                setTimeout(function () {
+                    $("#menu span").css({ "position": "relative" });
+                }, 400);
+            }
+
+            toggle = !toggle;
+        });
+    </script>
+</body>
+</html>

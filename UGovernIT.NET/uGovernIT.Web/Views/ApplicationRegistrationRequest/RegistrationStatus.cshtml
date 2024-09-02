@@ -1,0 +1,273 @@
+﻿@model uGovernIT.Utility.ApplicationRegistrationRequest
+@{var serviceID = ViewBag.ServiceID;}
+@*    <div id="requestDiv">
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm("RegistrationStatus", "ApplicationRegistrationRequest", FormMethod.Post, new { id = "frmRegistrationStatus", name = "frmRegistrationStatus", role = "form", enctype = "multipart/form-data" }))
+                {
+                    <div>
+                        <h3> Application Registration Status</h3>
+                    </div>
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="col-md-3 control-label">
+                                <label class="col-md-5 control-label" style="float: right;">
+                                    Name of organization
+                                </label>
+                            </td>
+                            <td>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(x => x.OrganizationName, new { @class = "form-control .style-jk7rq51v" })
+                                    @Html.ValidationMessageFor(x => x.OrganizationName, "", new { @class = "text-danger" })
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3 control-label">
+                                <label class="col-md-5 control-label" style="float: right;">
+                                    Email ID
+                                </label>
+                            </td>
+                            <td>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "text-danger" })
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-4"></td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input type="submit" value="Submit" class="btn btn-success btn-sm" style="font-size:14px; height: 33px; width: 80px;" />
+                                    <span class="registrationRequest-loading" style="display:none"><i class=" icon-spinner icon-spin icon-2x"></i></span>
+                                    <input type="button" id="Reset" class="btn btn-primary" value="Reset" style="font-size:14px; height: 33px; width: 80px;" onclick="resetAll()" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+           $(function () {
+               $('#frmRegistrationStatus').ajaxForm({
+                   beforeSubmit: function (formData, jqForm, options) {
+                       $('.registrationRequest-loading').show();
+                       $('input').attr('disabled', 'disabled');
+                },
+                success: function (responseText, statusText, xhr, $form) {
+                    $('.registrationRequest-loading').hide();
+                    if (typeof responseText != 'object' || responseText.success == 0) {
+                        AdminCommon.showMessage(responseText.message, true, 'error', null, { timeOut: 2000 });
+                    }
+                    else {
+                        AdminCommon.showMessage('You have requested for application registration', true, 'success', null, { timeOut: 2000 });
+                        //AdminCommon.refresh() //commented this line to fix undefined mesg. & validation mesg. display issues.
+                        setTimeout(function () { window.location = "@Url.Content("~/ApplicationRegistrationRequest/Index")" }, 2500);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('.registrationRequest-loading').hide();
+                    AdminCommon.showMessage('Error to register request', true, 'error', null, { timeOut: 2000 });
+                },
+                complete: function () {
+                    $('input').attr('disabled', false);
+                    $('select').attr('disabled', false);
+                }
+               });
+           });
+           resetAll = function () {
+               $('#frmRegistrationStatus input[type="text"]').val('');
+               $('#frmRegistrationStatus select').val("");
+               $('.field-validation-error').empty();
+           }
+
+           function openTicketDialog(path, params, titleVal, width, height, stopRefresh, returnUrl) {
+               //set_cookie('UseManageStateCookies', 'true', null, "<SPContext.Current.Web.ServerRelativeUrl %>");
+               window.parent.parent.UgitOpenPopupDialog(path, params, titleVal, width, height, stopRefresh, returnUrl);
+
+           }
+    </script>*@
+
+
+<div class="container d-flex svg-container">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!--h-100 -->
+    <div class="">
+        <div class="row">
+            <div class="">
+                <div class="legends-container visible-sm visible-md visible-lg hidden-xs">
+                    <div class="table-container">
+                        <table class="table legend-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><div class="legend-heading">Status</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="legend-icon workflow_complete"></div>
+                                    </td>
+                                    <td>
+                                        <p class="legends_name">Completed</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="legend-icon inProgress"></div>
+                                    </td>
+                                    <td>
+                                        <p class="legends_name">In Progress</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="legend-icon notStarted"></div>
+                                    </td>
+                                    <td>
+                                        <p class="legends_name">Not Started</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 workFlowImg-wrap">
+                <div id="ai_5b5e3ad2d2353" class="adioma-embed-infographic" style="text-align:center;
+            height:100%;">
+                    <svg class="visualization" viewBox="0 0 1400 1950" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="80%">
+                    <defs id="main-defs"></defs>
+                    <style type="text/css">
+                        a.svg-link .node :hover {
+                            opacity: 0.85;
+                        }
+
+                        a.svg-link {
+                            text-decoration: none;
+                        }
+
+                        a.svg-nolink {
+                            text-decoration: none;
+                        }
+                        /*g circle :hover {
+                            fill: rgb(35, 185, 35);
+                        }*/
+
+</style>
+                    <filter id="icon-filter">
+                    <feColorMatrix in="SourceGraphic" color-interpolation-filters="sRGB" type="matrix" values="0 0 0 0 0.28627450980392155    0 0 0 0 0.3411764705882353    0 0 0 0 0.38823529411764707    0 0 0 1 0">
+                            </feColorMatrix>
+                        </filter>
+                        @*<rect class="visualization-background" x="0" y="0" width="1400" height="1950" style="fill: rgb(249, 247, 242);">
+                        </rect>*@
+                    <g class="grids">
+                    <g class="grids-horizontal"></g>
+                    <g class="grids-vertical"></g>
+                        </g>
+                    <text class="visualization-title" x="700" y="150" text-anchor="middle" font-family="Roboto Condensed" width="1200" style="fill: rgb(73, 87, 99);">
+                        <tspan>New Tenant Registration Work Flow</tspan>
+                    </text  >
+                    <text class="visualization-subtitle" x="700" y="204" text-anchor="middle" font-size="36px" font-family="Roboto" width="1200" style="fill: rgb(73, 87, 99); opacity: 0.6;"><tspan></tspan></text>
+                    <text class="visualization-creator" x="1300" width="850" text-anchor="end" font-size="23.400000000000002px" font-family="Roboto" y="239" style="opacity: 0.45; fill: rgb(73, 87, 99);"><tspan></tspan></text>
+                        @*<text class="visualization-author" x="1335" y="1900" width="1150" text-anchor="end" font-size="21.599999999999998px" font-family="Roboto" style="opacity: 0.6; fill: rgb(73, 87, 99);"><tspan>Service Prime</tspan></text>*@
+                    <g class="content" width="1200" height="1500">
+                    <a class="svg-nolink svgicon" id="xlink-1502147598802" data-id="1502147598802">
+                    <g class="node" data-index="0" data-id="1502147598802">
+                    <image class="icon svgicon" width="150" height="100" id="userTenantInfoImg" filter="url(#icon-filter)" x="625" y="300" xlink:href="/Content/Images/Instance/click/thinking-person.png"
+                           transform="matrix(1, 0, 0, 1, 0, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image>
+                    <circle r="10" cx="700" cy="425" style="fill: #495763;" id="userTenantInfo" class="circleIcon">
+                                            @*onclick = "window.parent.UgitOpenPopupDialog('/Layouts/uGovernIT/uGovernITConfiguration.aspx?control=ServicesWizard&serviceID= @serviceID','' , 'Service:New tenant creation', 90, 90, 0,'%2flayouts%2fugovernit%2fdelegatecontrol.aspx');">*@
+                                    </circle>
+                    <text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="700" y="440" style="fill: rgb(73, 87, 99); font-weight: normal;">
+                    <tspan dy="27" font-size="27px" font-family="Roboto">User Enters Info </tspan>
+                    <tspan x="700" dy="28.8">eMail, Company Name</tspan>
+                    <tspan x="700" dy="28.8">and Company URL is</tspan>
+                    <tspan x="700" dy="28.8">mandatory</tspan>
+                                     </text>
+                    <path class="node-connector" fill="none" stroke-width="3" d="" style="stroke: #495763;">
+                                    </path>
+                                </g>
+                            </a>
+                    <a class="svg-nolink" id="xlink-1502147598803" data-id="1502147598803">
+                    <g class="node" data-index="1" data-id="1502147598803">
+                    <image class="icon" width="150" height="100" filter="url(#icon-filter)" x="925" y="300" xlink:href="/Content/Images/Instance/click/convention-booth.png" transform="matrix(-1, 0, 0, 1, 2000, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);">
+                                    </image>
+                    <circle id="Requestapproval" r="10" cx="1000" cy="425" style="fill: #495763;"></circle>
+                    <text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="1000" y="440" style="fill: rgb(73, 87, 99); font-weight: normal;">
+                    <tspan dy="27" font-size="27px" font-family="Roboto">Approval</tspan>
+                    <tspan x="1000" dy="28.8">Service Prime Marketing</tspan>
+                    <tspan x="1000" dy="28.8">Staff  (SPMS)</tspan>
+                                    </text>
+                    <path class="node-connector" fill="none" stroke-width="3" d="M 725 425 L 975 425" style="stroke: #495763;"></path>
+                                </g>
+                            </a>
+                    <a class="svg-nolink" id="xlink-1502147598804" data-id="1502147598804"><g class="node" data-index="2" data-id="1502147598804"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="925" y="700" xlink:href="/Content/Images/Instance/click/choice-between-two.png" transform="matrix(-1, 0, 0, 1, 2000, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="Setup" r="10" cx="1000" cy="825" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="1000" y="840" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Setup</tspan><tspan x="1000" dy="28.8">SPMS enables</tspan><tspan x="1000" dy="28.8">appropriate workflows</tspan><tspan x="1000" dy="28.8">and sets up trial instance</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 1025 425 L 1100 425A 90 90 0 0 1 1100 825 L 1025 825" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink svgicon" id="xlink-1502147598805" data-id="1502147598805"><g class="node" data-index="3" data-id="1502147598805"><image class="icon svgicon" id="BasicConfigurationImg" width="150" height="100" filter="url(#icon-filter)" x="625" y="700" xlink:href="/Content/Images/Instance/click/add.png" transform="matrix(-1, 0, 0, 1, 1400, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="Configuration" r="10" cx="700" cy="825" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="700" y="840" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Configuration</tspan><tspan x="700" dy="28.8">SPMS configures the</tspan><tspan x="700" dy="28.8">instance for the trial</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 975 825 L 725 825" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1502147598806" data-id="1502147598806"><g class="node" data-index="4" data-id="1502147598806"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="325" y="700" xlink:href="/Content/Images/Instance/click/mri-scan.png" transform="matrix(-1, 0, 0, 1, 800, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="TrialInstance" r="10" cx="400" cy="825" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="400" y="840" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Trial Instance</tspan><tspan x="400" dy="28.8">SPMS using agents tests</tspan><tspan x="400" dy="28.8">the trial instance for</tspan><tspan x="400" dy="28.8">readiness</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 675 825 L 425 825" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1502147598807" data-id="1502147598807"><g class="node" data-index="5" data-id="1502147598807"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="325" y="1100" xlink:href="/Content/Images/Instance/click/user.png" transform="matrix(1, 0, 0, 1, 0, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="Communicate" r="10" cx="400" cy="1225" style="fill:#495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="400" y="1240" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Communicate</tspan><tspan x="400" dy="28.8">SPMS using agents</tspan><tspan x="400" dy="28.8">emails User with trial info</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 375 825 L 300 825A 90 90 0 0 0 300 1225 L 375 1225" style="stroke:#495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1502147598808" data-id="1502147598808"><g class="node" data-index="6" data-id="1502147598808"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="625" y="1100" xlink:href="/Content/Images/Instance/click/crowd.png" transform="matrix(1, 0, 0, 1, 0, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="Userlaunchestrial" r="10" cx="700" cy="1225" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="700" y="1240" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">User Launches Trial</tspan><tspan x="700" dy="28.8">User updates company</tspan><tspan x="700" dy="28.8">name,address,logo and</tspan><tspan x="700" dy="28.8">can add up to 4 more</tspan><tspan x="700" dy="28.8">users for the trial</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 425 1225 L 675 1225" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1502147598809" data-id="1502147598809"><g class="node" data-index="7" data-id="1502147598809"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="925" y="1100" xlink:href="/Content/Images/Instance/click/user.png" transform="matrix(1, 0, 0, 1, 0, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="Monitor" r="10" cx="1000" cy="1225" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="1000" y="1240" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Monitors</tspan><tspan x="1000" dy="28.8">SPMS using agents</tspan><tspan x="1000" dy="28.8">monitors the trial</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 725 1225 L 975 1225" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1502147598810" data-id="1502147598810"><g class="node" data-index="8" data-id="1502147598810"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="925" y="1500" xlink:href="/Content/Images/Instance/click/34-childhood.png" transform="matrix(-1, 0, 0, 1, 2000, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="TrialStatistics" r="10" cx="1000" cy="1625" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="1000" y="1640" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Trial Statistics</tspan><tspan x="1000" dy="28.8">SPMS through agents</tspan><tspan x="1000" dy="28.8">provides periodic usage</tspan><tspan x="1000" dy="28.8">statistics to user and</tspan><tspan x="1000" dy="28.8">internal Dev-ops</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 1025 1225 L 1100 1225A 90 90 0 0 1 1100 1625 L 1025 1625" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1502147598811" data-id="1502147598811"><g class="node" data-index="9" data-id="1502147598811"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="625" y="1500" xlink:href="/Content/Images/Instance/click/handshake-deal.png" transform="matrix(1, 0, 0, 1, 0, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="CloseDeal" r="10" cx="700" cy="1625" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="700" y="1640" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Close Deal</tspan><tspan x="700" dy="28.8">SPMS converts trial into a</tspan><tspan x="700" dy="28.8">happy paying customer</tspan><tspan x="700" dy="28.8">using CRM</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 975 1625 L 725 1625" style="stroke: #495763;"></path></g></a>
+                    <a class="svg-nolink" id="xlink-1532813666673" data-id="1532813666673"><g class="node" data-index="10" data-id="1532813666673"><image class="icon" width="150" height="100" filter="url(#icon-filter)" x="325" y="1500" xlink:href="/Content/Images/Instance/click/paint-roller-brush.png" transform="matrix(1, 0, 0, 1, 0, 0)" style="opacity: 0.9; fill: rgb(73, 87, 99);"></image><circle id="ConfigureandLaunch" r="10" cx="400" cy="1625" style="fill: #495763;"></circle><text width="250" height="160" text-anchor="middle" line-height="28.8" font-size="21.6px" font-family="Roboto" x="400" y="1640" style="fill: rgb(73, 87, 99); font-weight: normal;"><tspan dy="27" font-size="27px" font-family="Roboto">Configure &amp;  Launch</tspan><tspan x="400" dy="28.8">Covered in B1 through B7</tspan><tspan x="400" dy="28.8">and checklist embedded</tspan><tspan x="400" dy="28.8">in C. Launch</tspan></text><path class="node-connector" fill="none" stroke-width="3" d="M 675 1625 L 425 1625" style="stroke: #495763;"></path></g></a>
+                        </g>
+                    <use width="494" height="125" x="125" y="1780" xlink:href="#watermark" style="fill: rgb(73, 87, 99);"></use>
+                    <style type="text/css">
+</style>
+              </svg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 hidden-sm hidden-lg hidden-md visible-xs text-center">
+                <div class="legends-container">
+                    <div class="table-container">
+                        <table class="table legend-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><div class="legend-heading">Status</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="legend-icon workflow_complete"></div>
+                                    </td>
+                                    <td>
+                                        <p class="legends_name">Completed</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="legend-icon inProgress"></div>
+                                    </td>
+                                    <td>
+                                        <p class="legends_name">In Progress</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="legend-icon notStarted"></div>
+                                    </td>
+                                    <td>
+                                        <p class="legends_name">Not Started</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

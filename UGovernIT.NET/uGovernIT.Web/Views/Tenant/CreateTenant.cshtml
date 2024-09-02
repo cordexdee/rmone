@@ -1,0 +1,123 @@
+﻿@model  uGovernIT.Utility.Tenant
+@{
+    List<uGovernIT.Utility.Tenant> TenantList = ViewBag.TenantList;
+}
+<style>
+    .check {
+        height: 20px;
+        width: 20px;
+    }
+</style>
+
+<div id="tenantDiv">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("CreateTenant", "Tenant", FormMethod.Post, new { id = "frmCreateTenant", name = "frmCreateTenant", role = "form", enctype = "multipart/form-data" }))
+            {
+                <div>
+                    <h3> Create New Tenant </h3>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <td class="col-md-3 control-label">
+                            <label class="col-md-4 control-label" style="float: right;">
+                                Tenant Name
+                            </label>
+                        </td>
+                        <td>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.TenantName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.TenantName, "", new { @class = "text-danger" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 control-label">
+                            <label class="col-md-4 control-label" style="float: right;">
+                                Account ID
+                            </label>
+                        </td>
+                        <td>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.AccountID, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.AccountID, "", new { @class = "text-danger" })
+                            </div>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 control-label">
+                            <label class="col-md-4 control-label" style="float: right;">
+                                Tenant URL
+                            </label>
+                        </td>
+                        <td>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.TenantUrl, new { @class = "form-control" })
+                            </div>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 control-label">
+                            <label class="col-md-4 control-label" style="float: right;">
+                                Email
+                            </label>
+                        </td>
+                        <td>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                            </div>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 control-label">
+                            <label class="col-md-4 control-label" style="float: right;">
+                                Is Office 365 Subscription
+                            </label>
+                        </td>
+                        <td>
+                            <div class="col-md-6">
+                                @Html.CheckBoxFor(x => x.IsOffice365Subscription, new { @class = "check" })
+                            </div>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-4"></td>
+                        <td>
+                            <div class="col-md-4">
+                                <input type="submit" value="Create" class="btn btn-success btn-sm" style="font-size:14px; height: 33px; width: 80px;" />
+                                <span class="createTenant-loading" style="display:none"><i class=" icon-spinner icon-spin icon-2x"></i></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+        <div id="tenantGrid" class="col-md-10 col-md-offset-1 centered">
+            @Html.Partial("_TenantGridViewPartial", TenantList)
+        </div>
+    </div>
+</div>
+<script>
+       $(function () {
+           $('#frmCreateTenant').ajaxForm({
+               beforeSubmit: function (formData, jqForm, options) {
+                   $('.createTenant-loading').show();
+                   $('input').attr('disabled', 'disabled');
+            },
+            success: function (responseText, statusText, xhr, $form) {
+                $('.createTenant-loading').hide();
+                if (typeof responseText != 'object' || responseText.success == 0) {
+                    AdminCommon.showMessage(responseText.message, true, 'error', null, { timeOut: 2000 });
+                }
+                else {
+                    AdminCommon.showMessage('New tenant created successfully', true, 'success', null, { timeOut: 2000 });
+                    //AdminCommon.refresh() //commented this line to fix undefined mesg. & validation mesg. display issues.
+                    setTimeout(function () { window.location = "@Url.Content("~/Tenant/Index")"; }, 2500);
+                }
+                $('input').attr('disabled', false);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('.createTenant-loading').hide();
+                AdminCommon.showMessage('Error to create new tenant', true, 'error', null, { timeOut: 2000 });
+                $('input').attr('disabled', false);
+            }
+        });
+    });
+</script>

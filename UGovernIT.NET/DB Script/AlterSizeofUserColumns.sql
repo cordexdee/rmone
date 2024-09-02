@@ -1,0 +1,13 @@
+alter table crmproject alter column StageActionUsersUser nvarchar(max)
+alter table opportunity alter column StageActionUsersUser nvarchar(max)
+alter table crmservices alter column StageActionUsersUser nvarchar(max)
+alter table crmproject_archive alter column StageActionUsersUser nvarchar(max)
+alter table opportunity_archive alter column StageActionUsersUser nvarchar(max)
+alter table crmservices_archive alter column StageActionUsersUser nvarchar(max)
+
+alter table crmproject alter column ApprovedByUser nvarchar(max)
+alter table opportunity alter column ApprovedByUser nvarchar(max)
+alter table crmservices alter column ApprovedByUser nvarchar(max)
+alter table crmproject_archive alter column ApprovedByUser nvarchar(max)
+alter table opportunity_archive alter column ApprovedByUser nvarchar(max)
+alter table crmservices_archive alter column ApprovedByUser nvarchar(max)

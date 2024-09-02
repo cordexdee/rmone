@@ -1,0 +1,300 @@
+{
+	"commonsettings": {
+		"importconfiguration": true,
+		//"configurations": [ "Location"],
+    "configurations": [
+      "Location",
+      "Departments",
+      "FunctionalAreas",
+      "Users",
+      "Roles",
+      "Modules",
+      "BudgetsCategory",
+      "ConfigurationVariables",
+      "DefaultEntries",
+      "WikiCategories",
+      "StageExitCriteriaTemplates",
+      "DashboardAndQueries",
+      "Attachments",
+      "FactTables",
+      "QuickTickets",
+      "AssetVendors",
+      "AssetModels",
+      "MessageBoard",
+      "UserSkills",
+      "ServiceCatalogAndAgents",
+      "ACRTypes",
+      "DRQRapidTypes",
+      "DRQSystemAreas",
+      "Environment",
+      "SubLocation",
+      "ProjectLifecycles",
+      "ProjectInitiative",
+      "ProjectClass",
+      "ProjectStandards",
+      "GlobalRoles",
+      "LandingPages",
+      "JobTitle",
+      "EmployeeTypes",
+      "uGovernITLogs",
+      "GovernanceConfiguration",
+      "ModuleMonitors",
+      "ModuleMonitorOptions",
+      "ProjectComplexity",
+      "MailTokenColumnName",
+      "GenericStatus",
+      "LinkViews",
+      "TenantScheduler",
+      "SurveyFeedback",
+      "Phrases",
+      "Widgets",
+      "DocumentManagement",
+      "ChecklistTemplates",
+      "LeadCriteria",
+      "RankingCriteria",
+      "Studio",
+      "State",
+      "CRMRelationshipTypeLookup",
+      "ResourceWorkItems",
+      "TicketHours",
+      "ResourceTimeSheet",
+      "ResourceAllocation",
+      "ResourceAllocationMonthly",
+      "ProjectPlannedAllocation",
+      "ProjectEstimatedAllocation",
+      "ResourceUsageSummaryMonthWise",
+      "ResourceUsageSummaryWeekWise"
+    ],
+		"deletebeforeimport": false,
+		"importwithupdate": false
+	},
+  "modules": [
+    {
+      "name": "TSR",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "ACR",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "TicketTasks", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "RCA",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "PRS",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "DRQ",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "TicketTasks", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "INC",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "BTS",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "APP",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "ApplicationServer", "ApplicationModules", "ApplicationRole", "ApplicationAccess", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "TSK",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "TicketTasks", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "SVC",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "TicketTasks", "RelatedTickets", "TicketCountTrends", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "RMM",
+      "importconfiguration": true,
+      "configurations": [ "RequestTypes"],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "WIKI",
+      "importconfiguration": true,
+      "configurations": [ "ModuleColumns", "RequestTypes", "ModuleEmails", "TicketEmails", "TicketSLAs", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "WikiArticles", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": false
+    },
+    {
+      "name": "NPR",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "TicketTasks", "RelatedTickets", "NPRResources", "TicketCountTrends", "ModuleBudget", "ModuleBudgetActuals", "ModuleBudgetActualsHistory", "ModuleBudgetHistory", "ModuleMonthlyBudget", "ModuleMonthlyBudgetHistory", "SchedulerActions", "SchedulerActionArchives", "TicketEvents", "StageExitCriteria" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": false
+    },
+    {
+      "name": "PMM",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "TicketTasks", "RelatedTickets", "ProjectMonitorState", "ProjectMonitorStateHistory", "Sprint", "SprintTasks", "PMMEvents", "TicketCountTrends", "ModuleBudget", "ModuleBudgetActuals", "ModuleBudgetActualsHistory", "ModuleBudgetHistory", "ModuleMonthlyBudget", "ModuleMonthlyBudgetHistory", "BaseLineDetails", "SchedulerActions", "SchedulerActionArchives", "PMMComments", "PMMCommentsHistory", "ProjectReleases", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": false
+    },
+    {
+      "name": "CMDB",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "ApplicationServer", "AssetIncidentRelation", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "CMT",
+      "importconfiguration": true,
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "COM",
+      "importconfiguration": true,
+      //"configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "CON",
+      "importconfiguration": true,
+      //"configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "LEM",
+      "importconfiguration": true,
+      //"configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "OPM",
+      "importconfiguration": true,
+      //"configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "CPR",
+      "importconfiguration": true,
+      //"configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "CNS",
+      "importconfiguration": true,
+      //"configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails", "TicketEmails", "TicketSLAs", "StageExitCriteria", "RelatedTickets", "TicketCountTrends", "SchedulerActions", "SchedulerActionArchives", "TicketEvents" ],
+      "configurations": [ "Workflow", "ModuleColumns", "RequestTypes", "FormLayoutAndAccess", "PriorityMap", "ModuleEmails" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "HLP",
+      "importconfiguration": true,
+      "configurations": [ "HelpCards" ],
+      "importdata": false,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    },
+    {
+      "name": "ITG",
+      "importconfiguration": true,
+      "configurations": [ "ModuleBudget", "ModuleBudgetActuals", "ModuleMonthlyBudget", "FormLayoutAndAccess" ],
+      "importdata": true,
+      "deletebeforeimport": false,
+      "importwithupdate": true
+    }
+  ],
+  "permission": {
+    "spsource": {
+      "url": "https://demo.ugovernit.com/",
+      "username": "manish",
+      "password": "m1n1sh@ugit",
+      "domain": "ugovernit",
+      "batchfetchsize": 1000
+    },
+    "source": {
+      "tenantid": "serviceprime",
+      "dbconnection": "Data Source=.;Initial Catalog=ugit;User ID=ugit_admin;Password=ugit_admin@123;",
+      "commondbconnection": "Data Source=.;Initial Catalog=ugit_comm;User ID=ugit_admin;Password=ugit_admin@123;"
+    },
+    "target": {
+      "tenantname": "ManPrax002",
+      "tenantid": "ManPrax002",
+      "tenanturl": "",
+      "email": "",
+      "contact": "",
+      "title": "",
+      "defaultuser": {
+        "username": "administrator_ManPrax002",
+        "password": "password@123",
+        "email": "administrator@manprax002.com"
+      },
+      "dbconnection": "Data Source=.;Initial Catalog=ugit;User ID=ugit_admin;Password=ugit_admin@123;",
+      "commondbconnection": "Data Source=.;Initial Catalog=ugit_comm;User ID=ugit_admin;Password=ugit_admin@123;"
+    }
+  }
+}

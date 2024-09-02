@@ -1,0 +1,62 @@
+﻿@model IEnumerable<uGovernIT.Utility.Entities.DMSDB.FilesDirectories>
+
+<div class="">
+    <table class="">
+        <tr class="row">
+            <th>NAME</th>
+            <th>PATH</th>
+            <th>VERSION</th>
+            <th>READ</th>
+            <th>WRITE</th>
+            <th>CREATED ON</th>
+            <th>UPDATED ON</th>
+        </tr>
+        @foreach (var item in Model)
+            {
+            <tr class="row">
+                @if (item.IsFolder == true)
+                {
+                    <td>
+                        <img src="~/Content/Images/DMS/folder-16.png"  class="icon-set" /> &nbsp; @item.Name
+                        <input type="hidden" id="Directory" name="DirectoryId" value="true" />
+                        <input type="hidden" id="File" name="FileId" value="false" />
+                    </td>
+
+                }
+                else
+                {
+                    <td>
+                        <img src="~/Content/Images/DMS/file-16.png"  class="icon-set"/> &nbsp; @item.Name
+                        <input type="hidden" id="ParentDirectoryId" name="ParentDirectoryId" value=@item.ParentID />
+                        <input type="hidden" id="Directory" name="DirectoryId"  value="false" />
+                        <input type="hidden" id="File" name="FileId"  value="true" />
+                    </td>
+                }
+                <td class="fullpath">@item.FullPath</td>
+                <td>@item.Version</td>
+                @if (item.readAccess)
+                {
+                    <td>
+                        <input type="checkbox" id="readId" name=@item.Id value="1" checked />
+                    </td>
+                }
+                else
+                {
+                    <td><input type="checkbox" id="readId" name=@item.Id value="1" /></td>
+                }
+                @if (item.writeAccess)
+                {
+                    <td><input type="checkbox" id="writeId" name=@item.Id value="2" checked /></td>
+                }
+                else
+                {
+                    <td><input type="checkbox" id="writeId" name=@item.Id value="2" /></td>
+                }
+                <td>@item.CreatedOn</td>
+                <td>@item.UpdatdedOn</td>
+            </tr>
+        }
+    </table>
+</div>
+
+

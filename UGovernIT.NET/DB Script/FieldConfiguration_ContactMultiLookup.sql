@@ -1,0 +1,1 @@
+update FieldConfiguration set Multi = 0 where FieldName = 'ContactLookup' and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'

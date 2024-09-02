@@ -1,0 +1,207 @@
+﻿.steps_module{
+      width:98%;
+      float:left;
+      margin:0 0 10px 0;
+    }
+    .steps_module tt {
+      width:100%;
+      float:left;
+      font-style:normal;
+      text-align:center;
+      /*font-family:Arial;*/
+      padding:0 0 10px;
+    }
+    .steps_container,
+    .steptop_content {
+      width:100%;
+      float:left;
+    }
+    .steptop_content cite,
+    .steptop_content cite.active,
+    .steptop_content cite.visited {
+      width:10.7%;
+      height:38px;
+      float:left;
+      overflow:hidden;
+      background:url(/Content/images/stepline.gif) repeat-x;
+    }
+    .steptop_content span,
+    .steptop_content span.active,
+    .steptop_content span.visited {
+      width:25%;
+      height:38px;
+      float:left;
+      background:url(/Content/images/stepcirclebg.gif) no-repeat;
+    }
+    .steptop_content span i,
+    .steptop_content span.active i,
+    .steptop_content span.visited i {
+      width:auto;
+      float:left;
+      font-style:normal;
+      font-weight:bold;
+      font-size:18px;
+      position:relative;
+      top:8px;
+      left:11px;
+    }
+    .steptop_content span.active i,
+    .steptop_content span.visited i {
+      color:#28a5bc;
+    }
+    .steptop_content cite.active {
+      background:url(/Content/images/stepline_active.gif) repeat-x ;
+    }
+    .steptop_content span.active {
+      background:url(/Content/images/stepcirclebg_active.gif) no-repeat;
+    }
+    .steptop_content cite.onhold {
+      background:url(/Content/images/stepcirclebg-red.gif) repeat-x ;
+    }
+    .steptop_content span.onhold {
+      background:url(/Content/images/stepcirclebg-red.gif) no-repeat;
+    }
+    .steptop_content cite.visited {
+      background:url(/Content/images/stepline_active.gif) repeat-x;
+    }
+    .steptop_content span.visited {
+      background:url(/Content/images/stepcirclebg_visited.gif) no-repeat;
+    }
+    .stepbottom_content {
+      width:100%;
+      float:left;
+      padding:0 0 10px;
+    }
+    .stepbottom_content code.hoteldetail, 
+    .stepbottom_content code.rates,
+    .stepbottom_content code.inventory,
+    .stepbottom_content code.taxes,
+    .stepbottom_content code.termsconditions,
+    .stepbottom_content code.submit {
+      width:auto;
+      float:left;
+      font-size:11px;
+      /*font-family:Arial;*/
+      font-style:normal;
+      position:relative;
+      top:5px;
+      left:90px;
+    }
+    .stepbottom_content code.active_label{
+      font-weight:bold;
+    }
+    .stepbottom_content code.rates {
+      left:130px;
+    }
+    .stepbottom_content code.inventory {
+      left:200px;
+    }
+    .stepbottom_content code.taxes {
+      left:250px;
+    }
+    .stepbottom_content code.termsconditions {
+      left:300px;    }
+    .stepbottom_content code.submit {
+      left:350px;
+    }
+    .pos_rel { position:relative !important;width:100%;float:left; text-align:center;}
+    .element_pos { position:absolute !important; top:40px;width:150px;left:-55px;}
+
+.contract_steps_module {
+    width:100%;
+    float: left;
+    margin: 0 0 10px 0;
+    padding: 0px 0px 0px;
+}
+
+.contract_steps_module tt {
+  width:100%;
+  float:left;
+  font-style:normal;
+  text-align:center;
+  /*font-family:Arial;*/
+  padding:0 0 10px;
+}
+.contract_steps_container,
+.contract_steptop_content {
+  /*width:96%;*/
+  /*float:left;*/
+  height:73px;
+  margin-left: auto;
+  margin-right:auto;
+}
+.contract_steptop_content cite,
+.contract_steptop_content cite.active,
+.contract_steptop_content cite.visited {
+  width:16.7%;
+  height:38px;
+  float:left;
+  overflow:hidden;
+  background:url(/Content/images/stepline.gif) repeat-x;
+}
+    .contract_steptop_content span,
+    .contract_steptop_content span.active,
+    .contract_steptop_content span.visited {
+        width: 37px;
+        height: 38px;
+        font-size: 13px;
+        font-family: 'Roboto', sans-serif !important;
+    }
+.contract_steptop_content .stage-titlecontainer { 
+  font-style:normal;
+  position:absolute;
+  width:150px;
+  float:left;
+  right:-76px;
+}
+.contract_steptop_content .stage-titlecontainer b , .contract_steptop_content .stage-titlecontainer b.active{
+  font-style:normal;
+  font-weight:normal;
+}
+.contract_steptop_content .activestagearrow{
+ /* font-weight:normal; height:36px;background:url(/Content/images/Arrow_01.gif) no-repeat center bottom;*/
+ font-weight: normal; height: 36px; background: url(/Content/images/Arrow_01.gif) no-repeat scroll center bottom transparent; 
+ float: left; width: 17px; position: absolute; right: 10px; top: 42px;
+ font-style:normal;
+ font-weight:normal;
+}
+.contract_steptop_content span i,
+.contract_steptop_content span.active i,
+.contract_steptop_content span.visited i {
+  width:auto;
+  float:left;
+  font-style:normal;
+  font-weight:bold;
+  font-size:18px;
+  position:relative;
+  top:8px;
+  left:11px;
+}
+.contract_steptop_content span.active i,
+.contract_steptop_content span.visited i {
+  color:#28a5bc;
+}
+.contract_steptop_content cite.active {
+  background:url(/Content/images/stepline_active.gif) repeat-x;
+}
+.contract_steptop_content span.active {
+  background:url(/Content/images/stepcirclebg_active.gif) no-repeat;
+}
+.contract_steptop_content cite.visited {
+  background:url(/Content/images/stepline_active.gif) repeat-x;
+}
+.contract_steptop_content span.visited {
+  background:url(/Content/images/stepcirclebg_visited.gif) no-repeat;
+}
+.stepinfo_module {width:100%; height:54px;float:left;  background:url(/Content/images/box.gif) no-repeat;padding:10px;margin:0 55px;}
+.tableCell
+{
+    padding : 0 5px;
+    border: none;
+    border-style:none;
+}
+.labelCell
+{
+    text-align:right;
+    /*font-weight:bold;*/
+}

@@ -1,0 +1,463 @@
+----------------------------
+-- DDL
+----------------------------
+
+-- Script added by Inderjeet Kaur on 6Sep2023 for BTS-22-000924
+
+IF (OBJECT_ID('dbo.FK__Studio__Division__41703E86', 'F') IS NOT NULL)
+BEGIN
+	ALTER TABLE dbo.Studio DROP CONSTRAINT FK__Studio__Division__41703E86
+END
+GO
+IF (OBJECT_ID('dbo.FK__Studio__CompanyL__407C1A4D', 'F') IS NOT NULL)
+BEGIN
+	ALTER TABLE dbo.Studio DROP CONSTRAINT FK__Studio__CompanyL__407C1A4D
+END
+GO
+
+
+--select * from Studio
+Alter Table Studio
+Add FieldDisplayName NVARCHAR(250) NULL
+GO
+
+
+UPDATE FieldConfiguration
+SET ParentFieldName = 'FieldDisplayName'
+WHERE FieldName = 'StudioLookup'
+GO
+
+
+
+
+----------------------------
+-- DML
+----------------------------
+INSERT INTO [dbo].[Config_ConfigurationVariable]
+           ([CategoryName]
+           ,[Description]
+           ,[KeyName]
+           ,[KeyValue]
+           ,[Title]
+           ,[Type]
+           ,[Internal]
+           ,[TenantID])
+     VALUES
+           ('General'
+           ,'To enable hierarchy between Studios and Division(Parent).'
+           ,'EnableStudioDivisionHierarchy'
+           ,'True'
+           ,'EnableStudioDivisionHierarchy'
+           ,'Bool'
+           ,0
+           ,'35525396-e5fe-4692-9239-4df9305b915b')
+GO
+
+
+--
+-- Update Form Layout for every Module
+
+UPDATE Config_Module_FormLayout
+SET FieldName = 'DivisionLookup', ColumnType = 'Default'
+where 
+FieldDisplayName = 'Division'
+and FieldName = 'CRMBusinessUnitChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO 
+
+UPDATE Config_Module_FormLayout
+SET FieldName = 'StudioLookup', ColumnType = 'Default'
+where 
+FieldDisplayName = 'Studio'
+and FieldName = 'StudioChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+--
+
+update Config_Module_RequestRoleWriteAccess 
+set FieldName = 'StudioLookup'
+where FieldName = 'StudioChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+update Config_Module_RequestRoleWriteAccess 
+set FieldName = 'DivisionLookup'
+where FieldName = 'CRMBusinessUnitChoice'
+and TenantID = '35525396-e5fe-4692-9239-4df9305b915b'
+GO
+
+--
+
+
+
+
+TRUNCATE TABLE [dbo].[Studio]
+GO
+SET IDENTITY_INSERT [dbo].[Studio] ON 
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (1, N'SF01', N'San Francisco Studio 1', 12, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-10-02T18:55:54.463' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > SF01')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (2, N'SF02', N'San Francisco Studio 2', 12, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-09-28T17:07:54.377' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > SF02')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (3, N'SF03', N'San Francisco Studio 3', 12, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-09-28T17:08:09.550' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > SF03')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (4, N'SF04', N'San Francisco Studio 4', 12, NULL, N'35525396-e5fe-4692-9239-4df9305b915b', CAST(N'2022-11-03T11:37:45.060' AS DateTime), CAST(N'2023-10-02T18:56:13.917' AS DateTime), N'bdb437d6-9735-43e3-9038-bb9a2de32f23', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > SF04')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (6, N'SRV02', N'Silicon Valley Services Studio 2', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-10-02T18:57:52.293' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'Silicon Valley > SRV02')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (7, N'SV01', N'Silicon Valley Studio 1', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-10-02T18:58:04.063' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'Silicon Valley > SV01')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (8, N'SV02', N'Silicon Valley Studio 2', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-10-02T18:58:23.190' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'Silicon Valley > SV02')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (9, N'SV03', N'Silicon Valley Studio 3', 11, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.183' AS DateTime), CAST(N'2023-10-02T18:58:34.330' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'Silicon Valley > SV03')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (10, N'LA01', N'Los Angeles Studio 1', 15, NULL, N'35525396-E5FE-4692-9239-4DF9305B915B', CAST(N'2022-04-16T03:14:03.200' AS DateTime), CAST(N'2023-10-02T18:55:32.087' AS DateTime), N'00000000-0000-0000-0000-000000000000', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'Los Angeles > LA01')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (13, N'SRV01', N'San Francisco Services Studio 1', 12, NULL, N'35525396-e5fe-4692-9239-4df9305b915b', CAST(N'2023-09-21T10:15:07.573' AS DateTime), CAST(N'2023-10-02T18:56:49.840' AS DateTime), N'3ed90305-64bd-437b-aa56-935ebd0481d0', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > SRV01')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (14, N'STR01', N'SF Structures Studio 1', 12, NULL, N'35525396-e5fe-4692-9239-4df9305b915b', CAST(N'2023-10-02T19:00:13.287' AS DateTime), CAST(N'2023-10-02T19:22:48.993' AS DateTime), N'3ed90305-64bd-437b-aa56-935ebd0481d0', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > STR01')
+GO
+INSERT [dbo].[Studio] ([ID], [Title], [Description], [DivisionLookup], [CompanyLookup], [TenantID], [Created], [Modified], [CreatedByUser], [ModifiedByUser], [Deleted], [Attachments], [FieldDisplayName]) VALUES (15, N'STR02', N'SF Structures Studio 2', 12, NULL, N'35525396-e5fe-4692-9239-4df9305b915b', CAST(N'2023-10-02T19:00:32.663' AS DateTime), CAST(N'2023-10-02T19:22:59.493' AS DateTime), N'3ed90305-64bd-437b-aa56-935ebd0481d0', N'3ed90305-64bd-437b-aa56-935ebd0481d0', 0, N'', N'San Francisco > STR02')
+GO
+SET IDENTITY_INSERT [dbo].[Studio] OFF
+GO
+
+
+
+
+-- -----------------------------------------------------
+-- Script created for BTS-23-001383 on 3rd Oct 2023
+-- -----------------------------------------------------
+Update CRMProject
+SET 
+	StudioLookup = null,
+	DivisionLookup = null
+
+Update CRMServices
+SET 
+	StudioLookup = null,
+	DivisionLookup = null
+
+Update Opportunity
+SET 
+	StudioLookup = null,
+	DivisionLookup = null
+
+-- -------------BEGIN: CRMProject------------------
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF01')
+WHERE StudioChoice = 'SF Studio 1'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF02')
+WHERE StudioChoice = 'SF Studio 2'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF03'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF03')
+WHERE StudioChoice = 'SF Studio 3'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF04'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF04')
+WHERE StudioChoice = 'SF Studio 4'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SRV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SRV01')
+WHERE StudioChoice = 'Serv Studio 1'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SRV02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SRV02')
+WHERE StudioChoice = 'Serv Studio 2'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV01')
+WHERE StudioChoice = 'SV Studio 1'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV02')
+WHERE StudioChoice = 'SV Studio 2'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV03'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV03')
+WHERE StudioChoice = 'SV Studio 3'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR01')
+WHERE StudioChoice = 'ST Studio 1'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR02')
+WHERE StudioChoice = 'ST Studio 2'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'LA01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'LA01')
+WHERE StudioChoice = 'LA Studio 1'
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV01')
+WHERE CRMBusinessUnitChoice = 'Palo Alto' AND StudioChoice IS NULL
+
+Update CRMProject
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR01')
+WHERE CRMBusinessUnitChoice = 'Structures' AND StudioChoice IS NULL
+
+Update CRMProject
+SET 
+	DivisionLookup = 12
+WHERE CRMBusinessUnitChoice LIKE '%San Francisco%' AND StudioChoice IS NULL
+
+Update CRMProject
+SET 
+	DivisionLookup = 11
+WHERE CRMBusinessUnitChoice LIKE '%Silicon Valley%' AND StudioChoice IS NULL
+
+Update CRMProject
+SET 
+	DivisionLookup = 15
+WHERE CRMBusinessUnitChoice LIKE '%Los Angeles%' AND StudioChoice IS NULL
+
+GO
+
+-- -------------END: CRMProject------------------
+
+
+
+
+
+-- -------------BEGIN: CRMServices------------------
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF01')
+WHERE StudioChoice = 'SF Studio 1'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF02')
+WHERE StudioChoice = 'SF Studio 2'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF03'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF03')
+WHERE StudioChoice = 'SF Studio 3'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF04'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF04')
+WHERE StudioChoice = 'SF Studio 4'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SRV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SRV01')
+WHERE StudioChoice = 'Serv Studio 1'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SRV02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SRV02')
+WHERE StudioChoice = 'Serv Studio 2'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV01')
+WHERE StudioChoice = 'SV Studio 1'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV02')
+WHERE StudioChoice = 'SV Studio 2'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV03'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV03')
+WHERE StudioChoice = 'SV Studio 3'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR01')
+WHERE StudioChoice = 'ST Studio 1'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR02')
+WHERE StudioChoice = 'ST Studio 2'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'LA01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'LA01')
+WHERE StudioChoice = 'LA Studio 1'
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV01')
+WHERE CRMBusinessUnitChoice = 'Palo Alto' AND StudioChoice IS NULL
+
+Update CRMServices
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR01')
+WHERE CRMBusinessUnitChoice = 'Structures' AND StudioChoice IS NULL
+
+Update CRMServices
+SET 
+	DivisionLookup = 12
+WHERE CRMBusinessUnitChoice LIKE '%San Francisco%' AND StudioChoice IS NULL
+
+Update CRMServices
+SET 
+	DivisionLookup = 11
+WHERE CRMBusinessUnitChoice LIKE '%Silicon Valley%' AND StudioChoice IS NULL
+
+Update CRMServices
+SET 
+	DivisionLookup = 15
+WHERE CRMBusinessUnitChoice LIKE '%Los Angeles%' AND StudioChoice IS NULL
+
+GO
+-- -------------END: CRMServices------------------
+
+
+
+
+
+-- -------------BEGIN: Opportunity------------------
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF01')
+WHERE StudioChoice = 'SF Studio 1'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF02')
+WHERE StudioChoice = 'SF Studio 2'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF03'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF03')
+WHERE StudioChoice = 'SF Studio 3'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SF04'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SF04')
+WHERE StudioChoice = 'SF Studio 4'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SRV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SRV01')
+WHERE StudioChoice = 'Serv Studio 1'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SRV02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SRV02')
+WHERE StudioChoice = 'Serv Studio 2'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV01')
+WHERE StudioChoice = 'SV Studio 1'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV02')
+WHERE StudioChoice = 'SV Studio 2'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV03'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV03')
+WHERE StudioChoice = 'SV Studio 3'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR01')
+WHERE StudioChoice = 'ST Studio 1'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR02'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR02')
+WHERE StudioChoice = 'ST Studio 2'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'LA01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'LA01')
+WHERE StudioChoice = 'LA Studio 1'
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'SV01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'SV01')
+WHERE CRMBusinessUnitChoice = 'Palo Alto' AND StudioChoice IS NULL
+
+Update Opportunity
+SET 
+	StudioLookup = (SELECT ID FROM Studio WHERE Title = 'STR01'),
+	DivisionLookup = (SELECT DivisionLookup FROM Studio WHERE Title = 'STR01')
+WHERE CRMBusinessUnitChoice = 'Structures' AND StudioChoice IS NULL
+
+Update Opportunity
+SET 
+	DivisionLookup = 12
+WHERE CRMBusinessUnitChoice LIKE '%San Francisco%' AND StudioChoice IS NULL
+
+Update Opportunity
+SET 
+	DivisionLookup = 11
+WHERE CRMBusinessUnitChoice LIKE '%Silicon Valley%' AND StudioChoice IS NULL
+
+Update Opportunity
+SET 
+	DivisionLookup = 15
+WHERE CRMBusinessUnitChoice LIKE '%Los Angeles%' AND StudioChoice IS NULL
+
+GO
+
+-- -------------END: Opportunity------------------

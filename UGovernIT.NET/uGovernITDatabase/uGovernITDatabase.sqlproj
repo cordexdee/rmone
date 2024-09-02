@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>uGovernITDatabase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{869198da-d0c9-4d68-a014-42a9f6e8cacb}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>uGovernITDatabase</RootNamespace>
+    <AssemblyName>uGovernITDatabase</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>False</GenerateCreateScript>
+    <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="Security\" />
+    <Folder Include="HangFire\" />
+    <Folder Include="HangFire\Tables\" />
+    <Folder Include="Post-Deployment" />
+    <Folder Include="Storage\" />
+    <Folder Include="dbo\Functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Tables\ACR.sql" />
+    <Build Include="dbo\Tables\ACRTypes.sql" />
+    <Build Include="dbo\Tables\ADUserMapping.sql" />
+    <Build Include="dbo\Tables\AnalyticDashboards.sql" />
+    <Build Include="dbo\Tables\ApplicationModules.sql" />
+    <Build Include="dbo\Tables\ApplicationPassword.sql" />
+    <Build Include="dbo\Tables\ApplicationRole.sql" />
+    <Build Include="dbo\Tables\Applications.sql" />
+    <Build Include="dbo\Tables\ApplicationServers.sql" />
+    <Build Include="dbo\Tables\ApplicationAccess.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AssetIncidentRelations.sql" />
+    <Build Include="dbo\Tables\AssetModels.sql" />
+    <Build Include="dbo\Tables\AssetReferences.sql" />
+    <Build Include="dbo\Tables\AssetRelations.sql" />
+    <Build Include="dbo\Tables\Assets.sql" />
+    <Build Include="dbo\Tables\AssetsStatus.sql" />
+    <Build Include="dbo\Tables\AssetVendors.sql" />
+    <Build Include="dbo\Tables\AvailableManagedServices.sql" />
+    <Build Include="dbo\Tables\Bid.sql" />
+    <Build Include="dbo\Tables\BTS.sql" />
+    <Build Include="dbo\Tables\ChartFilters.sql" />
+    <Build Include="dbo\Tables\ChartFormula.sql" />
+    <Build Include="dbo\Tables\ChartTemplates.sql" />
+    <Build Include="dbo\Tables\Company.sql" />
+    <Build Include="dbo\Tables\CompanyDivisions.sql" />
+    <Build Include="dbo\Tables\Config_BudgetCategories.sql" />
+    <Build Include="dbo\Tables\Config_ClientAdminCategory.sql" />
+    <Build Include="dbo\Tables\Config_ClientAdminConfigurationLists.sql" />
+    <Build Include="dbo\Tables\Config_ConfigurationVariable.sql" />
+    <Build Include="dbo\Tables\Config_Dashboard_DashboardFactTables.sql" />
+    <Build Include="dbo\Tables\Config_Dashboard_DashboardPanels.sql" />
+    <Build Include="dbo\Tables\Config_Dashboard_DashboardPanelView.sql" />
+    <Build Include="dbo\Tables\Config_EventCategories.sql" />
+    <Build Include="dbo\Tables\Config_MailTokenColumnName.sql" />
+    <Build Include="dbo\Tables\Config_MenuNavigation.sql" />
+    <Build Include="dbo\Tables\Config_Module_EscalationRule.sql" />
+    <Build Include="dbo\Tables\Config_Module_FormLayout.sql" />
+    <Build Include="dbo\Tables\Config_Module_Impact.sql" />
+    <Build Include="dbo\Tables\Config_Module_ModuleColumns.sql" />
+    <Build Include="dbo\Tables\Config_Module_ModuleFormTab.sql" />
+    <Build Include="dbo\Tables\Config_Module_ModuleStages.sql" />
+    <Build Include="dbo\Tables\Config_Module_ModuleUserTypes.sql" />
+    <Build Include="dbo\Tables\Config_Module_Priority.sql" />
+    <Build Include="dbo\Tables\Config_Module_RequestPriority.sql" />
+    <Build Include="dbo\Tables\Config_Module_RequestRoleWriteAccess.sql" />
+    <Build Include="dbo\Tables\Config_Module_RequestType.sql" />
+    <Build Include="dbo\Tables\Config_Module_Severity.sql" />
+    <Build Include="dbo\Tables\Config_Module_SLARule.sql" />
+    <Build Include="dbo\Tables\Config_Module_StageType.sql" />
+    <Build Include="dbo\Tables\Config_Module_StatusMapping.sql" />
+    <Build Include="dbo\Tables\Config_Module_TaskEmails.sql" />
+    <Build Include="dbo\Tables\Config_ModuleMonitorOptions.sql" />
+    <Build Include="dbo\Tables\Config_ModuleMonitors.sql" />
+    <Build Include="dbo\Tables\Config_Modules.sql" />
+    <Build Include="dbo\Tables\Config_PageConfiguration.sql" />
+    <Build Include="dbo\Tables\Config_ProjectClass.sql" />
+    <Build Include="dbo\Tables\Config_ProjectInitiative.sql" />
+    <Build Include="dbo\Tables\Config_ModuleLifeCycles.sql" />
+    <Build Include="dbo\Tables\Config_ProjectLifeCycleStages.sql" />
+    <Build Include="dbo\Tables\Config_Service_ServiceCategories.sql" />
+    <Build Include="dbo\Tables\Config_Service_ServiceColumns.sql" />
+    <Build Include="dbo\Tables\Config_Service_ServiceDefaultValues.sql" />
+    <Build Include="dbo\Tables\Config_Service_ServiceQuestions.sql" />
+    <Build Include="dbo\Tables\Config_Service_ServiceRelationships.sql" />
+    <Build Include="dbo\Tables\Config_Service_ServiceSections.sql" />
+    <Build Include="dbo\Tables\Config_Services.sql" />
+    <Build Include="dbo\Tables\Config_TabView.sql" />
+    <Build Include="dbo\Tables\Config_UserRoles.sql" />
+    <Build Include="dbo\Tables\Config_VendorResourceCategory.sql" />
+    <Build Include="dbo\Tables\Config_WikiLeftNavigation.sql" />
+    <Build Include="dbo\Tables\Contacts.sql" />
+    <Build Include="dbo\Tables\Contracts.sql" />
+    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\DashboardSummary.sql" />
+    <Build Include="dbo\Tables\Department.sql" />
+    <Build Include="dbo\Tables\DMConfigList.sql" />
+    <Build Include="dbo\Tables\DMDepartmentList.sql" />
+    <Build Include="dbo\Tables\DMDocInfoType.sql" />
+    <Build Include="dbo\Tables\DMDocumentHistoryList.sql" />
+    <Build Include="dbo\Tables\DMDocumentInfoList.sql" />
+    <Build Include="dbo\Tables\DMDocumentLinkList.sql" />
+    <Build Include="dbo\Tables\DMDocumentTypeList.sql" />
+    <Build Include="dbo\Tables\DMDocumentWorkflowHistory.sql" />
+    <Build Include="dbo\Tables\DMPingInformation.sql" />
+    <Build Include="dbo\Tables\DMPortalInfo.sql" />
+    <Build Include="dbo\Tables\DMProjectList.sql" />
+    <Build Include="dbo\Tables\DMTagList.sql" />
+    <Build Include="dbo\Tables\DMVendorList.sql" />
+    <Build Include="dbo\Tables\DMWorkflowTask.sql" />
+    <Build Include="dbo\Tables\DRQ.sql" />
+    <Build Include="dbo\Tables\DRQRapidTypes.sql" />
+    <Build Include="dbo\Tables\DRQSystemAreas.sql" />
+    <Build Include="dbo\Tables\EmailFooter.sql" />
+    <Build Include="dbo\Tables\EmailQueue.sql" />
+    <Build Include="dbo\Tables\Emails.sql" />
+    <Build Include="dbo\Tables\Environment.sql" />
+    <Build Include="dbo\Tables\EscalationLog.sql" />
+    <Build Include="dbo\Tables\EscalationQueue.sql" />
+    <Build Include="dbo\Tables\FieldConfiguration.sql" />
+    <Build Include="dbo\Tables\FunctionalAreas.sql" />
+    <Build Include="dbo\Tables\GenericStatus.sql" />
+    <Build Include="dbo\Tables\GovernanceLinkCategory.sql" />
+    <Build Include="dbo\Tables\GovernanceLinkItems.sql" />
+    <Build Include="dbo\Tables\HolidaysAndWorkDaysCalendar.sql" />
+    <Build Include="dbo\Tables\ImageSoftware.sql" />
+    <Build Include="dbo\Tables\ImageSoftwareMap.sql" />
+    <Build Include="dbo\Tables\INC.sql" />
+    <Build Include="dbo\Tables\InvDistribution.sql" />
+    <Build Include="dbo\Tables\Investments.sql" />
+    <Build Include="dbo\Tables\Investors.sql" />
+    <Build Include="dbo\Tables\ITGActual.sql" />
+    <Build Include="dbo\Tables\ITGBudget.sql" />
+    <Build Include="dbo\Tables\ITGMonthlyBudget.sql" />
+    <Build Include="dbo\Tables\ITGovernance.sql" />
+    <Build Include="dbo\Tables\LinkCategory.sql" />
+    <Build Include="dbo\Tables\LinkItems.sql" />
+    <Build Include="dbo\Tables\LinkView.sql" />
+    <Build Include="dbo\Tables\Location.sql" />
+    <Build Include="dbo\Tables\Log.sql" />
+    <Build Include="dbo\Tables\MessageBoard.sql" />
+    <Build Include="dbo\Tables\Config_Module_DefaultValues.sql" />
+    <Build Include="dbo\Tables\ModuleStageConstraints.sql" />
+    <Build Include="dbo\Tables\ModuleStageConstraintTemplates.sql" />
+    <Build Include="dbo\Tables\ModuleTasks.sql" />
+    <Build Include="dbo\Tables\ModuleUserStatistics.sql" />
+    <Build Include="dbo\Tables\ModuleWorkflowHistory.sql" />
+    <Build Include="dbo\Tables\MonthlyBudget.sql" />
+    <Build Include="dbo\Tables\NPRBudget.sql" />
+    <Build Include="dbo\Tables\NPRMonthlyBudget.sql" />
+    <Build Include="dbo\Tables\NPR.sql" />
+    <Build Include="dbo\Tables\NPRResources.sql" />
+    <Build Include="dbo\Tables\NPRTasks.sql" />
+    <Build Include="dbo\Tables\Opportunity.sql" />
+    <Build Include="dbo\Tables\Organization.sql" />
+    <Build Include="dbo\Tables\PLCRequest.sql" />
+    <Build Include="dbo\Tables\BaselineDetails.sql" />
+    <Build Include="dbo\Tables\PMMBudget.sql" />
+    <Build Include="dbo\Tables\ModuleBudgetActuals.sql" />
+    <Build Include="dbo\Tables\ModuleBudgetHistory.sql" />
+    <Build Include="dbo\Tables\PMMComments.sql" />
+    <Build Include="dbo\Tables\PMMCommentsHistory.sql" />
+    <Build Include="dbo\Tables\PMMEvents.sql" />
+    <Build Include="dbo\Tables\PMMIssues.sql" />
+    <Build Include="dbo\Tables\PMMIssuesHistory.sql" />
+    <Build Include="dbo\Tables\PMMMonthlyBudget.sql" />
+    <Build Include="dbo\Tables\PMMMonthlyBudgetHistory.sql" />
+    <Build Include="dbo\Tables\PMM.sql" />
+    <Build Include="dbo\Tables\PMMRisks.sql" />
+    <Build Include="dbo\Tables\PMMTasks.sql" />
+    <Build Include="dbo\Tables\PMMTasksHistory.sql" />
+    <Build Include="dbo\Tables\ProjectMonitorState.sql" />
+    <Build Include="dbo\Tables\ProjectMonitorStateHistory.sql" />
+    <Build Include="dbo\Tables\ProjectReleases.sql" />
+    <Build Include="dbo\Tables\ProjectSummary.sql" />
+    <Build Include="dbo\Tables\PRS.sql" />
+    <Build Include="dbo\Tables\RCA.sql" />
+    <Build Include="dbo\Tables\Relationship.sql" />
+    <Build Include="dbo\Tables\ReportComponents.sql" />
+    <Build Include="dbo\Tables\ReportDefinition.sql" />
+    <Build Include="dbo\Tables\RequestTypeByLocation.sql" />
+    <Build Include="dbo\Tables\ResourceAllocation.sql" />
+    <Build Include="dbo\Tables\ResourceAllocationMonthly.sql" />
+    <Build Include="dbo\Tables\Resources.sql" />
+    <Build Include="dbo\Tables\ResourceTimeSheet.sql" />
+    <Build Include="dbo\Tables\ResourceUsageSummaryMonthWise.sql" />
+    <Build Include="dbo\Tables\ResourceUsageSummaryWeekWise.sql" />
+    <Build Include="dbo\Tables\ResourceWorkItems.sql" />
+    <Build Include="dbo\Tables\SchedulerActions.sql" />
+    <Build Include="dbo\Tables\SchedulerActionArchives.sql" />
+    <Build Include="dbo\Tables\Sprint.sql" />
+    <Build Include="dbo\Tables\SprintSummary.sql" />
+    <Build Include="dbo\Tables\SprintTasks.sql" />
+    <Build Include="dbo\Tables\SurveyFeedback.sql" />
+    <Build Include="dbo\Tables\SVCRequests.sql" />
+    <Build Include="dbo\Tables\TaskTemplateItems.sql" />
+    <Build Include="dbo\Tables\TaskTemplates.sql" />
+    <Build Include="dbo\Tables\Templates.sql" />
+    <Build Include="dbo\Tables\TSK.sql" />
+    <Build Include="dbo\Tables\TSKTasks.sql" />
+    <Build Include="dbo\Tables\TSR.sql" />
+    <Build Include="dbo\Tables\UPR.sql" />
+    <Build Include="dbo\Tables\UserProfile.sql" />
+    <Build Include="dbo\Tables\UserSkills.sql" />
+    <Build Include="dbo\Tables\VCCRequest.sql" />
+    <Build Include="dbo\Tables\VendorApprovedSubcontractors.sql" />
+    <Build Include="dbo\Tables\VendorIssues.sql" />
+    <Build Include="dbo\Tables\VendorKeyPersonnel.sql" />
+    <Build Include="dbo\Tables\VendorMSA.sql" />
+    <Build Include="dbo\Tables\VendorMSAMeeting.sql" />
+    <Build Include="dbo\Tables\VendorPO.sql" />
+    <Build Include="dbo\Tables\VendorPOLineItems.sql" />
+    <Build Include="dbo\Tables\VendorReport.sql" />
+    <Build Include="dbo\Tables\VendorReportInstance.sql" />
+    <Build Include="dbo\Tables\VendorRisks.sql" />
+    <Build Include="dbo\Tables\Vendors.sql" />
+    <Build Include="dbo\Tables\VendorServiceDuration.sql" />
+    <Build Include="dbo\Tables\VendorSLA.sql" />
+    <Build Include="dbo\Tables\VendorSLAPerformance.sql" />
+    <Build Include="dbo\Tables\VendorSOW.sql" />
+    <Build Include="dbo\Tables\VendorSOWContImprovement.sql" />
+    <Build Include="dbo\Tables\VendorSOWFees.sql" />
+    <Build Include="dbo\Tables\VendorSOWInvoiceDetail.sql" />
+    <Build Include="dbo\Tables\VendorSOWInvoices.sql" />
+    <Build Include="dbo\Tables\VendorType.sql" />
+    <Build Include="dbo\Tables\VendorVPM.sql" />
+    <Build Include="dbo\Tables\WikiArticles.sql" />
+    <Build Include="dbo\Tables\WikiDiscussion.sql" />
+    <Build Include="dbo\Tables\WikiLinks.sql" />
+    <Build Include="dbo\Tables\WikiReview.sql" />
+    <Build Include="dbo\Tables\WorkflowSLASummary.sql" />
+    <Build Include="dbo\Views\vw_PRS.sql" />
+    <Build Include="dbo\Views\vw_TSR.sql" />
+    <Build Include="dbo\Tables\Appointment.sql" />
+    <Build Include="dbo\Tables\Resources_1.sql" />
+    <Build Include="dbo\Tables\ModuleBudget.sql" />
+    <Build Include="dbo\Tables\TicketRelation.sql" />
+    <Build Include="dbo\Tables\ModuleMonthlyBudget.sql" />
+    <Build Include="dbo\Tables\TicketHours.sql" />
+    <Build Include="HangFire\Tables\AggregatedCounter.sql" />
+    <Build Include="HangFire\Tables\Hash.sql" />
+    <Build Include="HangFire\Tables\Counter.sql" />
+    <Build Include="HangFire\Tables\Set.sql" />
+    <Build Include="HangFire\Tables\List.sql" />
+    <Build Include="HangFire\Tables\Server.sql" />
+    <Build Include="HangFire\Tables\JobQueue.sql" />
+    <Build Include="HangFire\Tables\JobParameter.sql" />
+    <Build Include="HangFire\Tables\State.sql" />
+    <Build Include="HangFire\Tables\Job.sql" />
+    <Build Include="HangFire\Tables\Schema.sql" />
+    <Build Include="Security\HangFire.sql" />
+    <Build Include="dbo\Tables\ACR_Archive.sql" />
+    <Build Include="dbo\Tables\Assets_Archive.sql" />
+    <Build Include="dbo\Tables\BTS_Archive.sql" />
+    <Build Include="dbo\Tables\DRQ_Archive.sql" />
+    <Build Include="dbo\Tables\INC_Archive.sql" />
+    <Build Include="dbo\Tables\NPR_Archive.sql" />
+    <Build Include="dbo\Tables\PMM_Archive.sql" />
+    <Build Include="dbo\Tables\PRS_Archive.sql" />
+    <Build Include="dbo\Tables\RCA_Archive.sql" />
+    <Build Include="dbo\Tables\TSK_Archive.sql" />
+    <Build Include="dbo\Tables\TSR_Archive.sql" />
+    <Build Include="dbo\Tables\UPR_Archive.sql" />
+    <Build Include="dbo\Tables\ModuleWorkflowHistory_Archive.sql" />
+    <Build Include="dbo\Tables\Documents.sql" />
+    <Build Include="dbo\Tables\Report_ConfigData.sql" />
+    <Build Include="dbo\Tables\DecisionLog.sql" />
+    <Build Include="dbo\Tables\BusinessStrategy.sql" />
+    <Build Include="dbo\Stored Procedures\populate_default_tenant_data.sql" />
+    <Build Include="dbo\Tables\TenantScheduler.sql" />
+    <Build Include="dbo\Tables\DMSDirectory.sql" />
+    <Build Include="dbo\Tables\DMSAccess.sql" />
+    <Build Include="dbo\Tables\DMSAspnetApplications.sql" />
+    <Build Include="dbo\Tables\DMSCustomer.sql" />
+    <Build Include="dbo\Tables\DMSDocument.sql" />
+    <Build Include="dbo\Tables\DMSFileAuditLog.sql" />
+    <Build Include="dbo\Tables\DMSUsersFilesAuthorization.sql" />
+    <Build Include="dbo\Stored Procedures\spAddDirectoryChildrenAccess.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteDirectoryChildrenAccess.sql" />
+    <Build Include="dbo\Tables\DMSTenant_Documents_Details.sql" />
+    <Build Include="dbo\Stored Procedures\Update_default_tenant_KeyValue.sql" />
+    <Build Include="dbo\Tables\Phrase.sql" />
+    <Build Include="dbo\Tables\ProjectStageHistory.sql" />
+    <Build Include="dbo\Tables\ProjectSimilarityConfig.sql" />
+    <Build Include="dbo\Tables\SubLocation.sql" />
+    <Build Include="dbo\Tables\WikiContents.sql" />
+    <Build Include="dbo\Tables\WikiMenuLeftNavigation.sql" />
+    <Build Include="dbo\Tables\WikiReviews.sql" />
+    <Build Include="dbo\Tables\JobTitle.sql" />
+    <Build Include="dbo\Tables\LandingPages.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\CRMActivities.sql" />
+    <Build Include="dbo\Tables\CRMCompany.sql" />
+    <Build Include="dbo\Tables\CRMCompany_Archive.sql" />
+    <Build Include="dbo\Tables\CRMContact.sql" />
+    <Build Include="dbo\Tables\CRMContact_Archive.sql" />
+    <Build Include="dbo\Tables\CRMEstimate.sql" />
+    <Build Include="dbo\Tables\CRMProject.sql" />
+    <Build Include="dbo\Tables\CRMProject_Archive.sql" />
+    <Build Include="dbo\Tables\CRMRelationshipType.sql" />
+    <Build Include="dbo\Tables\CRMServices.sql" />
+    <Build Include="dbo\Tables\CRMServices_Archive.sql" />
+    <Build Include="dbo\Tables\Summary_ResourceProjectComplexity.sql" />
+    <Build Include="dbo\Tables\SVCRequests _Archive.sql" />
+    <Build Include="dbo\Stored Procedures\CreateDatabaseBackUp.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTenantData.sql" />
+    <Build Include="dbo\Tables\TenantRegistration.sql" />
+    <Build Include="dbo\Tables\ProjectEstimatedAllocation.sql" />
+    <Build Include="dbo\Tables\ProjectAllocationTemplates.sql" />
+    <Build Include="FullTextIndexes.sql" />
+    <Build Include="Storage\FullTextCatalog.sql" />
+    <Build Include="dbo\Stored Procedures\ClientProfileStatus.sql" />
+    <Build Include="dbo\Stored Procedures\GetDashboardCardViewData.sql" />
+    <Build Include="dbo\Tables\ProjectPlannedAllocation.sql" />
+    <Build Include="dbo\Tables\PMMHistory.sql" />
+    <Build Include="dbo\Tables\PmmProjectHistory.sql" />
+    <Build Include="dbo\Tables\ModuleTasksHistory.sql" />
+    <Build Include="dbo\Tables\ProjectStandardWorkItems.sql" />
+    <Build Include="dbo\Tables\ModuleBudgetActualsHistory.sql" />
+    <Build Include="dbo\Tables\ResourceTimeSheetSignOff.sql" />
+    <Build Include="dbo\Tables\ModuleMonthlyBudgetHistory.sql" />
+    <Build Include="dbo\Tables\Config_ProjectComplexity.sql" />
+    <Build Include="dbo\Tables\DecisionLogHistory.sql" />
+    <Build Include="dbo\Stored Procedures\Usp_InsertFieldConfiguration.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ConfigurationByTenant.sql" />
+    <Build Include="dbo\Tables\ModuleMonitorOptionsHistory.sql" />
+    <Build Include="dbo\Tables\TicketEvents.sql" />
+    <Build Include="dbo\Tables\BackgroundProcessStatus.sql" />
+    <Build Include="dbo\Tables\ServiceUpdates_Master.sql" />
+    <Build Include="dbo\Tables\TicketCountTrends.sql" />
+    <Build Include="dbo\Tables\FieldConfigurationChanges.sql" />
+    <Build Include="dbo\Stored Procedures\RenameFieldConfiguration.sql" />
+    <Build Include="Storage\FullTextStopList.sql" />
+    <Build Include="dbo\Stored Procedures\GetDatabaseBackUp.sql" />
+    <Build Include="dbo\Views\vw_DashboardSummary_.sql" />
+    <Build Include="dbo\Views\vw_ResourceUsageSummaryWeekWise_.sql" />
+    <Build Include="dbo\Views\vw_SprintSummary_.sql" />
+    <Build Include="dbo\Views\vw_ResourceUsageSummaryMonthWise_.sql" />
+    <Build Include="dbo\Tables\HelpCard.sql" />
+    <Build Include="dbo\Tables\HelpCardContent.sql" />
+    <Build Include="dbo\Tables\CRMCompany.sql" />
+    <Build Include="dbo\Tables\State.sql" />
+    <Build Include="dbo\Tables\CRMRelationshipType.sql" />
+    <Build Include="dbo\Tables\CRMContact.sql" />
+    <Build Include="dbo\Tables\Lead.sql" />
+    <Build Include="dbo\Tables\BusinessUnits.sql" />
+    <Build Include="dbo\Tables\CRMActivities.sql" />
+    <Build Include="dbo\Tables\CRMProject.sql" />
+    <Build Include="dbo\Tables\CRMServices.sql" />
+    <Build Include="dbo\Tables\CRMEstimate.sql" />
+    <Build Include="dbo\Tables\ProjectAllocations.sql" />
+    <Build Include="dbo\Tables\ResourceTimeSheetSignOff.sql" />
+    <Build Include="dbo\Tables\RelatedCompanies.sql" />
+    <Build Include="dbo\Tables\CheckListTemplates.sql" />
+    <Build Include="dbo\Tables\CheckListRoles.sql" />
+    <Build Include="dbo\Tables\CheckListRoleTemplates.sql" />
+    <Build Include="dbo\Tables\CheckLists.sql" />
+    <Build Include="dbo\Tables\CheckListTasks.sql" />
+    <Build Include="dbo\Tables\CheckListTaskStatus.sql" />
+    <Build Include="dbo\Tables\CheckListTaskTemplates.sql" />
+    <Build Include="dbo\Tables\CRMProjectAllocation.sql" />
+    <Build Include="dbo\Tables\SubContractor.sql" />
+    <Build Include="dbo\Tables\ProcoreMapping.sql" />
+    <Build Include="dbo\Tables\ProcoreFieldsMapping.sql" />
+    <Build Include="dbo\Tables\Summary_ResourceProjectComplexity.sql" />
+    <Build Include="dbo\Tables\JobTitle.sql" />
+    <Build Include="dbo\Stored Procedures\GetDashboardCardViewData.sql" />
+    <Build Include="dbo\Tables\ProjectAllocationTemplates.sql" />
+    <Build Include="dbo\Tables\Config_Master_RankingCriteria.sql" />
+    <Build Include="dbo\Tables\LeadRanking.sql" />
+    <Build Include="dbo\Tables\Config_LeadCriteria.sql" />
+    <Build Include="dbo\Tables\Config_ProjectComplexity.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\LandingPages.sql" />
+    <Build Include="dbo\Tables\CRMCompany_Archive.sql" />
+    <Build Include="dbo\Tables\CRMContact_Archive.sql" />
+    <Build Include="dbo\Tables\CRMProject_Archive.sql" />
+    <Build Include="dbo\Tables\CRMServices_Archive.sql" />
+    <Build Include="dbo\Tables\Lead_Archive.sql" />
+    <Build Include="dbo\Tables\Opportunity_Archive.sql" />
+    <Build Include="dbo\Tables\Substatus.sql" />
+    <Build Include="dbo\Tables\ReportMenu.sql" />
+    <Build Include="dbo\Tables\EmployeeTypes.sql" />
+    <Build Include="dbo\Stored Procedures\usp_WriteUGITLog.sql" />
+    <Build Include="dbo\Tables\Analytic_AnalysisDashboards.sql" />
+    <Build Include="dbo\Tables\Analytic_DashboardGroups.sql" />
+    <Build Include="dbo\Tables\Analytic_DashboardModelInputs.sql" />
+    <Build Include="dbo\Tables\Analytic_DataIntegrations.sql" />
+    <Build Include="dbo\Tables\Analytic_ETSchemaDrafts.sql" />
+    <Build Include="dbo\Tables\Analytic_ETSchemaInfoes.sql" />
+    <Build Include="dbo\Tables\Analytic_ETTables.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelCategories.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelFeatureOutputs.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelInputs.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelOutputMappers.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelOutputs.sql" />
+    <Build Include="dbo\Tables\Analytic_Models.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelSectionOutputs.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelVersions.sql" />
+    <Build Include="dbo\Tables\Analytic_Questions.sql" />
+    <Build Include="dbo\Tables\Analytic_SideLinks.sql" />
+    <Build Include="dbo\Tables\Analytic_ModelSubSectionOutputs.sql" />
+    <Build Include="dbo\Tables\Analytic_Interpretations.sql" />
+    <Build Include="dbo\Tables\Agents.sql" />
+    <Build Include="dbo\Tables\Contracts_Archive.sql" />
+    <Build Include="dbo\Tables\Applications_Archive.sql" />
+    <Build Include="dbo\Stored Procedures\CreateTableBackup.sql" />
+    <Build Include="dbo\Stored Procedures\SplitString.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllocationdata.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetClosedTickets.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetOpenworkitems.sql" />
+    <Build Include="dbo\Stored Procedures\usp_Getdatelist.sql" />
+    <Build Include="dbo\Stored Procedures\GetMonthList.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetdatelistAllocation.sql" />
+    <Build Include="dbo\Stored Procedures\GetMonthListForResourceAllocation.sql" />
+    <Build Include="dbo\Stored Procedures\GetUsersProjectCount.sql" />
+    <Build Include="dbo\Stored Procedures\fnGetModuleName.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetConfig_Dashboard_DashboardPanels.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetConfig_Services.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetProjectCapacity.sql" />
+    <Build Include="dbo\Stored Procedures\GetBillings.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetBillingDetails.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetMissedRevenue.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetMissedRevenueDetail.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetTotalMissedRevenue.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetOpportunity.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCRMServices.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCRMContact.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetLead.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCRMProject.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetTicketById.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetACR.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllResourceByDivision.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetApplications.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetContracts.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCRMCompany.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetDashboardSummary.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetDRQ.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetHelpCard.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetINC.sql" />
+    <Build Include="dbo\Stored Procedures\USP_GetModuleTableData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetNPR.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetPRS.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetRCA.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceAllocation.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceByBusinessSector.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceSummaryByDivision.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetRequestCategoryWiseProjects.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetTSR.sql" />
+    <Build Include="dbo\Stored Procedures\fnGetusername.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetPMM.sql" />
+    <Build Include="dbo\Stored Procedures\fnGetBeneficiaries.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceUsageSummaryWeekWise.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceUsageSummaryMonthWise.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAssets.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetBTS.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetWikiArticles.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetTSK.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetModuleTasks.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetSummary_ResourceProjectComplexity.sql" />
+    <Build Include="dbo\Stored Procedures\fnGetRequestType.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ExecutiveKpi.sql" />
+    <Build Include="dbo\Functions\fnGetWorkingDays.sql" />
+    <Build Include="dbo\Functions\fnGetRevenuesLost.sql" />
+    <Build Include="dbo\Functions\fnGetResourceRevenues.sql" />
+    <Build Include="dbo\Functions\fnGetResourceMargins.sql" />
+    <Build Include="dbo\Functions\fnGetPipelineUtilization.sql" />
+    <Build Include="dbo\Functions\fnGetPipelineRevenues.sql" />
+    <Build Include="dbo\Functions\fnGetMarginsLost.sql" />
+    <Build Include="dbo\Functions\fnGetEffectiveUtilization.sql" />
+    <Build Include="dbo\Functions\fnGetCommittedUtilization.sql" />
+    <Build Include="dbo\Functions\GetPipelineProjects.sql" />
+    <Build Include="dbo\Functions\GetLostProjects.sql" />
+    <Build Include="dbo\Functions\GetContractedProjects.sql" />
+    <Build Include="dbo\Stored Procedures\usp_PipelineUtilization.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ContractedUtilization.sql" />
+    <Build Include="dbo\Tables\SVCRequests_Archive.sql" />
+    <Build Include="dbo\Views\vw_ResourceSummaryByDivision.sql" />
+    <Build Include="dbo\Views\vw_ResourceByBusinessSector.sql" />
+    <Build Include="dbo\Views\vw_RequestCategoryWiseProjects.sql" />
+    <Build Include="dbo\Views\vw_ProjectAllocation.sql" />
+    <Build Include="dbo\Views\vw_AllResourceByDivision.sql" />
+    <Build Include="dbo\Views\vw_AllProjectItems.sql" />
+    <Build Include="dbo\Functions\fnGetUtilizationRate.sql" />
+    <Build Include="dbo\Functions\split_string.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceUtilizationIndex.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAspNetUsers_1.sql" />
+    <Build Include="dbo\Stored Procedures\GetBillingsAndMargins.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllTableList.sql" />
+    <Build Include="dbo\Tables\InitiativeAssessment.sql" />
+    <Build Include="dbo\Tables\ProgramAssessment.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetDepartmentDetails.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetApplicationServers.sql" />
+    <Build Include="dbo\Tables\Studio.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateStudioTable.sql" />
+    <Build Include="dbo\Stored Procedures\GetSectorChartData.sql" />
+    <Build Include="dbo\Stored Procedures\GetDivisionChartData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetUserProfile.sql" />
+    <Build Include="dbo\Functions\fnGetUserSkills.sql" />
+    <Build Include="dbo\Stored Procedures\Usp_setdefaultcofiguration.sql" />
+    <Build Include="dbo\Stored Procedures\usp_TenantDefaultConfiguration.sql" />
+    <Build Include="dbo\Stored Procedures\GetUsersProjects.sql" />
+    <Build Include="dbo\Stored Procedures\GetMyProjectCount.sql" />
+    <Build Include="dbo\Stored Procedures\TotalResources.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetProjectStandardWorkItems.sql" />
+    <Build Include="dbo\Functions\fnGetResourceAllocationCount.sql" />
+    <Build Include="dbo\Stored Procedures\GetBillingsAndMarginsYTD.sql" />
+    <Build Include="dbo\Stored Procedures\GetRoleWiseAllocations.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceAllocation2.sql" />
+    <Build Include="dbo\Stored Procedures\GetUsersAllocationCount.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllWorkitems.sql" />
+    <Build Include="dbo\Stored Procedures\usp_Getdistinctmanageruser.sql" />
+    <Build Include="dbo\Stored Procedures\CheckUserIsInGroup.sql" />
+    <Build Include="dbo\Stored Procedures\Usp_GetGovernencedtl.sql" />
+    <Build Include="dbo\Stored Procedures\Usp_GetRPT_ModuleBudget.sql" />
+    <Build Include="dbo\Stored Procedures\MapStudioTextColToLookup.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateSuperAdmin.sql" />
+    <Build Include="dbo\Tables\PMMBaselineDetail.sql" />
+    <Build Include="dbo\Stored Procedures\GetUserChartData.sql" />
+    <Build Include="dbo\Functions\UpdateContacts.sql" />
+    <Build Include="dbo\Stored Procedures\fnGetAssets.sql" />
+    <Build Include="dbo\Functions\fnGetlocation.sql" />
+    <Build Include="dbo\Functions\fnGetRequestTypeCategory.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceUtlizationFooter.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceUtilzation.sql" />
+    <Build Include="dbo\Functions\GetUsersByRoleId.sql" />
+    <Build Include="dbo\Functions\GetUsersByJobProfile.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCapacityReport.sql" />
+    <Build Include="dbo\Stored Procedures\GetProjectWorkItems.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCapacityReportForExport.sql" />
+    <Build Include="dbo\Stored Procedures\GetTimesheet.sql" />
+    <Build Include="dbo\Stored Procedures\GetWeeksTimesheet.sql" />
+    <Build Include="dbo\Stored Procedures\GetConsolidatedTimesheet.sql" />
+    <Build Include="dbo\Stored Procedures\GetOtherAllocationDetails.sql" />
+    <Build Include="dbo\Stored Procedures\GetTimeSheetSignOffList.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllocationConflictProjects.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllocationConflicts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAcquisitionCost.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetDepartmentsData.sql" />
+    <Build Include="dbo\Stored Procedures\Usp_GetRptCombinedReport.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetWorkforceAllocationTrend.sql" />
+    <Build Include="dbo\Stored Procedures\usp_insertActualHours.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetResourceSummaryReportData.sql" />
+    <Build Include="dbo\Tables\ResourceUtilizationSummary.sql" />
+    <Build Include="dbo\Stored Procedures\usp_fillResourceUtilization.sql" />
+    <Build Include="dbo\Stored Procedures\fnGetCompanyTitle.sql" />
+    <Build Include="dbo\Stored Procedures\usp_getGetAllProjectTickets.sql" />
+    <Build Include="dbo\Stored Procedures\usp_fillResourceSummaryUtilization_FooterData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_fillResourceSummaryUtilizationFooter.sql" />
+    <Build Include="dbo\Stored Procedures\usp_fillPageSummaryData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetSummaryPageData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_getResourceUtilization_data.sql" />
+    <Build Include="dbo\Functions\GetMonthList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="uGovernITDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="local.uGovernITDatabase.publish.xml" />
+  </ItemGroup>
+</Project>

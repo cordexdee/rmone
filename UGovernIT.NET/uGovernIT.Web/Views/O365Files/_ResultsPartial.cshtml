@@ -1,0 +1,88 @@
+﻿<!--  Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+        See LICENSE in the source repository root for complete license information. -->
+
+@model uGovernIT.Utility.Entities.DMSDB.ResultsViewModel
+@{
+}
+<div class="O365-Table">
+@if (Model != null)
+    {
+
+    if (Model.Items.Any())
+    {
+           <p class="folders-tag">@Model.Message</p>
+
+        foreach (var item in Model.Items)
+        {
+            string iconImg = "";
+            if (item.Display.Contains("Folder"))
+            {
+                iconImg = "documents";
+            }
+            else if (item.Display.Contains(".xlsx"))
+            {
+                iconImg = "image-xls";
+            }
+            else if (item.Display.Contains(".docx"))
+            {
+                iconImg = "image-doc";
+            }
+            else if (item.Display.Contains(".pptx"))
+            {
+                iconImg = "image-ppt";
+            }
+            else if (item.Display.Contains(".pdf"))
+            {
+                iconImg = "image-pdf";
+            }
+            if (Model.Selectable)
+            {
+                    <div  class="other-files" style="margin-top:15px">
+                        @*<input class="folderscheck" type="checkbox" name="items" value=@item.Id onclick="onSelectedItemChanged()" />*@
+                        <span> <i class='@iconImg'></i>&nbsp; <a href="@item.WebUrl" target="_blank">@item.Display </a></span>
+                    </div>
+
+                }
+                else
+                {
+                    <div>
+                        @item.Display
+                    </div><br />
+                }
+                if (item.Properties.Count > 0)
+                {
+                    <table id="entity" class="table table-hover">
+                        @foreach (var property in item.Properties)
+                        {
+                        <tr>
+                            @if (property.Key != "Stream")
+                                {
+                                <td class="pad">@property.Key</td>
+                                <td>@property.Value</td>
+                                }
+                                else if (property.Value != null)
+                                {
+                                <td><img src="@String.Format("data:image;base64,{0}", Convert.ToBase64String(property.Value as byte[]))" /></td>
+                                }
+                        </tr>
+                        }
+                    </table>
+                    <br />
+                }
+            }
+
+    }
+    else
+    {
+        <p>No Results</p>
+    }
+
+    }
+</div>
+
+<script src="~/Scripts/DMS/ui-helpers.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#O365Tab').addClass("active");
+    });
+</script>

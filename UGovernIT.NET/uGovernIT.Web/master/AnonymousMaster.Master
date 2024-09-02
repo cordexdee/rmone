@@ -1,0 +1,88 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AnonymousMaster.master.cs" Inherits="uGovernIT.Web.AnonymousMaster" %>
+<%@ Import Namespace="uGovernIT.Utility" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
+
+    <title></title>
+    
+    <style>
+        .loginHeader {
+            padding: 0px;
+            background-color: #253746 !important;
+            border-bottom-width: 0px !important;
+            border-top-width: 0px !important;
+        }
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+     <asp:ContentPlaceHolder ID="head" runat="server">
+        <%: Scripts.Render("~/bundles/jquery") %>
+         <%= UGITUtility.LoadStyleSheet("/Content/site.css") %>
+    </asp:ContentPlaceHolder>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-122813068-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-122813068-1');
+        
+    </script>
+</head>
+<style>
+    .logo-img.loginHeader-logo {
+            width: 100%;
+            height: 30px;
+            object-fit: contain;
+            object-position: left
+        }
+</style>
+<body>
+    <form id="form1" runat="server">
+        <dx:ASPxPanel ID="LogoImagePanel" runat="server" Collapsible="true" FixedPosition="WindowTop" CssClass="loginHeader">
+            <SettingsAdaptivity CollapseAtWindowInnerWidth="200" CollapseAtWindowInnerHeight="100" />
+            <Styles>
+                <Panel CssClass="panel"></Panel>
+                <ExpandedPanel CssClass="expandedPanel"></ExpandedPanel>
+                <ExpandBar CssClass="bar"></ExpandBar>
+            </Styles>
+            <PanelCollection>
+                <dx:PanelContent runat="server" SupportsDisabledAttribute="True">
+                    <div id="LogoImage">
+                        <a id="LogoImageLink" runat="server">
+                            <img class="logo-img loginHeader-logo" id="ImageLink" runat="server" />
+                        </a>
+                    </div>
+                </dx:PanelContent>
+            </PanelCollection>
+        </dx:ASPxPanel>
+        <dx:ASPxPanel ID="FooterLogoPanel" runat="server" FixedPosition="WindowBottom" Collapsible="true" CssClass="footer">
+            <SettingsAdaptivity CollapseAtWindowInnerWidth="200" CollapseAtWindowInnerHeight="100" />
+            <Styles>
+                <Panel CssClass="panel"></Panel>
+            </Styles>
+            <PanelCollection>
+                <dx:PanelContent runat="server" SupportsDisabledAttribute="True">
+
+                    <div id="FooterLogo" style="float: left;">
+                        <a id="FooterLogoLink" runat="server">
+                            <img id="FooterImg" runat="server" />
+                            &nbsp;</img></a>
+                    </div>
+
+                    <dx:ASPxLabel EncodeHtml="false" Visible="false" ID="footerText" runat="server" CssClass="pull-right"></dx:ASPxLabel>
+                </dx:PanelContent>
+            </PanelCollection>
+        </dx:ASPxPanel>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
